@@ -1,0 +1,34 @@
+\documentclass[11pt]{report}
+
+\begin{document}
+\title{Bachelor Project Plan}
+\maketitle
+%\section*{Motivations}
+%I always like to work with real time application that must provide a service to the user. More over this project offers me the opportunity to sharp my web skills and to learn a new very used technology such as Django.
+%
+\section*{Overview}
+The work in this project will extend the functionality of already existing mobile personalisation framework, called Tacita, in order to support a wider set of web apps and allow for both active and walk-by personalisation. The project aims to develop two web based applications for public displays that will support personalisation through mobile devices. In particular, the work will focus on designing and developing “Public Transportation” and “Upcoming classes” applications. The work in this project can be divided into five following tasks.
+\section*{Tasks}
+Each task is two weeks long, leaving some time in the end for small adjustments. 
+\subsection*{Task 1 - Public Transportation App}
+Design and develop a web application using Django development framework to display transport data such as nearby stations and up coming busses by providing and efficient and good looking design optimize for large screen.\\
+
+In detail the web server collects a request from a user and fetch the corresponding information from the opendata.ch public API in order to send them back to the display. 
+
+\subsection*{Task 2 - Supporting Personalisation through Mobile devices}
+Implement an Android App composed by a WebView and a background bluetooth scanning process. 
+\\
+
+The web application should provide a interface optimize for small display in order to use the exposed API and to set personal parameters such as colors, icons and avatar.
+
+\subsection*{Task 3 - Integration of personalisation parameters into display app}
+The aim of this task is to link the previously developed Android Application to the Django web in order to provide a way to storing user preferences into the database and to display them in the screen as default one.
+\subsection*{Task 4 - Upcoming Classes App: Collecting, Processing, and Visualising data from a Google Calendar}
+Similarly to what we have done with opendata.ch, add a google calendar app to know the schedule for the course.
+
+\subsection*{Task 5 - Testing}
+Test the developed code, write unit testing for the endpoints and the web applications.
+\subsection*{Task 6 - Users Feedback}
+Present a demo application to a small subset of students in order to collect feedbacks and, if needed, adjust some features.
+
+\end{document}
