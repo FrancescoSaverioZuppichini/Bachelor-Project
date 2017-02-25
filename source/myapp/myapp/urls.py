@@ -20,9 +20,3 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/opendata',include('opendata.urls'))
 ]
-from channels.routing import  route
-from .consumer import websocket_receive
-# socket routing
-channel_routing = [
-    route("websocket.receive", websocket_receive, path=r"^/chat/"),
-]
