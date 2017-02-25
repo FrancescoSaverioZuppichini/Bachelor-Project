@@ -5,6 +5,11 @@ from django.shortcuts import render_to_response
 import requests
 import json
 
+def opendata_display(request):
+    method = request.method
+    if method == "GET":
+        return render(request,"./opendata/opendataDisplay/dist/index.html")
+
 def opendata_api_location(request):
     method = request.method
     if method == "GET":
