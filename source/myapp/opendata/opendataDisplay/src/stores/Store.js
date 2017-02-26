@@ -1,51 +1,35 @@
 import Vue from 'vue'
 import axios from 'axios'
+import LocationStore from './LocationStore.js'
+import ConnectionStore from './ConnectionStore.js'
 
 class Store {
   constructor() {
-    this.state = {}
-
-  }
-  install(Vue, options) {
-    Vue.$store = this
+    this.locationStore = LocationStore
+    this.connectionStore = ConnectionStore
   }
 
-  getCurrentPosition() {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      this.state.pos = pos
-    })
-  }
-
-  getLocations(options) {
-    return axios.get('http://localhost:8000/opendata/api/locations', {
-      params: options.params
-    })
-
-  }
-
-  getCurrentPosition() {
-    return new Promise(function(resolve, reject) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        resolve(position);
-      });
-    });
-  }
-
-  getNearbyLocations() {
-    return this.getCurrentPosition()
-      .then((pos) => {
-        this.state.pos = pos
-        const options = {
-          params: {
-            x: this.state.pos.coords.latitude,
-            y: this.state.pos.coords.longitude
-          }
-        }
-        return this.getLocations(options)
+  getDefaultData() {
+    this.locationStore.getNearbyLocations()
+      .then(() => {
+        this.connectionStore.getConnectionsFromLocation(this.locationStore.state.aroundMe[0].id)
       })
-
   }
 }
 
 const store = new Store()
+// make store reactive
+var vm = new Vue({
+  data: {
+    store: store
+  }
+})
+// inject store in each component
+Vue.mixin({
+  created: function() {
+    this.$store = store
+
+  }
+})
+
 export default store

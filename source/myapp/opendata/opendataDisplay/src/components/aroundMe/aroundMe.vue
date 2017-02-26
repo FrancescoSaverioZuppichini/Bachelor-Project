@@ -1,8 +1,9 @@
 <template>
 <div id='aroundMe'>
   <div class="container">
+    <h6> Around me </h6>
     <div class="row">
-      <div class="col-xs-4" v-for="station in stations">
+      <div class="col-xs-4" v-for="station in this.$store.locationStore.state.aroundMe">
         <station-card :station="station" />
       </div>
     </div>
@@ -21,14 +22,10 @@ export default {
     }
   },
   components: {
-stationCard
-},
-  mounted() {
-    Store.getNearbyLocations()
-      .then((res) => {
-        this.stations = res.data.stations
-      })
+    stationCard
   }
 }
 </script>
+
+
 <style></style>

@@ -26,6 +26,6 @@ def opendata_api_connections(request):
 def opendata_api_stationboard(request):
     method = request.method
     if method == "GET":
-        connectionsReq = requests.get('http://transport.opendata.ch/v1/connections', params=request.GET)
+        connectionsReq = requests.get('http://transport.opendata.ch/v1/stationboard', params=request.GET)
         return HttpResponse(connectionsReq.text, content_type="application/json")
 
