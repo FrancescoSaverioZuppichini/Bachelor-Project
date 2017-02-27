@@ -2,7 +2,7 @@
   <div id='aroundMe'>
     <div class="container">
       <h6> Around me </h6>
-      <carousel :perPage=4 :navigationEnabled=true>
+      <carousel :perPage=5 :navigationEnabled=true v-if="this.$store.locationStore.state.locations.length > 0">
         <slide v-for="station in this.$store.locationStore.state.locations">
           <station-card :station="station" :showConnection="false" />
         </slide>

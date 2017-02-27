@@ -1,5 +1,5 @@
 <template>
-  <div id='App' class="container">
+  <div id='App' class="container container-fluid">
     <div class="row">
       <div class="col-xs-12">
         <around-me/>
@@ -20,7 +20,6 @@
   import leavingSoon from './components/leavingSoon/leavingSoon.vue'
   import usersContent from './components/usersContent/usersContent.vue'
 
-
   export default {
     name: 'App',
     mounted() {
@@ -36,8 +35,8 @@
   }
 </script>
 
-
-<style>
+<style stylus>
+  @import url('./css/main.css');
   .card--horizontal {
     flex-direction: row !important;
   }

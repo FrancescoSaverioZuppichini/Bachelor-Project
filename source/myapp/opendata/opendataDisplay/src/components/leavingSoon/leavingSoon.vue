@@ -2,12 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-4" v-for="station in this.$store.locationStore.state.locationsStack">
-        <station-card :station="station" :showConnection="true" autoDestroy="true" v-if="station.stationboard" ></station-card>
+        <station-card :station="station" :showConnection="true" autoDestroy="true" ></station-card>
       </div>
     </div>
   </div>
 </template>
 <script>
+  import Store from '../../stores/Store'
   import stationCard from '../stationCard/stationCard.vue'
 
   export default {
