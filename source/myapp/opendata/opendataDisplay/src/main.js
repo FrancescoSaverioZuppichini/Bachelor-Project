@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import Store from './stores/Store.js'
+import VueCarousel from 'vue-carousel';
 
+Vue.use(VueCarousel)
 import bootstrapStyle from '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 

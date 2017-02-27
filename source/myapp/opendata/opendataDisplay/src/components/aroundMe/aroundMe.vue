@@ -1,30 +1,29 @@
 <template>
-<div id='aroundMe'>
-  <div class="container">
-    <h6> Around me </h6>
-    <div class="row">
-      <div class="col-xs-4" v-for="station in this.$store.locationStore.state.aroundMe">
-        <station-card :station="station" />
-      </div>
+  <div id='aroundMe'>
+    <div class="container">
+      <h6> Around me </h6>
+      <carousel :perPage=4 :navigationEnabled=true>
+        <slide v-for="station in this.$store.locationStore.state.locations">
+          <station-card :station="station" :showConnection="false" />
+        </slide>
+      </carousel>
     </div>
   </div>
-</div>
 </template>
 <script>
-import Store from '../../stores/Store.js'
-import stationCard from '../stationCard/stationCard.vue'
+  import stationCard from '../stationCard/stationCard.vue'
 
-export default {
-  name: 'aroundMe',
-  data() {
-    return {
-      stations: []
+  export default {
+    name: 'aroundMe',
+    data() {
+      return {
+        stations: []
+      }
+    },
+    components: {
+      stationCard
     }
-  },
-  components: {
-    stationCard
   }
-}
 </script>
 
 

@@ -11,9 +11,6 @@ class Store {
 
   getDefaultData() {
     this.locationStore.getNearbyLocations()
-      .then(() => {
-        this.connectionStore.getConnectionsFromLocation(this.locationStore.state.aroundMe[0].id)
-      })
   }
 }
 
