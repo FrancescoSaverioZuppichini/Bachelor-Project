@@ -2,8 +2,8 @@
   <div id='aroundMe'>
     <div class="container">
       <h6> Around me </h6>
-      <carousel :perPage=5 :navigationEnabled=true v-if="this.$store.locationStore.state.locations.length > 0">
-        <slide v-for="station in this.$store.locationStore.state.locations">
+      <carousel :perPage=5 :navigationEnabled=true v-if="this.$store.state.locations.length > 0">
+        <slide v-for="station in this.$store.state.locations">
           <station-card :station="station" :showConnection="false" />
         </slide>
       </carousel>
@@ -16,6 +16,7 @@
   export default {
     name: 'aroundMe',
     data() {
+    console.log(this.$store.state.locations)
       return {
         stations: []
       }

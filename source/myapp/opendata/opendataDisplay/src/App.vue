@@ -1,5 +1,6 @@
 <template>
-  <div id='App' class="container container-fluid">
+<div id='App'>
+  <div class="container container-fluid">
     <div class="row">
       <div class="col-xs-12">
         <around-me/>
@@ -8,40 +9,43 @@
         <leaving-soon/>
       </div>
     </div>
-
   </div>
+</div>
 </template>
 
 <script>
-  import axios from 'axios'
-  import connectionCard from './components/connectionCard/connectionCard.vue'
-  import stationCard from './components/stationCard/stationCard.vue'
-  import aroundMe from './components/aroundMe/aroundMe.vue'
-  import leavingSoon from './components/leavingSoon/leavingSoon.vue'
-  import usersContent from './components/usersContent/usersContent.vue'
+import axios from 'axios'
+import connectionCard from './components/connectionCard/connectionCard.vue'
+import stationCard from './components/stationCard/stationCard.vue'
+import aroundMe from './components/aroundMe/aroundMe.vue'
+import leavingSoon from './components/leavingSoon/leavingSoon.vue'
+import usersContent from './components/usersContent/usersContent.vue'
 
-  export default {
-    name: 'App',
-    mounted() {
-      this.$store.getDefaultData()
-    },
-    components: {
-      connectionCard,
-      stationCard,
-      aroundMe,
-      leavingSoon,
-      usersContent,
-    }
+import SuperStore from './flux/SuperStore.js'
+import LocationStore from './stores/LocationStore.js'
+
+export default {
+  name: 'App',
+  mounted() {
+    this.$store.actions.fetchNearbyLocations()
+  },
+  components: {
+    connectionCard,
+    stationCard,
+    aroundMe,
+    leavingSoon,
+    usersContent,
   }
+}
 </script>
 
 <style stylus>
-  @import url('./css/main.css');
-  .card--horizontal {
-    flex-direction: row !important;
-  }
+@import url('./css/main.css');
+.card--horizontal {
+  flex-direction: row !important;
+}
 
-  .flex--grow-0 {
-    flex-grow: 0 !important
-  }
+.flex--grow-0 {
+  flex-grow: 0 !important
+}
 </style>

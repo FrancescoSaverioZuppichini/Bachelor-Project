@@ -15,6 +15,7 @@ def opendata_api_location(request):
     if method == "GET":
         print(request.GET)
         connectionsReq = requests.get('http://transport.opendata.ch/v1/locations', params=request.GET)
+        print(connectionsReq.text)
         return HttpResponse(connectionsReq.text, content_type="application/json")
 
 def opendata_api_connections(request):
