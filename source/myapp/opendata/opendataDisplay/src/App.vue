@@ -6,7 +6,7 @@
         <around-me/>
       </div>
       <div class="col-xs-12">
-        <leaving-soon/>
+        <volatile-locations/>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@ import axios from 'axios'
 import connectionCard from './components/connectionCard/connectionCard.vue'
 import stationCard from './components/stationCard/stationCard.vue'
 import aroundMe from './components/aroundMe/aroundMe.vue'
-import leavingSoon from './components/leavingSoon/leavingSoon.vue'
+import volatileLocations from './components/volatileLocations/volatileLocations.vue'
 import usersContent from './components/usersContent/usersContent.vue'
 
 import SuperStore from './flux/SuperStore.js'
@@ -33,7 +33,7 @@ export default {
     connectionCard,
     stationCard,
     aroundMe,
-    leavingSoon,
+    volatileLocations,
     usersContent,
   }
 }

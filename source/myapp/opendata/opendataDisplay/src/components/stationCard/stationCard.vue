@@ -3,6 +3,7 @@
   <div class="card">
     <div class="card-block">
       <h6 class="card-title">{{station.name}}</h6>
+      <p v-if="station.isLoadingStationBoard"> Loading busess... <p>
       <div v-if="showConnection">
         <connection-card :connection="connection" v-for="connection in station.stationboard" v-if="station.stationboard" />
       </div>
@@ -28,10 +29,11 @@ export default {
       return moment(date).format("HH:mm:ss");
     },
     showStationWithInformation() {
-      //          show the location on the leavingSoon
-      this.$store.actions.triggerLocation(this.station)
       //        get the data
       this.$store.actions.fetchLocationStationBoard(this.station)
+      //          show the location on the leavingSoon
+      this.$store.actions.putLocationInDisplayStack(this.station)
+
 
     }
   }
