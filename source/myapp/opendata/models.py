@@ -22,21 +22,23 @@ class Preference(models.Model):
     buses = models.ManyToManyField(Bus)
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
+
 class BusSerializer(serpy.Serializer):
     number = serpy.IntField()
 
 class StationSerializer(serpy.Serializer):
     opendataId = serpy.IntField()
 
-class UserSerializer(serpy.Serializer):
-    displayName = serpy.StrField()
-    email = serpy.StrField()
-
 class PreferenceSerializer(serpy.Serializer):
     color = serpy.StrField()
     stations = StationSerializer()
     buses = BusSerializer()
-    user = UserSerializer()
+
+class UserSerializer(serpy.Serializer):
+    displayName = serpy.StrField()
+    email = serpy.StrField()
+    preference = PreferenceSerializer()
+
 #
 # class UserSerializer(serpy.Serializer):
 #     displayName = serpy.StrField()
