@@ -6,7 +6,9 @@
         <around-me/>
       </div>
       <div class="col-xs-12">
-        <volatile-locations/>
+        <div class="container-fluid">
+          <volatile-locations/>
+        </div>
       </div>
     </div>
   </div>
@@ -18,6 +20,8 @@ import axios from 'axios'
 import connectionCard from './components/connectionCard/connectionCard.vue'
 import stationCard from './components/stationCard/stationCard.vue'
 import aroundMe from './components/aroundMe/aroundMe.vue'
+import defaultInformation from './components/defaultInformation/defaultInformation.vue'
+
 import volatileLocations from './components/volatileLocations/volatileLocations.vue'
 import usersContent from './components/usersContent/usersContent.vue'
 
@@ -34,6 +38,7 @@ export default {
     stationCard,
     aroundMe,
     volatileLocations,
+    defaultInformation,
     usersContent,
   }
 }
@@ -41,6 +46,10 @@ export default {
 
 <style stylus>
 @import url('./css/main.css');
+#App {
+  padding-top: 24px;
+}
+
 .card--horizontal {
   flex-direction: row !important;
 }

@@ -2,9 +2,8 @@
   <div id='aroundMe'>
     <div class="container">
       <h6> Around me </h6>
-
       <p v-if="this.$store.state.isLoadingNearbyLocations"> Loading stations...</p>
-      <carousel :perPage=5 :navigationEnabled=true v-else>
+      <carousel :perPage=5 :navigationEnabled="true" v-else >
         <slide v-for="station in this.$store.state.locations">
           <station-card :station="station" :showConnection="false" />
         </slide>
