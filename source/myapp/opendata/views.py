@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
-from django.core import serializers
+from rest_framework import serializers
+
+# from django.core import serializers
 from django.shortcuts import render_to_response
 from preserialize.serialize import serialize
 from django.http import QueryDict
@@ -81,21 +83,21 @@ def api_user_preference(request,user_id):
         # Preference.objects.all().delete()
         # Bus.objects.all().delete()
         # u = User(email="dio", displayName="dio")
+        # u.save()
         # p = Preference(user=u,color="dio")
         # b = Bus(number=5)
-        # s = Station(opendataId=8595133)
+        # s = Station(opendata=8595133)
         # b.save()
         # s.save()
         # p.buses.add(b)
         # p.stations.add(s)
-        # u.save()
         # p.save()
         # print(u.pk)
         email = request.GET.get('email')
         user = User.objects.get(pk=user_id)
 
-        print(user.preference)
-        print(UserSerializer(user).data)
+        # print(user.preference.buses.all())
+        print(user.preference.stations.all().filter(opendata=8595133).values())
         # print(UserSerializer(user).data)
-        # return JsonResponse(UserSerializer(user).data)
-        return HttpResponse("asd")
+        return JsonResponse(UserSerializer(user).data)
+        # return HttpResponse(UserSerializer(user).data,content_type="application/json")
