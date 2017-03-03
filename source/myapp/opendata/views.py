@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from django.core import serializers
 from django.shortcuts import render_to_response
+from django.http import QueryDict
 import requests
 from opendata.models import User
 import json
@@ -36,12 +37,32 @@ def api_user(request):
     method = request.method
     if method == "GET":
         return HttpResponse("we")
+    elif method == "PUT":
+        body = QueryDict(request.body)
+        email = body.get('email')
+        displayName = body.get('displayName')
+        if (email == None):
+            return HttpResponse("Email cannot be empty", status=400)
+
+        user = User.objects.filter(email=email)
+
+        if(user == None):
+            return HttpResponse("User not found.", status=404)
+        # update the user
+        user.update(displayName=displayName)
+        return HttpResponse(serializers.serialize('json',User.objects.filter(email=email)),content_type="application/json")
+
     elif method == "POST":
-        email = request.POST.get('email')
         displayName = request.POST.get('displayName')
+        email = request.POST.get('email')
+        # if user already exist
+        if (email == None):
+            return HttpResponse("Email cannot be empty", status=400)
         if(User.objects.filter(email=email)):
-            return HttpResponse("user already exist")
+            return HttpResponse("User already exist.", status=403)
+        # create a new one
         else:
             newUser = User(email=email,displayName=displayName)
             newUser.save()
-            return HttpResponse(User.objects.filter(email=email))
+            return HttpResponse(serializers.serialize('json',User.objects.filter(email=email)),content_type="application/json")
+
