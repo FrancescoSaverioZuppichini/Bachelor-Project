@@ -40,26 +40,15 @@ We need a model to store user preferences, up the task 1 is not required, but th
 \\user model
 
 {
-    user: {
-        displayName: String,
-        email: String,
-        photoUrl: String,
-        preferences: {
-            colors:{
-	            primaryColor: Hex,
-	            secondaryColor: Hex
-            }
-        },
-        animations:{
-            blink:{
-	            duration: Int
-            }
-        },
-        privacy:{
-            displayPersonalInformation: Bool
-        }
+    displayName: "",
+    email:"",
+    preference{
+    	1:{
+    		station:["id1","id2"],
+    		
+    	}
+    
     }
-}
 
 ```
 

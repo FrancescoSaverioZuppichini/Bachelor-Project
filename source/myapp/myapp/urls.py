@@ -18,5 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/opendata',include('opendata.urls'))
+    url(r'^opendata/',include('opendata.urls'))
 ]

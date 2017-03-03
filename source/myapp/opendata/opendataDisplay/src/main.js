@@ -2,12 +2,17 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import VueCarousel from 'vue-carousel';
+
+Vue.use(VueCarousel)
+import bootstrapStyle from '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
   template: '<App/>',
-  components: { App }
+  components: {
+    App
+  }
 })
