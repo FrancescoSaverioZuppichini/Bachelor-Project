@@ -38,20 +38,7 @@ export default {
   },
   computed: {
     availableConections() {
-      if (!this.user)
-        return this.station.stationboard
-      let filteredStationboard = []
-      // get the first preference for each connection selected by the user
-      for (let availableConnetion of this.station.avariableConnections) {
-        for (let connection of this.station.stationboard) {
-          if (availableConnetion == connection.number) {
-            filteredStationboard.push(connection)
-            // get only the first math, if any
-            break
-          }
-        }
-      }
-      return filteredStationboard
+      return this.$store.LocationStore.getAvailableConnections(this.station,this.user)
     }
   }
 }
