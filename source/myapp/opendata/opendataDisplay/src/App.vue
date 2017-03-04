@@ -1,15 +1,25 @@
 <template>
 <div id='App'>
-  <div class="container container-fluid">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-xs-12">
-        <around-me/>
-      </div>
-      <div class="col-xs-12">
-        <div class="container-fluid">
-          <volatile-locations/>
+      <div class="col">
+        <div class="container">
+          <around-me/>
         </div>
       </div>
+      <div class="col">
+        <div class="container-fluid">
+          <div class=" flex-list">
+            <div class="">
+              <volatile-locations/>
+            </div>
+            <div class="">
+              <users-content/>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -27,6 +37,7 @@ import usersContent from './components/usersContent/usersContent.vue'
 
 import SuperStore from './flux/SuperStore.js'
 import LocationStore from './stores/LocationStore.js'
+import UserStore from './stores/UserStore.js'
 
 export default {
   name: 'App',
@@ -45,6 +56,21 @@ export default {
 </script>
 
 <style stylus>
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.flex-list {
+  display: flex;
+}
+
+.flex-item {
+  flex: 1 1 auto;
+}
+
 @import url('./css/main.css');
 #App {
   padding-top: 24px;
