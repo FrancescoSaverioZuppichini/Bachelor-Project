@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
-from django.core import serializers
+from rest_framework import serializers
+
+# from django.core import serializers
 from django.shortcuts import render_to_response
+from preserialize.serialize import serialize
 from django.http import QueryDict
 import requests
+from opendata.models import *
 from opendata.models import User
 import json
 
@@ -33,10 +37,13 @@ def opendata_api_stationboard(request):
         return HttpResponse(connectionsReq.text, content_type="application/json")
 
 
-def api_user(request):
+def api_user(request,user_id):
     method = request.method
     if method == "GET":
-        return HttpResponse("we")
+        print(user_id)
+        user  = User.objects.get(pk=user_id)
+
+        return HttpResponse(serializers.serialize('json',[user]),content_type="application/json")
     elif method == "PUT":
         body = QueryDict(request.body)
         email = body.get('email')
@@ -66,3 +73,31 @@ def api_user(request):
             newUser.save()
             return HttpResponse(serializers.serialize('json',User.objects.filter(email=email)),content_type="application/json")
 
+
+def api_user_preference(request,user_id):
+
+    method = request.method
+    if method == "GET":
+        # User.objects.all().delete()
+        # Station.objects.all().delete()
+        # Preference.objects.all().delete()
+        # Bus.objects.all().delete()
+        # u = User(email="dio", displayName="dio")
+        # u.save()
+        # p = Preference(user=u,color="dio")
+        # b = Bus(number=5)
+        # s = Station(opendata=8595133)
+        # b.save()
+        # s.save()
+        # p.buses.add(b)
+        # p.stations.add(s)
+        # p.save()
+        # print(u.pk)
+        email = request.GET.get('email')
+        user = User.objects.get(pk=user_id)
+
+        # print(user.preference.buses.all())
+        print(user.preference.stations.all().filter(opendata=8595133).values())
+        # print(UserSerializer(user).data)
+        return JsonResponse(UserSerializer(user).data)
+        # return HttpResponse(UserSerializer(user).data,content_type="application/json")
