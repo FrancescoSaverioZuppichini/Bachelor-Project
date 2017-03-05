@@ -2,18 +2,18 @@
 <div id='App'>
   <div class="container-fluid">
     <div class="row">
-      <div class="col">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="container">
           <around-me/>
         </div>
       </div>
-      <div class="col">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="container-fluid">
-          <div class=" flex-list">
-            <div class="">
+          <div class="flex-list">
+            <div class="flex-item">
               <volatile-locations/>
             </div>
-            <div class="">
+            <div class="flex-item flex-item--grow">
               <users-content/>
             </div>
           </div>
@@ -67,8 +67,16 @@ body {
   display: flex;
 }
 
+.flex-list--column{
+  flex-direction: column;
+}
+
 .flex-item {
   flex: 1 1 auto;
+}
+
+.flex-item--grow{
+  flex-grow: 0 !important
 }
 
 @import url('./css/main.css');
