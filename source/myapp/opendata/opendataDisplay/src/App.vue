@@ -9,11 +9,11 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="container-fluid">
-          <div class="flex-list">
-            <div class="flex-item">
+          <div class="row">
+            <div class="col-xs-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto">
               <volatile-locations/>
             </div>
-            <div class="flex-item flex-item--grow">
+            <div class="col-xs-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto">
               <users-content/>
             </div>
           </div>
