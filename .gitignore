@@ -1,4 +1,3 @@
-source/myapp/.idea/
-source/myapp/__pycache__/
 node_modules/
 .idea/
+Public/
