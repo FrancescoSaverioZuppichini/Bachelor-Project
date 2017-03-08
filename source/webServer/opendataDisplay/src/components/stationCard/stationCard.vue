@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     availableConections() {
-      return this.$store.LocationStore.getAvailableConnections(this.station,this.user)
+      return this.$store.LocationStore.getAvailableConnections(this.station, this.user)
     }
   }
 }

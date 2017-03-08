@@ -25,7 +25,7 @@ class UserStore extends Store {
     switch (action.type) {
       case "USER_NEARBY":
         this.actions.fetchUser(action.payload.userId)
-      case "FETCH_USERS_SUCCESS":
+      case "FETCH_USER_PREFERENCE_SUCCESS":
         this.fetchUsersSuccess(action.payload)
         break;
       default:
@@ -36,14 +36,14 @@ class UserStore extends Store {
     return {
       fetchUser(userId) {
         dispacher.dispatch({
-          type: "FETCH_USER_LOADING"
+          type: "FETCH_USER_PREFERENCE_LOADING"
         })
         // axios call
         axios.get("http://localhost:8080/api/users/" + userId + "/preference")
           .then((res) => {
             console.log(res)
             dispacher.dispatch({
-              type: "FETCH_USER_SUCCESS",
+              type: "FETCH_USER_PREFERENCE_SUCCESS",
               payload: {
                 userPreference: res.data
               }

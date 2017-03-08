@@ -10,5 +10,5 @@ ws.onmessage = (msg) => {
 }
 
 ws.onopen = (event) => {
-  ws.send("test")
+  console.log("WS connect")
 }

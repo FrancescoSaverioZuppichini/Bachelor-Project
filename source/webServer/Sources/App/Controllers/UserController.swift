@@ -41,7 +41,6 @@ final class UserController {
             "payload": payload
             ])
         
-        
         try WebSocketServer.broadCast(text: json.serialize().string())
         
         return "okay"
@@ -65,6 +64,10 @@ final class UserController {
     
     func deleteUser(_ req: Request) throws -> ResponseRepresentable {
         return "updateUser"
+    }
+    
+    func getPreferencesFromUser(_ req: Request, user:User) throws -> ResponseRepresentable {
+        return try user.preferences().makeJSON()
     }
     
     func addPreferenceToUser(_ req: Request,user: User) throws -> ResponseRepresentable {

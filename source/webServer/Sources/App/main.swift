@@ -32,6 +32,7 @@ drop.group("api")
         users.put("nearby", handler: userController.notifyIsNearby)
         users.post(handler: userController.saveUser)
         users.delete(handler: userController.deleteUser)
+        users.get(User.self,"preference",handler: userController.getPreferencesFromUser)
         users.post(User.self,"preference",handler: userController.addPreferenceToUser)
         
     }

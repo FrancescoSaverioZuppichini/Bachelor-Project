@@ -44,15 +44,31 @@ class LocationStore extends Store {
     this.state.displayLocationsStack.removeItem(location)
   }
 
-  createLocationForUser(user) {
-    user.preferences.forEach((pref) => {
-      let location = this.locationsCache[pref.station]
+  createLocationForUser(preferences) {
+    // api of the for of [
+    //   {
+    //     "buses": [
+    //       {
+    //         "id": 1,
+    //         "number": 5
+    //       }
+    //     ],
+    //     "id": 1,
+    //     "station_id": 1,
+    //     "user_id": 1
+    //   }
+    // ]
+    preferences.forEach((pref) => {
+      let location = this.locationsCache[pref.station.number]
+      console.log(location)
       // deep copy of location
       let newLocation = Object.assign({}, location)
-      newLocation.avariableConnections = pref.connections
+      // add the connection, filter the bus number from the bus obj
+      newLocation.avariableConnections = pref.buses.map(con => con.number)
       // assign same pointer to stationboard
       newLocation.stationboard = location.stationboard
       this.state.usersLocations.push(newLocation)
+      console.log(newLocation)
     })
   }
 
@@ -122,7 +138,10 @@ class LocationStore extends Store {
         this.putLocationInDisplayStack(action.location)
         break;
       case "FETCH_USERS_SUCCESS":
-        this.createLocationsForUsers(action.payload)
+        // this.createLocationsForUsers(action.payload)
+        break;
+      case "FETCH_USER_PREFERENCE_SUCCESS":
+        this.createLocationForUser(action.payload.userPreference)
         break;
       default:
     }

@@ -43,7 +43,7 @@ final class Preference: Model {
         var json = JSON(node)
         
         json["buses"] = try buses().makeJSON()
-        
+        json["station"] = try station()?.makeJSON()
         return json
     }
     
