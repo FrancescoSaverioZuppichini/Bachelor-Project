@@ -9,11 +9,11 @@
 import Foundation
 import Vapor
 import HTTP
-import SwiftyJSON
 
 class WebSocketServer {
     static var sockets = [WebSocket]()
-
+    
+    
     static func start(drop:Droplet){
         
         drop.socket("ws") { req, ws in
@@ -29,9 +29,8 @@ class WebSocketServer {
             }
             
             ws.onText = { ws, text in
-                let json = JSON(data: text)
                 
-                print("Text received: \(json)")
+                print("Received: \(text)")
                 // single broadcast
                 try self.sockets.forEach { socket in
                     try socket.send(text)
