@@ -24,7 +24,7 @@ class UserStore extends Store {
   reduce(action) {
     switch (action.type) {
       case "USER_NEARBY":
-        this.actions.featchUser(action.payload.userId)
+        this.actions.fetchUser(action.payload.userId)
       case "FETCH_USERS_SUCCESS":
         this.fetchUsersSuccess(action.payload)
         break;
@@ -34,48 +34,49 @@ class UserStore extends Store {
 
   actions(dispacher, context) {
     return {
-      featchUser(userId) {
+      fetchUser(userId) {
         dispacher.dispatch({
-              type: "FETCH_USER_LOADING"
-            }
-            // axios call
-            axios.get(`http://localhost:8080/api/users/${userId}/preference`)
-            .then((res) => {
-              console.log(res)
-              // dispacher.dispatch({
-              //     type: "FETCH_USER_SUCCESS",
-              //     payload: {}
-              //   }
-            })
-
-          },
-          fetchUsers() {
+          type: "FETCH_USER_LOADING"
+        })
+        // axios call
+        axios.get("http://localhost:8080/api/users/" + userId + "/preference")
+          .then((res) => {
+            console.log(res)
             dispacher.dispatch({
-              type: "FETCH_USERS_SUCCESS",
+              type: "FETCH_USER_SUCCESS",
               payload: {
-                users: [{
-                    displaName: "user1",
-                    preferences: [{
-                      station: 8591624,
-                      connections: [7]
-                    }]
-                  },
-                  {
-                    displaName: "user2",
-                    preferences: [{
-                      station: 8588291,
-                      connections: [5]
-                    }]
-                  }
-                ]
+                userPreference: res.data
               }
             })
+          })
+      },
+      fetchUsers() {
+        dispacher.dispatch({
+          type: "FETCH_USERS_SUCCESS",
+          payload: {
+            users: [{
+                displaName: "user1",
+                preferences: [{
+                  station: 8591624,
+                  connections: [7]
+                }]
+              },
+              {
+                displaName: "user2",
+                preferences: [{
+                  station: 8588291,
+                  connections: [5]
+                }]
+              }
+            ]
           }
+        })
       }
     }
   }
+}
 
 
-  const userStore = new UserStore()
+const userStore = new UserStore()
 
-  SuperStore.addStore(userStore)
+SuperStore.addStore(userStore)

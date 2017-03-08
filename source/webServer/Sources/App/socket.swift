@@ -13,7 +13,14 @@ import HTTP
 class WebSocketServer {
     static var sockets = [WebSocket]()
     
-    
+    static func broadCast(text:String) throws {
+        try self.sockets.forEach { socket in
+            print("Sending \(text) to \(socket)")
+            try socket.send(text)
+            
+        }
+
+    }
     static func start(drop:Droplet){
         
         drop.socket("ws") { req, ws in
@@ -31,15 +38,13 @@ class WebSocketServer {
             ws.onText = { ws, text in
                 
                 print("Received: \(text)")
-                // single broadcast
-                try self.sockets.forEach { socket in
-                    try socket.send(text)
-                    
-                }
+                try broadCast(text: text)
+            
             }
             
             ws.onClose = { ws, code, reason, clean in
                 print("Closed.")
+                print(reason)
             }
             
         }
