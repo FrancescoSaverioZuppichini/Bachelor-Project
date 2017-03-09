@@ -60,7 +60,6 @@ class LocationStore extends Store {
     // ]
     preferences.forEach((pref) => {
       let location = this.locationsCache[pref.station.number]
-      console.log(location)
       // deep copy of location
       let newLocation = Object.assign({}, location)
       // add the connection, filter the bus number from the bus obj
@@ -68,7 +67,6 @@ class LocationStore extends Store {
       // assign same pointer to stationboard
       newLocation.stationboard = location.stationboard
       this.state.usersLocations.push(newLocation)
-      console.log(newLocation)
     })
   }
 

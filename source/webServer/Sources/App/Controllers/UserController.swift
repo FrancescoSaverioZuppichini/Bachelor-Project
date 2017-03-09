@@ -57,7 +57,6 @@ final class UserController {
         
         var newUser = User(email: email)
         try newUser.save()
-        
         return newUser
         
     }

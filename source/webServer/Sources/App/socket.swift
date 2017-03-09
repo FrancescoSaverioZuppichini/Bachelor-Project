@@ -21,6 +21,7 @@ class WebSocketServer {
         }
 
     }
+    
     static func start(drop:Droplet){
         
         drop.socket("ws") { req, ws in
@@ -44,7 +45,9 @@ class WebSocketServer {
             
             ws.onClose = { ws, code, reason, clean in
                 print("Closed.")
-                print(reason)
+                // remove socket from array
+                let i = sockets.index(where: {  $0 === ws })
+                sockets.remove(at: i!)
             }
             
         }

@@ -44,6 +44,7 @@ final class Preference: Model {
         
         json["buses"] = try buses().makeJSON()
         json["station"] = try station()?.makeJSON()
+        
         return json
     }
     
