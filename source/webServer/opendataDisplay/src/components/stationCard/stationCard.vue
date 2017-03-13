@@ -6,7 +6,7 @@
       <p v-if="station.isLoadingStationBoard"> Loading busess...
         <p>
           <div v-if="showConnection">
-            <connection-card :connection="connection" v-for="connection in this.availableConections" v-if="station.stationboard" />
+            <connection-card :connection="connection" behavior="list" v-for="connection in this.availableConections" v-if="station.stationboard" />
           </div>
           <button href="#" type="button" class="btn btn-primary" @click="showStationWithInformation" v-else> leaving soon
         </button>

@@ -35,12 +35,15 @@ import defaultInformation from './components/defaultInformation/defaultInformati
 import volatileLocations from './components/volatileLocations/volatileLocations.vue'
 import usersContent from './components/usersContent/usersContent.vue'
 
-import SuperStore from './flux/SuperStore.js'
-import LocationStore from './stores/LocationStore.js'
-import UserStore from './stores/UserStore.js'
+import connectionStore from './stores/ConnectionStore.js'
+import locationStore from './stores/LocationStore.js'
+import userStore from './stores/UserStore.js'
+import {SuperStore} from 'flue-vue'
+import Vue from 'vue'
 
 import socket from './socket.js'
-
+SuperStore.addStores([locationStore,userStore])
+Vue.prototype.$store = SuperStore
 export default {
   name: 'App',
   mounted() {

@@ -1,15 +1,14 @@
 import axios from 'axios'
 import Vue from 'vue'
-import SuperStore from '../flux/SuperStore.js'
-import Store from '../flux/Store.js'
+
 import utils from '../utils.js'
+import {SuperStore,Store,Action} from 'flue-vue'
 
 import FixedSizeStack from '../FixedSizeStack.js'
 
 class UserStore extends Store {
   constructor() {
     super()
-
     this.state.users = []
   }
 
@@ -78,5 +77,5 @@ class UserStore extends Store {
 
 
 const userStore = new UserStore()
-
-SuperStore.addStore(userStore)
+export default userStore
+// SuperStore.addStore(userStore)

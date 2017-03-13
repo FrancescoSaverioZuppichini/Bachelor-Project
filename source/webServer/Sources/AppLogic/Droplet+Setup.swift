@@ -15,7 +15,7 @@ public func load(_ _drop: Droplet) throws {
     _drop.preparations.append(Station.self)
     _drop.preparations.append(Bus.self)
     _drop.preparations.append(Pivot<Preference,Bus>.self)
-    
+
     _drop.middleware.append(ContentTypeMiddleware())
     
     let opendataApiController = OpendataApiController()

@@ -1,9 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue'
-import SuperStore from '../flux/SuperStore.js'
-import Store from '../flux/Store.js'
 import utils from '../utils.js'
-
+import {SuperStore,Store,Action} from 'flue-vue'
 import FixedSizeStack from '../FixedSizeStack.js'
 
 class LocationStore extends Store {
@@ -45,19 +43,6 @@ class LocationStore extends Store {
   }
 
   createLocationForUser(preferences) {
-    // api of the for of [
-    //   {
-    //     "buses": [
-    //       {
-    //         "id": 1,
-    //         "number": 5
-    //       }
-    //     ],
-    //     "id": 1,
-    //     "station_id": 1,
-    //     "user_id": 1
-    //   }
-    // ]
     preferences.forEach((pref) => {
       let location = this.locationsCache[pref.station.number]
       // deep copy of location
@@ -94,9 +79,9 @@ class LocationStore extends Store {
     locations.forEach(location => Vue.set(location, "stationboard", []))
     locations.forEach(location => this.locationsCache[location.id] = location)
     // get users preferences
-    this.actions.fetchUsers()
+    this.sStore.actions.fetchUsers()
     // get stationsBoards of all locations -> NO LAZY LOADING
-    this.actions.fetchLocationsStationBoards(this.state.locations)
+    this.sStore.actions.fetchLocationsStationBoards(this.state.locations)
     // this.state.locations.forEach(location => this.actions.fetchLocationStationBoard(location))
 
   }
@@ -218,4 +203,4 @@ class LocationStore extends Store {
 
 const locationStore = new LocationStore()
 
-SuperStore.addStore(locationStore)
+export default locationStore
