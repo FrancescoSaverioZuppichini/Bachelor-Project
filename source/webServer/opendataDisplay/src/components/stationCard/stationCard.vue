@@ -1,18 +1,19 @@
 <template>
-<transition name="fade">
-  <div class="card">
-    <div class="card-block">
-      <h6 class="card-title">{{station.name}}</h6>
-      <p v-if="station.isLoadingStationBoard"> Loading busess...
-        <p>
-          <div v-if="showConnection">
-            <connection-card :connection="connection" behavior="list" v-for="connection in this.availableConections" v-if="station.stationboard" />
-          </div>
-          <button href="#" type="button" class="btn btn-primary" @click="showStationWithInformation" v-else> leaving soon
+<!-- <transition name="fade"> -->
+  <div class="uk-card uk-card-default uk-margin-right uk-animation-fade">
+    <div class="uk-card-body">
+        <h4>{{station.name}}</h4>
+        <div class="uk-flex-center uk-flex uk-margin" v-if="station.isLoadingStationBoard && station.stationboard.length == 0">
+          <div class="uk-spinner--large" uk-spinner></div>
+        </div>
+            <div v-if="showConnection" v-else>
+              <connection-card :connection="connection" behavior="list" v-for="connection in this.availableConections" v-if="station.stationboard" />
+            </div>
+            <button  type="button" class="uk-button uk-button-primary" @click="showStationWithInformation" v-else> leaving soon
         </button>
-    </div>
+      </div>
   </div>
-</transition>
+<!-- </transition> -->
 </template>
 <script>
 import moment from 'moment'

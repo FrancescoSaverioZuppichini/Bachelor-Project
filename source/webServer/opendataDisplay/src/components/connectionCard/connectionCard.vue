@@ -1,29 +1,34 @@
 <template>
-<div class="card card--horizontal"  style="border: none" v-if="behavior == 'list'">
-  <div class="card-block pr-0 flex--grow-0">
-    <h1> {{connection.number}}</h1>
-  </div>
-  <div class="card-block">
-    <h6 class="card-title">{{connection.to}} ads</h6>
-    <small> {{parseArrivalTime(connection.stop.departure)}}</small>
-  </div>
-  <div class="card-block pl-0" v-if="getArrivalTimeFromNow().hours() < 1">
-    <h2 class="mb-0"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
-    <small>arrives</small>
+<div class="uk-card uk-card-default" v-if="behavior != 'list'">
+  <div class="uk-card-body">
+    <div class='uk-flex'>
+      <div class="uk-margin-right">
+        <h1> {{connection.number}}</h1>
+      </div>
+      <div class='uk-flex-stretch'>
+        <h5 class="uk-margin-remove-bottom">{{connection.to}}</h5>
+        <small> {{parseArrivalTime(connection.stop.departure)}}</small>
+      </div>
+      <div class="uk-margin-right">
+        <h2 class="uk-margin-remove-bottom"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
+        <small>arrives</small>
+      </div>
+    </div>
   </div>
 </div>
-<div class="card card--horizontal" v-else>
-  <div class="card-block pr-0 flex--grow-0">
-    <h1> {{connection.number}}</h1>
-  </div>
-  <div class="card-block">
-    <h6 class="card-title">{{connection.to}}</h6> {{connection.stop.station.name}}
-    <br>
-    <small> {{parseArrivalTime(connection.stop.departure)}}</small>
-  </div>
-  <div class="card-block pl-0" v-if="getArrivalTimeFromNow().hours() < 1">
-    <h2 class="mb-0"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
-    <small>arrives</small>
+<div uk-grid v-else>
+  <div class='uk-flex uk-width-1-1'>
+    <div class="uk-margin-right">
+      <h1> {{connection.number}}</h1>
+    </div>
+    <div class='uk-flex-stretch  uk-width-1-1 uk-margin-right'>
+      <h5 class="uk-margin-remove-bottom">{{connection.to}}</h5>
+      <small> {{parseArrivalTime(connection.stop.departure)}}</small>
+    </div>
+    <div class=" uk-float-right">
+      <h2 class="uk-margin-remove-bottom"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
+      <small>arrives</small>
+    </div>
   </div>
 </div>
 </template>

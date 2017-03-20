@@ -5,7 +5,7 @@ import App from './App'
 import VueCarousel from 'vue-carousel';
 
 Vue.use(VueCarousel)
-import bootstrapStyle from '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+// import bootstrapStyle from '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 
 /* eslint-disable no-new */

@@ -8,6 +8,7 @@ class LocationStore extends Store {
   constructor() {
     super()
     this.locationsCache = {}
+    this.preferencesCache = {}
     // all the state fields MUST be directly define here
     // if want to add them in other functions you need to call
     // Vue.set(obj,key,value)
@@ -39,11 +40,13 @@ class LocationStore extends Store {
 
   expireLocation(location) {
     clearTimeout(location.timeOutId)
-    this.state.displayLocationsStack.removeItem(location)
   }
 
-  createLocationForUser(preferences) {
-    preferences.forEach((pref) => {
+  createLocationForUser(userPreferences) {
+    userPreferences.forEach((pref) => {
+      // check if the location is already there -> TODO server side also!
+      if(this.preferencesCache[pref.id])
+          return
       let location = this.locationsCache[pref.station.number]
       // deep copy of location
       let newLocation = Object.assign({}, location)
@@ -52,6 +55,17 @@ class LocationStore extends Store {
       // assign same pointer to stationboard
       newLocation.stationboard = location.stationboard
       this.state.usersLocations.push(newLocation)
+      // cache the result
+      this.preferencesCache[pref.id] = pref
+      // set auto-destrytion
+      setTimeout(() => {
+        // clear the cache
+        delete this.preferencesCache[pref.id]
+        // and the stored ones
+        this.state.usersLocations.pop()
+        this.expireLocation(location)
+      }, 2000)
+
     })
   }
 
@@ -64,6 +78,8 @@ class LocationStore extends Store {
   putLocationInDisplayStack(location) {
     // setTimeout(() => {
     //   this.expireLocation(location)
+    //   this.state.displayLocationsStack.removeItem(location)
+    //
     // }, 2000)
     //prevent multiple item to be push
     this.state.displayLocationsStack.addItem(location)
@@ -79,7 +95,7 @@ class LocationStore extends Store {
     locations.forEach(location => Vue.set(location, "stationboard", []))
     locations.forEach(location => this.locationsCache[location.id] = location)
     // get users preferences
-    this.sStore.actions.fetchUsers()
+    // this.sStore.actions.fetchUsers()
     // get stationsBoards of all locations -> NO LAZY LOADING
     this.sStore.actions.fetchLocationsStationBoards(this.state.locations)
     // this.state.locations.forEach(location => this.actions.fetchLocationStationBoard(location))
@@ -121,7 +137,7 @@ class LocationStore extends Store {
         this.putLocationInDisplayStack(action.location)
         break;
       case "FETCH_USERS_SUCCESS":
-        // this.createLocationsForUsers(action.payload)
+        this.createLocationsForUsers(action.payload)
         break;
       case "FETCH_USER_PREFERENCE_SUCCESS":
         this.createLocationForUser(action.payload.userPreference)
