@@ -1,14 +1,21 @@
 import Vue from 'vue'
 import axios from 'axios'
+import {
+  SuperStore,
+  Store,
+  Action
+} from 'flue-vue'
 
-class ConnectionStore {
+class ConnectionStore extends Store {
   constructor() {
-    this.state = {}
+    super()
     //  show by display based on the position
     this.state.leavingSoon = {}
     // show by display based on users
     this.state.connections = []
   }
+  reduce(){}
+
 
   getConnectionsFromLocation(locationId) {
     return axios.get('http://localhost:8000/opendata/api/stationboard', {

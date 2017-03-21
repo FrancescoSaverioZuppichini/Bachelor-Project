@@ -1,18 +1,20 @@
 <template>
-<transition name="fade">
-  <div class="card">
-    <div class="card-block">
-      <h6 class="card-title">{{station.name}}</h6>
-      <p v-if="station.isLoadingStationBoard"> Loading busess...
-        <p>
-          <div v-if="showConnection">
-            <connection-card :connection="connection" v-for="connection in this.availableConections" v-if="station.stationboard" />
-          </div>
-          <button href="#" type="button" class="btn btn-primary" @click="showStationWithInformation" v-else> leaving soon
-        </button>
+<!-- <transition name="fade"> -->
+<div class="uk-card uk-card-default uk-animation-fade">
+  <div class="uk-card-body">
+    <h4>{{station.name}}</h4>
+    <div class="uk-flex-center uk-flex uk-margin" v-if="station.isLoadingStationBoard && station.stationboard.length == 0">
+      <div class="uk-spinner--large" uk-spinner></div>
     </div>
+    <button type="button" class="uk-button uk-button-primary" @click="showStationWithInformation" v-if="activator"> leaving soon
+        </button>
+        <div v-if="showConnection">
+          <connection-card :connection="connection" behavior="list" v-for="connection in this.availableConections" v-if="station.stationboard" />
+        </div>
+
   </div>
-</transition>
+</div>
+<!-- </transition> -->
 </template>
 <script>
 import moment from 'moment'
@@ -20,7 +22,7 @@ import stationCardInfo from './stationCardInfo/stationCardInfo.vue'
 import connectionCard from '../connectionCard/connectionCard.vue'
 export default {
   name: 'stationCard',
-  props: ['station', "showConnection", "autoDestroy", "user"],
+  props: ['station', "showConnection", "autoDestroy", "user",'activator'],
   components: {
     stationCardInfo,
     connectionCard

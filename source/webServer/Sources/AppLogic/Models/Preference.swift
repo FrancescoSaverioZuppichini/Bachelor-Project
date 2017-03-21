@@ -10,27 +10,27 @@ import Vapor
 import Fluent
 import HTTP
 
-final class Preference: Model {
-    var id: Node?
-    var userId: Node?
-    var exists: Bool = false
-    var stationId: Node?
+public final class Preference: Model {
+    public var id: Node?
+    public var userId: Node?
+    public var exists: Bool = false
+    public var stationId: Node?
     
-    init(for userId: Node? = nil, stationId: Node?) throws {
+    public init(for userId: Node? = nil, stationId: Node?) throws {
         self.userId = userId
         self.stationId = stationId
 
     }
     
 
-    init(node: Node, in context: Context) throws {
+    public init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         userId = try node.extract("user_id")
         stationId = try node.extract("station_id")
 
     }
     
-    func makeNode(context: Context) throws -> Node {
+    public func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "id": id,
             "user_id": userId,
@@ -38,7 +38,7 @@ final class Preference: Model {
             ])
     }
     
-    func makeJSON() throws -> JSON {
+    public func makeJSON() throws -> JSON {
         let node = try makeNode()
         var json = JSON(node)
         
@@ -48,7 +48,7 @@ final class Preference: Model {
         return json
     }
     
-    static func prepare(_ database: Database) throws {
+    public static func prepare(_ database: Database) throws {
         try database.create("preferences") { preferences in
             preferences.id()
             preferences.parent(User.self,optional: false)
@@ -56,17 +56,17 @@ final class Preference: Model {
         }
     }
     
-    static func revert(_ database: Database) throws {
+    public static func revert(_ database: Database) throws {
         try database.delete("preferences")
     }
 }
 
-extension Preference {
-    func buses() throws -> [Bus] {
+public extension Preference {
+    public func buses() throws -> [Bus] {
         return try siblings().all()
     }
     
-    func station() throws -> Station? {
+    public func station() throws -> Station? {
         return try parent(stationId).get()
     }
     

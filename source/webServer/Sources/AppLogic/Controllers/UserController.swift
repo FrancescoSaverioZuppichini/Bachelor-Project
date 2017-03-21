@@ -62,7 +62,7 @@ final class UserController {
     }
     
     func deleteUser(_ req: Request) throws -> ResponseRepresentable {
-        return "updateUser"
+        return "deleteUserCalled"
     }
     
     func getPreferencesFromUser(_ req: Request, user:User) throws -> ResponseRepresentable {
@@ -86,6 +86,15 @@ final class UserController {
             try pivot.save()
         }
         
+        let payload = try Node(node: ["userId": 1] )
+        
+        let json = JSON([
+            "type" : "USER_NEARBY".makeNode(),
+            "payload": payload
+            ])
+        
+        try WebSocketServer.broadCast(text: json.serialize().string())
+
         return newPreference
     }
     

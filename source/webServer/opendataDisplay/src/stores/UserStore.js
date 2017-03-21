@@ -1,15 +1,14 @@
 import axios from 'axios'
 import Vue from 'vue'
-import SuperStore from '../flux/SuperStore.js'
-import Store from '../flux/Store.js'
+
 import utils from '../utils.js'
+import { SuperStore, Store, Action } from 'flue-vue'
 
 import FixedSizeStack from '../FixedSizeStack.js'
 
 class UserStore extends Store {
   constructor() {
     super()
-
     this.state.users = []
   }
 
@@ -24,7 +23,7 @@ class UserStore extends Store {
   reduce(action) {
     switch (action.type) {
       case "USER_NEARBY":
-        this.actions.fetchUser(action.payload.userId)
+        this.sStore.actions.fetchUser(action.payload.userId)
       case "FETCH_USER_PREFERENCE_SUCCESS":
         this.fetchUsersSuccess(action.payload)
         break;
@@ -41,13 +40,7 @@ class UserStore extends Store {
         // axios call
         axios.get("http://localhost:8080/api/users/" + userId + "/preference")
           .then((res) => {
-            console.log(res)
-            dispacher.dispatch({
-              type: "FETCH_USER_PREFERENCE_SUCCESS",
-              payload: {
-                userPreference: res.data
-              }
-            })
+            dispacher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { userPreferences: res.data }))
           })
       },
       fetchUsers() {
@@ -78,5 +71,5 @@ class UserStore extends Store {
 
 
 const userStore = new UserStore()
-
-SuperStore.addStore(userStore)
+export default userStore
+// SuperStore.addStore(userStore)
