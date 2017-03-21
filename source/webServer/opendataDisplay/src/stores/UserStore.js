@@ -2,7 +2,7 @@ import axios from 'axios'
 import Vue from 'vue'
 
 import utils from '../utils.js'
-import {SuperStore,Store,Action} from 'flue-vue'
+import { SuperStore, Store, Action } from 'flue-vue'
 
 import FixedSizeStack from '../FixedSizeStack.js'
 
@@ -40,12 +40,7 @@ class UserStore extends Store {
         // axios call
         axios.get("http://localhost:8080/api/users/" + userId + "/preference")
           .then((res) => {
-            dispacher.dispatch({
-              type: "FETCH_USER_PREFERENCE_SUCCESS",
-              payload: {
-                userPreference: res.data
-              }
-            })
+            dispacher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { userPreferences: res.data }))
           })
       },
       fetchUsers() {

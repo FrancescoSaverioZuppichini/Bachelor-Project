@@ -10,7 +10,7 @@
         <small> {{parseArrivalTime(connection.stop.departure)}}</small>
       </div>
       <div class="uk-margin-right">
-        <h2 class="uk-margin-remove-bottom"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
+        <h2 class="uk-margin-remove-bottom uk-text-center"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
         <small>arrives</small>
       </div>
     </div>
@@ -26,7 +26,7 @@
       <small> {{parseArrivalTime(connection.stop.departure)}}</small>
     </div>
     <div class=" uk-float-right">
-      <h2 class="uk-margin-remove-bottom"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
+      <h2 class="uk-margin-remove-bottom uk-text-center"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
       <small>arrives</small>
     </div>
   </div>

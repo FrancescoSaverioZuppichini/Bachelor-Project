@@ -6,7 +6,7 @@
     </div>
     <carousel :perPage=5 :navigationEnabled="true" v-else>
       <slide v-for="station in this.$store.state.locations">
-        <station-card :station="station" :showConnection="false" />
+        <station-card :station="station" :showConnection="false" :activator="true" />
       </slide>
     </carousel>
   </div>

@@ -27,10 +27,10 @@ class FixedSizeStack {
   }
 
   addItem(item) {
-    if (this.getSize() >= this.maxSize)
-      this.pop()
     if (this.isItemInStack(item) && !this.allowDuplicate)
       return;
+    if (this.getSize() >= this.maxSize)
+        this.pop()
     this._data.push(item)
   }
 

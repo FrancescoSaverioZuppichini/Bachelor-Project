@@ -21,7 +21,7 @@ public func load(_ _drop: Droplet) throws {
     let opendataApiController = OpendataApiController()
     let userController = UserController()
     
-    _drop.get("display") {
+    _drop.get("") {
         request in return try _drop.view.make("index.html")
     }
     
