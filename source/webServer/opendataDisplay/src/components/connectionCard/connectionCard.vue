@@ -6,7 +6,10 @@
         <h1> {{connection.number}}</h1>
       </div>
       <div class='uk-flex-stretch'>
-        <h5 class="uk-margin-remove-bottom">{{connection.to}}</h5>
+        <h5 class="uk-margin-remove-bottom">
+          <span class="uk-margin-small-right" uk-icon="icon:arrow-right"></span>
+          {{connection.to}}
+</h5>
         <small> {{parseArrivalTime(connection.stop.departure)}}</small>
       </div>
       <div class="uk-margin-right">
@@ -16,19 +19,20 @@
     </div>
   </div>
 </div>
-<div uk-grid v-else>
-  <div class='uk-flex uk-width-1-1'>
-    <div class="uk-margin-right">
-      <h1> {{connection.number}}</h1>
-    </div>
-    <div class='uk-flex-stretch  uk-width-1-1 uk-margin-right'>
-      <h5 class="uk-margin-remove-bottom">{{connection.to}}</h5>
-      <small> {{parseArrivalTime(connection.stop.departure)}}</small>
-    </div>
-    <div class=" uk-float-right">
-      <h2 class="uk-margin-remove-bottom uk-text-center"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
-      <small>arrives</small>
-    </div>
+<div class='uk-flex-expand uk-flex' :class="{'uk-box-shadow-large':connection.triggered && !location.isUser}" v-else>
+  <div class="uk-margin-right">
+    <h1> {{connection.number}}</h1>
+  </div>
+  <div class='uk-flex-stretch  uk-width-1-1 uk-margin-right'>
+    <h5 class="uk-margin-remove-bottom">
+        <span class="uk-margin-small-right" uk-icon="icon:arrow-right"></span>
+        {{connection.to}}
+</h5>
+    <small> {{parseArrivalTime(connection.stop.departure)}}</small>
+  </div>
+  <div class=" uk-float-right">
+    <h3 class="uk-margin-remove-bottom uk-text-center"> {{getArrivalTimeFromNow().minutes() + "'" }}</h3>
+    <small>arrives</small>
   </div>
 </div>
 </template>
@@ -38,7 +42,7 @@ import moment from 'moment'
 import connectionCardInfo from './connectionCardInfo/connectionCardInfo.vue'
 
 export default {
-  props: ["connection", "behavior"],
+  props: ["connection", "behavior","location"],
   name: 'connectionCard',
   components: {
     connectionCardInfo,

@@ -2,15 +2,18 @@
 <!-- <transition name="fade"> -->
 <div class="uk-card uk-card-default uk-animation-fade">
   <div class="uk-card-body">
-    <h4>{{station.name}}</h4>
+
+    <h4 class="uk-clearfix"><span class="uk-margin-small-right" uk-icon="icon: location; ratio: 1.5"></span>{{station.name}}
+      <span class="uk-float-right uk-margin-small-right" uk-icon="icon:clock; ratio: 1.2" v-if="showConnection"></span>
+</h4>
     <div class="uk-flex-center uk-flex uk-margin" v-if="station.isLoadingStationBoard && station.stationboard.length == 0">
       <div class="uk-spinner--large" uk-spinner></div>
     </div>
     <button type="button" class="uk-button uk-button-primary" @click="showStationWithInformation" v-if="activator"> leaving soon
         </button>
-        <div v-if="showConnection">
-          <connection-card :connection="connection" behavior="list" v-for="connection in this.availableConections" v-if="station.stationboard" />
-        </div>
+    <div v-if="showConnection" class="uk-flex uk-flex-column" uk-grid>
+      <connection-card :connection="connection" behavior="list" :location="station"v-for="connection in this.availableConections" v-if="station.stationboard" />
+    </div>
 
   </div>
 </div>
@@ -22,7 +25,7 @@ import stationCardInfo from './stationCardInfo/stationCardInfo.vue'
 import connectionCard from '../connectionCard/connectionCard.vue'
 export default {
   name: 'stationCard',
-  props: ['station', "showConnection", "autoDestroy", "user",'activator'],
+  props: ['station', "showConnection", "autoDestroy", "user", 'activator'],
   components: {
     stationCardInfo,
     connectionCard

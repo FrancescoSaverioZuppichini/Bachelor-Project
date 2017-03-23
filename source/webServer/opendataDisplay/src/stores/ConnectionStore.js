@@ -21,7 +21,7 @@ class ConnectionStore extends Store {
     return axios.get('http://localhost:8000/opendata/api/stationboard', {
         params: {
           station: locationId,
-          limit: 10
+          limit: 2
         }
       })
       .then((res) => {

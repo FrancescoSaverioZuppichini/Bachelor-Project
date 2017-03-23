@@ -23,7 +23,7 @@ import socket from './socket.js'
 
 
 SuperStore.addStores([locationStore, userStore])
-Vue.prototype.$store = SuperStore
+// Vue.prototype.$store = SuperStore
 
 export default {
   name: 'App',
