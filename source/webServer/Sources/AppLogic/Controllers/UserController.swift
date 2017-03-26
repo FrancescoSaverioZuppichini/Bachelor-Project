@@ -74,7 +74,7 @@ final class UserController {
         
         let numbers = busesRaw.flatMap { $0.int }
         // fetch/create station if don't exist
-        let station = try Station.createIfNotExist(number: stationId)
+        let station = try Station.createIfNotExist(number: stationId, name: nil)
         // create -> save preference with that station
         var newPreference = try Preference(for: user.id, stationId: station.id)
         try newPreference.save()

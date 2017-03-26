@@ -4,11 +4,13 @@ import utils from '../utils.js'
 import { SuperStore, Store, Action } from 'flue-vue'
 import FixedSizeStack from '../FixedSizeStack.js'
 
+import api from '../api.js'
+
 import cachedLocations from '../locations.js'
 class LocationStore extends Store {
   constructor() {
     super()
-    this.locationsCache = {}
+    this.state.locationsCache = {}
     this.preferencesCache = {}
     // all the state fields MUST be directly define here
     // if want to add them in other functions you need to call
@@ -16,13 +18,13 @@ class LocationStore extends Store {
     this.state.locations = []
     this.state.displayLocationsStack = new FixedSizeStack(2, false)
     this.state.isLoadingNearbyLocations = false
-    this.state.defaultLocation = "8591624777"
+    this.state.defaultLocation = "8591624"
     this.state.defaultLocationsOffset = 1
     this.state.usersLocations = []
   }
 
   getDefaultLocation() {
-    return this.locationsCache[this.state.defaultLocation]
+    return this.state.locationsCache[this.state.defaultLocation]
   }
   // get all the connections that need to be inside a user preference
   getAvailableConnections(location, user) {
@@ -59,7 +61,7 @@ class LocationStore extends Store {
       // check if the location is already there -> TODO server side also!
       // if (this.preferencesCache[pref.id])
       //   return
-      let location = this.locationsCache[pref.station.number]
+      let location = this.state.locationsCache[pref.station.number]
       // deep copy of location
       let newLocation = Object.assign({}, location)
       newLocation.isUser = true
@@ -113,15 +115,17 @@ class LocationStore extends Store {
     this.state.locations = locations
     locations.forEach(location => {
       Vue.set(location, "stationboard", [])
-
-      if (location.id == this.state.defaultLocation) {
-        // set the already opended default location to true
-        Vue.set(location, 'open', true)
-        this.state.displayLocationsStack.addItem(location)
-        location.default = true
-      }
+      //
+      // if (location.id == this.state.defaultLocation) {
+      //   // set the already opended default location to true
+      //   Vue.set(location, 'open', true)
+      //   this.state.displayLocationsStack.addItem(location)
+      //   location.default = true
+      // }
     })
-    locations.forEach(location => this.locationsCache[location.id] = location)
+
+    locations.forEach(location => Vue.set(this.state.locationsCache, [location.id], location))
+    console.log(this.state.locationsCache)
     // get stationsBoards of all locations -> NO LAZY LOADING
     this.sStore.actions.fetchLocationsStationBoards(this.state.locations)
 
@@ -154,7 +158,6 @@ class LocationStore extends Store {
       PUT_LOCATION_IN_DISPLAY_STACK: this.putLocationInDisplayStack,
       FETCH_USERS_SUCCESS: this.createLocationsForUsers,
       FETCH_USER_PREFERENCE_SUCCESS: this.createLocationForUser
-
     })
 
   }
@@ -163,19 +166,7 @@ class LocationStore extends Store {
     return {
       fetchNearbyLocations() {
         dispatcher.dispatch(new Action("FETCH_NEARBY_LOCATIONS_LOADING"))
-        // utils.getCurrentPosition()
-        //   .then((pos) => {
-        //     const options = {
-        //       params: {
-        //         x: pos.coords.latitude,
-        //         y: pos.coords.longitude,
-        //         type: "station"
-        //       }
-        //     }
-        //     return axios.get('http://localhost:8080/api/opendata/locations', {
-        //       params: options.params
-        //     })
-        //   })
+        api.fetchNearbyLocations()
         //   .then(({ data }) => {
         // data.stations
         dispatcher.dispatch(new Action("FETCH_NEARBY_LOCATIONS_SUCCESS", { locations: cachedLocations.stations }))
@@ -196,12 +187,7 @@ class LocationStore extends Store {
       },
       fetchLocationStationBoard(location) {
         dispatcher.dispatch(new Action("FETCH_LOCATION_STATIONBOARD_LOADING", { location }))
-        axios.get('http://localhost:8080/api/opendata/stationboards', {
-            params: {
-              station: location.id,
-              limit: 5
-            }
-          })
+        api.fetchLocationStationBoard(location)
           .then(({ data }) => {
             dispatcher.dispatch(new Action("FETCH_LOCATION_STATIONBOARD_SUCCESS", { stationboard: data.stationboard, location }))
           })

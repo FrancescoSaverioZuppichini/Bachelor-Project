@@ -6,9 +6,10 @@ import VueCarousel from 'vue-carousel';
 import VueRouter from 'vue-router'
 import DisplayPage from './components/Displaypage/DisplayPage.vue'
 import CreatePreferencePage from './components/CreatePreferencePage/CreatePreferencePage.vue'
+import StationSelectionPage from './components/CreatePreferencePage/StationSelectionPage/StationSelectionPage.vue'
+import BusSelectionPage from './components/CreatePreferencePage/BusSelectionPage/BusSelectionPage.vue'
 
 Vue.use(VueCarousel)
-
 Vue.use(VueRouter)
 
 const routes = [{
@@ -18,7 +19,19 @@ const routes = [{
       path: '/display',
       component: DisplayPage
     },
-    { path: '/preference', component: CreatePreferencePage }
+    {
+      path: 'preference',
+      component: CreatePreferencePage,
+      children: [{
+          path: 'station',
+          component: StationSelectionPage,
+        },
+        {
+          path: 'bus',
+          component: BusSelectionPage,
+        }
+      ]
+    }
   ]
 }]
 

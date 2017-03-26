@@ -26,10 +26,20 @@ public final class Bus: Model {
     }
     
     public func makeNode(context: Context) throws -> Node {
-        return try Node(node:[
+         var node = try Node(node:[
             "id": id,
             "number": number
             ])
+        
+        switch context {
+        case BusContext.passList:
+            node["passList"] = try passList().makeNode(context: PassContext.onlyStation)
+            
+        default:
+            break
+        }
+        
+        return node
     }
     
     public static func prepare(_ database: Database) throws {
@@ -58,5 +68,17 @@ public final class Bus: Model {
         var bus = Bus(number: number)
         try bus.save()
         return bus
+    }
+}
+
+public enum BusContext: Context {
+    case passList
+}
+
+extension Bus {
+    
+    public func passList() throws -> [Pass] {
+        
+        return try children().all()
     }
 }

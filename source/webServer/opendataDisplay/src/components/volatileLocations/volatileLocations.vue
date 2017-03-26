@@ -1,9 +1,9 @@
 <template>
-<div class="flex-list">
+<div class="uk-flex">
 
   <!-- <station-card :station="this.$store.LocationStore.getDefaultLocation()" :showConnection="true" autoDestroy="true"> </station-card> -->
 
-  <div  v-for="station in this.$store.state.displayLocationsStack.getData()">
+  <div class="uk-margin-small-right" v-for="station in this.$store.state.displayLocationsStack.getData()">
       <station-card :station="station" :showConnection="true" autoDestroy="true"></station-card>
     </div>
 </div>

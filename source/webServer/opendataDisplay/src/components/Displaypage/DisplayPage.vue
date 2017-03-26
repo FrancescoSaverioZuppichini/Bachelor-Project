@@ -1,5 +1,5 @@
 <template>
-<div class="full-h uk-container uk-container-large uk-section">
+<div class="full-h uk-container uk-container-large uk-section uk-section-xsmall">
   <div uk-grid>
     <div class="uk-width-1-2@s uk-width-2-3@l uk-width-1-2@m">
       <volatile-locations />
