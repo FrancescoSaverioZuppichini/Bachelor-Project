@@ -16,7 +16,8 @@ public func load(_ _drop: Droplet) throws {
     _drop.preparations.append(Bus.self)
     _drop.preparations.append(Display.self)
     _drop.preparations.append(Pass.self)
-    
+    _drop.preparations.append(StationBoard.self)
+
     _drop.preparations.append(Pivot<Station,Bus>.self)
     _drop.preparations.append(Pivot<Preference,Bus>.self)
 

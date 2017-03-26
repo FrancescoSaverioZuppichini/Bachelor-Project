@@ -45,6 +45,12 @@ public final class StationBoard: Model {
             "to": to
             ])
         
+        switch context {
+        case StationBoardContext.passes:
+            node["passList"] = try getPasses().makeNode(context: PassContext.all)
+        default:
+            break
+        }
         return node
     }
     
@@ -53,7 +59,6 @@ public final class StationBoard: Model {
             stationBoards.id()
             stationBoards.string("station_id")
             stationBoards.string("to")
-
             
         }
     }

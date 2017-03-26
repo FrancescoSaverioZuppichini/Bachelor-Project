@@ -54,9 +54,13 @@ final class OpendataApiController {
                         break
                     }
                     
-                    if let to = stationBoardObj?["to"]?.string {
-                        try StationBoard.createIfNotExist(stationId: station.id, to: to)
+                    guard let to = stationBoardObj?["to"]?.string else {
+                        print("Error parsing JSON, could not find a to direction")
+                        break
                     }
+                    
+//                    let stationBoardModel = try StationBoard.createIfNotExist(stationId: station.id, to: to)
+                    
 
                     let passList = stationBoardObj?["passList"]?.array
                     // go through all the pass list of the current bus
