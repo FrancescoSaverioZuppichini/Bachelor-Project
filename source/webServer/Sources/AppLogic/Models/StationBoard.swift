@@ -25,7 +25,8 @@ public final class StationBoard: Model {
     public var id: Node?
     public var to: String
     public var stationId: Node?
-    
+    public static var entity = "station_boards"
+
     public init(stationId: Node?, to: String){
         self.stationId = stationId
         self.to = to
@@ -45,6 +46,12 @@ public final class StationBoard: Model {
             "to": to
             ])
         
+        switch context {
+        case StationBoardContext.passes:
+            node["passList"] = try passes().makeNode(context: PassContext.all)
+        default:
+            break
+        }
         return node
     }
     
@@ -53,7 +60,6 @@ public final class StationBoard: Model {
             stationBoards.id()
             stationBoards.string("station_id")
             stationBoards.string("to")
-
             
         }
     }
@@ -64,11 +70,11 @@ public final class StationBoard: Model {
     
     
     public class func createIfNotExist(stationId: Node?, to: String) throws -> StationBoard {
-        
-        return try StationBoard.query().filter("station_id", stationId!).first() ?? create(stationId: stationId, to: to)
+        return try create(stationId: stationId, to: to)
+//        return try StationBoard.query().filter("station_id", stationId!).first() ?? create(stationId: stationId, to: to)
     }
     
-    public class func create(stationId: Node?, to: String) throws -> StationBoard {
+    public class func create(stationId: Node?,  to: String) throws -> StationBoard {
         var stationBoard = StationBoard(stationId: stationId, to: to)
         try stationBoard.save()
         return stationBoard
@@ -82,8 +88,8 @@ public enum StationBoardContext: Context {
 
 extension StationBoard {
     
-    public func getPasses() throws -> [Pass] {
-        
-        return try children().all()
+    public func passes() throws -> [Pass] {
+        return try siblings().all()
     }
+   
 }

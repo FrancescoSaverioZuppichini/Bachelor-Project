@@ -39,8 +39,9 @@ public final class Station: Model {
         
         
         switch context {
+            
         case StationContext.stationBoard:
-            node["stationBoard"] = try stationBoard().makeNode(context: PassContext.onlyBus)
+            node["stationBoard"] = try stationBoard().makeNode(context: StationBoardContext.passes)
             
         case StationContext.buses:
             node["bus"] = try buses().makeNode()
@@ -84,7 +85,7 @@ public enum StationContext: Context {
 
 extension Station {
     
-    public func stationBoard() throws -> [Pass] {
+    public func stationBoard() throws -> [StationBoard] {
         
         return try children().all()
     }

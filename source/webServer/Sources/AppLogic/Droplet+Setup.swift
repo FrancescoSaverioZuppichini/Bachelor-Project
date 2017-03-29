@@ -16,8 +16,10 @@ public func load(_ _drop: Droplet) throws {
     _drop.preparations.append(Bus.self)
     _drop.preparations.append(Display.self)
     _drop.preparations.append(Pass.self)
-    
+    _drop.preparations.append(StationBoard.self)
+
     _drop.preparations.append(Pivot<Station,Bus>.self)
+    _drop.preparations.append(Pivot<StationBoard,Pass>.self)
     _drop.preparations.append(Pivot<Preference,Bus>.self)
 
     _drop.middleware.append(ContentTypeMiddleware())
@@ -35,8 +37,8 @@ public func load(_ _drop: Droplet) throws {
     _drop.group("api")
     {
         api in
-        api.get("opendata/cache",handler: opendataApiController.cacheApiInformation)
-        api.get("opendata/locations",handler: opendataApiController.getLocations)
+        api.get("opendata/cache",handler: OpendataApiFetcher.cacheApiInformation)
+        api.get("opendata/locations",handler: OpendataApiController.getLocations)
         api.get("opendata/connections",handler: opendataApiController.getConnections)
         api.get("opendata/stationboards",handler: opendataApiController.getStationBoards)
         // users
