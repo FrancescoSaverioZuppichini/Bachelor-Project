@@ -12,7 +12,6 @@ import Fluent
 
 final class OpendataApiController {
     
-    
     static func getLocations(_ req: Request) throws -> ResponseRepresentable {
         guard let x = req.query?["x"]?.double,let y = req.query?["y"]?.double else {
             throw Abort.badRequest        }

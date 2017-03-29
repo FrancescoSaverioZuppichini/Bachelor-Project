@@ -100,7 +100,7 @@ extension Pass {
 
 extension Pass {
     
-    public func station() throws -> Station? {
+    public func station() throws -> StationBoard? {
         return try parent(stationId).get()
     }
     
