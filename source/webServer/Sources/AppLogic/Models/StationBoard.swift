@@ -48,6 +48,8 @@ public final class StationBoard: Model {
         
         switch context {
         case StationBoardContext.passes:
+            node["passList"] = try passes().makeNode(context: PassContext.all)
+
         default:
             break
         }
