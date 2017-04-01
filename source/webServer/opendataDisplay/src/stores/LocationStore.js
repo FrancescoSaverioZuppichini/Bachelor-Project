@@ -56,43 +56,39 @@ class LocationStore extends Store {
     // }, 2000)
   }
 
-  createLocationForUser({ userPreferences }) {
-    userPreferences.forEach((pref) => {
-      // check if the location is already there -> TODO server side also!
-      // if (this.preferencesCache[pref.id])
-      //   return
-      let location = this.state.locationsCache[pref.station.number]
-      // deep copy of location
-      let newLocation = Object.assign({}, location)
-      newLocation.isUser = true
-      // add the connection, filter the bus number from the bus obj
-      newLocation.avariableConnections = pref.buses.map(con => con.number)
-      // assign same pointer to stationboard
-      newLocation.stationboard = location.stationboard
-      // cache the result
-      this.preferencesCache[pref.id] = pref
-      // set auto-destruction
-
-      this.setAutoDestruction(() => {
-        // clear the cache
-        delete this.preferencesCache[pref.id]
-        // and the stored ones
-        this.state.usersLocations.pop()
-      })
-
-      if (location.open)
-        Vue.set(location.stationboard[0], 'triggered', true)
-      else {
-        this.state.usersLocations.push(newLocation)
-
-      }
-
+  createLocationForUser(pref) {
+    // check if the location is already there -> TODO server side also!
+    // if (this.preferencesCache[pref.id])
+    //   return
+    let location = this.state.locationsCache[pref.station.number]
+    // deep copy of location
+    let newLocation = Object.assign({}, location)
+    newLocation.isUser = true
+    // add the connection, filter the bus number from the bus obj
+    newLocation.avariableConnections = pref.buses.map(con => con.number)
+    // assign same pointer to stationboard
+    newLocation.stationboard = location.stationboard
+    // cache the result
+    this.preferencesCache[pref.id] = pref
+    // set auto-destruction
+    this.setAutoDestruction(() => {
+      // clear the cache
+      delete this.preferencesCache[pref.id]
+      // and the stored ones
+      this.state.usersLocations.pop()
     })
+
+    if (location.open)
+      Vue.set(location.stationboard[0], 'triggered', true)
+    else {
+      this.state.usersLocations.push(newLocation)
+
+    }
   }
 
-  createLocationsForUsers({ users }) {
+  createLocationsForUsers({ userPreferences }) {
     // create a new location for each user by using the stored ones
-    users.forEach(user => this.createLocationForUser(user))
+    userPreferences.forEach(pref => this.createLocationForUser(pref))
   }
 
   putLocationInDisplayStack({ location }) {
@@ -125,7 +121,6 @@ class LocationStore extends Store {
     })
 
     locations.forEach(location => Vue.set(this.state.locationsCache, [location.id], location))
-    console.log(this.state.locationsCache)
     // get stationsBoards of all locations -> NO LAZY LOADING
     this.sStore.actions.fetchLocationsStationBoards(this.state.locations)
 
@@ -156,8 +151,7 @@ class LocationStore extends Store {
       FETCH_LOCATION_STATIONBOARD_SUCCESS: this.fetchLocationStationBoardSuccess,
       FETCH_LOCATION_STATIONBOARD_ERROR: (({ location }) => { location.isLoadingStationBoard = false }),
       PUT_LOCATION_IN_DISPLAY_STACK: this.putLocationInDisplayStack,
-      FETCH_USERS_SUCCESS: this.createLocationsForUsers,
-      FETCH_USER_PREFERENCE_SUCCESS: this.createLocationForUser
+      DISPLAY_USER_PREFERENCE: this.createLocationsForUsers
     })
 
   }

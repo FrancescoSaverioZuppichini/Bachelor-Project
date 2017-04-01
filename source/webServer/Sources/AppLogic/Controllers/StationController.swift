@@ -13,6 +13,10 @@ import Fluent
 
 public  class StationController {
     
+    func getStations(_ req: Request) throws -> ResponseRepresentable {
+        return try Station.all().makeJSON()
+    }
+    
     func getPassList(_ req: Request, station: Station) throws -> ResponseRepresentable {
         
         return try station.makeNode(context: StationContext.stationBoard).converted(to: JSON.self)

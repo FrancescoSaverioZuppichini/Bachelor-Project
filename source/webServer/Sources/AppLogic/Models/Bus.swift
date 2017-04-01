@@ -5,6 +5,7 @@
 //  Created by VaeVictis on 05.03.17.
 //
 //
+import Foundation
 
 import Vapor
 import Fluent
@@ -26,7 +27,7 @@ public final class Bus: Model {
     }
     
     public func makeNode(context: Context) throws -> Node {
-         var node = try Node(node:[
+        var node = try Node(node:[
             "id": id,
             "number": number
             ])
@@ -34,7 +35,9 @@ public final class Bus: Model {
         switch context {
         case BusContext.passList:
             node["passList"] = try passList().makeNode(context: PassContext.onlyStation)
-            
+        case BusContext.nextStop:
+            node["stop"] = try getNextStop().makeNode()
+     
         default:
             break
         }
@@ -53,7 +56,7 @@ public final class Bus: Model {
         try database.delete(entity)
     }
     
-
+    
     public class func createAllIfNotExist(numbers: [Int]) throws -> [Bus] {
         return try numbers.map { number in
             try createIfNotExist(number: number)
@@ -73,12 +76,24 @@ public final class Bus: Model {
 
 public enum BusContext: Context {
     case passList
+    case nextStop
 }
 
 extension Bus {
     
     public func passList() throws -> [Pass] {
+        let now = NSDate().timeIntervalSince1970
+
+        return try getPasses().filter("arrival_timestamp", .greaterThanOrEquals,now).limit(8).all()
+    }
+    
+    public func getNextStop() throws -> Pass {
+        let now = NSDate().timeIntervalSince1970
         
-        return try children().all()
+        return try getPasses().filter("arrival_timestamp", .greaterThanOrEquals,now).first()!
+    }
+    
+    public func getPasses() throws -> Children<Pass> {
+        return children()
     }
 }

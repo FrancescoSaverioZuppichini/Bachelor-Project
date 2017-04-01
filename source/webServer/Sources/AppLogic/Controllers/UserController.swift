@@ -72,15 +72,20 @@ final class UserController {
     func addPreferenceToUser(_ req: Request,user: User) throws -> ResponseRepresentable {
         guard let stationId = req.data["stationId"]?.int, let busesRaw = req.data["buses"]?.array else { throw Abort.custom(status: .badRequest, message: "StationId and Buses cannot be empty.") }
         
+        if (busesRaw.count == 0) {
+            throw Abort.custom(status: .badRequest, message: "There MUST be at least one bus")
+        }
         let numbers = busesRaw.flatMap { $0.int }
         // fetch/create station if don't exist
         let station = try Station.createIfNotExist(number: stationId, name: nil)
         // create -> save preference with that station
-        var newPreference = try Preference(for: user.id, stationId: station.id)
+        var newPreference = try Preference.createIfNotExist(for: user.id, with: station.id)
         try newPreference.save()
         // create/fetch all the buses if someone do not exists
         let buses = try Bus.createAllIfNotExist(numbers: numbers)
-        // use vapor magig to create the many -> many pivot relation
+        // remove all prev buses if any
+        try Pivot<Preference, Bus>.query().filter("preference_id", newPreference.id!).all().forEach{ try $0.delete() }
+        // add the buses if any
         try buses.forEach { bus in
             var pivot = Pivot<Preference, Bus>(newPreference,bus)
             try pivot.save()

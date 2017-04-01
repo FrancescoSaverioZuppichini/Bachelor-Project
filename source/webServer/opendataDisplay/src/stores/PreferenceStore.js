@@ -2,38 +2,80 @@ import Vue from 'vue'
 import axios from 'axios'
 import api from '../api.js'
 
+// import router from '../router.js'
+// console.log(router)
 import { SuperStore, Store, Action } from 'flue-vue'
 
 class PreferenceStore extends Store {
   constructor() {
     super()
     //  store the current preference to be added
-    this.state.currentPreference = { stationId: "8591624", buses: [] }
+    this.state.currentPreference = { station: { number: "8591624", id: 8, toogle: true }, buses: [] }
+    this.state.preferenceError = {}
+    this.state.preferences = []
+
     // show by display based on users
     this.state.connections = []
+
   }
+
+  addBusToPreference({ bus }) {
+    if (this.state.currentPreference.buses.indexOf(bus) < 0) {
+      this.state.currentPreference.buses.push(bus)
+    }
+  }
+
+  addStationToPreference({ station }) {
+    Vue.set(station, 'toogle', false)
+    this.state.currentPreference.station.toogle = false
+    station.toogle = true
+    this.state.currentPreference.station = station
+
+  }
+
+  addPreferenceSuccess() {
+    console.log('addPreferenceSuccess')
+    this.state.preferenceError = {}
+    // router.push({ path: '/preference/home' })
+  }
+  addPreferenceFailure({ err }) {
+    this.state.preferenceError = err
+  }
+
 
   reduce(action) {
     this.reduceMap(action, {
-      ADD_BUS_TO_PREFERENCE: (({ bus }) => { this.state.currentPreference.buses.push(bus) }),
-      REMOVE_BUS_TO_PREFERENCE: (({ bus }) => { this.state.currentPreference.buses.splice(this.state.currentPreference.indexOf(bus), 1) })
-
+      ADD_BUS_TO_PREFERENCE: this.addBusToPreference,
+      REMOVE_BUS_TO_PREFERENCE: (({ bus }) => { this.state.currentPreference.buses.splice(this.state.currentPreference.buses.indexOf(bus), 1) }),
+      ADD_STATION_TO_PREFERENCE: this.addStationToPreference,
+      ADD_PREFERENCE_SUCCESS: this.addPreferenceSuccess,
+      ADD_PREFERENCE_FAILURE: this.addPreferenceFailure
     })
   }
 
-
-  actions(dispatcher, context) {
+  actions(dispatcher, ctx) {
     return {
       addBusToPreference(bus) {
-
         dispatcher.dispatch(new Action("ADD_BUS_TO_PREFERENCE", { bus }))
       },
       removeBusToPreference(bus) {
-
         dispatcher.dispatch(new Action("REMOVE_BUS_TO_PREFERENCE", { bus }))
       },
-
-      addPreference(stationId, buses) {}
+      addStationToPreference(station) {
+        dispatcher.dispatch(new Action("ADD_STATION_TO_PREFERENCE", { station }))
+      },
+      addPreference() {
+        const newPreference = {
+          stationId: ctx.state.currentPreference.station.number,
+          buses: ctx.state.currentPreference.buses.map(bus => bus.number)
+        }
+        api.preference.addPreference(newPreference)
+          .then(() => dispatcher.dispatch(new Action("ADD_PREFERENCE_SUCCESS")))
+          .catch(({ response }) => {
+            const err = response.data
+            dispatcher.dispatch(new Action("ADD_PREFERENCE_FAILURE", { err }))
+          })
+      }
     }
   }
 }

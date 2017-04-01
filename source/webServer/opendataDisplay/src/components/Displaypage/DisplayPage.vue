@@ -28,6 +28,9 @@ import usersContent from '../usersContent/usersContent.vue'
 
 export default {
   name: "",
+  mounted() {
+    this.$store.actions.fetchNearbyLocations()
+  },
   data: function data() {
     return {
 

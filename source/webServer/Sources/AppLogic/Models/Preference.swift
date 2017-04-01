@@ -16,7 +16,7 @@ public final class Preference: Model {
     public var exists: Bool = false
     public var stationId: Node?
     
-    public init(for userId: Node? = nil, stationId: Node?) throws {
+    public init(for userId: Node? = nil, stationId: Node?) {
         self.userId = userId
         self.stationId = stationId
 
@@ -28,6 +28,18 @@ public final class Preference: Model {
         userId = try node.extract("user_id")
         stationId = try node.extract("station_id")
 
+    }
+    
+    public class func createIfNotExist(for userId: Node?, with stationId: Node?) throws -> Preference {
+        
+        return try Preference.query().filter("user_id", userId!).filter("station_id", stationId!).first() ?? create(for: userId, with: stationId)
+        
+    }
+    
+    public class func create(for userId: Node?, with stationId: Node?) throws -> Preference {
+        var preference = Preference(for: userId, stationId: stationId)
+        try preference.save()
+        return preference
     }
     
     public func makeNode(context: Context) throws -> Node {
@@ -42,7 +54,7 @@ public final class Preference: Model {
         let node = try makeNode()
         var json = JSON(node)
         
-        json["buses"] = try buses().makeJSON()
+        json["buses"] = try buses().all().makeJSON()
         json["station"] = try station()?.makeJSON()
         
         return json
@@ -62,8 +74,8 @@ public final class Preference: Model {
 }
 
 public extension Preference {
-    public func buses() throws -> [Bus] {
-        return try siblings().all()
+    public func buses() throws -> Siblings<Bus> {
+        return try siblings()
     }
     
     public func station() throws -> Station? {

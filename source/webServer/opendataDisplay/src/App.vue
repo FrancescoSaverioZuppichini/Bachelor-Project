@@ -28,10 +28,7 @@ SuperStore.addStores([locationStore, userStore, preferenceStore])
 // Vue.prototype.$store = SuperStore
 
 export default {
-  name: 'App',
-  mounted() {
-    this.$store.actions.fetchNearbyLocations()
-  }
+  name: 'App'
 }
 </script>
 

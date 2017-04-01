@@ -53,6 +53,10 @@ public func load(_ _drop: Droplet) throws {
             users.post(User.self,"preference",handler: userController.addPreferenceToUser)
             
         }
+        api.group("preference") {
+            preference in
+            preference.delete(Preference.self,handler: PreferenceController.deletePreference)
+        }
         api.group("display") {
             display in
             display.get(Display.self,handler: displayController.getDisplay)
@@ -62,6 +66,7 @@ public func load(_ _drop: Droplet) throws {
         
         api.group("station") {
             stations in
+            stations.get("", handler: stationController.getStations)
             stations.get(Station.self,"passList", handler: stationController.getPassList)
             stations.get(Station.self,"buses", handler: stationController.getBuses)
         }

@@ -42,6 +42,7 @@ public final class Station: Model {
             
         case StationContext.stationBoard:
             node["stationBoard"] = try stationBoard().makeNode(context: StationBoardContext.passes)
+//            node["stationBoard"] = try buses().makeNode(context: BusContext.nextStop)
             
         case StationContext.buses:
             node["bus"] = try buses().makeNode()
@@ -87,7 +88,7 @@ extension Station {
     
     public func stationBoard() throws -> [StationBoard] {
         
-        return try children().all()
+        return try children().limit(5).all()
     }
     
     public func buses() throws -> [Bus] {

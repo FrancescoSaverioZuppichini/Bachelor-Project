@@ -10,13 +10,17 @@ import Foundation
 import HTTP
 import Fluent
 public final class OpendataApiFetcher {
-     public static func storePasses(from passList:[Polymorphic], with station: Station, with bus: Bus, in createdStationBoard: StationBoard) throws {
+    public static func storePasses(from passList:[Polymorphic], with station: Station, with bus: Bus, in createdStationBoard: StationBoard) throws {
         for pass in passList {
             let passObj = pass.object
             
             guard let stopStationId = passObj?["station"]?.object?["id"]?.int, let arrivalTimestamp = passObj?["arrivalTimestamp"]?.double  else {
                 continue
             }
+            
+//            if let pass = try Pass.query().filter("bus_id",bus.id!).filter("station_id", station.id!).filter("arrival_timestamp",arrivalTimestamp).first() {
+//                continue
+//            }
             
             let pass = try Pass.createIfNotExist(bus: bus.id, through: station.id, arrivalTimestamp: arrivalTimestamp, departureTimestamp: nil)
             
@@ -26,7 +30,7 @@ public final class OpendataApiFetcher {
         }
     }
     
-     public static func storeStationBoardInformation(for stationBoard: Polymorphic, with station: Station) throws {
+    public static func storeStationBoardInformation(for stationBoard: Polymorphic, with station: Station) throws {
         let stationBoardObj = stationBoard.object
         
         guard let busNumber = stationBoardObj?["number"]?.int else {
@@ -34,7 +38,6 @@ public final class OpendataApiFetcher {
             return
         }
         
-        print(stationBoardObj!)
         let bus = try Bus.createIfNotExist(number: busNumber)
         
         // create the pivot iff it doesn't already exist
@@ -50,7 +53,7 @@ public final class OpendataApiFetcher {
         // * the passList of a bus
         if let to = stationBoardObj?["to"]?.string {
             
-            var createdStationBoard = StationBoard(stationId: station.id, to: to)
+            var createdStationBoard = StationBoard(stationId: station.id, busId: bus.id, to: to)
             try createdStationBoard.save()
             
             let passList = stationBoardObj?["passList"]?.array
@@ -61,9 +64,9 @@ public final class OpendataApiFetcher {
         
     }
     
-     public static func storeStationBoardsInformation(for station: Station) throws {
+    public static func storeStationBoardsInformation(for station: Station) throws {
         
-        let query: [String: Int] = ["station": station.number, "limit": 100]
+        let query: [String: Int] = ["station": station.number, "limit": 10]
         
         // get all the buses for the station
         let opendataRes = try drop.client.get("http://transport.opendata.ch/v1/stationboard", query: query)
@@ -79,6 +82,11 @@ public final class OpendataApiFetcher {
     }
     
     public static func cacheApiInformation(_ req: Request) throws -> ResponseRepresentable {
+        try Pass.query().delete()
+        try StationBoard.query().delete()
+        try Pivot<Station,Bus>.query().delete()
+        try Pivot<StationBoard,Pass>.query().delete()
+        
         
         let stations = try OpendataApiController.getLocations(req)
         let data = try stations.makeResponse().data["stations"]?.array

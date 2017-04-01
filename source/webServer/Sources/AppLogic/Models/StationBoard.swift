@@ -25,16 +25,20 @@ public final class StationBoard: Model {
     public var id: Node?
     public var to: String
     public var stationId: Node?
+    public var busId: Node?
     public static var entity = "station_boards"
-
-    public init(stationId: Node?, to: String){
+    
+    public init(stationId: Node?, busId: Node?, to: String){
         self.stationId = stationId
+        self.busId = busId
         self.to = to
     }
     
     public init(node: Node, in context: Context) throws{
         id = try node.extract("id")
         stationId = try node.extract("station_id")
+        busId = try node.extract("bus_id")
+        
         to = try node.extract("to")
         
     }
@@ -43,13 +47,16 @@ public final class StationBoard: Model {
         var node = try Node(node:[
             "id": id,
             "station_id": stationId,
+            "bus_id": busId,
             "to": to
             ])
         
         switch context {
         case StationBoardContext.passes:
-            node["passList"] = try passes().makeNode(context: PassContext.all)
-
+            node["stop"] = try bus().getNextStop().makeNode()
+            node["number"] = try bus().number.makeNode()
+//            node["passList"] = try bus().passList().makeNode()
+            
         default:
             break
         }
@@ -60,6 +67,7 @@ public final class StationBoard: Model {
         try database.create("station_boards"){ stationBoards in
             stationBoards.id()
             stationBoards.string("station_id")
+            stationBoards.string("bus_id")
             stationBoards.string("to")
             
         }
@@ -70,13 +78,13 @@ public final class StationBoard: Model {
     }
     
     
-    public class func createIfNotExist(stationId: Node?, to: String) throws -> StationBoard {
-        return try create(stationId: stationId, to: to)
-//        return try StationBoard.query().filter("station_id", stationId!).first() ?? create(stationId: stationId, to: to)
+    public class func createIfNotExist(stationId: Node?,  busId: Node?, to: String) throws -> StationBoard {
+        return try create(stationId: stationId, busId: busId, to: to)
+        //        return try StationBoard.query().filter("station_id", stationId!).first() ?? create(stationId: stationId, to: to)
     }
     
-    public class func create(stationId: Node?,  to: String) throws -> StationBoard {
-        var stationBoard = StationBoard(stationId: stationId, to: to)
+    public class func create(stationId: Node?, busId: Node?, to: String) throws -> StationBoard {
+        var stationBoard = StationBoard(stationId: stationId, busId: busId, to: to)
         try stationBoard.save()
         return stationBoard
     }
@@ -89,8 +97,24 @@ public enum StationBoardContext: Context {
 
 extension StationBoard {
     
-    public func passes() throws -> [Pass] {
-        return try siblings().all()
+    public func station() throws -> Station {
+        return try parent(stationId).get()!
     }
-   
+    
+    
+    public func bus() throws -> Bus {
+        return try parent(busId).get()!
+    }
+    
+    public func nextPasses() throws -> [Pass] {
+        let now = NSDate().timeIntervalSince1970
+        return try passes().filter("arrival_timestamp", .greaterThanOrEquals,now).limit(8).all()
+        
+    }
+    
+    public func passes() throws -> Siblings<Pass> {
+        return try siblings()
+    }
+    
+    
 }
