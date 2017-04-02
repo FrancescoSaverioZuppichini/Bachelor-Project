@@ -10,7 +10,6 @@
       <p>{{$store.state.preferenceError.message}}</p>
     </div>
   </div>
-  {{$store.state.currentPreference}}
   <div class="uk-flex-center">
     <div class="uk-flex" uk-grid>
       <div v-for="bus in buses">
@@ -22,9 +21,9 @@
       </div>
     </div>
   </div>
-  <div class="uk-margin-top">
-    <button class='uk-button uk-button-default uk-float-left uk-width-1-1@s uk-width-auto@m' @click="$router.push({path:'/preference/station'})">Back</button>
-    <button class='uk-button uk-button-primary uk-float-right uk-width-1-1@s uk-width-auto@m' @click="$store.actions.addPreference()">Done!</button>
+  <div class="uk-margin-top navigation__actions">
+    <button class='uk-button uk-button-default uk-float-left uk-width-auto@m' @click="$router.push({path:'/preference/station'})">Back</button>
+    <button class='uk-button uk-button-primary uk-float-right  uk-width-auto@m' @click="$store.actions.addPreference()">Done!</button>
   </div>
 </div>
 </template>
@@ -34,7 +33,7 @@ import ConnectionCard from '../../connectionCard/connectionCard.vue'
 import api from '../../../api.js'
 
 export default {
-  name: "",
+  name: "BusSelectionPage",
   components: {
     StationCard,
     ConnectionCard

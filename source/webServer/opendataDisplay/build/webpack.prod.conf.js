@@ -12,8 +12,8 @@ var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var env = process.env.NODE_ENV === 'testing' ?
   require('../config/test.env') :
   config.build.env
-console.log(config.build.assetsRoot)
-const VAPOR_STATIC_DIR = '../Public/'
+
+const VAPOR_STATIC_DIR = '/Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/source/webServer/Public/'
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {

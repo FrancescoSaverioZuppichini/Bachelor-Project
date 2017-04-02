@@ -42,8 +42,8 @@ import moment from 'moment'
 import connectionCardInfo from './connectionCardInfo/connectionCardInfo.vue'
 
 export default {
-  props: ["connection", "behavior","location"],
   name: 'connectionCard',
+  props: ["connection", "behavior","location"],
   components: {
     connectionCardInfo,
   },

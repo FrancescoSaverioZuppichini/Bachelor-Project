@@ -5,31 +5,14 @@
 </template>
 
 <script>
-import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons';
-// loads the Icon plugin
-UIkit.use(Icons);
 
 
-import connectionStore from './stores/ConnectionStore.js'
-import locationStore from './stores/LocationStore.js'
-import userStore from './stores/UserStore.js'
-import preferenceStore from './stores/PreferenceStore.js'
-
-import {
-  SuperStore
-} from 'flue-vue'
-
-import Vue from 'vue'
-import socket from './socket.js'
-
-
-SuperStore.addStores([locationStore, userStore, preferenceStore])
 // Vue.prototype.$store = SuperStore
 
 export default {
   name: 'App'
 }
+
 </script>
 
 <style stylus>
@@ -73,5 +56,9 @@ body {
 
 .full-h {
   height: 100%;
+}
+
+.uk-flex-fill {
+  flex-grow: 99;
 }
 </style>

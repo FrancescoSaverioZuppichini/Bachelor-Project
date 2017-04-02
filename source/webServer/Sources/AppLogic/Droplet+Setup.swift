@@ -10,19 +10,18 @@ public func load(_ _drop: Droplet) throws {
     
     drop = _drop
     
-    _drop.preparations.append(User.self)
-    _drop.preparations.append(Preference.self)
-    _drop.preparations.append(Station.self)
-    _drop.preparations.append(Bus.self)
-    _drop.preparations.append(Display.self)
-    _drop.preparations.append(Pass.self)
-    _drop.preparations.append(StationBoard.self)
+    drop.preparations.append(User.self)
+    drop.preparations.append(Preference.self)
+    drop.preparations.append(Station.self)
+    drop.preparations.append(Bus.self)
+    drop.preparations.append(Display.self)
+    drop.preparations.append(Pass.self)
+    drop.preparations.append(StationBoard.self)
+    drop.preparations.append(Pivot<Station,Bus>.self)
+    drop.preparations.append(Pivot<StationBoard,Pass>.self)
+    drop.preparations.append(Pivot<Preference,Bus>.self)
 
-    _drop.preparations.append(Pivot<Station,Bus>.self)
-    _drop.preparations.append(Pivot<StationBoard,Pass>.self)
-    _drop.preparations.append(Pivot<Preference,Bus>.self)
-
-    _drop.middleware.append(ContentTypeMiddleware())
+    drop.middleware.append(ContentTypeMiddleware())
     
     let opendataApiController = OpendataApiController()
     let userController = UserController()
@@ -30,12 +29,11 @@ public func load(_ _drop: Droplet) throws {
     let stationController = StationController()
     let busController = BusController()
     
-    _drop.get("") {
+    drop.get("") {
         request in return try _drop.view.make("index.html")
     }
     
-    _drop.group("api")
-    {
+    drop.group("api"){
         api in
         api.get("opendata/cache",handler: OpendataApiFetcher.cacheApiInformation)
         api.get("opendata/locations",handler: OpendataApiController.getLocations)
@@ -51,7 +49,6 @@ public func load(_ _drop: Droplet) throws {
             users.delete(handler: userController.deleteUser)
             users.get(User.self,"preference",handler: userController.getPreferencesFromUser)
             users.post(User.self,"preference",handler: userController.addPreferenceToUser)
-            
         }
         api.group("preference") {
             preference in

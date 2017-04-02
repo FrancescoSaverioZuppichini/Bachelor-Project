@@ -27,7 +27,7 @@ import volatileLocations from '../volatileLocations/volatileLocations.vue'
 import usersContent from '../usersContent/usersContent.vue'
 
 export default {
-  name: "",
+  name: "DisplayPage",
   mounted() {
     this.$store.actions.fetchNearbyLocations()
   },

@@ -4,9 +4,26 @@ import Vue from 'vue'
 import App from './App'
 import VueCarousel from 'vue-carousel';
 
-import router from './router.js'
-Vue.use(VueCarousel)
+import connectionStore from './stores/ConnectionStore.js'
+import locationStore from './stores/LocationStore.js'
+import userStore from './stores/UserStore.js'
+import preferenceStore from './stores/PreferenceStore.js'
+import { flueVue,
+  SuperStore
+} from 'flue-vue'
 
+import socket from './socket.js'
+import router from './router.js'
+
+Vue.use(VueCarousel)
+Vue.use(flueVue)
+
+import UIkit from 'uikit';
+import Icons from 'uikit/dist/js/uikit-icons';
+SuperStore.addStores([locationStore, userStore, preferenceStore])
+// loads the Icon plugin
+window.UIkit = UIkit
+UIkit.use(Icons);
 // import bootstrapStyle from '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 

@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import axios from 'axios'
 import api from '../api.js'
+import UIkit from 'uikit';
+// components can be called from the imported UIkit reference
+import router from '../router.js'
 
-// import router from '../router.js'
-// console.log(router)
 import { SuperStore, Store, Action } from 'flue-vue'
 
 class PreferenceStore extends Store {
@@ -13,7 +14,7 @@ class PreferenceStore extends Store {
     this.state.currentPreference = { station: { number: "8591624", id: 8, toogle: true }, buses: [] }
     this.state.preferenceError = {}
     this.state.preferences = []
-
+    // this.state.currentPreference = {}
     // show by display based on users
     this.state.connections = []
 
@@ -36,7 +37,9 @@ class PreferenceStore extends Store {
   addPreferenceSuccess() {
     console.log('addPreferenceSuccess')
     this.state.preferenceError = {}
-    // router.push({ path: '/preference/home' })
+    UIkit.notification({ message: 'New preference added', timeout: 2000 });
+
+    router.push({ path: '/preference' })
   }
   addPreferenceFailure({ err }) {
     this.state.preferenceError = err
