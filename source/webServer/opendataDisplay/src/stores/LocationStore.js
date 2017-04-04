@@ -18,7 +18,7 @@ class LocationStore extends Store {
     this.state.locations = []
     this.state.displayLocationsStack = new FixedSizeStack(2, false)
     this.state.isLoadingNearbyLocations = false
-    this.state.defaultLocation = "8591624"
+    this.state.defaultLocation = "8595133"
     this.state.defaultLocationsOffset = 1
     this.state.usersLocations = []
   }
@@ -60,7 +60,8 @@ class LocationStore extends Store {
     // check if the location is already there -> TODO server side also!
     // if (this.preferencesCache[pref.id])
     //   return
-    let location = this.state.locationsCache[pref.station.number]
+
+    let location = this.state.locationsCache[pref.station.id]
     // deep copy of location
     let newLocation = Object.assign({}, location)
     newLocation.isUser = true
@@ -68,18 +69,27 @@ class LocationStore extends Store {
     newLocation.avariableConnections = pref.buses.map(con => con.number)
     // assign same pointer to stationboard
     newLocation.stationboard = location.stationboard
+    pref.buses.forEach(prefBus => {
+      location.stationboard.forEach(bus => {
+        if (prefBus.id == bus.id) {
+          Vue.set(bus, 'triggered', true)
+        }
+      })
+    })
     // cache the result
     this.preferencesCache[pref.id] = pref
-    // set auto-destruction
-    this.setAutoDestruction(() => {
-      // clear the cache
-      delete this.preferencesCache[pref.id]
-      // and the stored ones
-      this.state.usersLocations.pop()
-    })
+    // // set auto-destruction
+    // this.setAutoDestruction(() => {
+    //   // clear the cache
+    //   delete this.preferencesCache[pref.id]
+    //   // and the stored ones
+    //   this.state.usersLocations.pop()
+    // })
+    location.stationboard.forEach(bus => {
 
-    if (location.open)
-      Vue.set(location.stationboard[0], 'triggered', true)
+    })
+    if (location.open){}
+      // Vue.set(location.stationboard[0], 'triggered', true)
     else {
       this.state.usersLocations.push(newLocation)
 
@@ -87,6 +97,7 @@ class LocationStore extends Store {
   }
 
   createLocationsForUsers({ userPreferences }) {
+    console.log(userPreferences);
     // create a new location for each user by using the stored ones
     userPreferences.forEach(pref => this.createLocationForUser(pref))
   }
@@ -112,12 +123,12 @@ class LocationStore extends Store {
     locations.forEach(location => {
       Vue.set(location, "stationboard", [])
       //
-      // if (location.id == this.state.defaultLocation) {
-      //   // set the already opended default location to true
-      //   Vue.set(location, 'open', true)
-      //   this.state.displayLocationsStack.addItem(location)
-      //   location.default = true
-      // }
+      if (location.number == this.state.defaultLocation) {
+        // set the already opended default location to true
+        Vue.set(location, 'open', true)
+        this.state.displayLocationsStack.addItem(location)
+        location.default = true
+      }
     })
 
     locations.forEach(location => Vue.set(this.state.locationsCache, [location.id], location))
@@ -161,21 +172,18 @@ class LocationStore extends Store {
       fetchNearbyLocations() {
         dispatcher.dispatch(new Action("FETCH_NEARBY_LOCATIONS_LOADING"))
         api.fetchNearbyLocations()
-        //   .then(({ data }) => {
-        // data.stations
-        dispatcher.dispatch(new Action("FETCH_NEARBY_LOCATIONS_SUCCESS", { locations: cachedLocations.stations }))
-        // })
+          .then(({ data }) => {
+            dispatcher.dispatch(new Action("FETCH_NEARBY_LOCATIONS_SUCCESS", { locations: data }))
+          })
       },
       fetchLocationsStationBoards(locations) {
         dispatcher.dispatch(new Action("FETCH_LOCATIONS_STATIONBOARDS_LOADING"))
         // we are limited to 3 request per seconds
-        this.fetchLocationStationBoard(locations[0])
-        let waitTime = 0
-        for (let i = 1; i < locations.length; i++) {
-          waitTime += 340
-          setTimeout(() => {
-            this.fetchLocationStationBoard(locations[i])
-          }, waitTime)
+        // this.fetchLocationStationBoard(locations[0])
+        // let waitTime = 0
+        for (let i = 0; i < locations.length; i++) {
+
+          this.fetchLocationStationBoard(locations[i])
         }
 
       },

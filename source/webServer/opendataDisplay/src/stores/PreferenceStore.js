@@ -21,8 +21,16 @@ class PreferenceStore extends Store {
   }
 
   addBusToPreference({ bus }) {
-    if (this.state.currentPreference.buses.indexOf(bus) < 0) {
-      this.state.currentPreference.buses.push(bus)
+    var isAlreadyThere = false
+    var buses = this.state.currentPreference.buses
+    // deep check by id
+    buses.forEach((bus) => {
+      isAlreadyThere = bus.id == bus.id
+      if (isAlreadyThere)
+        return
+    })
+    if (!isAlreadyThere) {
+      buses.push(bus)
     }
   }
 
@@ -35,16 +43,14 @@ class PreferenceStore extends Store {
   }
 
   addPreferenceSuccess() {
-    console.log('addPreferenceSuccess')
     this.state.preferenceError = {}
     UIkit.notification({ message: 'New preference added', timeout: 2000 });
-
     router.push({ path: '/preference' })
   }
+
   addPreferenceFailure({ err }) {
     this.state.preferenceError = err
   }
-
 
   reduce(action) {
     this.reduceMap(action, {

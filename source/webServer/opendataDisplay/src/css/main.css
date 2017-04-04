@@ -8,3 +8,11 @@
 {
   opacity: 0
 }
+
+.uk-button-borderless{
+  border: none !important;
+}
+
+.uk-flex-grow {
+flex-grow: 99;
+}

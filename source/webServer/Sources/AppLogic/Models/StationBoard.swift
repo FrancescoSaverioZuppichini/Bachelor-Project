@@ -27,6 +27,7 @@ public final class StationBoard: Model {
     public var stationId: Node?
     public var busId: Node?
     public static var entity = "station_boards"
+    public var exists: Bool = false
     
     public init(stationId: Node?, busId: Node?, to: String){
         self.stationId = stationId
@@ -79,8 +80,7 @@ public final class StationBoard: Model {
     
     
     public class func createIfNotExist(stationId: Node?,  busId: Node?, to: String) throws -> StationBoard {
-        return try create(stationId: stationId, busId: busId, to: to)
-        //        return try StationBoard.query().filter("station_id", stationId!).first() ?? create(stationId: stationId, to: to)
+        return try StationBoard.query().filter("station_id", stationId!).filter("bus_id", busId!).filter("to", to).first() ?? create(stationId: stationId, busId: busId, to: to)
     }
     
     public class func create(stationId: Node?, busId: Node?, to: String) throws -> StationBoard {

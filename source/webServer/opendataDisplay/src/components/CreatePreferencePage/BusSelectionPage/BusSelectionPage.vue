@@ -48,7 +48,7 @@ export default {
       .then(({
         data
       }) => {
-        data.bus.toogle = false
+        data.bus.forEach(bus => this.$set(bus, 'toogle', false))
         this.buses = data.bus
       })
   },

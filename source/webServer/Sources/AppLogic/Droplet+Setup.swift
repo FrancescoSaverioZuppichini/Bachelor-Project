@@ -28,6 +28,7 @@ public func load(_ _drop: Droplet) throws {
     let displayController = DisplayController()
     let stationController = StationController()
     let busController = BusController()
+    let stationboardController = StationboardController()
     
     drop.get("") {
         request in return try _drop.view.make("index.html")
@@ -64,10 +65,14 @@ public func load(_ _drop: Droplet) throws {
         api.group("station") {
             stations in
             stations.get("", handler: stationController.getStations)
-            stations.get(Station.self,"passList", handler: stationController.getPassList)
+            stations.get(Station.self,"stationboards", handler: stationController.getPassList)
             stations.get(Station.self,"buses", handler: stationController.getBuses)
         }
         
+        api.group("stationboard") {
+            stationboard in
+            stationboard.get("", handler: stationboardController.getStationboard)
+        }
         api.group("bus") {
             stations in
             stations.get(Bus.self,"passList", handler: busController.getPassList)

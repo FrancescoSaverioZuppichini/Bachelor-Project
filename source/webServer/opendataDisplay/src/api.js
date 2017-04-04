@@ -6,28 +6,14 @@ export default {
   fetchNearbyLocations() {
     return axios.get('http://localhost:8080/api/station')
   },
-  // fetchNearbyLocations() {
-  //   return utils.getCurrentPosition()
-  //     .then((pos) => {
-  //       const options = {
-  //         params: {
-  //           x: pos.coords.latitude,
-  //           y: pos.coords.longitude,
-  //           type: "station"
-  //         }
-  //       }
-  //       return axios.get('http://localhost:8080/api/opendata/locations', {
-  //         params: options.params
-  //       })
-  //     })
-  // },
   fetchLocationStationBoard(location) {
-    return axios.get('http://localhost:8080/api/opendata/stationboards', {
-      params: {
-        station: location.id,
-        limit: 5
-      }
-    })
+    // return axios.get('http://localhost:8080/api/opendata/stationboards', {
+    //   params: {
+    //     station: location.id,
+    //     limit: 5
+    //   }
+    // })
+    return axios.get(`http://localhost:8080/api/station/${location.id}/stationboards`)
   },
   fetchBusesForStation(stationId) {
     return axios.get(`http://localhost:8080/api/station/${stationId}/buses`)

@@ -10,7 +10,7 @@
           <span class="uk-margin-small-right" uk-icon="icon:arrow-right"></span>
           {{connection.to}}
 </h5>
-        <small> {{parseArrivalTime(connection.stop.departure)}}</small>
+        <small> {{parseArrivalTime(this.connection.stop.departure_timestamp)}}</small>
       </div>
       <div class="uk-margin-right">
         <h2 class="uk-margin-remove-bottom uk-text-center"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
@@ -49,9 +49,12 @@ export default {
   },
   methods: {
     parseArrivalTime(date) {
-      return moment(date).format("HH:mm:ss");
+  console.log(this.connection);
+console.log(date);
+      return moment(this.connection.stop.departure).format("HH:mm:ss");
     },
     getArrivalTimeFromNow() {
+// console.log(this.connection.stop.departure_timestamp)
       // const duration = moment.duration(moment().diff(moment(this.connection.stop.departureTimestamp)));
       const duration = moment.duration(moment(this.connection.stop.departure).diff(moment(new Date())));
       return duration

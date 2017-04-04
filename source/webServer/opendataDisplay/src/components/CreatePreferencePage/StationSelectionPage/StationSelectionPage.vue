@@ -9,7 +9,6 @@
     </form> -->
   </div>
   <div class="uk-flex-center uk-margin-top">
-    <h6 class='uk-text-meta uk-text-large'>Next to you</h6>
     <div class="uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-4@l uk-grid-match preference-station__container" uk-grid>
       <div class="" v-for="station in stations">
         <station-card :station="station" :class="{'uk-box-shadow-large': station.toogle}" :showConnection="false" @click.native="$store.actions.addStationToPreference(station)" />

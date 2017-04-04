@@ -84,7 +84,10 @@ final class UserController {
         // create/fetch all the buses if someone do not exists
         let buses = try Bus.createAllIfNotExist(numbers: numbers)
         // remove all prev buses if any
-        try Pivot<Preference, Bus>.query().filter("preference_id", newPreference.id!).all().forEach{ try $0.delete() }
+        try Pivot<Preference, Bus>.query().filter("preference_id", newPreference.id!).all().forEach{
+            try $0.delete()
+        }
+        print(buses)
         // add the buses if any
         try buses.forEach { bus in
             var pivot = Pivot<Preference, Bus>(newPreference,bus)

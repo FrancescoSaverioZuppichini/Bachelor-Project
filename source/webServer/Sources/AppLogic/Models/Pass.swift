@@ -13,15 +13,17 @@ public final class Pass: Model {
     public var busId: Node?
     public var stationId: Node?
     public var arrivalTimestamp: Double?
+    public var departure: String?
     public var departureTimestamp: Double?
     public var exists: Bool = false
     public static var entity = "passes"
     
-    public init(bus busId: Node?, through stationId: Node?, arrivalTimestamp: Double?, departureTimestamp: Double?){
+    public init(bus busId: Node?, through stationId: Node?, arrivalTimestamp: Double?, departureTimestamp: Double?, departure: String?){
         self.busId = busId
         self.stationId = stationId
         self.arrivalTimestamp = arrivalTimestamp
         self.departureTimestamp = departureTimestamp
+        self.departure = departure
     }
     
     public init(node: Node, in context: Context) throws{
@@ -30,13 +32,17 @@ public final class Pass: Model {
         stationId = try node.extract("station_id")
         arrivalTimestamp = try node.extract("arrival_timestamp")
         departureTimestamp = try node.extract("departure_timestamp")
+        departure = try node.extract("departure")
+
     }
     
     public func makeNode(context: Context) throws -> Node {
         var node =  try Node(node:[
             "id": id,
             "arrival_timestamp": arrivalTimestamp,
-            "departure_timestamp": departureTimestamp
+            "departure_timestamp": departureTimestamp,
+            "departure": departure
+
             ])
         
         switch context {
@@ -67,6 +73,8 @@ public final class Pass: Model {
             passes.string("station_id")
             passes.double("arrival_timestamp",optional: true)
             passes.double("departure_timestamp",optional: true)
+            passes.string("departure",optional: true)
+
         }
     }
     
@@ -84,11 +92,11 @@ public enum PassContext: Context {
 
 extension Pass {
     
-    public static func createIfNotExist(bus busId: Node?, through stationId: Node?, arrivalTimestamp: Double?, departureTimestamp: Double?) throws -> Pass {
+    public static func createIfNotExist(bus busId: Node?, through stationId: Node?, arrivalTimestamp: Double?, departureTimestamp: Double?, departure: String?) throws -> Pass {
         
-        var newPass = Pass(bus: busId, through: stationId, arrivalTimestamp: arrivalTimestamp, departureTimestamp: departureTimestamp)
+        var newPass = Pass(bus: busId, through: stationId, arrivalTimestamp: arrivalTimestamp, departureTimestamp: departureTimestamp,departure: departure)
         
-        if var oldPass = try Pass.query().filter("bus_id", busId!).filter("station_id", stationId!).filter("arrival_timestamp", arrivalTimestamp!).first() {
+        if var oldPass = try Pass.query().filter("bus_id", busId!).filter("station_id", stationId!).filter("departure_timestamp", departureTimestamp!).first() {
             print("pass already exists")
             return oldPass
         } else {
