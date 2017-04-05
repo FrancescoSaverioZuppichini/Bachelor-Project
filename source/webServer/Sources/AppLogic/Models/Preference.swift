@@ -15,18 +15,22 @@ public final class Preference: Model {
     public var userId: Node?
     public var exists: Bool = false
     public var stationId: Node?
+//    direciton is optional, is not mandatory.
+//    public var direction: String
     
     public init(for userId: Node? = nil, stationId: Node?) {
         self.userId = userId
         self.stationId = stationId
+//        self.direction = direction
 
     }
-    
 
     public init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         userId = try node.extract("user_id")
         stationId = try node.extract("station_id")
+//        direction = try node.extract("direction")
+
 
     }
     
@@ -43,22 +47,23 @@ public final class Preference: Model {
     }
     
     public func makeNode(context: Context) throws -> Node {
-        return try Node(node: [
+        var node =  try Node(node: [
             "id": id,
             "user_id": userId,
-            "station_id": stationId
+            "station_id": stationId,
+
             ])
+        
+        switch context {
+        case PreferenceContext.all:
+            node["buses"] = try stationboard().all().makeNode(context: StationBoardContext.all)
+        default:
+            break
+        }
+        
+        return node
     }
     
-    public func makeJSON() throws -> JSON {
-        let node = try makeNode()
-        var json = JSON(node)
-        
-        json["buses"] = try buses().all().makeJSON()
-        json["station"] = try station()?.makeJSON()
-        
-        return json
-    }
     
     public static func prepare(_ database: Database) throws {
         try database.create("preferences") { preferences in
@@ -82,5 +87,14 @@ public extension Preference {
         return try parent(stationId).get()
     }
     
+    public func stationboard() throws -> Siblings<StationBoard> {
+        
+        return try siblings()
+    }
+    
+}
+
+public enum PreferenceContext: Context {
+    case all
 }
 

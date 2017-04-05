@@ -20,6 +20,7 @@ public func load(_ _drop: Droplet) throws {
     drop.preparations.append(Pivot<Station,Bus>.self)
     drop.preparations.append(Pivot<StationBoard,Pass>.self)
     drop.preparations.append(Pivot<Preference,Bus>.self)
+    drop.preparations.append(Pivot<Preference,StationBoard>.self)
 
     drop.middleware.append(ContentTypeMiddleware())
     

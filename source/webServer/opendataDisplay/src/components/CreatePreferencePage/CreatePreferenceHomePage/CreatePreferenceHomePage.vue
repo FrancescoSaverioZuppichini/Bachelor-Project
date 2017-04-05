@@ -23,10 +23,10 @@
       </div>
     </div>
   </div>
-  <div class="uk-margin-top navigation__actions">
+  <!-- <div class="uk-margin-top navigation__actions">
     <button class="uk-button uk-button-primary uk-float-right uk-width-auto@m" @click="$router.push({path:'/preference/station'})">New
 </button>
-  </div>
+  </div> -->
 </div>
 </template>
 <script>

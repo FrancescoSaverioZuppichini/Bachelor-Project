@@ -1,7 +1,8 @@
 import axios from 'axios'
 import utils from './utils.js'
 
-const BASE_URL = "http://localhost/8080/"
+const BASE_URL = "/"
+
 export default {
   fetchNearbyLocations() {
     return axios.get('http://localhost:8080/api/station')
@@ -21,6 +22,11 @@ export default {
   "users": {
     fetchUserPreferences(userId) {
       return axios.get("http://localhost:8080/api/users/" + userId + "/preference")
+    }
+  },
+  "stationboards": {
+    featchStationboards({ stationId, busId }) {
+      return axios.get(`api/stationboard/?stationId=${stationId}&busId=${busId}`)
     }
   },
   "preference": {

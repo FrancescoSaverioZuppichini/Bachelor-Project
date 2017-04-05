@@ -1,0 +1,4 @@
+Nowdays displays are everywhere, from university to street. They are used to show content to huge amount of people by creating a passive and unilateral channel. We want to extend the capability of such device in order to also provide an active and in-walk personalisation.
+
+Our application let the user select a preference through mobile devices that will be displayed later on as soon as he walks near a public display. By doing that we reshape a widely use platform, such as the screens, in order to also serve as direct content provider create a bilateral channel.
+
