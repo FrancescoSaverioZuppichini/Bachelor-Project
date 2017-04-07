@@ -60,8 +60,9 @@ class LocationStore extends Store {
     // check if the location is already there -> TODO server side also!
     // if (this.preferencesCache[pref.id])
     //   return
-
     let location = this.state.locationsCache[pref.station.id]
+    if(!location)
+        return
     // deep copy of location
     let newLocation = Object.assign({}, location)
     newLocation.isUser = true
@@ -97,7 +98,6 @@ class LocationStore extends Store {
   }
 
   createLocationsForUsers({ userPreferences }) {
-    console.log(userPreferences);
     // create a new location for each user by using the stored ones
     userPreferences.forEach(pref => this.createLocationForUser(pref))
   }
@@ -176,8 +176,8 @@ class LocationStore extends Store {
       },
       fetchLocationsStationBoards(locations) {
         dispatcher.dispatch(new Action("FETCH_LOCATIONS_STATIONBOARDS_LOADING"))
-        locations.length.forEach(location => this.fetchLocationStationBoard(location))
-      
+        locations.forEach(location => this.fetchLocationStationBoard(location))
+
       },
       fetchLocationStationBoard(location) {
         dispatcher.dispatch(new Action("FETCH_LOCATION_STATIONBOARD_LOADING", { location }))

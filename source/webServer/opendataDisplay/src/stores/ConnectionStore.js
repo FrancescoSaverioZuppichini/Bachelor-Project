@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import axios from 'axios'
+import api from '../api.js'
 import {
   SuperStore,
   Store,
@@ -9,26 +9,33 @@ import {
 class ConnectionStore extends Store {
   constructor() {
     super()
-    //  show by display based on the position
-    this.state.leavingSoon = {}
-    // show by display based on users
     this.state.connections = []
+    // show by display based on users
   }
-  reduce(){}
+
+  fetchBusesSuccess({ data }) {
+    this.state.connections = data.bus
+    this.state.connections.forEach(conn => Vue.set(conn, 'toogle', false))
+  }
+
+  reduce(action) {
+    this.reduceMap(action, {
+      FETCH_BUSES_SUCCESS: this.fetchBusesSuccess,
+      ADD_PREFERENCE_SUCCESS: () => this.state.connections.forEach(connection => connection.toogle = false)
+    })
+  }
+
+  actions(dispatcher) {
+    return {
+      fetchBusesFromStation(stationsId) {
+        return api.fetchBusesForStation(stationsId)
+          .then(({ data }) => dispatcher.dispatch(new Action('FETCH_BUSES_SUCCESS', { data })))
+
+      }
+    }
+  }
 
 
-  getConnectionsFromLocation(locationId) {
-    return axios.get('http://localhost:8000/opendata/api/stationboard', {
-        params: {
-          station: locationId,
-          limit: 2
-        }
-      })
-      .then((res) => {
-        console.log(res.data)
-        this.state.leavingSoon = res.data
-      })
-  }
 }
 
 const connectionStore = new ConnectionStore()

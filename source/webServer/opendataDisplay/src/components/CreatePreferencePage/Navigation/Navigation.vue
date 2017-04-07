@@ -1,30 +1,32 @@
 <template>
-<div class="uk-margin-top" id='navigation__actions'>
-  <button class='uk-button uk-button-default uk-float-left uk-width-auto@m' @click="back" v-if="this.currentLink > 0">Back</button>
-  <button class='uk-button uk-button-primary uk-float-right  uk-width-auto@m' @click="next">Next</button>
-</div>
+<!-- <div class="uk-margin-top navigation__actions">
+  <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="back" v-if="this.currentLink > 0">Back</button>
+  <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="next">{{this.currentLink + 1 == this.links.length ? 'Done' : 'Next'}}</button>
+</div> -->
 </template>
 <script>
 export default {
   name: "Navigation",
-  props: ['links', 'whenFinishFunc'],
+  props: ['links', 'funcs','whenFinishFunc'],
   data: function data() {
     return {
       currentLink: 0,
       done: false
     }
   },
+  created() {
+    this.currentLink = this.links.indexOf(this.$route.path)
+  },
   methods: {
     back() {
-      console.log(this.currentLink--);
+      this.currentLink--
       // this.currentLink = this.currentLink-- % 0
       this.updateRoute()
     },
     next() {
         this.currentLink++
         if (this.currentLink == this.links.length) {
-          console.log(this.whenFinishFunc);
-          this.currentLink--
+          this.currentLink = 0
           this.whenFinishFunc()
         }
       else {
@@ -32,7 +34,6 @@ export default {
       }
     },
     updateRoute() {
-      console.log(this.links[this.currentLink]);
       this.$router.push({
         path: this.links[this.currentLink]
       })
@@ -40,8 +41,8 @@ export default {
   }
 }
 </script>
-<style scoped>
-#navigation__actions {
+<style >
+.navigation__actions {
   position: absolute;
   bottom: 0;
   width: 100%;

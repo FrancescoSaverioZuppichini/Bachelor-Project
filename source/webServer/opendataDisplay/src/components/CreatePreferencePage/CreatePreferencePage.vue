@@ -1,6 +1,6 @@
 <template>
 <div>
-  <router-view>
+  <router-view >
   </router-view>
   <navigation :links="links" :whenFinishFunc="this.$store.actions.addPreference"></navigation>
 </div>
