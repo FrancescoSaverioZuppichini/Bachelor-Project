@@ -1,7 +1,7 @@
 <template>
 <div class='uk-container uk-section uk-flex uk-flex-column'>
   <div class="">
-    <h3>Select correct direction for the buses</h3> 
+    <h3>Select correct direction for the buses</h3>
     <div v-if="showError" class='uk-animation-fade'>
       <div class="uk-alert-danger" uk-alert>
         <p>{{error.msg}}</p>
