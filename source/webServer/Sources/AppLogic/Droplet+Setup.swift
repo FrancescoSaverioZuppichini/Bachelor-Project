@@ -31,13 +31,15 @@ public func load(_ _drop: Droplet) throws {
     let busController = BusController()
     let stationboardController = StationboardController()
     
+    
+    
     drop.get("") {
         request in return try _drop.view.make("index.html")
     }
     
     drop.group("api"){
         api in
-        api.get("opendata/cache",handler: OpendataApiFetcher.cacheApiInformation)
+//        api.get("opendata/cache",handler: OpendataApiFetcher.cacheApiInformation)
         api.get("opendata/locations",handler: OpendataApiController.getLocations)
         api.get("opendata/connections",handler: opendataApiController.getConnections)
         api.get("opendata/stationboards",handler: opendataApiController.getStationBoards)

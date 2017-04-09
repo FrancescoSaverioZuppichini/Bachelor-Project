@@ -33,6 +33,7 @@ export default {
   },
   watch: {
     '$route': function(newRoute) {
+      this.directionSelected = 0
       this.getDirections()
     }
   },

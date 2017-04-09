@@ -31,13 +31,11 @@ public final class Preference: Model {
         stationId = try node.extract("station_id")
 //        direction = try node.extract("direction")
 
-
     }
     
     public class func createIfNotExist(for userId: Node?, with stationId: Node?) throws -> Preference {
         
         return try Preference.query().filter("user_id", userId!).filter("station_id", stationId!).first() ?? create(for: userId, with: stationId)
-        
     }
     
     public class func create(for userId: Node?, with stationId: Node?) throws -> Preference {

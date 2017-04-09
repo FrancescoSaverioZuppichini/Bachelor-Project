@@ -70,7 +70,7 @@ final class UserController {
     }
     
     func addPreferenceToUser(_ req: Request,user: User) throws -> ResponseRepresentable {
-        guard let stationId = req.data["stationId"]?.int, let busesRaw = req.data["buses"]?.array else { throw Abort.custom(status: .badRequest, message: "StationId and Buses cannot be empty.") }
+        guard let stationId = req.data["stationId"]?.int, let busesRaw = req.data["buses"]?.array else { throw Abort.custom(status: .badRequest, message: "stationId and buses cannot be empty.") }
         
         if (busesRaw.count == 0) {
             throw Abort.custom(status: .badRequest, message: "There MUST be at least one bus")
@@ -84,8 +84,6 @@ final class UserController {
         
         // create -> save preference with that station
         var newPreference = try Preference.createIfNotExist(for: user.id, with: station.id)
-        
-//        try newPreference.stationboard().delete()
         
         for busObj in buses {
             guard let busId = busObj["id"]?.int, let direction = busObj["to"]?.string else {
