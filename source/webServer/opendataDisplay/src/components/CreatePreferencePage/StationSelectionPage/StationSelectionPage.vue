@@ -11,13 +11,14 @@
       <div v-for="index in [1,2,3]" v-if="$store.isLoadingNearbyLocations">
         <station-card-dummy></station-card-dummy>
       </div>
-      <div class="" v-for="station in $store.state.locations">
-        <station-card :station="station" :class="{'uk-box-shadow-large': station.toogle}" :showConnection="false" @click.native="addStation(station)" />
+      <div class="" :key="index" v-for="(station,index) in $store.state.locations">
+
+        <station-card :station="station" :class="{'uk-box-shadow-large': station.toogle}" class="uk-animation-fade" :showConnection="false" @click.native="addStation(station)" />
       </div>
     </div>
   </div>
   <div class="uk-margin-top navigation__actions">
-    <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.push({path:'/preference'})">Back</button>
+    <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.go(-1)">Back</button>
     <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="next">Next</button>
   </div>
 </div>
@@ -52,7 +53,12 @@ export default {
     }
   },
   created() {
-    this.$store.actions.fetchNearbyLocations()
+    this.toogleIfInPreference()
+  },
+  watch: {
+    '$route': function() {
+      this.toogleIfInPreference()
+    }
   },
   methods: {
     addStation(station) {
@@ -60,6 +66,12 @@ export default {
       this.currStation = station
       this.$store.actions.addStationToPreference(station)
 
+    },
+    toogleIfInPreference() {
+      const preferenceStation = this.$store.state.currentPreference.station
+      for (let location of this.$store.state.locations) {
+        if (location.id == preferenceStation.id) this.$set(location, 'toogle', true)
+      }
     },
     next() {
       this.show = true

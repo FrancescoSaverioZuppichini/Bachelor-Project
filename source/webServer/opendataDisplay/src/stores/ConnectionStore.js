@@ -16,6 +16,14 @@ class ConnectionStore extends Store {
   fetchBusesSuccess({ data }) {
     this.state.connections = data.bus
     this.state.connections.forEach(conn => Vue.set(conn, 'toogle', false))
+    // check if bus is in the current preference
+    const currentPreference = this.sStore.state.currentPreference
+    console.log(currentPreference.buses);
+    for (let connInPref of currentPreference.buses) {
+      for (let conn of this.state.connections) {
+          if (conn.id == connInPref.id) Vue.set(conn,'toogle', true)
+      }
+    }
   }
 
   reduce(action) {

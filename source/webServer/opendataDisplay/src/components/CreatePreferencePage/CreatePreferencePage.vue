@@ -1,7 +1,9 @@
 <template>
 <div>
-  <router-view >
-  </router-view>
+  <keep-alive>
+    <router-view>
+    </router-view>
+  </keep-alive>
   <navigation :links="links" :whenFinishFunc="this.$store.actions.addPreference"></navigation>
 </div>
 </template>
@@ -13,10 +15,13 @@ export default {
   components: {
     Navigation
   },
+  created() {
+    this.$store.actions.fetchNearbyLocations()
+  },
   data() {
     return {
       transitionName: 'slide-right',
-      links: ['/preference', '/preference/station', '/preference/bus','/preference/direction']
+      links: ['/preference', '/preference/station', '/preference/bus', '/preference/direction']
     }
   },
   watch: {

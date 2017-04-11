@@ -52,7 +52,9 @@ public func load(_ _drop: Droplet) throws {
             users.post(handler: userController.saveUser)
             users.delete(handler: userController.deleteUser)
             users.get(User.self,"preference",handler: userController.getPreferencesFromUser)
-            users.post(User.self,"preference",handler: userController.addPreferenceToUser)
+            users.post(User.self,"preference",handler: userController.addOrUpdateUserPreference)
+            users.put(User.self,"preference",handler: userController.addOrUpdateUserPreference)
+
         }
         api.group("preference") {
             preference in

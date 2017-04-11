@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="uk-margin-top navigation__actions">
-    <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.push({path:'/preference/station'})">Back</button>
+    <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.go(-1)">Back</button>
     <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="next">Next</button>
   </div>
 </div>
@@ -61,6 +61,11 @@ export default {
   created() {
     this.fetchBuses()
   },
+  watch: {
+    '$route': function(newRoute) {
+      if (newRoute.path == '/preference/bus') this.fetchBuses()
+    }
+  },
   methods: {
     toogleBus(bus) {
       if (bus.toogle) {
@@ -80,6 +85,7 @@ export default {
       const isAtLeastOneBusSelected = this.$store.state.currentPreference.buses.length > 0
       this.error.hasError = !isAtLeastOneBusSelected
       if (isAtLeastOneBusSelected) {
+        this.show = false
         this.$router.push({
           path: '/preference/direction'
         })

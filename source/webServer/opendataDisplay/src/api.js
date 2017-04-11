@@ -33,6 +33,12 @@ export default {
     addPreference(preference) {
       return axios.post('http://localhost:8080/api/users/1/preference', { ...preference })
     },
+    updatePreference(preference) {
+      return axios.put('http://localhost:8080/api/users/1/preference', { ...preference })
+    },
+    editPreference(preference) {
+      return axios.put('http://localhost:8080/api/users/1/preference', { ...preference })
+    },
     removePreference(preferenceId) {
       return axios.delete(`http://localhost:8080/api/preference/${preferenceId}`)
     }

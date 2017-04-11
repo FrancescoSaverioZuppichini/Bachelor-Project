@@ -11,10 +11,14 @@
         <h6 class="uk-text-meta uk-text-large" uk-cover>No preferences found.</h6>
       </div>
       <div class="uk-card uk-card-default uk-card-body uk-margin-bottom" v-for="pref in $store.state.preferences.data" v-else>
-        <div class="uk-float-right">
+        <div class="uk-float-right uk-flex uk-grid-small">
           <div>
-            <span uk-icon="icon: close; ratio: 1.2" @click="$store.state.currentPreference = pref" uk-toggle="target: #preference-confirmation__modal"></span>
+            <span uk-icon="icon: pencil; ratio: 1.2" @click="tooglePrefereceEdit(pref)"></span>
           </div>
+          <div>
+            <span uk-icon="icon: trash; ratio: 1.2" @click="$store.state.currentPreference = pref" uk-toggle="target: #preference-confirmation__modal"></span>
+          </div>
+
         </div>
         <div v-if="pref.station">
           <h5> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
@@ -29,7 +33,7 @@
       </div>
     </div>
   </div>
-  <div class="uk-margin-top navigation__actions">
+  <div class="uk-margin-top navigation__actions">s
     <button class="uk-button uk-button-primary uk-float-right uk-width-auto@m" @click="$router.push({path:'/preference/station'})">New
 </button>
   </div>
@@ -48,9 +52,22 @@ export default {
   created() {
     this.$store.actions.fetchUserPreferences(1, false)
   },
+  watch: {
+    '$route': function(newRoute) {
+      if(newRoute.path == '/preference/')  this.$store.state.currentPreference = { station: {}, buses: [] }
+    }
+  },
   data: function data() {
     return {
       toogle: false
+    }
+  },
+  methods: {
+    tooglePrefereceEdit(preference) {
+      this.$store.actions.toogleEditMode(preference)
+      this.$router.push({
+        path: '/preference/edit'
+      })
     }
   }
 }

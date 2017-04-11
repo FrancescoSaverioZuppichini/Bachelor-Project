@@ -18,7 +18,7 @@
     </div>
   </div>
   <div class="uk-margin-top navigation__actions">
-    <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.push({path:'/preference/bus'})">Back</button>
+    <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.go(-1)">Back</button>
     <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="next">Done</button>
   </div>
 </div>
@@ -33,8 +33,10 @@ export default {
   },
   watch: {
     '$route': function(newRoute) {
-      this.directionSelected = 0
-      this.getDirections()
+      if (newRoute.path == '/preference/direction') {
+        this.directionSelected = 0
+        this.getDirections()
+      }
     }
   },
   data() {

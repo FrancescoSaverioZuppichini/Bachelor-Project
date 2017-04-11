@@ -8,6 +8,7 @@ import StationSelectionPage from './components/CreatePreferencePage/StationSelec
 import BusSelectionPage from './components/CreatePreferencePage/BusSelectionPage/BusSelectionPage.vue'
 import CreatePreferenceHomePage from './components/CreatePreferencePage/CreatePreferenceHomePage/CreatePreferenceHomePage.vue'
 import DirectionSelectionPage from './components/CreatePreferencePage/DirectionSelectionPage/DirectionSelectionPage.vue'
+import EditPreferencePage from './components/CreatePreferencePage/EditPreferencePage/EditPreferencePage.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,10 @@ export default new VueRouter({
           {
             path: 'bus',
             component: BusSelectionPage,
+          },
+          {
+            path: 'edit',
+            component: EditPreferencePage,
           }
         ]
       }
