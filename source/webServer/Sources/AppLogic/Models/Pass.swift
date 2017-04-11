@@ -9,6 +9,7 @@ import Vapor
 import Fluent
 
 public final class Pass: Model {
+    
     public var id: Node?
     public var busId: Node?
     public var stationId: Node?

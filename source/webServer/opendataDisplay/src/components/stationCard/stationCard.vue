@@ -1,6 +1,6 @@
 <template>
 <!-- <transition name="fade"> -->
-<div class="uk-card uk-card-default uk-animation-fade">
+<div class="uk-card uk-card-default">
   <div class="uk-card-body">
 
     <h4 class="uk-clearfix"><span class="uk-margin-small-right" uk-icon="icon: location; ratio: 1.5"></span>{{station.name}}
@@ -11,10 +11,11 @@
     </div>
     <button type="button" class="uk-button uk-button-primary" @click="showStationWithInformation" v-if="activator"> leaving soon
         </button>
-    <div v-if="showConnection" class="uk-flex uk-flex-column" uk-grid>
-      <connection-card :connection="connection" behavior="list" :location="station"v-for="connection in this.availableConections" v-if="station.stationboard" />
+  </div>
+  <div v-if="showConnection" class="uk-flex uk-flex-column">
+    <div v-for="connection in this.availableConections" v-if="station.stationboard" class="uk-position-relative uk-margin-bottom">
+      <connection-card :connection="connection" behavior="list" :location="station" />
     </div>
-
   </div>
 </div>
 <!-- </transition> -->

@@ -11,40 +11,78 @@ class PreferenceStore extends Store {
   constructor() {
     super()
     //  store the current preference to be added
-    this.state.currentPreference = { station: { number: "8591624", id: 8, toogle: true }, buses: [] }
+    this.state.currentPreference = { station: {}, buses: [] }
+    this.state.isInEditMode = false
+    this.state.originalPreference = {}
+    // used to know pair bus->direction
+    this.state.currentStationboards = []
     this.state.preferenceError = {}
-    this.state.preferences = []
-    // this.state.currentPreference = {}
-    // show by display based on users
-    this.state.connections = []
 
   }
 
   addBusToPreference({ bus }) {
     var isAlreadyThere = false
     var buses = this.state.currentPreference.buses
-    // deep check by id
-    buses.forEach((bus) => {
-      isAlreadyThere = bus.id == bus.id
+    // check if there is already a bus
+    for (let oldBus of buses) {
+      isAlreadyThere = (oldBus.id == bus.id)
       if (isAlreadyThere)
-        return
-    })
+        break
+    }
     if (!isAlreadyThere) {
       buses.push(bus)
     }
   }
 
-  addStationToPreference({ station }) {
-    Vue.set(station, 'toogle', false)
-    this.state.currentPreference.station.toogle = false
-    station.toogle = true
-    this.state.currentPreference.station = station
+  addDirectionToPreference({ stationboard }) {
+    const busId = stationboard.bus_id
+    const to = stationboard.to
+    var buses = this.state.currentPreference.buses
+    var shouldAdd = true
 
+    buses.forEach((bus) => {
+      if (bus.id == busId && (bus.to == null || bus.to == to)) {
+        Vue.set(bus, 'to', to)
+        // the bus with that direciton already exists -> override its direction
+        shouldAdd = false
+      }
+    })
+    // multiple buses can be selected, then, if we don't find a previouse one, we just need to add it
+    if (shouldAdd) {
+      const newBus = { id: busId, number: stationboard.bus.number, to: to }
+      this.state.currentPreference.buses.push(newBus)
+    }
+  }
+
+  removeDirectionToPreference({ stationboard }) {
+    const busToRemove = { id: stationboard.bus_id, number: stationboard.bus.number, to: stationboard.to }
+    var buses = this.state.currentPreference.buses
+
+    for (let i = 0; i < buses.length; i++) {
+      let currBus = buses[i]
+      if (currBus.id == busToRemove.id && currBus.to == busToRemove.to) {
+        buses.splice(i, 1)
+        break
+      }
+    }
+  }
+
+  addStationToPreference({ station }) {
+    this.state.currentPreference.station.toogle = false
+    this.state.currentPreference = { station: {}, buses: [] }
+    station.toogle = true
+    Vue.set(this.state.currentPreference, 'station', station)
   }
 
   addPreferenceSuccess() {
     this.state.preferenceError = {}
-    UIkit.notification({ message: 'New preference added', timeout: 2000 });
+    this.state.locations.forEach(location => location.toogle = false)
+    this.state.currentStationboards.forEach(stationboard => stationboard.toogle = false)
+    this.state.connections.forEach(connection => connection.toogle = false)
+    this.state.currentPreference = { station: {}, buses: [] }
+    const msg = this.state.isInEditMode ?  "Preference changed" : 'New preference added'
+    UIkit.notification({ message: msg, timeout: 1000 });
+    this.state.isInEditMode = false
     router.push({ path: '/preference' })
   }
 
@@ -52,13 +90,29 @@ class PreferenceStore extends Store {
     this.state.preferenceError = err
   }
 
+  toogleEditMode({ preference }) {
+    if (this.state.isInEditMode) {
+      this.state.currentPreference = { station: {}, buses: [] }
+    } else {
+      const buses = preference.buses.map((bus) => { return { id: bus.bus_id, number: bus.bus.number, to: bus.to } })
+      this.state.originalPreference = preference
+      this.state.currentPreference = Object.assign({}, { station: preference.station, buses })
+    }
+
+    this.state.isInEditMode = !this.state.isInEditMode
+  }
+
   reduce(action) {
     this.reduceMap(action, {
       ADD_BUS_TO_PREFERENCE: this.addBusToPreference,
       REMOVE_BUS_TO_PREFERENCE: (({ bus }) => { this.state.currentPreference.buses.splice(this.state.currentPreference.buses.indexOf(bus), 1) }),
+      ADD_DIRECTION_TO_PREFERENCE: this.addDirectionToPreference,
+      REMOVE_DIRECTION_TO_PREFERENCE: this.removeDirectionToPreference,
       ADD_STATION_TO_PREFERENCE: this.addStationToPreference,
       ADD_PREFERENCE_SUCCESS: this.addPreferenceSuccess,
-      ADD_PREFERENCE_FAILURE: this.addPreferenceFailure
+      ADD_PREFERENCE_FAILURE: this.addPreferenceFailure,
+      TOGGLE_EDIT_MODE: this.toogleEditMode,
+      UPDATE_PREFERENCE_SUCCESS: this.toogleEditMode
     })
   }
 
@@ -70,13 +124,32 @@ class PreferenceStore extends Store {
       removeBusToPreference(bus) {
         dispatcher.dispatch(new Action("REMOVE_BUS_TO_PREFERENCE", { bus }))
       },
+      addDirectionToPreference(stationboard) {
+        dispatcher.dispatch(new Action("ADD_DIRECTION_TO_PREFERENCE", { stationboard }))
+      },
+      removeDirectionToPreference(stationboard) {
+        dispatcher.dispatch(new Action("REMOVE_DIRECTION_TO_PREFERENCE", { stationboard }))
+      },
       addStationToPreference(station) {
         dispatcher.dispatch(new Action("ADD_STATION_TO_PREFERENCE", { station }))
       },
+      updatePreference() {
+        dispatcher.dispatch(new Action("UPDATE_PREFERENCE_LOADING"))
+        const newPreference = {
+          stationId: ctx.state.currentPreference.station.id,
+          buses: ctx.state.currentPreference.buses
+        }
+        api.preference.updatePreference(newPreference)
+        dispatcher.dispatch(new Action("UPDATE_PREFERENCE_SUCCESS"))
+          .catch(({ response }) => {
+            const err = response.data
+            dispatcher.dispatch(new Action("UPDATE_PREFERENCE_FAILURE", { err }))
+          })
+      },
       addPreference() {
         const newPreference = {
-          stationId: ctx.state.currentPreference.station.number,
-          buses: ctx.state.currentPreference.buses.map(bus => bus.number)
+          stationId: ctx.state.currentPreference.station.id,
+          buses: ctx.state.currentPreference.buses
         }
         api.preference.addPreference(newPreference)
           .then(() => dispatcher.dispatch(new Action("ADD_PREFERENCE_SUCCESS")))
@@ -84,6 +157,10 @@ class PreferenceStore extends Store {
             const err = response.data
             dispatcher.dispatch(new Action("ADD_PREFERENCE_FAILURE", { err }))
           })
+      },
+      toogleEditMode(preference) {
+        dispatcher.dispatch(new Action("TOGGLE_EDIT_MODE", { preference }))
+
       }
     }
   }

@@ -11,21 +11,22 @@ class UserStore extends Store {
     super()
     this.state.users = []
     this.state.user = { id: 1 }
-    this.state.preferences = []
+    this.state.preferences = { data: [], loading: false }
   }
 
   fetchUserPreferenceSuccess({ userPreferences }) {
-    this.state.preferences = userPreferences
+    this.state.preferences.data = userPreferences
+    this.state.preferences.loading = false
   }
 
   removePreferenceSuccess({ preference }) {
-    this.state.preferences.splice(this.state.preferences.indexOf(preference), 1)
-    console.log(JSON.parse(JSON.stringify(this.state.preferences)));
+    this.state.preferences.data.splice(this.state.preferences.data.indexOf(preference), 1)
   }
 
   reduce(action) {
     this.reduceMap(action, {
       USER_NEARBY: (({ userId }) => { this.sStore.actions.fetchUserPreferences(userId) }),
+      FETCH_USER_PREFERENCE_LOADING: () => { this.state.preferences.loading = true },
       FETCH_USER_PREFERENCE_SUCCESS: this.fetchUserPreferenceSuccess,
       REMOVE_PREFERENCE_SUCCESS: this.removePreferenceSuccess
     })
@@ -36,7 +37,6 @@ class UserStore extends Store {
       fetchUserPreferences(userId, shouldDisplayThem) {
         shouldDisplayThem = shouldDisplayThem || true
         dispacher.dispatch({ type: "FETCH_USER_PREFERENCE_LOADING" })
-        // axios call
         api.users.fetchUserPreferences(userId)
           .then((res) => {
             dispacher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { userPreferences: res.data }))

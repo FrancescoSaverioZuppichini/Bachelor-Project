@@ -60,8 +60,9 @@ class LocationStore extends Store {
     // check if the location is already there -> TODO server side also!
     // if (this.preferencesCache[pref.id])
     //   return
-
     let location = this.state.locationsCache[pref.station.id]
+    if(!location)
+        return
     // deep copy of location
     let newLocation = Object.assign({}, location)
     newLocation.isUser = true
@@ -88,8 +89,8 @@ class LocationStore extends Store {
     location.stationboard.forEach(bus => {
 
     })
-    if (location.open){}
-      // Vue.set(location.stationboard[0], 'triggered', true)
+    if (location.open) {}
+    // Vue.set(location.stationboard[0], 'triggered', true)
     else {
       this.state.usersLocations.push(newLocation)
 
@@ -97,7 +98,6 @@ class LocationStore extends Store {
   }
 
   createLocationsForUsers({ userPreferences }) {
-    console.log(userPreferences);
     // create a new location for each user by using the stored ones
     userPreferences.forEach(pref => this.createLocationForUser(pref))
   }
@@ -122,16 +122,14 @@ class LocationStore extends Store {
     this.state.locations = locations
     locations.forEach(location => {
       Vue.set(location, "stationboard", [])
-      //
+      Vue.set(this.state.locationsCache, [location.id], location)
       if (location.number == this.state.defaultLocation) {
-        // set the already opended default location to true
+        // show the default location
         Vue.set(location, 'open', true)
         this.state.displayLocationsStack.addItem(location)
         location.default = true
       }
     })
-
-    locations.forEach(location => Vue.set(this.state.locationsCache, [location.id], location))
     // get stationsBoards of all locations -> NO LAZY LOADING
     this.sStore.actions.fetchLocationsStationBoards(this.state.locations)
 
@@ -178,13 +176,7 @@ class LocationStore extends Store {
       },
       fetchLocationsStationBoards(locations) {
         dispatcher.dispatch(new Action("FETCH_LOCATIONS_STATIONBOARDS_LOADING"))
-        // we are limited to 3 request per seconds
-        // this.fetchLocationStationBoard(locations[0])
-        // let waitTime = 0
-        for (let i = 0; i < locations.length; i++) {
-
-          this.fetchLocationStationBoard(locations[i])
-        }
+        locations.forEach(location => this.fetchLocationStationBoard(location))
 
       },
       fetchLocationStationBoard(location) {

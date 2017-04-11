@@ -14,9 +14,12 @@ import Fluent
 final class PreferenceController {
     
     public static func deletePreference(_ req: Request, preference: Preference) throws -> ResponseRepresentable {
-        try preference.delete()
         
+        try Pivot<Preference,StationBoard>.query().filter("preference_id", preference.id!).delete()
+        try preference.delete()
+
         return try preference.makeJSON()
     }
     
+
 }

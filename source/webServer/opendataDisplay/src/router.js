@@ -7,6 +7,8 @@ import CreatePreferencePage from './components/CreatePreferencePage/CreatePrefer
 import StationSelectionPage from './components/CreatePreferencePage/StationSelectionPage/StationSelectionPage.vue'
 import BusSelectionPage from './components/CreatePreferencePage/BusSelectionPage/BusSelectionPage.vue'
 import CreatePreferenceHomePage from './components/CreatePreferencePage/CreatePreferenceHomePage/CreatePreferenceHomePage.vue'
+import DirectionSelectionPage from './components/CreatePreferencePage/DirectionSelectionPage/DirectionSelectionPage.vue'
+import EditPreferencePage from './components/CreatePreferencePage/EditPreferencePage/EditPreferencePage.vue'
 
 Vue.use(VueRouter)
 
@@ -16,7 +18,7 @@ export default new VueRouter({
     name: 'App',
     component: App,
     children: [{
-      name: 'display',
+        name: 'display',
         path: '/display',
         component: DisplayPage
       },
@@ -32,8 +34,16 @@ export default new VueRouter({
             component: StationSelectionPage,
           },
           {
+            path: 'direction',
+            component: DirectionSelectionPage
+          },
+          {
             path: 'bus',
             component: BusSelectionPage,
+          },
+          {
+            path: 'edit',
+            component: EditPreferencePage,
           }
         ]
       }

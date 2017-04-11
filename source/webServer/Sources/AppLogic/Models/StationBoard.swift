@@ -47,17 +47,23 @@ public final class StationBoard: Model {
     public func makeNode(context: Context) throws -> Node {
         var node = try Node(node:[
             "id": id,
-            "station_id": stationId,
-            "bus_id": busId,
+            "station_id": stationId?.int,
+            "bus_id": busId?.int,
             "to": to
             ])
         
         switch context {
+            
         case StationBoardContext.passes:
             node["stop"] = try bus().getNextStop().makeNode()
             node["number"] = try bus().number.makeNode()
 //            node["passList"] = try bus().passList().makeNode()
             
+        case StationBoardContext.all:
+            node["bus"] = try bus().makeNode()
+            node["station"] = try station().makeNode()
+            
+
         default:
             break
         }
@@ -93,6 +99,7 @@ public final class StationBoard: Model {
 public enum StationBoardContext: Context {
     case passes
     case buses
+    case all
 }
 
 extension StationBoard {
