@@ -1,7 +1,7 @@
 <template>
 <div class="uk-container uk-section">
   <!-- <h6>Change station  <router-link  class='uk-float-right' :to="{ path: 'station'}"> <span  uk-icon="icon:  arrow-right; ratio: 1.5"></span></router-link> </h6> -->
-  <div class="uk-card uk-card-body">
+  <div class="uk-card">
     <h5> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
   {{$store.state.currentPreference.station.name}}</h5>
   <h6>Change buses  <router-link  class='uk-float-right' :to="{ path: 'bus'}"><span  uk-icon="icon:  arrow-right; ratio: 1.5"></span></router-link> </h6>

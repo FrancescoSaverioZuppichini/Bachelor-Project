@@ -1,12 +1,12 @@
 <template>
 <div class='uk-container uk-section uk-flex uk-flex-column'>
   <div class="">
-    <h3>Select a Bus for {{this.$store.state.currentPreference.station.name}}</h3>
-    <div v-if="showError" class='uk-animation-fade'>
-      <div class="uk-alert-danger" uk-alert>
+    <h5>Select a Bus for {{this.$store.state.currentPreference.station.name}}</h5>
+    <transition name='fade'>
+      <div class="uk-alert-danger" uk-alert v-if="showError">
         <p>{{error.msg}}</p>
       </div>
-    </div>
+    </transition>
   </div>
   <div>
   </div>
@@ -20,7 +20,7 @@
       <div v-for="bus in $store.state.connections" class="uk-width-1-1">
         <div class="uk-card uk-card-default" :class="{'uk-box-shadow-large': bus.toogle}" @click="toogleBus(bus)">
           <div class="uk-card-body">
-            <h1>{{bus.number}}</h1>
+            <h3>{{bus.number}}</h3>
           </div>
         </div>
       </div>

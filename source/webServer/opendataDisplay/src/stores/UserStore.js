@@ -35,7 +35,7 @@ class UserStore extends Store {
   actions(dispacher, ctx) {
     return {
       fetchUserPreferences(userId, shouldDisplayThem) {
-        shouldDisplayThem = shouldDisplayThem || true
+        shouldDisplayThem = shouldDisplayThem || false
         dispacher.dispatch({ type: "FETCH_USER_PREFERENCE_LOADING" })
         api.users.fetchUserPreferences(userId)
           .then((res) => {

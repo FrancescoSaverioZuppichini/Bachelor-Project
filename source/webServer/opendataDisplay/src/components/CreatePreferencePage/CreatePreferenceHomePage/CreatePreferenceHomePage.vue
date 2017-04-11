@@ -1,7 +1,11 @@
 <template>
 <div class='uk-container uk-section uk-flex uk-flex-column'>
   <confirmation-modal></confirmation-modal>
-  <h2 class='uk-margin-remove'>Your preferences</h2>
+<div class='uk-margin-bottom'>
+  <h5 class='uk-margin-remove'>Your preferences
+<br />
+<small class='uk-text-meta'>{{$store.state.preferences.data.length}} entries</small></h5>
+</div>
   <div class="uk-flex-column uk-flex-item-1">
     <div class="preference-station__container">
       <div v-if="$store.state.preferences.loading">
@@ -21,8 +25,8 @@
 
         </div>
         <div v-if="pref.station">
-          <h5> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
-  {{pref.station.name}}</h5>
+          <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
+  {{pref.station.name}}</h6>
           <div v-for="stationboard in pref.buses">
             <div class='uk-flex uk-flex-middle'>
               <h3 class='uk-margin-remove'>{{stationboard.bus.number}}</h3>
@@ -33,7 +37,7 @@
       </div>
     </div>
   </div>
-  <div class="uk-margin-top navigation__actions">s
+  <div class="uk-margin-top navigation__actions">
     <button class="uk-button uk-button-primary uk-float-right uk-width-auto@m" @click="$router.push({path:'/preference/station'})">New
 </button>
   </div>
@@ -54,7 +58,10 @@ export default {
   },
   watch: {
     '$route': function(newRoute) {
-      if(newRoute.path == '/preference/')  this.$store.state.currentPreference = { station: {}, buses: [] }
+      if (newRoute.path == '/preference/') this.$store.state.currentPreference = {
+        station: {},
+        buses: []
+      }
     }
   },
   data: function data() {

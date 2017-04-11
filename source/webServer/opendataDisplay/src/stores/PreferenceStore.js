@@ -19,17 +19,29 @@ class PreferenceStore extends Store {
     this.state.preferenceError = {}
 
   }
+  findBusInPreference(toFind) {
+    const buses = this.state.currentPreference.buses
+    const len = buses.length
+
+    for (var i = 0; i < len; i++) {
+      if (toFind.id == buses[i].id)   return i
+    }
+
+    return -1
+  }
+
+  removeBusToPreference({ bus }) {
+    const toRemoveIndex = this.findBusInPreference(bus)
+    const buses = this.state.currentPreference.buses
+    if (toRemoveIndex >= 0) {
+      buses.splice(toRemoveIndex, 1)
+    }
+  }
 
   addBusToPreference({ bus }) {
-    var isAlreadyThere = false
-    var buses = this.state.currentPreference.buses
-    // check if there is already a bus
-    for (let oldBus of buses) {
-      isAlreadyThere = (oldBus.id == bus.id)
-      if (isAlreadyThere)
-        break
-    }
-    if (!isAlreadyThere) {
+    const buses = this.state.currentPreference.buses
+
+    if (this.findBusInPreference(bus) < 0) {
       buses.push(bus)
     }
   }
@@ -76,12 +88,17 @@ class PreferenceStore extends Store {
 
   addPreferenceSuccess() {
     this.state.preferenceError = {}
+    this.state.currentPreference.station.toogle = false
+    this.state.currentPreference = { station: {}, buses: [] }
+
     this.state.locations.forEach(location => location.toogle = false)
     this.state.currentStationboards.forEach(stationboard => stationboard.toogle = false)
     this.state.connections.forEach(connection => connection.toogle = false)
-    this.state.currentPreference = { station: {}, buses: [] }
-    const msg = this.state.isInEditMode ?  "Preference changed" : 'New preference added'
+
+    const msg = this.state.isInEditMode ? "Preference changed" : 'New preference added'
+
     UIkit.notification({ message: msg, timeout: 1000 });
+
     this.state.isInEditMode = false
     router.push({ path: '/preference' })
   }
@@ -105,7 +122,7 @@ class PreferenceStore extends Store {
   reduce(action) {
     this.reduceMap(action, {
       ADD_BUS_TO_PREFERENCE: this.addBusToPreference,
-      REMOVE_BUS_TO_PREFERENCE: (({ bus }) => { this.state.currentPreference.buses.splice(this.state.currentPreference.buses.indexOf(bus), 1) }),
+      REMOVE_BUS_TO_PREFERENCE: this.removeBusToPreference,
       ADD_DIRECTION_TO_PREFERENCE: this.addDirectionToPreference,
       REMOVE_DIRECTION_TO_PREFERENCE: this.removeDirectionToPreference,
       ADD_STATION_TO_PREFERENCE: this.addStationToPreference,
