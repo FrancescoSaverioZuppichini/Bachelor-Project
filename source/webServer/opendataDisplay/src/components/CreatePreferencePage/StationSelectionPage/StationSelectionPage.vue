@@ -1,7 +1,7 @@
 <template>
 <div class='uk-container uk-section uk-flex uk-flex-column'>
   <h5 class="uk-margin-remove">Select a Station</h5>
-    <transition name='fade'>
+  <transition name='fade'>
 
     <div class="uk-alert-danger" uk-alert v-if="showError">
       <p>{{error.msg}}</p>
@@ -14,7 +14,7 @@
         <station-card-dummy></station-card-dummy>
       </div>
       <div class="" :key="index" v-for="(station,index) in $store.state.locations">
-        <div class='uk-card uk-card-default uk-card-body'  :class="{'uk-box-shadow-large': station.toogle}" @click="addStation(station)">
+        <div class='uk-card uk-card-default uk-card-body' :class="{'uk-box-shadow-large': station.toogle}" @click="addStation(station)">
           <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
         {{station.name}}</h6>
         </div>
@@ -71,6 +71,7 @@ export default {
     },
     toogleIfInPreference() {
       const preferenceStation = this.$store.state.currentPreference.station
+      this.$set(location, 'toogle', false)
       for (let location of this.$store.state.locations) {
         if (location.id == preferenceStation.id) this.$set(location, 'toogle', true)
       }

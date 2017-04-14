@@ -1,11 +1,11 @@
 <template>
 <div class='uk-container uk-section uk-flex uk-flex-column'>
   <confirmation-modal></confirmation-modal>
-<div class='uk-margin-bottom'>
-  <h5 class='uk-margin-remove'>Your preferences
+  <div class='uk-margin-bottom'>
+    <h5 class='uk-margin-remove'>Your preferences
 <br />
 <small class='uk-text-meta'>{{$store.state.user.preferences.data.length}} entries</small></h5>
-</div>
+  </div>
   <div class="uk-flex-column uk-flex-item-1">
     <div class="preference-station__container">
       <div v-if="$store.state.user.preferences.loading">
@@ -58,9 +58,8 @@ export default {
   },
   watch: {
     '$route': function(newRoute) {
-      if (newRoute.path == '/preference/') this.$store.state.currentPreference = {
-        station: {},
-        buses: []
+      if (newRoute.path == '/preference/') {
+        this.$store.PreferenceStore.initializeCurrentPreference()
       }
     }
   },

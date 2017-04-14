@@ -29,7 +29,7 @@ class PreferenceStore extends Store {
   }
 
   toggleOffAll() {
-    this.state.locations.forEach(location => location.toogle = false)
+    this.state.locations.forEach(location => Vue.set(location, 'toogle', false))
     this.state.currentStationboards.forEach(stationboard => stationboard.toogle = false)
     this.state.connections.forEach(connection => connection.toogle = false)
   }
@@ -105,9 +105,17 @@ class PreferenceStore extends Store {
     UIkit.notification({ message: msg, timeout: 1000 });
   }
 
+  addPreferenceSuccess() {
+    this.toggleOffAll()
+    this.initializeCurrentPreference()
+    // create a notification in the view
+    this.onPreferenceSuccessNotification()
+    router.push({ path: '/preference' })
+  }
+
   updatePreferenceSuccess() {
     Object.assign(this.state.originalPreference, this.state.currentPreference)
-    console.log(this.state.originalPreference);
+
     this.initializeCurrentPreference()
     this.toggleOffAll()
     // create a notification in the view
@@ -148,7 +156,8 @@ class PreferenceStore extends Store {
       UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess,
       ADD_PREFERENCE_FAILURE: this.addPreferenceFailure,
       TOGGLE_EDIT_MODE: this.toogleEditMode,
-      UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess
+      UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess,
+      ADD_PREFERENCE_SUCCESS: this.addPreferenceSuccess,
     })
   }
 

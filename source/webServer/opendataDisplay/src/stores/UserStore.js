@@ -32,7 +32,17 @@ class UserStore extends Store {
   }
 
   addPreferenceSuccess({ preference }) {
+    var userPreferences = this.state.user.preferences.data
+    for (let i = 0; i < userPreferences.length; i++) {
+      let pref = userPreferences[i]
 
+      if (pref.id == preference.id) {
+        pref.buses = preference.buses
+        return
+      }
+    }
+
+    this.state.user.preferences.data.push(preference)
   }
 
   reduce(action) {
@@ -77,11 +87,13 @@ class UserStore extends Store {
           buses: ctx.state.currentPreference.buses
         }
         api.preference.addPreference(newPreference)
-          .then(() => dispatcher.dispatch(new Action("ADD_PREFERENCE_SUCCESS")))
-          .catch(({ response }) => {
-            const err = response.data
-            dispatcher.dispatch(new Action("ADD_PREFERENCE_FAILURE", { err }))
+          .then(({ data }) => {
+            dispatcher.dispatch(new Action("ADD_PREFERENCE_SUCCESS", { preference: data }))
           })
+        // .catch(({ response }) => {
+        //   const err = response.data
+        //   dispatcher.dispatch(new Action("ADD_PREFERENCE_FAILURE", { err }))
+        // })
       },
       deletePreference(preference) {
         api.preference.removePreference(preference.id)

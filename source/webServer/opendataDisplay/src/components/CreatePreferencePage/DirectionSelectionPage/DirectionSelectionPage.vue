@@ -53,13 +53,16 @@ export default {
   },
   computed: {
     showError() {
-      return this.directionSelected == 0 && this.show
+      return this.getDirectionsSelected() == 0 && this.show
     }
   },
   created() {
     this.getDirections()
   },
   methods: {
+    getDirectionsSelected() {
+      return (this.$store.state.currentPreference.buses.filter(bus => bus.to).length)
+    },
     getDirections() {
       const stationId = this.$store.state.currentPreference.station.id
       this.stationboards = []
@@ -86,21 +89,18 @@ export default {
     },
     toogleStationboard(stationboard) {
       if (stationboard.toogle) {
-        this.directionSelected--;
         this.$store.actions.removeDirectionToPreference(stationboard)
       } else {
         this.show = false
-        this.directionSelected++
         this.$store.actions.addDirectionToPreference(stationboard)
       }
       stationboard.toogle = !stationboard.toogle
     },
     next() {
       this.show = true
-      const isAtLeastOnedirectionSelected = this.directionSelected > 0
+      const isAtLeastOnedirectionSelected = this.getDirectionsSelected() > 0
       this.error.hasError = !isAtLeastOnedirectionSelected
       if (isAtLeastOnedirectionSelected) {
-        this.directionSelected = 0
         this.$store.actions.addPreference()
       }
     }
