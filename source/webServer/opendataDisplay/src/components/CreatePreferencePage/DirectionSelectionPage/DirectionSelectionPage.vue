@@ -87,20 +87,16 @@ export default {
     toogleStationboard(stationboard) {
       if (stationboard.toogle) {
         this.directionSelected--;
-
         this.$store.actions.removeDirectionToPreference(stationboard)
       } else {
         this.show = false
-
         this.directionSelected++
-
-          this.$store.actions.addDirectionToPreference(stationboard)
+        this.$store.actions.addDirectionToPreference(stationboard)
       }
       stationboard.toogle = !stationboard.toogle
     },
     next() {
       this.show = true
-
       const isAtLeastOnedirectionSelected = this.directionSelected > 0
       this.error.hasError = !isAtLeastOnedirectionSelected
       if (isAtLeastOnedirectionSelected) {

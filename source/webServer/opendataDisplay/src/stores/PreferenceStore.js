@@ -6,12 +6,15 @@ import UIkit from 'uikit';
 import router from '../router.js'
 
 import { SuperStore, Store, Action } from 'flue-vue'
-
+/*
+This class manage how a preference is created, edit and delete
+*/
 class PreferenceStore extends Store {
   constructor() {
     super()
     //  store the current preference to be added
     this.state.currentPreference = { station: {}, buses: [] }
+    // this flag is used to switch behavior by notifice if we are in edit mode
     this.state.isInEditMode = false
     this.state.originalPreference = {}
     // used to know pair bus->direction
@@ -19,12 +22,24 @@ class PreferenceStore extends Store {
     this.state.preferenceError = {}
 
   }
+
+  initializeCurrentPreference() {
+    this.state.currentPreference.station.toogle = false
+    this.state.currentPreference = { station: {}, buses: [] }
+  }
+
+  toggleOffAll() {
+    this.state.locations.forEach(location => location.toogle = false)
+    this.state.currentStationboards.forEach(stationboard => stationboard.toogle = false)
+    this.state.connections.forEach(connection => connection.toogle = false)
+  }
+
   findBusInPreference(toFind) {
     const buses = this.state.currentPreference.buses
     const len = buses.length
 
     for (var i = 0; i < len; i++) {
-      if (toFind.id == buses[i].id)   return i
+      if (toFind.id == buses[i].id) return i
     }
 
     return -1
@@ -40,7 +55,6 @@ class PreferenceStore extends Store {
 
   addBusToPreference({ bus }) {
     const buses = this.state.currentPreference.buses
-
     if (this.findBusInPreference(bus) < 0) {
       buses.push(bus)
     }
@@ -80,25 +94,25 @@ class PreferenceStore extends Store {
   }
 
   addStationToPreference({ station }) {
-    this.state.currentPreference.station.toogle = false
-    this.state.currentPreference = { station: {}, buses: [] }
+    this.initializeCurrentPreference()
     station.toogle = true
     Vue.set(this.state.currentPreference, 'station', station)
   }
 
-  addPreferenceSuccess() {
-    this.state.preferenceError = {}
-    this.state.currentPreference.station.toogle = false
-    this.state.currentPreference = { station: {}, buses: [] }
-
-    this.state.locations.forEach(location => location.toogle = false)
-    this.state.currentStationboards.forEach(stationboard => stationboard.toogle = false)
-    this.state.connections.forEach(connection => connection.toogle = false)
-
+  onPreferenceSuccessNotification() {
     const msg = this.state.isInEditMode ? "Preference changed" : 'New preference added'
 
     UIkit.notification({ message: msg, timeout: 1000 });
+  }
 
+  updatePreferenceSuccess() {
+    Object.assign(this.state.originalPreference, this.state.currentPreference)
+    console.log(this.state.originalPreference);
+    this.initializeCurrentPreference()
+    this.toggleOffAll()
+    // create a notification in the view
+    this.onPreferenceSuccessNotification()
+    // switch behavior
     this.state.isInEditMode = false
     router.push({ path: '/preference' })
   }
@@ -107,15 +121,20 @@ class PreferenceStore extends Store {
     this.state.preferenceError = err
   }
 
-  toogleEditMode({ preference }) {
-    if (this.state.isInEditMode) {
-      this.state.currentPreference = { station: {}, buses: [] }
-    } else {
-      const buses = preference.buses.map((bus) => { return { id: bus.bus_id, number: bus.bus.number, to: bus.to } })
-      this.state.originalPreference = preference
-      this.state.currentPreference = Object.assign({}, { station: preference.station, buses })
-    }
+  toogleEditModeFalse() {
+    this.initializeCurrentPreference()
+  }
 
+  toogleEditModeTrue({ preference }) {
+
+    this.state.originalPreference = preference
+    this.state.currentPreference = Object.assign({}, preference)
+  }
+
+  toogleEditMode({ preference }) {
+    // select correct behavior
+    this.state.isInEditMode ? this.toogleEditModeFalse() : this.toogleEditModeTrue({ preference })
+    // toogle inner state
     this.state.isInEditMode = !this.state.isInEditMode
   }
 
@@ -126,10 +145,10 @@ class PreferenceStore extends Store {
       ADD_DIRECTION_TO_PREFERENCE: this.addDirectionToPreference,
       REMOVE_DIRECTION_TO_PREFERENCE: this.removeDirectionToPreference,
       ADD_STATION_TO_PREFERENCE: this.addStationToPreference,
-      ADD_PREFERENCE_SUCCESS: this.addPreferenceSuccess,
+      UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess,
       ADD_PREFERENCE_FAILURE: this.addPreferenceFailure,
       TOGGLE_EDIT_MODE: this.toogleEditMode,
-      UPDATE_PREFERENCE_SUCCESS: this.toogleEditMode
+      UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess
     })
   }
 
@@ -149,31 +168,6 @@ class PreferenceStore extends Store {
       },
       addStationToPreference(station) {
         dispatcher.dispatch(new Action("ADD_STATION_TO_PREFERENCE", { station }))
-      },
-      updatePreference() {
-        dispatcher.dispatch(new Action("UPDATE_PREFERENCE_LOADING"))
-        const newPreference = {
-          stationId: ctx.state.currentPreference.station.id,
-          buses: ctx.state.currentPreference.buses
-        }
-        api.preference.updatePreference(newPreference)
-        dispatcher.dispatch(new Action("UPDATE_PREFERENCE_SUCCESS"))
-          .catch(({ response }) => {
-            const err = response.data
-            dispatcher.dispatch(new Action("UPDATE_PREFERENCE_FAILURE", { err }))
-          })
-      },
-      addPreference() {
-        const newPreference = {
-          stationId: ctx.state.currentPreference.station.id,
-          buses: ctx.state.currentPreference.buses
-        }
-        api.preference.addPreference(newPreference)
-          .then(() => dispatcher.dispatch(new Action("ADD_PREFERENCE_SUCCESS")))
-          .catch(({ response }) => {
-            const err = response.data
-            dispatcher.dispatch(new Action("ADD_PREFERENCE_FAILURE", { err }))
-          })
       },
       toogleEditMode(preference) {
         dispatcher.dispatch(new Action("TOGGLE_EDIT_MODE", { preference }))

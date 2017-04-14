@@ -4,17 +4,17 @@
 <div class='uk-margin-bottom'>
   <h5 class='uk-margin-remove'>Your preferences
 <br />
-<small class='uk-text-meta'>{{$store.state.preferences.data.length}} entries</small></h5>
+<small class='uk-text-meta'>{{$store.state.user.preferences.data.length}} entries</small></h5>
 </div>
   <div class="uk-flex-column uk-flex-item-1">
     <div class="preference-station__container">
-      <div v-if="$store.state.preferences.loading">
+      <div v-if="$store.state.user.preferences.loading">
         <user-preference-dummy v-for="index in [1,2]"></user-preference-dummy>
       </div>
-      <div class="uk-text-center" v-else-if="$store.state.preferences.data.length <= 0">
+      <div class="uk-text-center" v-else-if="$store.state.user.preferences.data.length <= 0">
         <h6 class="uk-text-meta uk-text-large" uk-cover>No preferences found.</h6>
       </div>
-      <div class="uk-card uk-card-default uk-card-body uk-margin-bottom" v-for="pref in $store.state.preferences.data" v-else>
+      <div class="uk-card uk-card-default uk-card-body uk-margin-bottom" v-for="pref in $store.state.user.preferences.data" v-else>
         <div class="uk-float-right uk-flex uk-grid-small">
           <div>
             <span uk-icon="icon: pencil; ratio: 1.2" @click="tooglePrefereceEdit(pref)"></span>
@@ -27,10 +27,10 @@
         <div v-if="pref.station">
           <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
   {{pref.station.name}}</h6>
-          <div v-for="stationboard in pref.buses">
+          <div v-for="bus in pref.buses">
             <div class='uk-flex uk-flex-middle'>
-              <h3 class='uk-margin-remove'>{{stationboard.bus.number}}</h3>
-              <small class="uk-margin-left">{{stationboard.to}}</small>
+              <h3 class='uk-margin-remove'>{{bus.number}}</h3>
+              <small class="uk-margin-left">{{bus.to}}</small>
             </div>
           </div>
         </div>

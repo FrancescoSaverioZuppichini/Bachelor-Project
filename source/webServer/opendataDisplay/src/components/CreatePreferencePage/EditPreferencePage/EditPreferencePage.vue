@@ -43,7 +43,7 @@ export default {
       this.$router.go(-1)
     },
     done() {
-      this.$store.actions.addPreference()
+      this.$store.actions.updatePreference()
     }
   }
 }
