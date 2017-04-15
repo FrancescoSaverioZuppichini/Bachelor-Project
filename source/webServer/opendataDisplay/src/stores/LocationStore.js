@@ -55,7 +55,7 @@ class LocationStore extends Store {
     //   this.expireLocation(location)
     // }, 2000)
   }
-
+  // TODO refactor
   createLocationForUser(pref) {
     let location = this.state.locationsCache[pref.station.id]
     if(!location)
