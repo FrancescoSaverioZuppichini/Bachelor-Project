@@ -33,8 +33,8 @@ export default {
   },
   watch: {
     '$route': function(newRoute) {
+      this.show = false
       if (newRoute.path == '/preference/direction') {
-        // this.directionSelected = 0
         this.getDirections()
       }
     }

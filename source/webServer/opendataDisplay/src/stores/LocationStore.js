@@ -57,9 +57,6 @@ class LocationStore extends Store {
   }
 
   createLocationForUser(pref) {
-    // check if the location is already there -> TODO server side also!
-    // if (this.preferencesCache[pref.id])
-    //   return
     let location = this.state.locationsCache[pref.station.id]
     if(!location)
         return
@@ -72,7 +69,7 @@ class LocationStore extends Store {
     newLocation.stationboard = location.stationboard
     pref.buses.forEach(prefBus => {
       location.stationboard.forEach(bus => {
-        if (prefBus.id == bus.id) {
+        if (prefBus.number == bus.number && prefBus.to == bus.to) {
           Vue.set(bus, 'triggered', true)
         }
       })
@@ -93,7 +90,6 @@ class LocationStore extends Store {
     // Vue.set(location.stationboard[0], 'triggered', true)
     else {
       this.state.usersLocations.push(newLocation)
-
     }
   }
 
@@ -162,7 +158,6 @@ class LocationStore extends Store {
       PUT_LOCATION_IN_DISPLAY_STACK: this.putLocationInDisplayStack,
       DISPLAY_USER_PREFERENCE: this.createLocationsForUsers
     })
-
   }
 
   actions(dispatcher, context) {
