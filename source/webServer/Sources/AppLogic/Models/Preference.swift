@@ -88,7 +88,7 @@ public final class Preference: Model {
         
         switch context {
         case PreferenceContext.all:
-            node["buses"] = try stationboard().all().makeNode(context: StationBoardContext.all)
+            node["buses"] = try stationboard().all().makeNode(context: StationBoardContext.bus)
             node["station"] = try station()?.makeNode()
 
         default:

@@ -1,12 +1,12 @@
 <template>
 <div class='uk-container uk-section uk-flex uk-flex-column'>
   <div class="">
-    <h3>Select correct direction for the buses</h3>
-    <div v-if="showError" class='uk-animation-fade'>
-      <div class="uk-alert-danger" uk-alert>
+    <h5>Select correct direction for the buses</h5>
+    <transition name='fade'>
+      <div class="uk-alert-danger" uk-alert v-if="showError">
         <p>{{error.msg}}</p>
       </div>
-    </div>
+    </transition>
   </div>
   <div>
   </div>
@@ -33,8 +33,8 @@ export default {
   },
   watch: {
     '$route': function(newRoute) {
+      this.show = false
       if (newRoute.path == '/preference/direction') {
-        this.directionSelected = 0
         this.getDirections()
       }
     }
@@ -53,13 +53,16 @@ export default {
   },
   computed: {
     showError() {
-      return this.directionSelected == 0 && this.show
+      return this.getDirectionsSelected() == 0 && this.show
     }
   },
   created() {
     this.getDirections()
   },
   methods: {
+    getDirectionsSelected() {
+      return (this.$store.state.currentPreference.buses.filter(bus => bus.to).length)
+    },
     getDirections() {
       const stationId = this.$store.state.currentPreference.station.id
       this.stationboards = []
@@ -71,33 +74,33 @@ export default {
           .then(({
             data
           }) => {
-            data.forEach(stationboard => this.$set(stationboard, 'toogle', false))
+            data.forEach((stationboard) => {
+              this.$set(stationboard, 'toogle', false)
+              this.$store.state.currentPreference.buses.forEach((bus) => {
+                if (bus.to == stationboard.to) {
+                  stationboard.toogle = true
+                    ++this.directionSelected
+                }
+              })
+            })
             this.stationboards = this.stationboards.concat(data)
           })
       })
     },
     toogleStationboard(stationboard) {
       if (stationboard.toogle) {
-        this.directionSelected--;
-
         this.$store.actions.removeDirectionToPreference(stationboard)
       } else {
         this.show = false
-
-        this.directionSelected++
-
-          this.$store.actions.addDirectionToPreference(stationboard)
+        this.$store.actions.addDirectionToPreference(stationboard)
       }
       stationboard.toogle = !stationboard.toogle
     },
     next() {
       this.show = true
-
-      console.log(this.directionSelected);
-      const isAtLeastOnedirectionSelected = this.directionSelected > 0
+      const isAtLeastOnedirectionSelected = this.getDirectionsSelected() > 0
       this.error.hasError = !isAtLeastOnedirectionSelected
       if (isAtLeastOnedirectionSelected) {
-        this.directionSelected = 0
         this.$store.actions.addPreference()
       }
     }

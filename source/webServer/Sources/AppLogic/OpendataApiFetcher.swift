@@ -85,7 +85,7 @@ public final class OpendataApiFetcher {
     
     public static func storeStationBoardsInformation(for station: Station) throws {
         
-        let query: [String: Int] = ["station": station.number, "limit": 20]
+        let query: [String: Int] = ["station": station.number, "limit": 100]
         
         // get all the buses for the station
         let opendataRes = try drop.client.get("http://transport.opendata.ch/v1/stationboard", query: query)
@@ -146,7 +146,7 @@ public final class OpendataApiFetcher {
                     print("Error during fetching")
                 }
                 
-                sleep(600)
+                sleep(1200)
             }
         }
     }

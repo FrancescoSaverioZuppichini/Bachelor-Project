@@ -1,19 +1,23 @@
 <template>
 <div class='uk-container uk-section uk-flex uk-flex-column'>
-  <h1 class="uk-margin-remove">Select a Station</h1>
-  <div v-if="showError" class='uk-animation-fade'>
-    <div class="uk-alert-danger" uk-alert>
+  <h5 class="uk-margin-remove">Select a Station</h5>
+  <transition name='fade'>
+
+    <div class="uk-alert-danger" uk-alert v-if="showError">
       <p>{{error.msg}}</p>
     </div>
-  </div>
+  </transition>
+
   <div class="uk-flex-center uk-margin-top">
     <div class="uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-4@l uk-grid-match preference-station__container" uk-grid>
       <div v-for="index in [1,2,3]" v-if="$store.isLoadingNearbyLocations">
         <station-card-dummy></station-card-dummy>
       </div>
       <div class="" :key="index" v-for="(station,index) in $store.state.locations">
-
-        <station-card :station="station" :class="{'uk-box-shadow-large': station.toogle}" class="uk-animation-fade" :showConnection="false" @click.native="addStation(station)" />
+        <div class='uk-card uk-card-default uk-card-body' :class="{'uk-box-shadow-large': station.toogle}" @click="addStation(station)">
+          <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
+        {{station.name}}</h6>
+        </div>
       </div>
     </div>
   </div>
@@ -37,8 +41,6 @@ export default {
   },
   data() {
     return {
-      stations: [],
-      loadingStation: false,
       show: false,
       currStation: null,
       error: {
@@ -69,6 +71,7 @@ export default {
     },
     toogleIfInPreference() {
       const preferenceStation = this.$store.state.currentPreference.station
+      this.$set(location, 'toogle', false)
       for (let location of this.$store.state.locations) {
         if (location.id == preferenceStation.id) this.$set(location, 'toogle', true)
       }
