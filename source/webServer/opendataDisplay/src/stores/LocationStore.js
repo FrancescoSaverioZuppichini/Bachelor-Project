@@ -18,7 +18,7 @@ class LocationStore extends Store {
     this.state.locations = []
     this.state.displayLocationsStack = new FixedSizeStack(2, false)
     this.state.isLoadingNearbyLocations = false
-    this.state.defaultLocation = "8595133"
+    this.state.defaultLocation = { id: "8595133" }
     this.state.defaultLocationsOffset = 1
     this.state.usersLocations = []
   }
@@ -50,16 +50,15 @@ class LocationStore extends Store {
   }
 
   setAutoDestruction(callback) {
-    // setTimeout(() => {
-    //   callback()
-    //   this.expireLocation(location)
-    // }, 2000)
+    setTimeout(() => {
+      callback()
+    }, 2000)
   }
   // TODO refactor
   createLocationForUser(pref) {
     let location = this.state.locationsCache[pref.station.id]
-    if(!location)
-        return
+    if (!location)
+      return
     // deep copy of location
     let newLocation = Object.assign({}, location)
     newLocation.isUser = true
@@ -71,6 +70,10 @@ class LocationStore extends Store {
       location.stationboard.forEach(bus => {
         if (prefBus.number == bus.number && prefBus.to == bus.to) {
           Vue.set(bus, 'triggered', true)
+          // toggle state
+          // this.setAutoDestruction(() => {
+          //   Vue.set(bus, 'triggered', false)
+          // })
         }
       })
     })
@@ -98,15 +101,22 @@ class LocationStore extends Store {
     userPreferences.forEach(pref => this.createLocationForUser(pref))
   }
 
-  putLocationInDisplayStack({ location }) {
-    this.setAutoDestruction(() => {
-      this.state.displayLocationsStack.removeItem(location)
-      Vue.set(location, 'open', false)
-
-    })
-
+  putLocationInDisplayStack({ location }, destroy) {
+    destroy = destroy == null ? true : destroy
+    if (destroy) {
+      this.setAutoDestruction(() => {
+        this.state.displayLocationsStack.removeItem(location)
+        Vue.set(location, 'open', false)
+        clearInterval(location.timeOutId)
+      })
+    }
+    if (location.number == this.state.defaultLocation.id) { location.removable = false }
     this.state.displayLocationsStack.addItem(location)
     Vue.set(location, 'open', true)
+    // start data pooling
+    // location.timeOutId = setInterval(() => {
+    //   this.sStore.actions.fetchLocationStationBoard(location)
+    // }, 1000)
   }
 
   fetchNearbyLocationsLoading() {
@@ -119,10 +129,12 @@ class LocationStore extends Store {
     locations.forEach(location => {
       Vue.set(location, "stationboard", [])
       Vue.set(this.state.locationsCache, [location.id], location)
-      if (location.number == this.state.defaultLocation) {
+      if (location.number == this.state.defaultLocation.id) {
+        this.state.dedefaultLocation = location
         // show the default location
-        Vue.set(location, 'open', true)
-        this.state.displayLocationsStack.addItem(location)
+        this.putLocationInDisplayStack({ location }, false)
+        // Vue.set(location, 'open', true)
+        // this.state.displayLocationsStack.addItem(location)
         location.default = true
       }
     })
@@ -137,15 +149,15 @@ class LocationStore extends Store {
 
   fetchLocationStationBoardSuccess({ location, stationboard }) {
     location.isLoadingStationBoard = false
-    // stationboard is already initialized on location -> we cannot override the default pointer
-    location.stationboard.length = 0
     if (!stationboard)
       return
-    stationboard.forEach(station => location.stationboard.push(station))
-    // start the data pooling
-    // location.timeOutId = setTimeout(() => {
-    //   this.actions.fetchLocationStationBoard(location)
-    // }, 10000)
+    // update the stationboard in order to not override the use preference info
+    if (location.stationboard.length <= 0) location.stationboard = stationboard
+    else {
+      for (let i = 0; i < stationboard.length; i++) {
+        location.stationboard[i] = Object.assign(location.stationboard[i], stationboard[i])
+      }
+    }
   }
 
   reduce(action) {
@@ -166,6 +178,12 @@ class LocationStore extends Store {
         dispatcher.dispatch(new Action("FETCH_NEARBY_LOCATIONS_LOADING"))
         api.fetchNearbyLocations()
           .then(({ data }) => {
+            // remove Lugano, from every station since we know where we are
+            data.forEach(location => location.name = location.name.replace('Lugano,', ''))
+            return data
+          })
+          .then((data) => {
+            console.log(data);
             dispatcher.dispatch(new Action("FETCH_NEARBY_LOCATIONS_SUCCESS", { locations: data }))
           })
       },

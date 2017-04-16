@@ -4,7 +4,7 @@
   <div class="uk-card-body">
 
     <h4 class="uk-clearfix"><span class="uk-margin-small-right" uk-icon="icon: location; ratio: 1.5"></span>{{station.name}}
-      <span class="uk-float-right uk-margin-small-right" uk-icon="icon:clock; ratio: 1.2" v-if="showConnection"></span>
+      <span class="uk-float-right" uk-icon="icon:clock; ratio: 1.2" v-if="showConnection"></span>
 </h4>
     <div class="uk-flex-center uk-flex uk-margin" v-if="station.isLoadingStationBoard && station.stationboard.length == 0">
       <div class="uk-spinner--large" uk-spinner></div>

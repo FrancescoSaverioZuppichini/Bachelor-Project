@@ -19,7 +19,7 @@ class FixedSizeStack {
 
   }
   removeItem(item) {
-    this._data.splice(this.findItem(item), 1)
+    if(item.removable) this._data.splice(this.findItem(item), 1)
   }
 
   getSize() {
@@ -28,10 +28,12 @@ class FixedSizeStack {
 
   addItem(item) {
     if (this.isItemInStack(item) && !this.allowDuplicate)
-      return;
+      return
     if (this.getSize() >= this.maxSize)
-        this.pop()
+      this.pop()
     this._data.push(item)
+    // prevent a not removable item to be remove, default is true
+    item.removable = item.removable == null ? true : item.removable
   }
 
   popFront() {
