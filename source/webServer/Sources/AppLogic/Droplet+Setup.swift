@@ -20,6 +20,7 @@ public func load(_ _drop: Droplet) throws {
     drop.preparations.append(Pivot<Station,Bus>.self)
     drop.preparations.append(Pivot<StationBoard,Pass>.self)
     drop.preparations.append(Pivot<Preference,Bus>.self)
+    drop.preparations.append(Pivot<Preference,StationBoard>.self)
 
     drop.middleware.append(ContentTypeMiddleware())
     
@@ -30,13 +31,15 @@ public func load(_ _drop: Droplet) throws {
     let busController = BusController()
     let stationboardController = StationboardController()
     
+    
+    
     drop.get("") {
         request in return try _drop.view.make("index.html")
     }
     
     drop.group("api"){
         api in
-        api.get("opendata/cache",handler: OpendataApiFetcher.cacheApiInformation)
+//        api.get("opendata/cache",handler: OpendataApiFetcher.cacheApiInformation)
         api.get("opendata/locations",handler: OpendataApiController.getLocations)
         api.get("opendata/connections",handler: opendataApiController.getConnections)
         api.get("opendata/stationboards",handler: opendataApiController.getStationBoards)
@@ -49,7 +52,9 @@ public func load(_ _drop: Droplet) throws {
             users.post(handler: userController.saveUser)
             users.delete(handler: userController.deleteUser)
             users.get(User.self,"preference",handler: userController.getPreferencesFromUser)
-            users.post(User.self,"preference",handler: userController.addPreferenceToUser)
+            users.post(User.self,"preference",handler: userController.addOrUpdateUserPreference)
+            users.put(User.self,"preference",handler: userController.addOrUpdateUserPreference)
+
         }
         api.group("preference") {
             preference in

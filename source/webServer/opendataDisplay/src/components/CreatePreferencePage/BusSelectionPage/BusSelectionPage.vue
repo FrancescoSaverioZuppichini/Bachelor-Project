@@ -1,7 +1,12 @@
 <template>
 <div class='uk-container uk-section uk-flex uk-flex-column'>
   <div class="">
-    <h3>Select a Bus for {{this.$store.state.currentPreference.station.name}}</h3>
+    <h5>Select a Bus for {{this.$store.state.currentPreference.station.name}}</h5>
+    <transition name='fade'>
+      <div class="uk-alert-danger" uk-alert v-if="showError">
+        <p>{{error.msg}}</p>
+      </div>
+    </transition>
   </div>
   <div>
   </div>
@@ -12,18 +17,18 @@
   </div>
   <div class="uk-flex-center">
     <div class="uk-flex" uk-grid>
-      <div v-for="bus in buses">
+      <div v-for="bus in $store.state.connections" class="uk-width-1-1">
         <div class="uk-card uk-card-default" :class="{'uk-box-shadow-large': bus.toogle}" @click="toogleBus(bus)">
           <div class="uk-card-body">
-            <h1>{{bus.number}}</h1>
+            <h3>{{bus.number}}</h3>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="uk-margin-top navigation__actions">
-    <button class='uk-button uk-button-default uk-float-left uk-width-auto@m' @click="$router.push({path:'/preference/station'})">Back</button>
-    <button class='uk-button uk-button-primary uk-float-right  uk-width-auto@m' @click="$store.actions.addPreference()">Done!</button>
+    <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.go(-1)">Back</button>
+    <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="next">Next</button>
   </div>
 </div>
 </template>
@@ -38,34 +43,53 @@ export default {
     StationCard,
     ConnectionCard
   },
-  watch: {
-    '$route': (newRoute) => {
-      console.log(newRoute)
-    }
-  },
-  created() {
-    api.fetchBusesForStation(this.$store.state.currentPreference.station.id)
-      .then(({
-        data
-      }) => {
-        data.bus.forEach(bus => this.$set(bus, 'toogle', false))
-        this.buses = data.bus
-      })
-  },
   data() {
     return {
       buses: [],
-      toogle: false
+      show: false,
+      error: {
+        hasError: false,
+        msg: "Select at least one bus"
+      }
+    }
+  },
+  computed: {
+    showError() {
+      return this.$store.state.currentPreference.buses.length == 0 && this.show
+    }
+  },
+  created() {
+    this.fetchBuses()
+  },
+  watch: {
+    '$route': function(newRoute) {
+      if (newRoute.path == '/preference/bus') this.fetchBuses()
     }
   },
   methods: {
     toogleBus(bus) {
-      if (bus.toogle)
+      if (bus.toogle) {
         this.$store.actions.removeBusToPreference(bus)
-      else {
+      } else {
+        this.show = false
         this.$store.actions.addBusToPreference(bus)
       }
       bus.toogle = !bus.toogle
+    },
+    fetchBuses() {
+      const stationId = this.$store.state.currentPreference.station.id
+      this.$store.actions.fetchBusesFromStation(stationId)
+    },
+    next() {
+      this.show = true
+      const isAtLeastOneBusSelected = this.$store.state.currentPreference.buses.length > 0
+      this.error.hasError = !isAtLeastOneBusSelected
+      if (isAtLeastOneBusSelected) {
+        this.show = false
+        this.$router.push({
+          path: '/preference/direction'
+        })
+      }
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
 <div class="full-h uk-container uk-flex uk-flex-wrap uk-flex-column uk-container-large">
   <div class="uk-flex uk-flex-item-1 uk-flex-grow uk-margin-top">
-    <div class="uk-width-2-3@l uk-width-1-2@s">
-      <volatile-locations class="uk-flex-center" />
+    <div class="uk-width-1-1@s uk-width-2-3@m">
+      <volatile-locations class="uk-flex-center uk-flex-wrap-bottom uk-flex-left@m" />
     </div>
     <div class="uk-width-1-3@l uk-width-1-2@m uk-width-1-2@s uk-visible@s">
       <div class="uk-flex uk-flex-column full-h" uk-grid>

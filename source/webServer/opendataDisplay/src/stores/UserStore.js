@@ -6,69 +6,98 @@ import { SuperStore, Store, Action } from 'flue-vue'
 import api from '../api.js'
 import FixedSizeStack from '../FixedSizeStack.js'
 
+/**
+This class is used to store user information, in order:
+- the current user information {id,email}
+- the user's preference
+**/
 class UserStore extends Store {
   constructor() {
     super()
-    this.state.users = []
-    this.state.user = { id: 1 }
-    this.state.preferences = []
+    this.state.user = { id: 1, preferences: { data: [], loading: false } }
   }
 
   fetchUserPreferenceSuccess({ userPreferences }) {
-    this.state.preferences = userPreferences
+    this.state.user.preferences.data = userPreferences
+    this.state.user.preferences.loading = false
   }
 
   removePreferenceSuccess({ preference }) {
-    this.state.preferences.splice(this.state.preferences.indexOf(preference), 1)
-    console.log(JSON.parse(JSON.stringify(this.state.preferences)));
+    let userPreferences = this.state.user.preferences.data
+    userPreferences.splice(userPreferences.indexOf(preference), 1)
+  }
+
+  updatePreferenceSuccess({ preference }) {
+
+  }
+
+  addPreferenceSuccess({ preference }) {
+    var userPreferences = this.state.user.preferences.data
+    for (let i = 0; i < userPreferences.length; i++) {
+      let pref = userPreferences[i]
+
+      if (pref.id == preference.id) {
+        pref.buses = preference.buses
+        return
+      }
+    }
+
+    this.state.user.preferences.data.push(preference)
   }
 
   reduce(action) {
     this.reduceMap(action, {
-      USER_NEARBY: (({ userId }) => { this.sStore.actions.fetchUserPreferences(userId) }),
+      FETCH_USER_PREFERENCE_LOADING: () => { this.state.user.preferences.loading = true },
       FETCH_USER_PREFERENCE_SUCCESS: this.fetchUserPreferenceSuccess,
+      // UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess,
+      ADD_PREFERENCE_SUCCESS: this.addPreferenceSuccess,
       REMOVE_PREFERENCE_SUCCESS: this.removePreferenceSuccess
     })
   }
 
-  actions(dispacher, ctx) {
+  actions(dispatcher, ctx) {
     return {
-      fetchUserPreferences(userId, shouldDisplayThem) {
-        shouldDisplayThem = shouldDisplayThem || true
-        dispacher.dispatch({ type: "FETCH_USER_PREFERENCE_LOADING" })
-        // axios call
+      fetchUserPreferences(userId) {
+        dispatcher.dispatch({ type: "FETCH_USER_PREFERENCE_LOADING" })
         api.users.fetchUserPreferences(userId)
           .then((res) => {
-            dispacher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { userPreferences: res.data }))
-            if (shouldDisplayThem)
-              dispacher.dispatch(new Action("DISPLAY_USER_PREFERENCE", { userPreferences: res.data }))
+            dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { userPreferences: res.data }))
           })
+      },
+      updatePreference() {
+        dispatcher.dispatch(new Action("UPDATE_PREFERENCE_LOADING"))
+        // the updated preference is getted from the preferenceStore
+        const preference = {
+          stationId: ctx.state.currentPreference.station.id,
+          buses: ctx.state.currentPreference.buses
+        }
+        api.preference.updatePreference(preference)
+          .then(() => {
+            dispatcher.dispatch(new Action("UPDATE_PREFERENCE_SUCCESS"))
+          })
+          .catch(({ response }) => {
+            const err = response.data
+            dispatcher.dispatch(new Action("UPDATE_PREFERENCE_FAILURE", { err }))
+          })
+      },
+      addPreference() {
+        dispatcher.dispatch(new Action("ADD_PREFERENCE_LOADING"))
+        const newPreference = {
+          stationId: ctx.state.currentPreference.station.id,
+          buses: ctx.state.currentPreference.buses
+        }
+        api.preference.addPreference(newPreference)
+          .then(({ data }) => {
+            dispatcher.dispatch(new Action("ADD_PREFERENCE_SUCCESS", { preference: data }))
+          })
+        // .catch(({ response }) => {
+        //   const err = response.data
+        //   dispatcher.dispatch(new Action("ADD_PREFERENCE_FAILURE", { err }))
+        // })
       },
       deletePreference(preference) {
         api.preference.removePreference(preference.id)
-          .then(({ data }) => dispacher.dispatch(new Action("REMOVE_PREFERENCE_SUCCESS", { preference })))
-      },
-      fetchUsers() {
-        dispacher.dispatch({
-          type: "FETCH_USERS_SUCCESS",
-          payload: {
-            users: [{
-                displaName: "user1",
-                preferences: [{
-                  station: 8591624,
-                  connections: [7]
-                }]
-              },
-              {
-                displaName: "user2",
-                preferences: [{
-                  station: 8588291,
-                  connections: [5]
-                }]
-              }
-            ]
-          }
-        })
+          .then(({ data }) => dispatcher.dispatch(new Action("REMOVE_PREFERENCE_SUCCESS", { preference })))
       }
     }
   }

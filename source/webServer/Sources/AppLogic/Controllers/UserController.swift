@@ -66,33 +66,13 @@ final class UserController {
     }
     
     func getPreferencesFromUser(_ req: Request, user:User) throws -> ResponseRepresentable {
-        return try user.preferences().makeJSON()
+        return try user.preferences().makeNode(context: PreferenceContext.all).converted(to: JSON.self)
     }
     
-    func addPreferenceToUser(_ req: Request,user: User) throws -> ResponseRepresentable {
-        guard let stationId = req.data["stationId"]?.int, let busesRaw = req.data["buses"]?.array else { throw Abort.custom(status: .badRequest, message: "StationId and Buses cannot be empty.") }
+    func addOrUpdateUserPreference(_ req: Request,user: User) throws -> ResponseRepresentable {
+        var newPreference = try Preference.createOrUpdateFromRequest(req, user: user)
         
-        if (busesRaw.count == 0) {
-            throw Abort.custom(status: .badRequest, message: "There MUST be at least one bus")
-        }
-        let numbers = busesRaw.flatMap { $0.int }
-        // fetch/create station if don't exist
-        let station = try Station.createIfNotExist(number: stationId, name: nil)
-        // create -> save preference with that station
-        var newPreference = try Preference.createIfNotExist(for: user.id, with: station.id)
         try newPreference.save()
-        // create/fetch all the buses if someone do not exists
-        let buses = try Bus.createAllIfNotExist(numbers: numbers)
-        // remove all prev buses if any
-        try Pivot<Preference, Bus>.query().filter("preference_id", newPreference.id!).all().forEach{
-            try $0.delete()
-        }
-        print(buses)
-        // add the buses if any
-        try buses.forEach { bus in
-            var pivot = Pivot<Preference, Bus>(newPreference,bus)
-            try pivot.save()
-        }
         
         let payload = try Node(node: ["userId": 1] )
         
@@ -103,7 +83,8 @@ final class UserController {
         
         try WebSocketServer.broadCast(text: json.serialize().string())
 
-        return newPreference
+        return try newPreference.makeNode(context: PreferenceContext.all).converted(to: JSON.self)
     }
     
+
 }

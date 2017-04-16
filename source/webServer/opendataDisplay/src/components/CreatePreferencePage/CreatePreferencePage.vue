@@ -1,17 +1,27 @@
 <template>
-<transition name='slide-left'>
-  <router-view>
-  </router-view>
-</transition>
+<div>
+  <keep-alive>
+    <router-view>
+    </router-view>
+  </keep-alive>
+  <navigation :links="links" :whenFinishFunc="this.$store.actions.addPreference"></navigation>
+</div>
 </template>
 <script>
 import ConfirmationModal from './ConfirmationModal/ConfirmationModal.vue'
-
+import Navigation from './Navigation/Navigation.vue'
 export default {
   name: "CreatePreferencePage",
+  components: {
+    Navigation
+  },
+  created() {
+    this.$store.actions.fetchNearbyLocations()
+  },
   data() {
     return {
-      transitionName: 'slide-right'
+      transitionName: 'slide-right',
+      links: ['/preference', '/preference/station', '/preference/bus', '/preference/direction']
     }
   },
   watch: {
@@ -39,17 +49,13 @@ export default {
   transform: translate(-30px, 0);
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity .5s ease;
 }
-.fade-enter, .fade-leave-active {
-  opacity: 0
-}
 
-.navigation__actions {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  left: 0;
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
 }
 </style>

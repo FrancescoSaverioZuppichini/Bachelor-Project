@@ -14,12 +14,17 @@ import Fluent
 public  class StationboardController {
     
     func getStationboard(_ req: Request) throws -> ResponseRepresentable {
-        guard let busId = req.data["busId"]?.int, let stationid = req.data["stationId"]?.int else {
+        guard let stationid = req.data["stationId"]?.int else {
             throw Abort.badRequest
-            
         }
         
-        return try StationBoard.query().filter("bus_id", busId).filter("station_id", stationid).all().makeJSON()
+        let stationBoardQuery = try StationBoard.query().filter("station_id", stationid)
+        
+        if let busId = req.data["busId"]?.int {
+            try stationBoardQuery.filter("bus_id", busId)
+        }
+ 
+        return try stationBoardQuery.all().makeNode(context: StationBoardContext.all).converted(to: JSON.self)
     }
     
     
