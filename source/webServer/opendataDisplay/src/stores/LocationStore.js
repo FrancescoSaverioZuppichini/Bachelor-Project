@@ -18,7 +18,7 @@ class LocationStore extends Store {
     this.state.locations = []
     this.state.displayLocationsStack = new FixedSizeStack(2, false)
     this.state.isLoadingNearbyLocations = false
-    this.state.defaultLocation = "8595133"
+    this.state.defaultLocation = { id: "8595133" }
     this.state.defaultLocationsOffset = 1
     this.state.usersLocations = []
   }
@@ -52,7 +52,6 @@ class LocationStore extends Store {
   setAutoDestruction(callback) {
     setTimeout(() => {
       callback()
-      //   this.expireLocation(location)
     }, 2000)
   }
   // TODO refactor
@@ -111,13 +110,13 @@ class LocationStore extends Store {
         clearInterval(location.timeOutId)
       })
     }
-
+    if (location.number == this.state.defaultLocation.id) { location.removable = false }
     this.state.displayLocationsStack.addItem(location)
     Vue.set(location, 'open', true)
-
-    location.timeOutId = setInterval(() => {
-      this.sStore.actions.fetchLocationStationBoard(location)
-    }, 1000)
+    // start data pooling
+    // location.timeOutId = setInterval(() => {
+    //   this.sStore.actions.fetchLocationStationBoard(location)
+    // }, 1000)
   }
 
   fetchNearbyLocationsLoading() {
@@ -130,7 +129,8 @@ class LocationStore extends Store {
     locations.forEach(location => {
       Vue.set(location, "stationboard", [])
       Vue.set(this.state.locationsCache, [location.id], location)
-      if (location.number == this.state.defaultLocation) {
+      if (location.number == this.state.defaultLocation.id) {
+        this.state.dedefaultLocation = location
         // show the default location
         this.putLocationInDisplayStack({ location }, false)
         // Vue.set(location, 'open', true)
@@ -149,24 +149,15 @@ class LocationStore extends Store {
 
   fetchLocationStationBoardSuccess({ location, stationboard }) {
     location.isLoadingStationBoard = false
-    // stationboard is already initialized on location -> we cannot override the default pointer
-    // location.stationboard.length = 0
     if (!stationboard)
       return
+    // update the stationboard in order to not override the use preference info
     if (location.stationboard.length <= 0) location.stationboard = stationboard
     else {
       for (let i = 0; i < stationboard.length; i++) {
         location.stationboard[i] = Object.assign(location.stationboard[i], stationboard[i])
       }
     }
-
-    // stationboard.forEach((station) => {
-    //   location.stationboard.push(station)
-    // })
-    // start the data pooling
-    // location.timeOutId = setTimeout(() => {
-    //   this.sStore.actions.fetchLocationStationBoard(location)
-    // }, 1000)
   }
 
   reduce(action) {
@@ -187,6 +178,12 @@ class LocationStore extends Store {
         dispatcher.dispatch(new Action("FETCH_NEARBY_LOCATIONS_LOADING"))
         api.fetchNearbyLocations()
           .then(({ data }) => {
+            // remove Lugano, from every station since we know where we are
+            data.forEach(location => location.name = location.name.replace('Lugano,', ''))
+            return data
+          })
+          .then((data) => {
+            console.log(data);
             dispatcher.dispatch(new Action("FETCH_NEARBY_LOCATIONS_SUCCESS", { locations: data }))
           })
       },
