@@ -50,16 +50,16 @@ class LocationStore extends Store {
   }
 
   setAutoDestruction(callback) {
-    // setTimeout(() => {
-    //   callback()
-    //   this.expireLocation(location)
-    // }, 2000)
+    setTimeout(() => {
+      callback()
+      //   this.expireLocation(location)
+    }, 2000)
   }
   // TODO refactor
   createLocationForUser(pref) {
     let location = this.state.locationsCache[pref.station.id]
-    if(!location)
-        return
+    if (!location)
+      return
     // deep copy of location
     let newLocation = Object.assign({}, location)
     newLocation.isUser = true
@@ -71,6 +71,10 @@ class LocationStore extends Store {
       location.stationboard.forEach(bus => {
         if (prefBus.number == bus.number && prefBus.to == bus.to) {
           Vue.set(bus, 'triggered', true)
+          // toggle state
+          this.setAutoDestruction(() => {
+            Vue.set(bus, 'triggered', false)
+          })
         }
       })
     })
@@ -98,15 +102,22 @@ class LocationStore extends Store {
     userPreferences.forEach(pref => this.createLocationForUser(pref))
   }
 
-  putLocationInDisplayStack({ location }) {
-    this.setAutoDestruction(() => {
-      this.state.displayLocationsStack.removeItem(location)
-      Vue.set(location, 'open', false)
-
-    })
+  putLocationInDisplayStack({ location }, destroy) {
+    destroy = destroy == null ? true: destroy
+    if (destroy) {
+      this.setAutoDestruction(() => {
+        this.state.displayLocationsStack.removeItem(location)
+        Vue.set(location, 'open', false)
+        clearInterval(location.timeOutId)
+      })
+    }
 
     this.state.displayLocationsStack.addItem(location)
     Vue.set(location, 'open', true)
+
+    location.timeOutId = setInterval(() => {
+      this.sStore.actions.fetchLocationStationBoard(location)
+    }, 10000)
   }
 
   fetchNearbyLocationsLoading() {
@@ -121,8 +132,9 @@ class LocationStore extends Store {
       Vue.set(this.state.locationsCache, [location.id], location)
       if (location.number == this.state.defaultLocation) {
         // show the default location
-        Vue.set(location, 'open', true)
-        this.state.displayLocationsStack.addItem(location)
+      this.putLocationInDisplayStack({location},false)
+        // Vue.set(location, 'open', true)
+        // this.state.displayLocationsStack.addItem(location)
         location.default = true
       }
     })
@@ -144,8 +156,8 @@ class LocationStore extends Store {
     stationboard.forEach(station => location.stationboard.push(station))
     // start the data pooling
     // location.timeOutId = setTimeout(() => {
-    //   this.actions.fetchLocationStationBoard(location)
-    // }, 10000)
+    //   this.sStore.actions.fetchLocationStationBoard(location)
+    // }, 1000)
   }
 
   reduce(action) {
