@@ -19,7 +19,6 @@ class FixedSizeStack {
 
   }
   removeItem(item) {
-    console.log(item.removable);
     if(item.removable) this._data.splice(this.findItem(item), 1)
   }
 
