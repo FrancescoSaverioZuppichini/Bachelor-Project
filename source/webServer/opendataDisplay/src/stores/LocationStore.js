@@ -72,9 +72,9 @@ class LocationStore extends Store {
         if (prefBus.number == bus.number && prefBus.to == bus.to) {
           Vue.set(bus, 'triggered', true)
           // toggle state
-          this.setAutoDestruction(() => {
-            Vue.set(bus, 'triggered', false)
-          })
+          // this.setAutoDestruction(() => {
+          //   Vue.set(bus, 'triggered', false)
+          // })
         }
       })
     })
@@ -103,7 +103,7 @@ class LocationStore extends Store {
   }
 
   putLocationInDisplayStack({ location }, destroy) {
-    destroy = destroy == null ? true: destroy
+    destroy = destroy == null ? true : destroy
     if (destroy) {
       this.setAutoDestruction(() => {
         this.state.displayLocationsStack.removeItem(location)
@@ -117,7 +117,7 @@ class LocationStore extends Store {
 
     location.timeOutId = setInterval(() => {
       this.sStore.actions.fetchLocationStationBoard(location)
-    }, 10000)
+    }, 1000)
   }
 
   fetchNearbyLocationsLoading() {
@@ -132,7 +132,7 @@ class LocationStore extends Store {
       Vue.set(this.state.locationsCache, [location.id], location)
       if (location.number == this.state.defaultLocation) {
         // show the default location
-      this.putLocationInDisplayStack({location},false)
+        this.putLocationInDisplayStack({ location }, false)
         // Vue.set(location, 'open', true)
         // this.state.displayLocationsStack.addItem(location)
         location.default = true
@@ -150,10 +150,19 @@ class LocationStore extends Store {
   fetchLocationStationBoardSuccess({ location, stationboard }) {
     location.isLoadingStationBoard = false
     // stationboard is already initialized on location -> we cannot override the default pointer
-    location.stationboard.length = 0
+    // location.stationboard.length = 0
     if (!stationboard)
       return
-    stationboard.forEach(station => location.stationboard.push(station))
+    if (location.stationboard.length <= 0) location.stationboard = stationboard
+    else {
+      for (let i = 0; i < stationboard.length; i++) {
+        location.stationboard[i] = Object.assign(location.stationboard[i], stationboard[i])
+      }
+    }
+
+    // stationboard.forEach((station) => {
+    //   location.stationboard.push(station)
+    // })
     // start the data pooling
     // location.timeOutId = setTimeout(() => {
     //   this.sStore.actions.fetchLocationStationBoard(location)

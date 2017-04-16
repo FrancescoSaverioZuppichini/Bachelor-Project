@@ -101,7 +101,7 @@ public final class OpendataApiFetcher {
     }
     
     public static func cacheOpendataApi() throws {
-        //        remove all previous information regarding bus and date
+        // remove all previous information regarding bus and date
         try Pass.query().delete()
         try Pivot<StationBoard,Pass>.query().delete()
         
@@ -136,7 +136,7 @@ public final class OpendataApiFetcher {
         queue.asyncAfter(deadline: .now() + 0.5)  {
             
             while(true) {
-                
+            
                 do {
                     print("fetching new data...")
                     try OpendataApiFetcher.cacheOpendataApi()
