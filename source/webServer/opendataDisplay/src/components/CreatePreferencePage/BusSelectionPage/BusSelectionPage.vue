@@ -27,8 +27,8 @@
     </div>
   </div>
   <div class="uk-margin-top navigation__actions">
-    <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.go(-1)">Back</button>
-    <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="next">Next</button>
+    <a  uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)"> </a>
+    <a  uk-icon="icon: chevron-right; ratio: 1.5" class='uk-float-right' @click="next"></a>
   </div>
 </div>
 </template>

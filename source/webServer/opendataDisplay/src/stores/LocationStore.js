@@ -107,9 +107,9 @@ class LocationStore extends Store {
     if (putIntoStack) this.state.displayLocationsStack.addItem(location)
     Vue.set(location, 'open', true)
     // start data pooling
-    // location.timeOutId = setInterval(() => {
-    //   this.sStore.actions.fetchLocationStationBoard(location)
-    // }, 1000)
+    location.timeOutId = setInterval(() => {
+      this.sStore.actions.fetchLocationStationBoard(location)
+    }, 5000)
   }
 
   fetchNearbyLocationsLoading() {

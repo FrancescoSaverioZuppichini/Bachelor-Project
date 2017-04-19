@@ -7,7 +7,7 @@
 <script>
 export default {
   name: "Navigation",
-  props: ['links', 'funcs','whenFinishFunc'],
+  props: ['links', 'funcs', 'whenFinishFunc'],
   data: function data() {
     return {
       currentLink: 0,
@@ -20,11 +20,11 @@ export default {
   methods: {
     back() {
       this.currentLink--
-      // this.currentLink = this.currentLink-- % 0
-      this.updateRoute()
+        // this.currentLink = this.currentLink-- % 0
+        this.updateRoute()
     },
     next() {
-        this.currentLink++
+      this.currentLink++
         if (this.currentLink == this.links.length) {
           this.currentLink = 0
           this.whenFinishFunc()
@@ -44,8 +44,15 @@ export default {
 <style >
 .navigation__actions {
   position: absolute;
+  padding-bottom: 8px;
+  padding-top: 8px;
+
+  background-color: white;
+  position: fixed;
+  z-index: 99;
   bottom: 0;
   width: 100%;
   left: 0;
+  right: 0
 }
 </style>

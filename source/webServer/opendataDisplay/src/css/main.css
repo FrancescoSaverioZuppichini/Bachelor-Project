@@ -1,9 +1,15 @@
-
-
-
-.uk-button-default{
-background-color: white !important;
+.overflow--scroll {
+  overflow: scroll;
 }
+
+.padding--zero {
+  padding: 0 !important;
+}
+
+.uk-button-default {
+  background-color: white !important;
+}
+
 .uk-button-borderless {
   border: none !important;
 }

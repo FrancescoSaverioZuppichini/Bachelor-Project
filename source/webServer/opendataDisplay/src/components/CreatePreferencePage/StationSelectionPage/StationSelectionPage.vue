@@ -8,7 +8,7 @@
     </div>
   </transition>
 
-  <div class="uk-flex-center uk-margin-top">
+  <div class="uk-flex-center uk-margin-top overflow--scroll">
     <div class="uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-4@l uk-grid-match preference-station__container" uk-grid>
       <div v-for="index in [1,2,3]" v-if="$store.isLoadingNearbyLocations">
         <station-card-dummy></station-card-dummy>
@@ -21,9 +21,12 @@
       </div>
     </div>
   </div>
-  <div class="uk-margin-top navigation__actions">
-    <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.go(-1)">Back</button>
-    <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="next">Next</button>
+  <div class="navigation__actions">
+    <a  uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)"> </a>
+    <a  uk-icon="icon: chevron-right; ratio: 1.5" class='uk-float-right' @click="next"></a>
+
+    <!-- <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.go(-1)">Back</button>
+    <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="next">Next</button> -->
   </div>
 </div>
 </template>
