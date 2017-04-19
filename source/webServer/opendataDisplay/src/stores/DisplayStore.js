@@ -21,14 +21,27 @@ class DisplayStore extends Store {
     this.sStore.actions.displayUserPreferences(userId)
   }
 
+  fetchDisplaySuccess({ display }) {
+    console.log(this.state.display);
+    this.state.display = display
+    this.sStore.actions.fetchNearbyLocations()
+  }
+
   reduce(action) {
     this.reduceMap(action, {
       USER_NEARBY: this.onUserNearby,
+      FETCH_DISPLAY_SUCCESS: this.fetchDisplaySuccess
     })
   }
 
   actions(dispatcher) {
     return {
+      fetchDisplay(displayId) {
+        api.display.fetchDisplay(displayId)
+          .then(({ data }) => {
+            dispatcher.dispatch(new Action("FETCH_DISPLAY_SUCCESS", { display: data }))
+          })
+      },
       displayUserPreferences(userId) {
         // we don't care about loading
         api.users.fetchUserPreferences(userId)

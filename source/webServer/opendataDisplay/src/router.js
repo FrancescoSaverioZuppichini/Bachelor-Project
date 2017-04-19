@@ -19,7 +19,7 @@ export default new VueRouter({
     component: App,
     children: [{
         name: 'display',
-        path: '/display',
+        path: '/display/:id',
         component: DisplayPage
       },
       {

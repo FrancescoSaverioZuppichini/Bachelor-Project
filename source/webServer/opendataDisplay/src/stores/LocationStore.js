@@ -11,20 +11,14 @@ class LocationStore extends Store {
   constructor() {
     super()
     this.state.locationsCache = {}
-    this.preferencesCache = {}
-    // all the state fields MUST be directly define here
-    // if want to add them in other functions you need to call
-    // Vue.set(obj,key,value)
     this.state.locations = []
     this.state.displayLocationsStack = new FixedSizeStack(2, false)
     this.state.isLoadingNearbyLocations = false
-    this.state.defaultLocation = { id: "8595133" }
-    this.state.defaultLocationsOffset = 1
     this.state.usersLocations = []
   }
 
   getDefaultLocation() {
-    return this.state.locationsCache[this.state.defaultLocation]
+    return this.state.locationsCache[this.state.display.defaultStation.number]
   }
   // get all the connections that need to be inside a user preference
   getAvailableConnections(location, user) {
@@ -78,11 +72,9 @@ class LocationStore extends Store {
       })
     })
     // cache the result
-    this.preferencesCache[pref.id] = pref
     // // set auto-destruction
     // this.setAutoDestruction(() => {
     //   // clear the cache
-    //   delete this.preferencesCache[pref.id]
     //   // and the stored ones
     //   this.state.usersLocations.pop()
     // })
@@ -110,7 +102,7 @@ class LocationStore extends Store {
         clearInterval(location.timeOutId)
       })
     }
-    if (location.number == this.state.defaultLocation.id) { location.removable = false }
+    if (location.number == this.state.display.defaultStation.number) { location.removable = false }
     this.state.displayLocationsStack.addItem(location)
     Vue.set(location, 'open', true)
     // start data pooling
@@ -129,7 +121,8 @@ class LocationStore extends Store {
     locations.forEach(location => {
       Vue.set(location, "stationboard", [])
       Vue.set(this.state.locationsCache, [location.id], location)
-      if (location.number == this.state.defaultLocation.id) {
+
+      if (location.number == this.state.display.defaultStation.number) {
         this.state.dedefaultLocation = location
         // show the default location
         this.putLocationInDisplayStack({ location }, false)

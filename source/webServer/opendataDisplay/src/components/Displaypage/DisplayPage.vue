@@ -29,7 +29,8 @@ import usersContent from '../usersContent/usersContent.vue'
 export default {
   name: "DisplayPage",
   mounted() {
-    this.$store.actions.fetchNearbyLocations()
+    const displayId = this.$route.params.id
+    this.$store.actions.fetchDisplay(displayId)
   },
   data: function data() {
     return {
