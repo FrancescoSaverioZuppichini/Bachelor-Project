@@ -5,6 +5,7 @@ import Foundation
 public final class Display: Model, Preparation {
     public var id: Node?
     public var defaultStationId: Node?
+    
     public  enum DisplayContext: Context {
         case all
     }

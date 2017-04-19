@@ -145,7 +145,7 @@ public final class OpendataApiFetcher {
                 } catch{
                     print("Error during fetching")
                 }
-                
+            
                 sleep(1200)
             }
         }

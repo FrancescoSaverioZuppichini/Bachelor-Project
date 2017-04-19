@@ -60,11 +60,12 @@ public func load(_ _drop: Droplet) throws {
             preference in
             preference.delete(Preference.self,handler: PreferenceController.deletePreference)
         }
+        
         api.group("display") {
             display in
             display.get(Display.self,handler: displayController.getDisplay)
+            display.put(Display.self, handler: displayController.editDisplay)
             display.post(handler: displayController.addDisplay)
-
         }
         
         api.group("station") {
