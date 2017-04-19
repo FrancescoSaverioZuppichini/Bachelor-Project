@@ -93,17 +93,18 @@ class LocationStore extends Store {
     userPreferences.forEach(pref => this.createLocationForUser(pref))
   }
 
-  putLocationInDisplayStack({ location }, destroy) {
+  displayLocation({ location }, destroy, putIntoStack) {
     destroy = destroy == null ? true : destroy
+    putIntoStack = putIntoStack == null ? true : destroy
     if (destroy) {
-      this.setAutoDestruction(() => {
-        this.state.displayLocationsStack.removeItem(location)
-        Vue.set(location, 'open', false)
-        clearInterval(location.timeOutId)
-      })
+      // this.setAutoDestruction(() => {
+      //   this.state.displayLocationsStack.removeItem(location)
+      //   Vue.set(location, 'open', false)
+      //   clearInterval(location.timeOutId)
+      // })
     }
     if (location.number == this.state.display.defaultStation.number) { location.removable = false }
-    this.state.displayLocationsStack.addItem(location)
+    if (putIntoStack) this.state.displayLocationsStack.addItem(location)
     Vue.set(location, 'open', true)
     // start data pooling
     // location.timeOutId = setInterval(() => {
@@ -123,11 +124,10 @@ class LocationStore extends Store {
       Vue.set(this.state.locationsCache, [location.id], location)
 
       if (location.number == this.state.display.defaultStation.number) {
-        this.state.dedefaultLocation = location
+        // override the pointer in order to get the fully updated location
+        this.state.display.defaultStation = location
         // show the default location
-        this.putLocationInDisplayStack({ location }, false)
-        // Vue.set(location, 'open', true)
-        // this.state.displayLocationsStack.addItem(location)
+        this.displayLocation({ location }, false, false)
         location.default = true
       }
     })
@@ -160,7 +160,7 @@ class LocationStore extends Store {
       FETCH_LOCATION_STATIONBOARD_LOADING: this.fetchLocationStationBoardLoading,
       FETCH_LOCATION_STATIONBOARD_SUCCESS: this.fetchLocationStationBoardSuccess,
       FETCH_LOCATION_STATIONBOARD_ERROR: (({ location }) => { location.isLoadingStationBoard = false }),
-      PUT_LOCATION_IN_DISPLAY_STACK: this.putLocationInDisplayStack,
+      PUT_LOCATION_IN_DISPLAY_STACK: this.displayLocation,
       DISPLAY_USER_PREFERENCE: this.createLocationsForUsers
     })
   }

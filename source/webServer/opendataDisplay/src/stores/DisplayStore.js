@@ -22,7 +22,6 @@ class DisplayStore extends Store {
   }
 
   fetchDisplaySuccess({ display }) {
-    console.log(this.state.display);
     this.state.display = display
     this.sStore.actions.fetchNearbyLocations()
   }

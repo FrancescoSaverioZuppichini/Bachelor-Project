@@ -51,8 +51,6 @@ export default {
   },
   methods: {
     parseArrivalTime(date) {
-      console.log(this.connection);
-      console.log(date);
       return moment(this.connection.stop.departure).format("HH:mm:ss");
     },
     getArrivalTimeFromNow() {

@@ -19,7 +19,7 @@ class FixedSizeStack {
 
   }
   removeItem(item) {
-    if(item.removable) this._data.splice(this.findItem(item), 1)
+    this._data.splice(this.findItem(item), 1)
   }
 
   getSize() {
