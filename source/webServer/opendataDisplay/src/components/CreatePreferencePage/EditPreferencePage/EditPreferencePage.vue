@@ -32,8 +32,8 @@
     </div>
   </div>
   <div class="uk-margin-top navigation__actions">
-    <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="back">Back</button>
-    <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="done">Done</button>
+    <a  uk-icon="icon: chevron-left; ratio: 1.5" @click="back"> </a>
+    <a  class='uk-float-right uk-margin-small-right' @click="done">Done</a>
   </div>
 </div>
 </template>

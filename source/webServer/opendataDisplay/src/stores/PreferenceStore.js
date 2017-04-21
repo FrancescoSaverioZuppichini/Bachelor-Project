@@ -5,7 +5,7 @@ import UIkit from 'uikit';
 // components can be called from the imported UIkit reference
 import router from '../router.js'
 
-import { SuperStore, Store, Action } from 'flue-vue'
+import {Store, Action } from 'flue-vue'
 /*
 This class manage how a preference is created, edit and delete
 */
@@ -24,7 +24,7 @@ class PreferenceStore extends Store {
   }
 
   initializeCurrentPreference() {
-    this.state.currentPreference.station.toogle = false
+    // this.state.currentPreference.station.toogle = false
     this.state.currentPreference = { station: {}, buses: [] }
   }
 
@@ -47,14 +47,14 @@ class PreferenceStore extends Store {
 
   removeBusToPreference({ bus }) {
     const toRemoveIndex = this.findBusInPreference(bus)
-    const buses = this.state.currentPreference.buses
+    var buses = this.state.currentPreference.buses
     if (toRemoveIndex >= 0) {
       buses.splice(toRemoveIndex, 1)
     }
   }
 
   addBusToPreference({ bus }) {
-    const buses = this.state.currentPreference.buses
+    var buses = this.state.currentPreference.buses
     if (this.findBusInPreference(bus) < 0) {
       buses.push(bus)
     }

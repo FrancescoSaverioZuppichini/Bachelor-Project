@@ -56,6 +56,7 @@ public func load(_ _drop: Droplet) throws {
             users.put(User.self,"preference",handler: userController.addOrUpdateUserPreference)
 
         }
+        
         api.group("preference") {
             preference in
             preference.delete(Preference.self,handler: PreferenceController.deletePreference)

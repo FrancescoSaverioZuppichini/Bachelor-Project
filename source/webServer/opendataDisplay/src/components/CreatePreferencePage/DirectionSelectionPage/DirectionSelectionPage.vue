@@ -19,7 +19,7 @@
   </div>
   <div class="uk-margin-top navigation__actions">
     <a  uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)"> </a>
-    <a  class='uk-float-right uk-margin-small-right' @click="next">Done</a>
+    <a  class='uk-float-right uk-margin-small-right' @click="next" v-if='!$store.state.isInEditMode'>Done</a>
   </div>
 </div>
 </template>
