@@ -7,6 +7,7 @@
 //
 import Vapor
 import Foundation
+import Dispatch
 import HTTP
 import Fluent
 
@@ -129,7 +130,7 @@ public final class OpendataApiFetcher {
         // remove all previous information regarding bus and date
         try Pass.query().delete()
         try Pivot<StationBoard,Pass>.query().delete()
-
+        
     }
     
     public static func cacheOpendataApi() throws {
@@ -160,31 +161,20 @@ public final class OpendataApiFetcher {
         
         let queue = DispatchQueue(label: "opendataApiFetcherQueue")
         queue.asyncAfter(deadline: .now() + 0.5)  {
-            
-            do {
-                
-                if #available(OSX 10.12, *) {
-                    let timer = Timer(fire: tomorrowMorning, interval: 60 * 60 * 24, repeats: true) { _ in
-                        do {
-                            try OpendataApiFetcher.cacheOpendataApi()
-                            
-                        } catch{
-                            print("Error during fetching")
-                        }
+            if #available(OSX 10.12, *) {
+                let timer = Timer(fire: tomorrowMorning, interval: 60 * 60 * 24, repeats: true) { _ in
+                    do {
+                        try OpendataApiFetcher.cacheOpendataApi()
+                        
+                    } catch{
+                        print("Error during fetching")
                     }
-                    timer.fire()
-
-                } else {
-                    // Fallback on earlier versions
                 }
+                timer.fire()
                 
-                
-            } catch{
-                print("Error during fetching")
+            } else {
+                // Fallback on earlier versions
             }
-            
-            
-            
         }
     }
     

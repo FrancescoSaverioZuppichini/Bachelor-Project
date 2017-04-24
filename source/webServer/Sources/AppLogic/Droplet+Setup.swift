@@ -1,14 +1,20 @@
 import Vapor
 import VaporMySQL
+import VaporPostgreSQL
 import Fluent
 
 // Global drop of the module AppLogic
 var drop: Droplet!
 
 public func load(_ _drop: Droplet) throws {
-    try _drop.addProvider(VaporMySQL.Provider.self)
     
     drop = _drop
+    
+    #if os(Linux)
+        try drop.addProvider(VaporPostgreSQL.Provider.self)
+    #else
+        try drop.addProvider(VaporMySQL.Provider.self)
+    #endif
     
     drop.preparations.append(User.self)
     drop.preparations.append(Preference.self)
@@ -32,14 +38,13 @@ public func load(_ _drop: Droplet) throws {
     let stationboardController = StationboardController()
     
     
-    
     drop.get("") {
-        request in return try _drop.view.make("index.html")
+        request in
+        try _drop.view.make("index.html")
     }
     
     drop.group("api"){
         api in
-//        api.get("opendata/cache",handler: OpendataApiFetcher.cacheApiInformation)
         api.get("opendata/locations",handler: OpendataApiController.getLocations)
         api.get("opendata/connections",handler: opendataApiController.getConnections)
         api.get("opendata/stationboards",handler: opendataApiController.getStationBoards)

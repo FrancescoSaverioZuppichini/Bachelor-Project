@@ -1,9 +1,21 @@
 import Vue from 'vue'
+
+// setup the test env
+import { flueVue, SuperStore, Store, Action } from 'flue-vue'
+
+Vue.use(flueVue)
+
+import preferenceStore from '../../src/stores/PreferenceStore.js'
+
+SuperStore.addStore(preferenceStore)
+
 Vue.config.productionTip = false
 
 // Polyfill fn.bind() for PhantomJS
 /* eslint-disable no-extend-native */
 Function.prototype.bind = require('function-bind')
+
+
 
 // require all test files (files that ends with .spec.js)
 const testsContext = require.context('./specs', true, /\.spec$/)

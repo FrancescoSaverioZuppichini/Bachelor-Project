@@ -97,7 +97,7 @@ extension Pass {
         
         var newPass = Pass(bus: busId, through: stationId, arrivalTimestamp: arrivalTimestamp, departureTimestamp: departureTimestamp,departure: departure)
         
-        if var oldPass = try Pass.query().filter("bus_id", busId!).filter("station_id", stationId!).filter("departure_timestamp", departureTimestamp!).first() {
+        if let oldPass = try Pass.query().filter("bus_id", busId!).filter("station_id", stationId!).filter("departure_timestamp", departureTimestamp!).first() {
             print("pass already exists")
             return oldPass
         } else {
