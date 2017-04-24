@@ -27,8 +27,8 @@
     </div>
   </div>
   <div class="uk-margin-top navigation__actions">
-    <a  uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)"> </a>
-    <a  uk-icon="icon: chevron-right; ratio: 1.5" class='uk-float-right'v-if='!$store.state.isInEditMode' @click="next"></a>
+    <a uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)" v-if='!$store.state.isInEditMode'> </a>
+    <a uk-icon="icon: chevron-right; ratio: 1.5" class='uk-float-right'  @click="next"></a>
   </div>
 </div>
 </template>

@@ -8,7 +8,9 @@
     </div>
   </transition>
 
-  <div class="uk-flex-center uk-margin-top overflow--scroll">
+  <div class="uk-flex-center uk-margin-bottom">
+    <div class="uk-flex" uk-grid>
+
     <div class="uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-4@l uk-grid-match preference-station__container" uk-grid>
       <div v-for="index in [1,2,3]" v-if="$store.isLoadingNearbyLocations">
         <station-card-dummy></station-card-dummy>
@@ -21,6 +23,8 @@
       </div>
     </div>
   </div>
+</div>
+
   <div class="navigation__actions">
     <a  uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)"> </a>
     <a  uk-icon="icon: chevron-right; ratio: 1.5" class='uk-float-right' v-if='!$store.state.isInEditMode' @click="next"></a>

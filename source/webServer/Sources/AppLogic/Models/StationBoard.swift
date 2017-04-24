@@ -64,7 +64,6 @@ public final class StationBoard: Model {
             node["station"] = try station().makeNode()
             
         case StationBoardContext.bus:
-            print("DASDaDS")
             let currentBus = try bus()
             node = try Node(node:[
                 "id":   currentBus.id,

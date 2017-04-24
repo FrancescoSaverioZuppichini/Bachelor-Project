@@ -5,7 +5,7 @@ import UIkit from 'uikit';
 // components can be called from the imported UIkit reference
 import router from '../router.js'
 
-import {Store, Action } from 'flue-vue'
+import { Store, Action } from 'flue-vue'
 /*
 This class manage how a preference is created, edit and delete
 */
@@ -29,6 +29,7 @@ class PreferenceStore extends Store {
   }
 
   toggleOffAll() {
+    this.state.currentPreference.station.toogle = false
     this.state.locations.forEach(location => Vue.set(location, 'toogle', false))
     this.state.currentStationboards.forEach(stationboard => stationboard.toogle = false)
     this.state.connections.forEach(connection => connection.toogle = false)

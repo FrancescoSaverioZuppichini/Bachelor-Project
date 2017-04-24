@@ -18,8 +18,8 @@
     </div>
   </div>
   <div class="uk-margin-top navigation__actions">
-    <a  uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)"> </a>
-    <a  class='uk-float-right uk-margin-small-right' @click="next" v-if='!$store.state.isInEditMode'>Done</a>
+    <a uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)"> </a>
+    <a class='uk-float-right uk-margin-small-right' @click="next">Done</a>
   </div>
 </div>
 </template>
@@ -98,10 +98,15 @@ export default {
     },
     next() {
       this.show = true
-      const isAtLeastOnedirectionSelected = this.getDirectionsSelected() > 0
-      this.error.hasError = !isAtLeastOnedirectionSelected
-      if (isAtLeastOnedirectionSelected) {
-        this.$store.actions.addPreference()
+      if (this.$store.state.isInEditMode)
+        // go back to edit
+        this.$router.push({path:'/preference/edit'})
+      else {
+        const isAtLeastOnedirectionSelected = this.getDirectionsSelected() > 0
+        this.error.hasError = !isAtLeastOnedirectionSelected
+        if (isAtLeastOnedirectionSelected) {
+          this.$store.actions.addPreference()
+        }
       }
     }
   }
