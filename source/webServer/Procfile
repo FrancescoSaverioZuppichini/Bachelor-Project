@@ -1,1 +1,0 @@
-web: App --env=development --workdir="./" --config:postgresql.url=$DATABASE_URL
