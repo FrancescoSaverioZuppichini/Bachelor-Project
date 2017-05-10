@@ -1,0 +1,50 @@
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s
+}
+
+.fade-enter, .fade-leave-to
+/* .fade-leave-active in <2.1.8 */
+
+{
+  opacity: 0
+}
+
+.f-w {
+  width: 100%;
+}
+
+.icon--circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 25px;
+  vertical-align: middle;
+  border: 1px solid black;
+}
+
+.uk-button-link:focus, .uk-button-link:hover {
+  text-decoration: none;
+}
+
+.toogle {
+  color: black !important
+}
+
+.btn--toogle {
+  border: 1px solid black !important;
+  color: black;
+}
+
+.navigation__actions {
+  position: absolute;
+  padding-top: 8px;
+
+  background-color: white;
+  position: fixed;
+  z-index: 99;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  right: 0
+}

@@ -1,0 +1,7 @@
+{
+    "host": "ec2-54-247-99-159.eu-west-1.compute.amazonaws.com",
+    "user": "geucbdagvirmde",
+    "password": "fef0d74c61dcb05cd7481d9870f05acbd366e9033bbeae0dc4f78d67d5001078",
+    "database": "dcrhu2bedrel0p",
+    "port": 5432
+}

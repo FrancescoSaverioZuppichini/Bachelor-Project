@@ -1,0 +1,108 @@
+<template>
+<div class="full-h uk-flex uk-flex-column">
+  <h2 class="uk-text-center">{{`${$store.state.lastQuery.studyType}, ${$store.state.lastQuery.year}st year` }}</h2>
+  <div class="uk-flex" uk-grid>
+    <div class="uk-width-1-1 uk-width-3-4@m">
+      <div id='fullcalendar'></div>
+    </div>
+    <!-- <div class="uk-flex--grow"></div> -->
+    <div class="uk-margin-large-bottom course-selector__container uk-width-1-1 uk-width-1-4@m">
+      <course-selector></course-selector>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+import axios from 'axios'
+import fullcalendar from 'fullcalendar'
+import moment from 'moment'
+import $ from 'jquery'
+import {
+  SuperStore, Action
+} from 'flue-vue'
+
+import CourseSelector from './CourseSelector/CourseSelector.vue'
+
+export default {
+  name: 'Display',
+  components: {
+    CourseSelector
+  },
+  mounted() {
+    this.$store.state.navigation.BASE_URL = this.$route.path
+    this.$store.state.navigation._urls = ['studyDisplay', 'yearDisplay', 'studyTypeDisplay']
+
+    $('body').click(() => {
+      SuperStore.dispatcher.dispatch(new Action("USER_INTERACTION"))
+    })
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+.btn--toogle {
+  border-color: black !important;
+  color: black !important;
+}
+
+.fc-time-grid-event.fc-v-event.fc-event {
+  opacity: 0.9 !important
+}
+
+.fc-event {
+  border-radius: 0px !important;
+  border: 0px !important;
+}
+
+.fc-time-grid-event.fc-v-event.fc-event {
+  opacity: 0.9 !important
+}
+
+.fc-event .fc-bg {
+  opacity: 0 !important;
+}
+
+
+.fc button {
+  border-radius: 0px !important;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 30px;
+  /* height: 2.1em; */
+  font-size: inherit;
+  /* white-space: nowrap; */
+  cursor: pointer;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+.course-selector__container {}
+</style>

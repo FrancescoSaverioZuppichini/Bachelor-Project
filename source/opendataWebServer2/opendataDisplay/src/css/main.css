@@ -1,0 +1,38 @@
+.overflow--scroll {
+  overflow: scroll;
+}
+
+.padding--zero {
+  padding: 0 !important;
+}
+
+.uk-button-default {
+  background-color: white !important;
+}
+
+.uk-button-borderless {
+  border: none !important;
+}
+
+.uk-flex-grow {
+  flex-grow: 99;
+}
+
+.dummy__text {
+  height: 16px;
+  width: 100%;
+}
+
+.dummy__text--small {
+  height: 14px;
+  width: 100%;
+}
+
+.dummy__bus {
+  width: 24px;
+  height: 24px;
+}
+
+.dummy--background-color {
+  background-color: rgb(246, 246, 246) !important;
+}
