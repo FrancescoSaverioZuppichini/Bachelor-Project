@@ -52,7 +52,9 @@ public final class USIAPIFetcher {
         for courseInfo in coursesInfo {
             let courseInfoObj = courseInfo.object!
             // get basic info
-            guard let usiApiID = courseInfoObj["id"]?.int, let name_en = courseInfoObj["name_en"]?.string, let name_it = courseInfoObj["name_it"]?.string, let semester_academic_year = courseInfoObj["semester_academic_year"]?.string else {
+            guard let usiApiID = courseInfoObj["id"]?.int, let name_en = courseInfoObj["name_en"]?.string, let name_it = courseInfoObj["name_it"]?.string, let semester_academic_year = courseInfoObj["semester_academic_year"]?.string,
+                let description_it = courseInfoObj["description_it"]?.string, let description_en = courseInfoObj["description_en"]?.string,
+                let professor_full_name = courseInfoObj["lecturers"]?.object?["data"]?.array?[0].string  else {
                 throw UsiApiError.UsiApiParseError
             }
             // get educations info
@@ -77,7 +79,7 @@ public final class USIAPIFetcher {
             
             let years = rawYears.characters.flatMap { Int($0.description) }
             
-            let newCourse = try Course.createIfNotExist(facultyId: facultyId, usiApiID: usiApiID, name_en: name_en, name_it: name_it, semester_academic_year: semester_academic_year)
+            let newCourse = try Course.createIfNotExist(facultyId: facultyId, usiApiID: usiApiID, name_en: name_en, name_it: name_it, semester_academic_year: semester_academic_year, description_it: description_it, description_en: description_en, professor_full_name: professor_full_name)
             
             
             let study =  try Study.createIfNotExist(facultyId:facultyId,type: type )

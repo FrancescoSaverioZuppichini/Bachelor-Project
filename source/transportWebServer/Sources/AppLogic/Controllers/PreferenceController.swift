@@ -80,24 +80,6 @@ public final class PreferenceController {
             try pivot.save()
         }
         
-//        if let years = req.data["years"]?.array {
-//            try Pivot<Preference,Year>.query().filter("preference_id", preference.id!).delete()
-//            for year in years {
-//                
-//                let yearNumber = year.int!
-//                
-//                guard let yearModel = try Year.query().filter("yearNumber", yearNumber).first() else {
-//                    throw Abort.custom(status: .notFound, message: ResourseError.resourceNotFoud("Year").description)
-//                    
-//                }
-//                
-//                var pivot = Pivot<Preference,Year>(preference,yearModel)
-//                try pivot.save()
-//            }
-//            
-//
-//        }
-        
         
         if let yearNumber = req.data["year"]?.int {
             print(yearNumber)

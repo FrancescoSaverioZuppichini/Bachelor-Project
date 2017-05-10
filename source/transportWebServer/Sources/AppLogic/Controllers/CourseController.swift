@@ -12,6 +12,7 @@ import Fluent
 import HTTP
 
 final class CourseController {
+    
     static func getCourse(_ req: Request, course: Course) throws -> ResponseRepresentable {
         
         return try course.makeNode(context: ResourseContext.all).converted(to: JSON.self)
@@ -41,9 +42,6 @@ final class CourseController {
             guard let studyType = try StudyType.find(studyTypeString) else {
                 throw Abort.badRequest
             }
-//            guard let studyType = try StudyType.query().filter("name_en",studyTypeString).first() else {
-//                throw Abort.badRequest
-//            }
             
             courseQuery = try studyType.getCourses().makeQuery()
         }
@@ -61,7 +59,6 @@ final class CourseController {
             courseQuery = try courseQuery.makeQuery().filter("id", .in, ids as! [NodeRepresentable])
         }
         
-//
         if let semester_academic_year = req.query?["semester_academic_year"]?.string {
             try courseQuery.filter("semester_academic_year", semester_academic_year)
         }
@@ -70,8 +67,7 @@ final class CourseController {
             try courseQuery.filter("faculty_id", facultyId)
         }
         
-//
-        return try courseQuery.all().makeNode(context: ResourseContext.all).converted(to: JSON.self)
+        return try courseQuery.all().makeNode(context: ResourseContext.snippet).converted(to: JSON.self)
     }
     
 }
