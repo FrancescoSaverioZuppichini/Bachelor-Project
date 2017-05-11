@@ -11,25 +11,6 @@ import Vapor
 import Fluent
 import HTTP
 
-enum ResourseError: Error, CustomStringConvertible {
-    case parameterIsMissing(String)
-    case resourceNotFoud(String)
-    case resourceAlreadyExist(String)
-    
-    var description: String {
-        switch self {
-        case let .parameterIsMissing(parameter):
-            return "Missing parameter \(parameter) in the request"
-        case let .resourceNotFoud(name):
-            return "Resourse \((name)) not found"
-        case let .resourceAlreadyExist(name):
-            return "Resourse \((name)) already exists"
-            
-        }
-    }
-}
-
-
 
 public final class PreferenceController {
     
