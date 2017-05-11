@@ -39,7 +39,7 @@ final class ApplicationController {
     
     static func create(_ req: Request) throws -> ResponseRepresentable {
         var application = try Application(request: req)
-        let dio = "ad"
+        
         if let oldApplication = try Application.query().filter("name", application.name).filter("url", application.url).first() {
             
             throw Abort.custom(status: .badRequest, message: ResourseError.resourceAlreadyExist("Application").description)
