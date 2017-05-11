@@ -24,7 +24,7 @@ export default {
       query: {
         type: 'Bachelor',
         studyType: 'Bachelor of Science in Informatics',
-        facultyId: 2,
+        facultyId: 1,
         year: 1
       }
     }
@@ -75,6 +75,11 @@ export default {
     },
     createCalendar() {
       $('#fullcalendar').fullCalendar({
+        eventClick: (calEvent, jsEvent, view) => {
+          const course = calEvent.course
+          this.$store.actions.fetchCourse(course)
+
+        },
         that: this,
         header: {
           left: 'prev,next today',

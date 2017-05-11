@@ -103,6 +103,10 @@ public final class Course: Model {
         case ResourseContext.all:
             //            node["education"] = try getYear().makeQuery().all().makeNode()
             //            node["type_name"] = try getStudyType().makeQuery().first()?.makeNode()
+            node["type"] = try getStudy().makeQuery().first()?.makeNode()
+            node["type_name"] = try getStudyType().makeQuery().first()?.makeNode()
+            node["yearNumber"] = try getYear().makeQuery().all().makeNode()
+
             node["education"] = try Node(node: [
                 "type" : try getStudy().makeQuery().first()?.makeNode(),
                 "type_name": try getStudyType().makeQuery().first()?.makeNode(),
@@ -110,10 +114,24 @@ public final class Course: Model {
                 ])
             
         case ResourseContext.snippet:
+            node = try Node(node:[
+                "id": id,
+                "faculty_id": facultyId,
+                "name_en" : name_en,
+                "name_it" : name_it,
+                "semester_academic_year": semester_academic_year,
+                ])
             
-                node["type"] = try getStudy().makeQuery().first()?.makeNode()
-                node["type_name"] = try getStudyType().makeQuery().first()?.makeNode()
-                node["yearNumber"] = try getYear().makeQuery().all().makeNode()
+            node["type"] = try getStudy().makeQuery().first()?.makeNode()
+            node["type_name"] = try getStudyType().makeQuery().first()?.makeNode()
+            node["yearNumber"] = try getYear().makeQuery().all().makeNode()
+            
+            node["education"] = try Node(node: [
+                "type" : try getStudy().makeQuery().first()?.makeNode(),
+                "type_name": try getStudyType().makeQuery().first()?.makeNode(),
+                "yearNumber":try getYear().makeQuery().all().makeNode()
+                ])
+            
             
             
         default:
@@ -130,8 +148,8 @@ public final class Course: Model {
             courses.string("name_en")
             courses.string("name_it")
             courses.string("semester_academic_year")
-            courses.string("description_it")
-            courses.string("description_en")
+            courses.text("description_it")
+            courses.text("description_en")
             courses.string("professor_full_name")
         }
     }

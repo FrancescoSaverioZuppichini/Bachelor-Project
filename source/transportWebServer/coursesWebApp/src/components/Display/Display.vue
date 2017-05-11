@@ -9,8 +9,16 @@
     <div class="uk-margin-large-bottom course-selector__container uk-width-1-1 uk-width-1-4@m">
       <course-selector></course-selector>
     </div>
-  </div>
+    <div class='uk-width-1-1 uk-margin-left uk-margin-right'>
+      <div class='uk-flex' uk-grid>
+<div v-for="course in $store.state.selectedCourses()">
+  <course   :course='course' >
+  </course>
 </div>
+       </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import axios from 'axios'
@@ -18,20 +26,22 @@ import fullcalendar from 'fullcalendar'
 import moment from 'moment'
 import $ from 'jquery'
 import {
-  SuperStore, Action
+  SuperStore,
+  Action
 } from 'flue-vue'
 
+import Course from '../Course/Course.vue'
 import CourseSelector from './CourseSelector/CourseSelector.vue'
 
 export default {
   name: 'Display',
   components: {
-    CourseSelector
+    CourseSelector,
+    Course
   },
   mounted() {
     this.$store.state.navigation.BASE_URL = this.$route.path
     this.$store.state.navigation._urls = ['studyDisplay', 'yearDisplay', 'studyTypeDisplay']
-
     $('body').click(() => {
       SuperStore.dispatcher.dispatch(new Action("USER_INTERACTION"))
     })

@@ -54,9 +54,15 @@ public final class USIAPIFetcher {
             // get basic info
             guard let usiApiID = courseInfoObj["id"]?.int, let name_en = courseInfoObj["name_en"]?.string, let name_it = courseInfoObj["name_it"]?.string, let semester_academic_year = courseInfoObj["semester_academic_year"]?.string,
                 let description_it = courseInfoObj["description_it"]?.string, let description_en = courseInfoObj["description_en"]?.string,
-                let professor_full_name = courseInfoObj["lecturers"]?.object?["data"]?.array?[0].string  else {
+                let professors = courseInfoObj["lecturers"]?.object?["data"]?.array else {
                 throw UsiApiError.UsiApiParseError
             }
+            
+            var professor_full_name = ""
+            if professors.count > 0 {
+                    professor_full_name = (professors[0].object?["person"]?.object?["full_name"]?.string)!
+            }
+            
             // get educations info
             guard let educationsData = courseInfoObj["educations"]?.object?["data"]?.array else {
                 throw UsiApiError.UsiApiParseError

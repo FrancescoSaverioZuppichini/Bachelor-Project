@@ -33,8 +33,8 @@ export default {
     addPreference(preference) {
       return axios.post(`${BASE_URL}${CLASSES_URL}/preference`, { ...preference })
     },
-    deletePreference(preferenceId,userId) {
-      return axios.delete(`${BASE_URL}${CLASSES_URL}/preference/${preferenceId}`,{data:{userId}})
+    deletePreference(preferenceId, userId) {
+      return axios.delete(`${BASE_URL}${CLASSES_URL}/preference/${preferenceId}`, { data: { userId } })
     }
   },
   'course': {
@@ -43,6 +43,9 @@ export default {
     },
     fetchSchedules(course) {
       return axios.get(`${BASE_URL}${CLASSES_URL}/course/${course.id}/schedules`)
+    },
+    fetchCourse(id) {
+      return axios.get(`${BASE_URL}${CLASSES_URL}/course/${id}`)
     }
   },
   'schedule': {},
