@@ -1,6 +1,9 @@
+const BASE_URL = 'http://localhost:'
+
 module.exports =  {
-  'transport': 'http://localhost:8080',
-  'auth': 'http://localhost:8081',
-  'classes': 'http://localhost:8082',
-  'user+display': 'http://localhost:8083'
+  'transport': BASE_URL + '8080',
+  'auth': BASE_URL + '8081',
+  'classes': BASE_URL + '8082',
+  'user+display': BASE_URL + '8083',
+'application': BASE_URL + '8085'
 }
