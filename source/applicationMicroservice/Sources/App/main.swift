@@ -11,7 +11,7 @@ drop.preparations.append(Application.self)
 
 drop.group("api") {
     api in
-    api.group("application") {
+    api.group("") {
         application in
         application.get("", handler: ApplicationController.getAll)
         application.get(Application.self,"", handler: ApplicationController.getOne)

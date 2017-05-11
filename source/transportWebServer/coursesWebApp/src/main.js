@@ -26,6 +26,8 @@ import userStore from './stores/UserStore.js'
 
 import socket from './socket.js'
 
+window.jQuery = window.$ = require('jquery')
+
 SuperStore.addStores([facultyStore, courseStore, yearStore, preferenceStore, displayStore, scheduleStore, userStore])
 SuperStore.actions.initializeSchedules()
 Vue.config.productionTip = false
