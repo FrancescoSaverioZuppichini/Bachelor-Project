@@ -21,6 +21,9 @@ app.use('/js/*', (req, res) => {
   var key = (url.parse(req.headers.referer).pathname).replace(new RegExp('/', 'g'), '')
   axios.get(config[key] + req.originalUrl)
     .then(data => res.send(data.data))
+    .catch(({ response }) => {
+      res.status(response.data.code).send(response.data.message)
+    })
 })
 
 // TODO DIOCANE PORCODIO
@@ -34,8 +37,8 @@ for (let key in config) {
       .then((data) => {
         res.send(data.data)
       })
-      .catch((err) => {
-        res.send(err.data)
+      .catch(({ response }) => {
+        res.status(response.data.code).send(response.data.message)
       })
   })
 }
