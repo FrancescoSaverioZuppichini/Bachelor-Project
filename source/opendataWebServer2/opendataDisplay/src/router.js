@@ -23,26 +23,32 @@ export default new VueRouter({
         component: DisplayPage
       },
       {
-        path: 'preference',
+        path: 'app/home',
+        name: 'app',
         component: CreatePreferencePage,
         children: [{
             path: '',
+            name: 'preferenceHome',
             component: CreatePreferenceHomePage,
           },
           {
             path: 'station',
+            name: 'station',
             component: StationSelectionPage,
           },
           {
             path: 'direction',
+            name: 'direction',
             component: DirectionSelectionPage
           },
           {
             path: 'bus',
+            name: 'bus',
             component: BusSelectionPage,
           },
           {
             path: 'edit',
+            name: 'edit',
             component: EditPreferencePage,
           }
         ]

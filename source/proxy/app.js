@@ -13,7 +13,7 @@ const config = require('./config.js');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 
 // handle the js case
@@ -25,8 +25,8 @@ app.use('/js/*', (req, res) => {
       res.status(response.data.code).send(response.data.message)
     })
 })
-
-// TODO DIOCANE PORCODIO
+//
+// // TODO DIOCANE PORCODIO
 for (let key in config) {
   app.use(`/${key}/api*`, (req, res) => {
     axios({

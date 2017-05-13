@@ -13,7 +13,7 @@ var env = process.env.NODE_ENV === 'testing' ?
   require('../config/test.env') :
   config.build.env
 
-const VAPOR_STATIC_DIR = '/Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/source/opendataWebServer/Public/'
+const VAPOR_STATIC_DIR = '/Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/source/opendataWebServer2/Public/'
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {

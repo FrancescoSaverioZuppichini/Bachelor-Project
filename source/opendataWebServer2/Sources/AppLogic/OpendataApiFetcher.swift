@@ -137,6 +137,7 @@ public final class OpendataApiFetcher {
         print("fetching data...")
         
         try cleanCachedApiData()
+//        Universita della Svizzera Italiana location
         let query: [String: CustomStringConvertible] = ["x": 46.0109180,"y": 8.9582230]
         
         let stations = try drop.client.get("http://transport.opendata.ch/v1/locations", query: query)

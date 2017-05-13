@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const BASE_URL = 'http://localhost:3000'
 const CLASSES_URL = '/classes/api'
-const USER_URL = '/auth/api'
+const TACITA_URL = '/auth/api'
 
 export default {
   'user': {},
@@ -20,11 +20,20 @@ export default {
   'user': {
     fetchUserPreferences(userId) {},
     getMe(email) {
-      return axios.get(`${BASE_URL}${USER_URL}/user/?email=${email}`)
+      return axios.get(`${BASE_URL}${TACITA_URL}/user/?email=${email}`)
     },
     fetchUserPreferences(userId) {
       return axios.get(`${BASE_URL}${CLASSES_URL}/preference?userId=${userId}`)
     },
+  },
+  'display': {
+    sendAppToDisplay(displayId, appId) {
+      return axios.put(`${BASE_URL}${TACITA_URL}/display/${displayId}/app/${appId}`)
+    },
+    fetchDisplay(displayId) {
+      return axios.get(`${BASE_URL}${TACITA_URL}/display/${displayId}`)
+
+    }
   },
   'preference': {
     updatePreference(preference) {

@@ -1,8 +1,7 @@
 <template>
 <!-- <transition name="fade"> -->
-<div class="uk-card uk-card-default">
+<div class="uk-card uk-card-default" >
   <div class="uk-card-body">
-
     <h4 class="uk-clearfix"><span class="uk-margin-small-right" uk-icon="icon: location; ratio: 1.5"></span>{{station.name}}
       <span class="uk-float-right" uk-icon="icon:clock; ratio: 1.2" v-if="showConnection"></span>
 </h4>

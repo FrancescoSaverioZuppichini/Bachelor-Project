@@ -38,7 +38,7 @@
     </div>
   </div>
   <div class="uk-margin-top navigation__actions padding--zero">
-    <button class="uk-button uk-button-primary uk-float-right uk-width-auto@m" @click="$router.push({path:'/preference/station'})">New
+    <button class="uk-button uk-button-primary uk-float-right uk-width-auto@m" @click="$router.push({name:'station'})">New
 </button>
   </div>
 </div>
@@ -59,8 +59,8 @@ export default {
       this.$store.actions.fetchUserPreferences()
     }, 500)
 
-},
-watch: {
+  },
+  watch: {
     '$route': function(newRoute) {
       if (newRoute.path == '/preference/') {
         this.$store.PreferenceStore.initializeCurrentPreference()
@@ -76,7 +76,7 @@ watch: {
     tooglePrefereceEdit(preference) {
       this.$store.actions.toogleEditMode(preference)
       this.$router.push({
-        path: '/preference/edit'
+        name: 'edit'
       })
     }
   }

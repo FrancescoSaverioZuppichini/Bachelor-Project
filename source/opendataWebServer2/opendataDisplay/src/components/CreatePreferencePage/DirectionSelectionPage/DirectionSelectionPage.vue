@@ -34,7 +34,7 @@ export default {
   watch: {
     '$route': function(newRoute) {
       this.show = false
-      if (newRoute.path == '/preference/direction') {
+      if (newRoute.path == '/app/home/direction') {
         this.getDirections()
       }
     }
@@ -64,6 +64,9 @@ export default {
       return (this.$store.state.currentPreference.buses.filter(bus => bus.to).length)
     },
     getDirections() {
+      console.log('getting directions');
+      console.log(this.$store.state.currentPreference.buses);
+
       const stationId = this.$store.state.currentPreference.station.id
       this.stationboards = []
       this.$store.state.currentPreference.buses.forEach((bus) => {
@@ -100,7 +103,9 @@ export default {
       this.show = true
       if (this.$store.state.isInEditMode)
         // go back to edit
-        this.$router.push({path:'/preference/edit'})
+        this.$router.push({
+          name: 'edit'
+        })
       else {
         const isAtLeastOnedirectionSelected = this.getDirectionsSelected() > 0
         this.error.hasError = !isAtLeastOnedirectionSelected

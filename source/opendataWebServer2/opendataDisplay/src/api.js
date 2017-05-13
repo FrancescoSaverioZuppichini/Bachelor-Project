@@ -3,7 +3,7 @@ import utils from './utils.js'
 
 const BASE_URL = 'http://localhost:3000'
 const TRANSPORT_URL = '/transport/api'
-const USER_URL = '/auth/api'
+const TACITA_URL = '/auth/api'
 
 export default {
   fetchNearbyLocations() {
@@ -17,7 +17,7 @@ export default {
   },
   "users": {
     getMe(email) {
-      return axios.get(`${BASE_URL}${USER_URL}/user/?email=${email}`)
+      return axios.get(`${BASE_URL}${TACITA_URL}/user/?email=${email}`)
     },
     fetchUserPreferences(userId) {
       return axios.get(`${BASE_URL}${TRANSPORT_URL}/preference?userId=${userId}`)
@@ -38,13 +38,17 @@ export default {
     editPreference(preference) {
       return axios.put(`${BASE_URL}${TRANSPORT_URL}/preference`, { ...preference })
     },
-    removePreference(preferenceId,userId) {
+    removePreference(preferenceId, userId) {
       return axios.delete(`${BASE_URL}${TRANSPORT_URL}/preference/${preferenceId}?userId=${userId}`)
     }
   },
-  "display": {
+  'display': {
+    sendAppToDisplay(displayId, appId) {
+      return axios.put(`${BASE_URL}${TACITA_URL}/display/${displayId}/app/${appId}`)
+    },
     fetchDisplay(displayId) {
-      return axios.get(`http://localhost:8080/api/display/${displayId}`)
+      return axios.get(`${BASE_URL}${TRANSPORT_URL}/display/${displayId}`)
+
     }
   }
 }

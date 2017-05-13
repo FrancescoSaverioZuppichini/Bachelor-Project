@@ -46,7 +46,7 @@ class LocationStore extends Store {
   setAutoDestruction(callback) {
     setTimeout(() => {
       callback()
-    }, 2000)
+    }, 1000)
   }
   // TODO refactor
   createLocationForUser(pref) {
@@ -65,9 +65,9 @@ class LocationStore extends Store {
         if (prefBus.number == bus.number && prefBus.to == bus.to) {
           Vue.set(bus, 'triggered', true)
           // toggle state
-          // this.setAutoDestruction(() => {
-          //   Vue.set(bus, 'triggered', false)
-          // })
+          this.setAutoDestruction(() => {
+            Vue.set(bus, 'triggered', false)
+          })
         }
       })
     })
@@ -109,7 +109,7 @@ class LocationStore extends Store {
     // start data pooling
     location.timeOutId = setInterval(() => {
       this.sStore.actions.fetchLocationStationBoard(location)
-    }, 5000)
+    }, 50000000)
   }
 
   fetchNearbyLocationsLoading() {

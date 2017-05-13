@@ -16,7 +16,7 @@
         <station-card-dummy></station-card-dummy>
       </div>
       <div class="" :key="index" v-for="(station,index) in $store.state.locations">
-        <div class='uk-card uk-card-default uk-card-body' :class="{'uk-box-shadow-large': station.toogle}" @click="addStation(station)">
+        <div class='uk-card uk-card-default uk-card-body' :class="{'uk-box-shadow-large': station.id == $store.state.currentPreference.station.id}" @click="addStation(station)">
           <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
         {{station.name}}</h6>
         </div>
@@ -27,8 +27,7 @@
 
   <div class="navigation__actions">
     <a  uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)"> </a>
-    <a  uk-icon="icon: chevron-right; ratio: 1.5" class='uk-float-right' v-if='!$store.state.isInEditMode' @click="next"></a>
-
+    <!-- <a  uk-icon="icon: chevron-right; ratio: 1.5" class='uk-float-right' v-if='!$store.state.isInEditMode' @click="next"></a> -->
     <!-- <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.go(-1)">Back</button>
     <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="next">Next</button> -->
   </div>
@@ -88,7 +87,7 @@ export default {
       this.error.hasError = (this.currStation == null)
       if (!this.error.hasError) {
         this.$router.push({
-          path: '/preference/bus'
+          name: 'bus'
         })
       }
     }

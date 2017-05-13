@@ -11,14 +11,14 @@
     </div>
     <div class='uk-width-1-1 uk-margin-left uk-margin-right'>
       <div class='uk-flex' uk-grid>
-<div v-for="course in $store.state.selectedCourses()">
-  <course   :course='course' >
-  </course>
-</div>
-       </div>
+        <div v-for="course in $store.state.selectedCourses()">
+          <course :course='course'>
+          </course>
+        </div>
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
 import axios from 'axios'
@@ -45,11 +45,12 @@ export default {
     $('body').click(() => {
       SuperStore.dispatcher.dispatch(new Action("USER_INTERACTION"))
     })
+    const displayId = this.$route.params.id
+    const appId = 1
+    this.$store.actions.fetchDisplay(displayId)
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 .btn--toogle {
   border-color: black !important;

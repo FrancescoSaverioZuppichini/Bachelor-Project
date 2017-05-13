@@ -26,6 +26,7 @@ class PreferenceStore extends Store {
   initializeCurrentPreference() {
     // this.state.currentPreference.station.toogle = false
     this.state.currentPreference = { station: {}, buses: [] }
+    this.toggleOffAll()
   }
 
   toggleOffAll() {
@@ -98,12 +99,14 @@ class PreferenceStore extends Store {
     this.initializeCurrentPreference()
     station.toogle = true
     Vue.set(this.state.currentPreference, 'station', station)
+    router.push({ name: 'bus' })
+
   }
 
   onPreferenceSuccessNotification() {
     const msg = this.state.isInEditMode ? "Preference changed" : 'New preference added'
 
-    UIkit.notification({ message: msg, timeout: 1000 });
+    // UIkit.notification({ message: msg, timeout: 1000 });
   }
 
   addPreferenceSuccess() {
@@ -111,7 +114,7 @@ class PreferenceStore extends Store {
     this.initializeCurrentPreference()
     // create a notification in the view
     this.onPreferenceSuccessNotification()
-    router.push({ path: '/preference' })
+    router.push({ name: 'app' })
   }
 
   updatePreferenceSuccess() {
@@ -123,7 +126,7 @@ class PreferenceStore extends Store {
     this.onPreferenceSuccessNotification()
     // switch behavior
     this.state.isInEditMode = false
-    router.push({ path: '/preference' })
+    router.push({ name: 'app' })
   }
 
   addPreferenceFailure({ err }) {
@@ -135,9 +138,9 @@ class PreferenceStore extends Store {
   }
 
   toogleEditModeTrue({ preference }) {
-
     this.state.originalPreference = preference
     this.state.currentPreference = Object.assign({}, preference)
+    this.state.currentPreference.buses.forEach(bus => bus.toogle)
   }
 
   toogleEditMode({ preference }) {
@@ -145,6 +148,7 @@ class PreferenceStore extends Store {
     this.state.isInEditMode ? this.toogleEditModeFalse() : this.toogleEditModeTrue({ preference })
     // toogle inner state
     this.state.isInEditMode = !this.state.isInEditMode
+
   }
 
   reduce(action) {

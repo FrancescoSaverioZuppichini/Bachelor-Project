@@ -17,13 +17,18 @@ class DisplayStore extends Store {
    * fetch it's preference and display them
    * on the fly
    **/
-  onUserNearby({ userId }) {
+  onUserNearby({ userId, displayId }) {
+    if (displayId != this.state.display.id) {
+      console.log('NOT THIS DISPLAY');
+      return
+    }
     this.sStore.actions.displayUserPreferences(userId)
   }
 
   fetchDisplaySuccess({ display }) {
     this.state.display = display
     this.sStore.actions.fetchNearbyLocations()
+    this.sStore.actions.sendAppToDisplay(this.state.display.id, 2)
   }
 
   reduce(action) {
@@ -47,6 +52,9 @@ class DisplayStore extends Store {
           .then((res) => {
             dispatcher.dispatch(new Action("DISPLAY_USER_PREFERENCE", { userPreferences: res.data }))
           })
+      },
+      sendAppToDisplay(displayId, appId) {
+        api.display.sendAppToDisplay(displayId, appId)
       }
     }
   }

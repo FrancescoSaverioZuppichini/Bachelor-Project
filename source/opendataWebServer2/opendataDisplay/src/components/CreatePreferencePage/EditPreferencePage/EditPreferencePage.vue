@@ -4,7 +4,7 @@
   <div class="uk-card">
     <h5> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
   {{$store.state.currentPreference.station.name}}</h5>
-    <h6>Change buses  <router-link  class='uk-float-right' :to="{ path: 'bus'}"><span  uk-icon="icon:  search; ratio: 1.2"></span></router-link> </h6>
+    <h6>Change buses  <router-link  class='uk-float-right' :to="{ name: 'bus'}"><span  uk-icon="icon:  search; ratio: 1.2"></span></router-link> </h6>
     <div class="uk-flex" uk-grid>
       <div v-if="$store.state.currentPreference.buses.length <= 0">
         <h6 class='uk-text-meta'>
@@ -12,7 +12,7 @@
       </h6>
       </div>
       <div v-for="bus in $store.state.currentPreference.buses" v-else>
-        <div class="uk-card uk-card-default uk-card-body" @click="$router.push({ path: 'bus'})">
+        <div class="uk-card uk-card-default uk-card-body" @click="$router.push({ name: 'bus'})">
           {{bus.number}}
         </div>
       </div>
@@ -25,7 +25,7 @@
       </h6>
 </div>
       <div v-for="bus in $store.state.currentPreference.buses" v-if="bus.to" v-else>
-        <div class="uk-card uk-card-default uk-card-body" @click="$router.push({ path: 'direction'})">
+        <div class="uk-card uk-card-default uk-card-body" @click="$router.push({ name: 'direction'})">
           {{bus.to}}
         </div>
       </div>
