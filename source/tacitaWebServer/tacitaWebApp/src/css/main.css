@@ -1,3 +1,7 @@
+html {
+  overflow-y: hidden;
+}
+
 .red {
   background-color: red !important;
 }
@@ -15,6 +19,7 @@
   height: 24px;
   width: 100%;
 }
+
 .dummy__text--small {
   height: 14px;
   width: 100%;

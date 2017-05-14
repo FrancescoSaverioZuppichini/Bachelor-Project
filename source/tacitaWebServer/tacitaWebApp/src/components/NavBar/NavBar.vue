@@ -1,8 +1,18 @@
-<template>
+<template >
 <nav class="uk-navbar-container my-nav-bar uk-box-shadow" uk-navbar>
   <div class="uk-navbar-left">
     <ul class="uk-navbar-nav">
-      <a href="#" class="uk-navbar-item uk-logo">Tacita</a>
+      <a href="#" class="uk-navbar-item uk-logo" v-if="$route.name == 'Home'">Tacita</a>
+        <v-btn icon="icon" class="white--text uk-navbar-item" @click.native='$router.go(-1)' v-else>
+          <v-icon>arrow_back</v-icon>
+        </v-btn>
+    </ul>
+  </div>
+  <div class="uk-navbar-right">
+    <ul class="uk-navbar-nav">
+      <li class="">
+          <v-icon class='white--text uk-navbar-item' @click.native="$router.push({name:'UserPreference'})">settings</v-icon>
+      </li>
     </ul>
   </div>
 </nav>

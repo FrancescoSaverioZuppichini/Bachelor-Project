@@ -1,197 +1,170 @@
 {
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "06AA870D20BBCC09127CF32956C841C9E0A7040D+++202C791",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++CFBEB8B" : 9223372036854775807,
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++4D3211B" : 9223372036854775807,
-    "7E7C1062562B886ABFA1C65C1E929E1339657116+++3CFCA88" : 9223372036854775807,
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++99C7B02" : 9223372036854775807,
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++C9ECFFB" : 9223372036854775807,
-    "789252EF81C502A43EF1153AAFB885D64C59FEBD+++94832BE" : 9223372036854775807,
-    "07D38DC615E8ADA07E68B7DA8DD8A2654638A334+++3ADFDB2" : 9223372036854775807,
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++4DED1A9" : 9223372036854775807,
-    "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++E98BF7B" : 9223372036854775807,
-    "CADB2473D823C4B67E031AA19BD5C58C5C0C5C2C+++DDD9A63" : 9223372036854775807,
-    "65880DAFEE5F57D1D1C181560E763EECFD96B06D+++B9B32EF" : 9223372036854775807,
-    "6400345F86F53D4096DD633F09AAE772FA6A202B+++007938D" : 9223372036854775807,
-    "013355313FF9FF2B55EA1241A5D12353638D9AC3+++B27A63E" : 9223372036854775807,
-    "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++EFF5301" : 9223372036854775807,
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++5954F77" : 9223372036854775807,
-    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++FBE20A2" : 9223372036854775807,
-    "9C479842BAB37E5A02B52F0D8BB690041F1A927F+++8DD1B80" : 9223372036854775807,
-    "9948E95A70F754B78E92114BF205DC946294AF5D+++CE12E99" : 9223372036854775807,
-    "06AA870D20BBCC09127CF32956C841C9E0A7040D+++036DFCA" : 9223372036854775807,
-    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++751BAC5" : 9223372036854775807,
-    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++796D5CD" : 9223372036854775807,
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++8699554" : 9223372036854775807,
-    "8FE2B4BB55A3C9D7B3B78FD1E2302636E924BDDC+++952E35F" : 9223372036854775807,
-    "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++0168092" : 9223372036854775807,
-    "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC+++984DB52" : 9223372036854775807,
-    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++AA976C8" : 9223372036854775807
+    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++EB7FD4E" : 9223372036854775807,
+    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++853F9AC" : 9223372036854775807,
+    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++F4AFD18" : 9223372036854775807,
+    "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++F8FB36F" : 9223372036854775807,
+    "07D38DC615E8ADA07E68B7DA8DD8A2654638A334+++BD69828" : 9223372036854775807,
+    "7E7C1062562B886ABFA1C65C1E929E1339657116+++D0F6B2C" : 9223372036854775807,
+    "789252EF81C502A43EF1153AAFB885D64C59FEBD+++BC99769" : 9223372036854775807,
+    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++BD7FA57" : 9223372036854775807,
+    "9C479842BAB37E5A02B52F0D8BB690041F1A927F+++A39C1D5" : 9223372036854775807,
+    "06AA870D20BBCC09127CF32956C841C9E0A7040D+++202C791" : 9223372036854775807,
+    "8FE2B4BB55A3C9D7B3B78FD1E2302636E924BDDC+++4AD7D82" : 9223372036854775807,
+    "9948E95A70F754B78E92114BF205DC946294AF5D+++46D7587" : 9223372036854775807,
+    "013355313FF9FF2B55EA1241A5D12353638D9AC3+++EC6881B" : 9223372036854775807,
+    "CADB2473D823C4B67E031AA19BD5C58C5C0C5C2C+++26D0F50" : 9223372036854775807,
+    "6400345F86F53D4096DD633F09AAE772FA6A202B+++3897DEC" : 9223372036854775807,
+    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++F37CBE4" : 9223372036854775807,
+    "65880DAFEE5F57D1D1C181560E763EECFD96B06D+++2D66A3E" : 9223372036854775807,
+    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++81E5531" : 9223372036854775807,
+    "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++C0771BD" : 9223372036854775807,
+    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++C9B321E" : 9223372036854775807,
+    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++BED28E4" : 9223372036854775807,
+    "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC+++46EC969" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "DD2F4822-0AA2-438A-A93B-F7CF179E49E1",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++CFBEB8B" : "authMicroService\/.build\/checkouts\/vapor.git-5492988889259800272\/",
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++4D3211B" : "authMicroService\/.build\/checkouts\/routing.git-5366657101075133678\/",
-    "7E7C1062562B886ABFA1C65C1E929E1339657116+++3CFCA88" : "authMicroService\/.build\/checkouts\/Turnstile.git-2443676010155639616\/",
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++99C7B02" : "authMicroService\/.build\/checkouts\/engine.git-3311994267206676365\/",
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++C9ECFFB" : "authMicroService\/.build\/checkouts\/vapor.git-5492988889259800272\/",
-    "789252EF81C502A43EF1153AAFB885D64C59FEBD+++94832BE" : "authMicroService\/.build\/checkouts\/clibressl.git-4924093653370840509\/",
-    "07D38DC615E8ADA07E68B7DA8DD8A2654638A334+++3ADFDB2" : "authMicroService\/.build\/checkouts\/crypto.git-7980259129511365902\/",
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++4DED1A9" : "authMicroService\/.build\/checkouts\/vapor.git-5492988889259800272\/",
-    "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++E98BF7B" : "authMicroService\/.build\/checkouts\/node.git-9175390252000121167\/",
-    "CADB2473D823C4B67E031AA19BD5C58C5C0C5C2C+++DDD9A63" : "authMicroService\/.build\/checkouts\/multipart.git-4210556629793786970\/",
-    "65880DAFEE5F57D1D1C181560E763EECFD96B06D+++B9B32EF" : "authMicroService\/.build\/checkouts\/fluent.git-6251908308727715749\/",
-    "6400345F86F53D4096DD633F09AAE772FA6A202B+++007938D" : "authMicroService\/.build\/checkouts\/leaf.git-9164445114487378533\/",
-    "013355313FF9FF2B55EA1241A5D12353638D9AC3+++B27A63E" : "authMicroService\/.build\/checkouts\/tls.git-2678149690400510061\/",
-    "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++EFF5301" : "authMicroService\/.build\/checkouts\/path-indexable.git-6101080875983074629\/",
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++5954F77" : "authMicroService\/.build\/checkouts\/vapor.git-5492988889259800272\/",
-    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++FBE20A2" : "authMicroService\/.build\/checkouts\/mysql.git-1890032512239690518\/",
-    "9C479842BAB37E5A02B52F0D8BB690041F1A927F+++8DD1B80" : "authMicroService\/.build\/checkouts\/socks.git--8001262774462276871\/",
-    "9948E95A70F754B78E92114BF205DC946294AF5D+++CE12E99" : "authMicroService\/.build\/checkouts\/json.git-9153249592855998091\/",
-    "06AA870D20BBCC09127CF32956C841C9E0A7040D+++036DFCA" : "..",
-    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++751BAC5" : "authMicroService\/.build\/checkouts\/mysql-provider.git-8249391725535204749\/",
-    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++796D5CD" : "authMicroService\/.build\/checkouts\/console.git--2431895819212044213\/",
-    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++8699554" : "authMicroService\/.build\/checkouts\/core.git-9210800844849382486\/",
-    "8FE2B4BB55A3C9D7B3B78FD1E2302636E924BDDC+++952E35F" : "authMicroService\/.build\/checkouts\/Jay.git--595626396716718175\/",
-    "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++0168092" : "authMicroService\/.build\/checkouts\/path-indexable.git-6101080875983074629\/",
-    "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC+++984DB52" : "authMicroService\/.build\/checkouts\/polymorphic.git--4354167031091999056\/",
-    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++AA976C8" : "authMicroService\/.build\/checkouts\/mysql-driver.git--8170272045732294678\/"
+    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++EB7FD4E" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/mysql-driver.git--8170272045732294678\/",
+    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++853F9AC" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/console.git--2431895819212044213\/",
+    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++F4AFD18" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/mysql-provider.git-8249391725535204749\/",
+    "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++F8FB36F" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/node.git-9175390252000121167\/",
+    "07D38DC615E8ADA07E68B7DA8DD8A2654638A334+++BD69828" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/crypto.git-7980259129511365902\/",
+    "7E7C1062562B886ABFA1C65C1E929E1339657116+++D0F6B2C" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/Turnstile.git-2443676010155639616\/",
+    "789252EF81C502A43EF1153AAFB885D64C59FEBD+++BC99769" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/clibressl.git-4924093653370840509\/",
+    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++BD7FA57" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/core.git-9210800844849382486\/",
+    "9C479842BAB37E5A02B52F0D8BB690041F1A927F+++A39C1D5" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/socks.git--8001262774462276871\/",
+    "06AA870D20BBCC09127CF32956C841C9E0A7040D+++202C791" : "Bachelor%20Project\/",
+    "8FE2B4BB55A3C9D7B3B78FD1E2302636E924BDDC+++4AD7D82" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/Jay.git--595626396716718175\/",
+    "9948E95A70F754B78E92114BF205DC946294AF5D+++46D7587" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/json.git-9153249592855998091\/",
+    "013355313FF9FF2B55EA1241A5D12353638D9AC3+++EC6881B" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/tls.git-2678149690400510061\/",
+    "CADB2473D823C4B67E031AA19BD5C58C5C0C5C2C+++26D0F50" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/multipart.git-4210556629793786970\/",
+    "6400345F86F53D4096DD633F09AAE772FA6A202B+++3897DEC" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/leaf.git-9164445114487378533\/",
+    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++F37CBE4" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/vapor.git-5492988889259800272\/",
+    "65880DAFEE5F57D1D1C181560E763EECFD96B06D+++2D66A3E" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/fluent.git-6251908308727715749\/",
+    "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++81E5531" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/mysql.git-1890032512239690518\/",
+    "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++C0771BD" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/path-indexable.git-6101080875983074629\/",
+    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++C9B321E" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/routing.git-5366657101075133678\/",
+    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++BED28E4" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/engine.git-3311994267206676365\/",
+    "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC+++46EC969" : "Bachelor%20Project\/source\/tacitaWebServer\/.build\/checkouts\/polymorphic.git--4354167031091999056\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "authMicroService",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "authMicroService.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "source\/tacitaWebServer\/authMicroService.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/tls.git-2678149690400510061",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/tls.git-2678149690400510061",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "013355313FF9FF2B55EA1241A5D12353638D9AC3+++B27A63E"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "013355313FF9FF2B55EA1241A5D12353638D9AC3+++EC6881B"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/FrancescoSaverioZuppichini\/Bachelor-Project.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "06AA870D20BBCC09127CF32956C841C9E0A7040D+++036DFCA"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "06AA870D20BBCC09127CF32956C841C9E0A7040D+++202C791"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/crypto.git-7980259129511365902",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/crypto.git-7980259129511365902",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "07D38DC615E8ADA07E68B7DA8DD8A2654638A334+++3ADFDB2"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "07D38DC615E8ADA07E68B7DA8DD8A2654638A334+++BD69828"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/routing.git-5366657101075133678",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/core.git-9210800844849382486",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++4D3211B"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++BD7FA57"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/engine.git-3311994267206676365",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/engine.git-3311994267206676365",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++4DED1A9"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++BED28E4"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/routing.git-5366657101075133678",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/routing.git-5366657101075133678",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++5954F77"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++C9B321E"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/core.git-9210800844849382486",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/vapor.git-5492988889259800272",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++8699554"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++F37CBE4"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/engine.git-3311994267206676365",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/leaf.git-9164445114487378533",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++99C7B02"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6400345F86F53D4096DD633F09AAE772FA6A202B+++3897DEC"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/vapor.git-5492988889259800272",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/fluent.git-6251908308727715749",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++C9ECFFB"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "65880DAFEE5F57D1D1C181560E763EECFD96B06D+++2D66A3E"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/core.git-9210800844849382486",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/polymorphic.git--4354167031091999056",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3+++CFBEB8B"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC+++46EC969"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/leaf.git-9164445114487378533",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/mysql.git-1890032512239690518",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6400345F86F53D4096DD633F09AAE772FA6A202B+++007938D"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++81E5531"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/fluent.git-6251908308727715749",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/console.git--2431895819212044213",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "65880DAFEE5F57D1D1C181560E763EECFD96B06D+++B9B32EF"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++853F9AC"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/polymorphic.git--4354167031091999056",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/mysql-driver.git--8170272045732294678",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC+++984DB52"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++EB7FD4E"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/mysql-provider.git-8249391725535204749",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/mysql-provider.git-8249391725535204749",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++751BAC5"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++F4AFD18"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/console.git--2431895819212044213",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/clibressl.git-4924093653370840509",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++796D5CD"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "789252EF81C502A43EF1153AAFB885D64C59FEBD+++BC99769"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/mysql-driver.git--8170272045732294678",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/Turnstile.git-2443676010155639616",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++AA976C8"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7E7C1062562B886ABFA1C65C1E929E1339657116+++D0F6B2C"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/mysql.git-1890032512239690518",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/Jay.git--595626396716718175",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "748C9296F4CFA6FB6918A0C73ECFD0DCCA1E2109+++FBE20A2"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8FE2B4BB55A3C9D7B3B78FD1E2302636E924BDDC+++4AD7D82"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/clibressl.git-4924093653370840509",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/json.git-9153249592855998091",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "789252EF81C502A43EF1153AAFB885D64C59FEBD+++94832BE"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9948E95A70F754B78E92114BF205DC946294AF5D+++46D7587"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/Turnstile.git-2443676010155639616",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/socks.git--8001262774462276871",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7E7C1062562B886ABFA1C65C1E929E1339657116+++3CFCA88"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9C479842BAB37E5A02B52F0D8BB690041F1A927F+++A39C1D5"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/Jay.git--595626396716718175",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/multipart.git-4210556629793786970",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8FE2B4BB55A3C9D7B3B78FD1E2302636E924BDDC+++952E35F"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CADB2473D823C4B67E031AA19BD5C58C5C0C5C2C+++26D0F50"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/json.git-9153249592855998091",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/path-indexable.git-6101080875983074629",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9948E95A70F754B78E92114BF205DC946294AF5D+++CE12E99"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++C0771BD"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/socks.git--8001262774462276871",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/tacitaWebServer\/.build\/repositories\/node.git-9175390252000121167",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9C479842BAB37E5A02B52F0D8BB690041F1A927F+++8DD1B80"
-    },
-    {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/multipart.git-4210556629793786970",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CADB2473D823C4B67E031AA19BD5C58C5C0C5C2C+++DDD9A63"
-    },
-    {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/node.git-9175390252000121167",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++0168092"
-    },
-    {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/node.git-9175390252000121167",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++E98BF7B"
-    },
-    {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/VaeVictis\/Documents\/Usi\/VI%20Semester\/Bachelor%20Project\/source\/authMicroService\/.build\/repositories\/path-indexable.git-6101080875983074629",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++EFF5301"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EE0211841CDBC942EFB5905580DF4AA57B5992F6+++F8FB36F"
     }
   ]
 }
