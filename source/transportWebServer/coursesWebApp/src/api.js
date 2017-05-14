@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = ''
 const CLASSES_URL = '/classes/api'
 const TACITA_URL = '/auth/api'
 

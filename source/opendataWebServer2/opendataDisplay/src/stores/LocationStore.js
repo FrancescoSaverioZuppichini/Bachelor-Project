@@ -7,6 +7,12 @@ import FixedSizeStack from '../FixedSizeStack.js'
 import api from '../api.js'
 
 import cachedLocations from '../locations.js'
+
+const config = {
+  USER_NOTIFICATION_LIFE : 2000,
+  STATIONBOARD_UPLOAD_EVERY : 5000
+}
+
 class LocationStore extends Store {
   constructor() {
     super()
@@ -46,7 +52,7 @@ class LocationStore extends Store {
   setAutoDestruction(callback) {
     setTimeout(() => {
       callback()
-    }, 1000)
+    }, config.USER_NOTIFICATION_LIFE)
   }
   // TODO refactor
   createLocationForUser(pref) {
@@ -109,7 +115,7 @@ class LocationStore extends Store {
     // start data pooling
     location.timeOutId = setInterval(() => {
       this.sStore.actions.fetchLocationStationBoard(location)
-    }, 50000000)
+    }, config.STATIONBOARD_UPLOAD_EVERY)
   }
 
   fetchNearbyLocationsLoading() {
