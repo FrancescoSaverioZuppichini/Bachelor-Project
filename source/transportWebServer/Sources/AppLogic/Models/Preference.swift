@@ -1,114 +1,133 @@
 //
-//  Year.swift
-//  coursesWebServer
+//  Preference.swift
+//  Hello
 //
-//  Created by VaeVictis on 28.04.17.
+//  Created by VaeVictis on 05.03.17.
 //
 //
 
-import Foundation
 import Vapor
 import Fluent
 import HTTP
 
-
 public final class Preference: Model {
     public var id: Node?
-    
     public var userId: Int
-    public var facultyId: Node
-    
-    public static var entity = "preferences"
-    
-    public init(userId: Int, facultyId: Node){
+    public var exists: Bool = false
+    public var stationId: Node?
+
+    public init(for userId: Int, stationId: Node?) {
         self.userId = userId
-        self.facultyId = facultyId
+        self.stationId = stationId
+
     }
-    
-    public init(node: Node, in context: Context) throws{
+
+    public init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         userId = try node.extract("user_id")
-        facultyId = try node.extract("faculty_id")
+        stationId = try node.extract("station_id")
+
+    }
+    
+    public static func createOrUpdateFromRequest(_ req: Request, userId: Int) throws  -> Preference {
+        guard let stationId = req.data["stationId"]?.int, let busesRaw = req.data["buses"]?.array else { throw Abort.custom(status: .badRequest, message: "stationId and buses cannot be empty.") }
         
+        if (busesRaw.count == 0) {
+            throw Abort.custom(status: .badRequest, message: "There MUST be at least one bus")
+        }
+        
+        let buses = busesRaw.flatMap { $0.object }
+        
+        guard let station = try Station.find(stationId) else {
+            throw Abort.badRequest
+        }
+        
+        // create -> save preference with that station
+        let newPreference = try Preference.createIfNotExist(for: userId, with: station.id)
+        
+        try Pivot<Preference,StationBoard>.query().filter("preference_id", newPreference.id!).delete()
+        
+        for busObj in buses {
+            guard let busId = busObj["id"]?.int, let direction = busObj["to"]?.string else {
+                throw Abort.badRequest
+            }
+            
+            guard let stationBoard = try StationBoard.query().filter("bus_id",busId).filter("station_id", stationId).filter("to", direction).first() else {
+                throw Abort.custom(status: .badRequest, message: "Cannot find any stationboard")
+                
+            }
+            
+//            try Pivot<Preference,StationBoard>.query().filter("preference_id", newPreference.id!).filter("stationboard_id", stationBoard.id!).first()?.delete()
+            
+            var newPivot = Pivot<Preference,StationBoard>(newPreference,stationBoard)
+            try newPivot.save()
+        }
+        
+        return newPreference
     }
     
     
-    public static func createIfNotExist(yearNumber: Int) throws -> Year {
+    public class func createIfNotExist(for userId: Int, with stationId: Node?) throws -> Preference {
         
-        return try Year.query().filter("yearNumber", yearNumber).first() ?? create(yearNumber: yearNumber)
+        return try Preference.query().filter("user_id", userId).filter("station_id", stationId!).first() ?? create(for: userId, with: stationId)
     }
     
-    public static func create(yearNumber: Int) throws -> Year {
-        
-        var newYear = Year(yearNumber: yearNumber)
-        try newYear.save()
-        
-        return newYear
+    public class func create(for userId: Int, with stationId: Node?) throws -> Preference {
+        var preference = Preference(for: userId, stationId: stationId)
+        try preference.save()
+        return preference
     }
     
     public func makeNode(context: Context) throws -> Node {
-        var node = try Node(node:[
+        var node =  try Node(node: [
             "id": id,
             "user_id": userId,
-            "faculty_id": facultyId
+            "station_id": stationId,
+
             ])
         
         switch context {
-            
         case ResourseContext.all:
-//            node["years"] =  try getYears().all().makeNode()
-            node["year"] =  try getYears().first()!.makeNode()
-            node["faculty"] = try getFaculty().makeNode(context: ResourseContext.all)
-            node["courses"] = try getCourses().all().makeNode()
-            node["type"] = try getStudy().first()?.makeNode()
-            node["studyType"] = try getStudyType().first()?.makeNode()
+            node["buses"] = try stationboard().all().makeNode(context: StationBoardContext.bus)
+            node["station"] = try station()?.makeNode()
 
         default:
             break
         }
+        
         return node
     }
     
+    
     public static func prepare(_ database: Database) throws {
-        try database.create(entity){ schedules in
-            schedules.id()
-            schedules.int("user_id")
-            schedules.parent(Faculty.self)
+        try database.create("preferences") { preferences in
+            preferences.id()
+//            preferences.parent(User.self,optional: false)
+            preferences.int("user_id")
+            preferences.parent(Station.self,optional: false)
         }
     }
     
     public static func revert(_ database: Database) throws {
-        try database.delete(entity)
+        try database.delete("preferences")
     }
-    
 }
 
 public extension Preference {
+    public func buses() throws -> Siblings<Bus> {
+        return try siblings()
+    }
     
-    public func getCourses() throws -> Siblings<Course> {
+    public func station() throws -> Station? {
+        return try parent(stationId).get()
+    }
+    
+    public func stationboard() throws -> Siblings<StationBoard> {
         
         return try siblings()
     }
     
-    public func getFaculty() throws -> Faculty {
-        
-        return try parent(facultyId).get()!
-    }
-    
-    public func getYears() throws ->Siblings<Year> {
-        
-        return try siblings()
-    }
-    
-    public func getStudy() throws -> Siblings<Study> {
-        
-        return try siblings()
-    }
-
-    
-    public func getStudyType() throws -> Siblings<StudyType> {
-        
-        return try siblings()
-    }
 }
+
+
 

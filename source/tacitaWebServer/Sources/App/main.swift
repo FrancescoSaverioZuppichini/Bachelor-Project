@@ -10,8 +10,8 @@ try drop.addProvider(VaporMySQL.Provider.self)
 WebSocketServerMicroservice.start(drop: drop)
 
 drop.preparations.append(User.self)
-drop.preparations.append(UserApp.self)
 drop.preparations.append(Application.self)
+drop.preparations.append(Beacon.self)
 drop.preparations.append(Display.self)
 drop.preparations.append(Pivot<User,Application>.self)
 drop.preparations.append(Pivot<Display,Application>.self)
@@ -53,6 +53,16 @@ drop.group("api") {
         display.post("", handler: DisplayController.create)
         display.delete(Display.self,"", handler: DisplayController.delete)
 
+    }
+    
+    api.group("beacon") {
+        beacon in
+        beacon.get("", handler: BeaconController.getAll)
+        beacon.get("find", handler: BeaconController.getOneByBeaconId)
+        beacon.get(Beacon.self,"", handler: BeaconController.getOne)
+        beacon.post("", handler: BeaconController.create)
+        beacon.delete(Beacon.self,"", handler: BeaconController.delete)
+        
     }
 }
 

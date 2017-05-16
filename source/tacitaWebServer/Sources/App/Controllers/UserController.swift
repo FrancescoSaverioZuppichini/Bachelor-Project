@@ -62,12 +62,6 @@ final class UserController {
         return try user.makeNode(context: context).converted(to: JSON.self)
     }
     
-    
-//    static func getUserApps(_ req: Request, user:User) throws -> ResponseRepresentable {
-//    
-//        return try user.makeNode(context: UserContext.enabledApp).converted(to:JSON.self)
-//    }
-    
     static func updateUser(_ req: Request, user: User) throws -> ResponseRepresentable {
         return "updateUser"
     }

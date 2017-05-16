@@ -1,6 +1,7 @@
 import {SuperStore} from 'flue-vue'
 
-var ws = new WebSocket("ws:/192.168.1.22:8081/ws")
+
+var ws = new WebSocket(`ws:/${window.location.origin.split('/')[2].split(':')[0]}:8081/ws`)
 
 ws.onmessage = (msg) => {
   const data = JSON.parse(msg.data)

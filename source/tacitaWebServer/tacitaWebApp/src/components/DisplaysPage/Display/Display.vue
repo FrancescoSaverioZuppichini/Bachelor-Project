@@ -1,5 +1,5 @@
 <template>
-<div class='uk-card uk-card-body uk-card-default my-card__body'>
+<div class='uk-card uk-card-body uk-card-default my-card__body' v-show='display.isNearby'>
   <div class='uk-flex uk-flex-middle'>
     <div class='uk-margin-right'>
       <v-icon class="grey--text text--darken-2" large>desktop_windows</v-icon>

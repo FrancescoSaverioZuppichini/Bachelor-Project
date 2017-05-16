@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D316F821ECA31FE00AC728C /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D316F801ECA31F800AC728C /* Beacon.swift */; };
+		9D316F841ECA334400AC728C /* BeaconController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D316F831ECA334300AC728C /* BeaconController.swift */; };
 		OBJ_1482 /* libc.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_1400 /* libc.swift */; };
 		OBJ_1489 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_1402 /* Array.swift */; };
 		OBJ_1490 /* Bool+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_1403 /* Bool+String.swift */; };
@@ -1666,7 +1668,6 @@
 		OBJ_3891 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* Application.swift */; };
 		OBJ_3892 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Display.swift */; };
 		OBJ_3893 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* User.swift */; };
-		OBJ_3894 /* UserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* UserApp.swift */; };
 		OBJ_3896 /* libc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_1433 /* libc.framework */; };
 		OBJ_3897 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_1434 /* Core.framework */; };
 		OBJ_3898 /* CLibreSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_1435 /* CLibreSSL.framework */; };
@@ -5475,6 +5476,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D316F801ECA31F800AC728C /* Beacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
+		9D316F831ECA334300AC728C /* BeaconController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconController.swift; sourceTree = "<group>"; };
 		OBJ_10 /* ResourseContext+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResourseContext+Error.swift"; sourceTree = "<group>"; };
 		OBJ_100 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		OBJ_1000 /* gostr341001.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gostr341001.c; sourceTree = "<group>"; };
@@ -6026,7 +6029,6 @@
 		OBJ_195 /* Dispatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		OBJ_196 /* InitProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitProtocols.swift; sourceTree = "<group>"; };
 		OBJ_198 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		OBJ_20 /* UserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApp.swift; sourceTree = "<group>"; };
 		OBJ_200 /* And.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = And.swift; sourceTree = "<group>"; };
 		OBJ_201 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		OBJ_202 /* Not.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Not.swift; sourceTree = "<group>"; };
@@ -7703,6 +7705,7 @@
 				OBJ_13 /* ApplicationController.swift */,
 				OBJ_14 /* DisplayController.swift */,
 				OBJ_15 /* UserController.swift */,
+				9D316F831ECA334300AC728C /* BeaconController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -8007,7 +8010,7 @@
 				OBJ_17 /* Application.swift */,
 				OBJ_18 /* Display.swift */,
 				OBJ_19 /* User.swift */,
-				OBJ_20 /* UserApp.swift */,
+				9D316F801ECA31F800AC728C /* Beacon.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -9029,7 +9032,7 @@
 			path = Method;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -9043,7 +9046,6 @@
 				OBJ_27 /* Dependencies */,
 				OBJ_1432 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_50 /* Vapor 1.5.15 */ = {
@@ -11672,7 +11674,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_1432 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -13205,10 +13207,11 @@
 				OBJ_3888 /* ApplicationController.swift in Sources */,
 				OBJ_3889 /* DisplayController.swift in Sources */,
 				OBJ_3890 /* UserController.swift in Sources */,
+				9D316F841ECA334400AC728C /* BeaconController.swift in Sources */,
 				OBJ_3891 /* Application.swift in Sources */,
+				9D316F821ECA31FE00AC728C /* Beacon.swift in Sources */,
 				OBJ_3892 /* Display.swift in Sources */,
 				OBJ_3893 /* User.swift in Sources */,
-				OBJ_3894 /* UserApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

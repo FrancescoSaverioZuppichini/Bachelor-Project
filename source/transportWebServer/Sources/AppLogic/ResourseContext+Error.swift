@@ -1,8 +1,8 @@
 //
 //  ResourseContext.swift
-//  coursesWebServer
+//  BachelorProject
 //
-//  Created by VaeVictis on 02.05.17.
+//  Created by VaeVictis on 09.05.17.
 //
 //
 
@@ -12,7 +12,7 @@ import Vapor
 public enum ResourseContext: Context {
     case all
     case snippet
-
+    
 }
 
 enum ResourseError: Error, CustomStringConvertible {
@@ -32,4 +32,3 @@ enum ResourseError: Error, CustomStringConvertible {
         }
     }
 }
-

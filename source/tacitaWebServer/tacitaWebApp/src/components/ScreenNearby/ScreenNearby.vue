@@ -19,7 +19,7 @@ export default {
 #screen-nearby__container {
   position: absolute;
   z-index: 3;
-  left: 24px;
-  bottom: 36px;
+  left: 16px;
+  bottom: 16px;
 }
 </style>

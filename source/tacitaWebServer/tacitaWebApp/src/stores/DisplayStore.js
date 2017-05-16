@@ -86,12 +86,9 @@ class BluetoothStore extends Store {
     if (!display) return
 
     display.apps = [this.sStore.state.applicationsCache[data.appId]]
-
     this.sStore.actions.notifyDisplay(display)
 
   }
-
-
 
   reduce(action) {
     this.reduceMap(action, {
@@ -110,9 +107,9 @@ class BluetoothStore extends Store {
     return {
       foundDisplay(data) {
         // simulate bluetooth data
-        data = { displayId: 1 }
-        dispatcher.dispatch(new Action("DISPLAY_FOUND", { data }))
-        data = { displayId: 2 }
+        // data = { displayId: 1 }
+        // dispatcher.dispatch(new Action("DISPLAY_FOUND", { data }))
+        // data = { displayId: 2 }
         dispatcher.dispatch(new Action("DISPLAY_FOUND", { data }))
       },
       lostDisplay(data) {

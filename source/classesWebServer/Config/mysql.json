@@ -2,7 +2,7 @@
     "host": "localhost",
     "user": "root",
     "password": "root",
-    "database": "bachelorProject",
+    "database": "courses",
     "port": "3306",
     "encoding": "utf8"
 }

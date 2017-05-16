@@ -1,12 +1,12 @@
 <template>
 <div id="app" class='uk-flex uk-flex-column'>
-  <nav-bar></nav-bar>
-  <transition name="slide">
+  <!-- <nav-bar></nav-bar> -->
+  <transition :name="transitionName">
     <keep-alive>
-    <router-view id='content' class='uk-flex--grow'></router-view>
-  </keep-alive>
+      <router-view class='uk-flex--grow'></router-view>
+    </keep-alive>
   </transition>
-  <Navigation></Navigation>
+  <!-- <Navigation></Navigation> -->
 </div>
 </template>
 
@@ -20,7 +20,20 @@ export default {
     NavBar,
     Navigation
   },
-  name: 'app'
+  watch: {
+    '$route.path': function(to, from) {
+    //   if (to.length < from.length) this.transitionName = 'slide-right'
+    //   else {
+    //     this.transitionName = 'slide'
+    //   }
+    }
+  },
+  name: 'app',
+  data() {
+    return {
+      transitionName: 'fade-router'
+    }
+  }
 }
 </script>
 
@@ -30,18 +43,31 @@ export default {
   transition: all 5s cubic-bezier(.55, 0, .1, 1);
 }
 
-.slide-leave-active {
-  /*z-index: 0;
+
+.fade-router-enter-active, .fade-router-leave-active {
   position: absolute;
   width: 100%;
-  height: 100%;*/
+  height: 100%;
+  /*margin-top: 60px;*/
+  margin-bottom: 40px;
+
+  transition: opacity .5s
 }
+.fade-router-enter, .fade-router-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}
+
+
+
+
+.slide-leave-active {}
+
 .slide-enter-active {
   /*z-index: 99;*/
   position: absolute;
   width: 100%;
   height: 100%;
-  margin-top: 60px;
+  /*margin-top: 60px;*/
   margin-bottom: 40px;
 
   transition: 0.5s;
@@ -52,6 +78,28 @@ export default {
 }
 
 .slide-leave-to {
+  opacity: 0
+  /*transform: translate(-100%, 0);*/
+}
+
+.slide-right-leave-active {}
+
+.slide-right-enter-active {
+  /*z-index: 99;*/
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /*margin-top: 60px;*/
+  margin-bottom: 40px;
+
+  transition: 0.5s;
+}
+
+.slide-right-enter {
+  transform: translate(-100%, 0);
+}
+
+.slide-right-leave-to {
   opacity: 0
   /*transform: translate(-100%, 0);*/
 }

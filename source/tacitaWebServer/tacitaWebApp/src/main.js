@@ -20,10 +20,11 @@ Vue.use(flueVue)
 import userStore from './stores/UserStore.js'
 import applicationStore from './stores/ApplicationStore.js'
 import displayStore from './stores/DisplayStore.js'
+import beaconStore from './stores/BeaconStore.js'
 
 import socket from './socket.js'
 
-SuperStore.addStores([userStore, applicationStore, displayStore])
+SuperStore.addStores([userStore, applicationStore, displayStore, beaconStore])
 
 Vue.config.productionTip = false
 

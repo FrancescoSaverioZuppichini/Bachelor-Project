@@ -30,5 +30,11 @@ export default {
       return axios.get(`${BASE_URL}${TACITA_URL}/display/${id}?context=${context}`)
 
     }
+  },
+  'beacon': {
+    fetchByBeaconId(beaconId) {
+      return axios.get(`${BASE_URL}${TACITA_URL}/beacon/find?beaconId=${beaconId}`)
+
+    }
   }
 }

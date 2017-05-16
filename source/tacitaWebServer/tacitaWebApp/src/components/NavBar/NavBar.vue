@@ -2,8 +2,8 @@
 <nav class="uk-navbar-container my-nav-bar uk-box-shadow" uk-navbar>
   <div class="uk-navbar-left">
     <ul class="uk-navbar-nav">
-      <a href="#" class="uk-navbar-item uk-logo" v-if="$route.name == 'Home'">Tacita</a>
-        <v-btn icon="icon" class="white--text uk-navbar-item" @click.native='$router.go(-1)' v-else>
+      <a  class="uk-navbar-item uk-logo" v-if="$route.name == 'Home'">Tacita</a>
+        <v-btn icon="icon" class="white--text uk-navbar-item" @click.native="$router.push({name:'Home'})" v-else>
           <v-icon>arrow_back</v-icon>
         </v-btn>
     </ul>
@@ -30,7 +30,7 @@ export default {
 <style scoped>
 .my-nav-bar {
   background-color: #1E88E5;
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   z-index: 99;
   height: 60px !important;

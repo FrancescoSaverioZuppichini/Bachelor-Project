@@ -1,20 +1,17 @@
 <template>
-<vue-pull-refresh :on-refresh="onRefresh" class='uk-flex-column uk-flex f-h'>
-  <!-- <div class='uk-flex-column uk-flex f-h'> -->
+<div class='uk-flex-column uk-flex f-h'>
   <application-page></application-page>
   <screen-nearby></screen-nearby>
-
-  <div id='bluetooth-trigger__container' class='uk-float-right'>
+  <!-- <div id='bluetooth-trigger__container' class='uk-float-right'>
     <v-btn primary floating dark @click.native="$store.actions.foundDisplay({})">
       <v-icon>bluetooth</v-icon>
     </v-btn>
-  </div>
+  </div> -->
 
   <!-- <button class='uk-button uk-button-default' @click='$store.actions.foundDisplay({})'>TRIGGER DISPLAY</button> -->
   <!-- <button class='uk-button uk-button-default' @click='$store.actions.lostDisplay({displayId:1})'>LOST A DISPLAY</button> -->
 
-  <!-- </div> -->
-</vue-pull-refresh>
+</div>
 </template>
 
 <script>
@@ -32,20 +29,30 @@ export default {
   },
   name: 'Home',
   data() {
-    return {}
+    return {
+      bluetooth: {
+        macAddress: null,
+        connected: false
+      }
+    }
+  },
+  watch: {
+    'bluetooth': {
+      handler: function() {
+        console.log('*************************');
+        if (bluetooth.connected)
+          this.$store.actions.beaconFound(bluetooth)
+        if (!bluetooth.connected)
+          this.$store.actions.beaconLost(bluetooth)
+      },
+      deep: true
+    }
   },
   mounted() {
+    window.bluetooth = this.bluetooth
+    // setTimeout(()=>{  window.test.test = 'PORODIO'},500)
     this.$store.actions.fetchApplications()
     this.$store.actions.getMe('zuppif')
-  },
-  methods: {
-    onRefresh: function() {
-      console.log('onRefresh');
-      // this.$store.actions.fetchApplications()
-
-      return this.$store.actions.fetchApplications()
-
-    }
   }
 }
 </script>

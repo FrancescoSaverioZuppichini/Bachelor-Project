@@ -1,10 +1,13 @@
 <template>
-<div class='f-h'>
-  <choice-color :colors='colors' radius='10em' @updateColor='updateColor'></choice-color>
-</div>
+<page>
+  <div class='f-h'>
+    <choice-color :colors='colors' radius='10em' @updateColor='updateColor'></choice-color>
+  </div>
+</page>
 </template>
 <script>
 import Vue from 'vue'
+import Page from '../Page.vue'
 
 import {
   choiceColor
@@ -27,11 +30,11 @@ const colors = [
   '#607D8B',
 ];
 
-
 export default {
   name: "",
   components: {
-    choiceColor
+    choiceColor,
+    Page
   },
   data() {
     return {

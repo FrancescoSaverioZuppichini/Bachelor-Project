@@ -1,10 +1,11 @@
 //
-//  UserMiddleware.swift
-//  BachelorProject
+//  File.swift
+//  coursesWebServer
 //
-//  Created by VaeVictis on 09.05.17.
+//  Created by VaeVictis on 07.05.17.
 //
 //
+
 
 import Foundation
 import Vapor
