@@ -18,9 +18,10 @@ class CourseStore extends Store {
 
 
   fetchCoursesSuccess({ data, facultyId, year, type, studyType }) {
-
     $('#fullcalendar').fullCalendar('removeEvents')
-    this.state.lastQuery = { year, type, studyType }
+    console.log('***************', this.state.preference.studyType);
+    this.state.lastQuery = { year, type, studyType: this.state.preference.studyType }
+    // console.log(this.state.lastQuery);
     // this.state.coursesCache[facultyId] = Object.assign({}, this.state.coursesCache[facultyId])
     // this.state.coursesCache[facultyId][type] = Object.assign({}, this.state.coursesCache[facultyId][type])
     // this.state.coursesCache[facultyId][type][studyType] = Object.assign({}, this.state.coursesCache[facultyId][type][studyType])
@@ -74,13 +75,21 @@ class CourseStore extends Store {
     Vue.set(selectedCourse, 'selected', true)
   }
 
+  onDisplayUserPreference({ userPreferences }) {
+    const userPreference = userPreferences[0]
+    const query = this.sStore.PreferenceStore.makeQueryFromPreference(userPreference)
+    this.sStore.actions.fetchCourses(query)
+    // console.log(query);
+  }
+
   reduce(action) {
     this.reduceMap(action, {
       FETCH_COURSE_SUCCESS: this.onFetchCourseSuccess,
       FETCH_COURSE_IN_CACHE: this.onFetchCourseSuccess,
       FETCH_COURSES_SUCCESS: this.fetchCoursesSuccess,
       FETCH_COURSES_SUCCESS_CACHE: this.fetchCourseSuccessCache,
-      FETCH_SCHEDULES_SUCCESS: this.fetchSchedulesSuccess
+      FETCH_SCHEDULES_SUCCESS: this.fetchSchedulesSuccess,
+      DISPLAY_USER_PREFERENCE: this.onDisplayUserPreference
     })
   }
 
@@ -88,6 +97,7 @@ class CourseStore extends Store {
     return {
       fetchCourses({ facultyId, year, type, studyType }) {
         dispatcher.dispatch(new Action("FETCH_COURSES_LOADING"))
+
         // if (context.state.coursesCache[facultyId] != undefined && context.state.coursesCache[facultyId][type][studyType] != undefined && context.state.coursesCache[facultyId][type][studyType][year] != undefined) {
         //   dispatcher.dispatch(new Action("FETCH_COURSES_SUCCESS_CACHE", { data: context.state.coursesCache[facultyId][type][year] }))
         // } else {

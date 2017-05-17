@@ -1,6 +1,6 @@
 <template>
-<div class="full-h uk-flex uk-flex-column">
-  <h2 class="uk-text-center">{{`${$store.state.lastQuery.studyType}, ${$store.state.lastQuery.year}st year` }}</h2>
+<div class="full-h uk-flex uk-flex-column uk-margin-left uk-margin-top">
+  <h2 class="uk-text-center" v-if="$store.state.lastQuery.studyType">{{`${$store.state.lastQuery.studyType.name_en}, ${$store.state.lastQuery.year}st year` }}</h2>
   <div class="uk-flex" uk-grid>
     <div class="uk-width-1-1 uk-width-3-4@m">
       <div id='fullcalendar'></div>

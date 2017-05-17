@@ -8,7 +8,7 @@
   </div>
   <div class='uk-flex uk-flex-column uk-margin-top uk-margin-small-bottom '>
     <div v-for="study in $store.state.preference.faculty.studies" v-if="$store.state.preference.type == study.type">
-      <ul class="uk-list">
+      <ul class="uk-list uk-list-divider">
         <li :class="{'toogle': toogle(studyType)}" v-for="studyType in study.studyTypes" @click="$store.actions.updatePreference({studyType})">
           <h5>{{studyType.name_en}}</h5>
         </li>

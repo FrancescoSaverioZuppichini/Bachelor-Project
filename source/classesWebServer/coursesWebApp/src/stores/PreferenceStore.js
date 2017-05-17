@@ -53,7 +53,7 @@ class PreferenceStore extends Store {
   onNavigationDone() {
     Vue.set(this.state.preference, 'isLoading', true)
     console.log('onNavigationDone');
-    this.sStore.actions.fetchCourses(this.makeQueryFromPreference())
+    this.sStore.actions.fetchCourses(this.makeQueryFromPreference(this.state.preference))
   }
 
   navigationGuards() {
@@ -68,8 +68,8 @@ class PreferenceStore extends Store {
     ]
   }
 
-  makeQueryFromPreference() {
-    const preference = this.state.preference
+  makeQueryFromPreference(preference) {
+    // const preference = this.state.preference
     return {
       facultyId: preference.faculty.id,
       type: preference.type.type ||preference.type.name_en ,

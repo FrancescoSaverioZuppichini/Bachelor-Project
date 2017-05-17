@@ -48,7 +48,7 @@ class DisplayStore extends Store {
       },
       displayUserPreferences(userId) {
         // we don't care about loading
-        api.users.fetchUserPreferences(userId)
+        api.user.fetchUserPreferences(userId)
           .then((res) => {
             dispatcher.dispatch(new Action("DISPLAY_USER_PREFERENCE", { userPreferences: res.data }))
           })

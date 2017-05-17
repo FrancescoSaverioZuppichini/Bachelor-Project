@@ -12,8 +12,7 @@ const axios = require('axios')
 const config = require('./config.js');
 
 app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded());
+
 app.use(cookieParser());
 
 // handle the js case
@@ -25,23 +24,7 @@ app.use('/js/*', (req, res) => {
       res.status(response.data.code).send(response.data.message)
     })
 })
-//
-// // TODO DIOCANE PORCODIO
-// for (let key in config) {
-//   app.use(`/${key}/api*`, (req, res) => {
-//     axios({
-//         method: req.method,
-//         url: config[key] + req.originalUrl.split(key)[1],
-//         data: req.body
-//       })
-//       .then((data) => {
-//         res.send(data.data)
-//       })
-//       .catch(({ response }) => {
-//         res.status(response.data.code).send(response.data.message)
-//       })
-//   })
-// }
+
 // set up each proxy entry
 for (let key in config) {
   app.use(`/${key}/*`, proxy(config[key], {

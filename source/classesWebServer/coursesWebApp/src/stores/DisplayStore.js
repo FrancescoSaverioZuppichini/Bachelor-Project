@@ -1,34 +1,56 @@
-import { Store, Action } from 'flue-vue'
-import axios from 'axios'
-import utils from '../utils.js'
-
+import Vue from 'vue'
 import api from '../api.js'
+import {
+  SuperStore,
+  Store,
+  Action
+} from 'flue-vue'
 
 class DisplayStore extends Store {
   constructor() {
     super()
-    this.state = {}
     this.state.display = {}
   }
 
-  onFetchDisplaySuccess({ data }) {
-    this.state.display = data
-    console.log(this.state.display.id);
+  /**
+   * When a user is closed to the display
+   * fetch it's preference and display them
+   * on the fly
+   **/
+  onUserNearby({ userId, displayId }) {
+    if (displayId != this.state.display.id) {
+      console.log('NOT THIS DISPLAY');
+      return
+    }
+    this.sStore.actions.displayUserPreferences(userId)
+  }
+
+  fetchDisplaySuccess({ display }) {
+    this.state.display = display
     this.sStore.actions.sendAppToDisplay(this.state.display.id, 1)
   }
 
   reduce(action) {
     this.reduceMap(action, {
-      FETCH_DISPLAY_SUCCESS: this.onFetchDisplaySuccess
+      USER_NEARBY: this.onUserNearby,
+      FETCH_DISPLAY_SUCCESS: this.fetchDisplaySuccess
     })
   }
-  // actions takes the dispacher and the store back from the superStore,
-  // so we can call our function as soon as we dispatch
-  actions(dispatcher, context) {
+
+  actions(dispatcher) {
     return {
       fetchDisplay(displayId) {
         api.display.fetchDisplay(displayId)
-          .then(({ data }) => dispatcher.dispatch(new Action("FETCH_DISPLAY_SUCCESS", { data })))
+          .then(({ data }) => {
+            dispatcher.dispatch(new Action("FETCH_DISPLAY_SUCCESS", { display: data }))
+          })
+      },
+      displayUserPreferences(userId) {
+        // we don't care about loading
+        api.user.fetchUserPreferences(userId)
+          .then((res) => {
+            dispatcher.dispatch(new Action("DISPLAY_USER_PREFERENCE", { userPreferences: res.data }))
+          })
       },
       sendAppToDisplay(displayId, appId) {
         api.display.sendAppToDisplay(displayId, appId)
@@ -38,4 +60,5 @@ class DisplayStore extends Store {
 }
 
 const displayStore = new DisplayStore()
+
 export default displayStore

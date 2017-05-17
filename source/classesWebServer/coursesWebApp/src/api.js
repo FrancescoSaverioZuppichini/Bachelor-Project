@@ -18,7 +18,6 @@ export default {
     }
   },
   'user': {
-    fetchUserPreferences(userId) {},
     getMe(email) {
       return axios.get(`${BASE_URL}${TACITA_URL}/user/?email=${email}`)
     },
@@ -55,7 +54,8 @@ export default {
     },
     fetchCourse(id) {
       return axios.get(`${BASE_URL}${CLASSES_URL}/course/${id}`)
-    }
+    },
+
   },
   'schedule': {},
 
