@@ -2,8 +2,8 @@
 <nav class="uk-navbar-container my-nav-bar uk-box-shadow" uk-navbar>
   <div class="uk-navbar-left">
     <ul class="uk-navbar-nav">
-      <a  class="uk-navbar-item uk-logo" v-if="$route.name == 'Home'">Tacita</a>
-        <v-btn icon="icon" class="white--text uk-navbar-item" @click.native="$router.push({name:'Home'})" v-else>
+      <a  class="uk-navbar-item uk-logo" v-if="$route.name == 'Home' || home" @click="$router.push({name:'Home'})">Tacita</a>
+        <v-btn icon="icon" class="white--text uk-navbar-item" @click.native="$router.go(-1)" v-else>
           <v-icon>arrow_back</v-icon>
         </v-btn>
     </ul>
@@ -20,6 +20,7 @@
 <script>
 export default {
   name: "navbar",
+  props:['home'],
   data: function data() {
     return {
 

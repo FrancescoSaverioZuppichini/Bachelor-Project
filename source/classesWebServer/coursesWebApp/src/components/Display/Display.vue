@@ -42,6 +42,7 @@ export default {
   mounted() {
     this.$store.state.navigation.BASE_URL = this.$route.path
     this.$store.state.navigation._urls = ['studyDisplay', 'yearDisplay', 'studyTypeDisplay']
+    this.$store.state.isInDisplay = true
     $('body').click(() => {
       SuperStore.dispatcher.dispatch(new Action("USER_INTERACTION"))
     })

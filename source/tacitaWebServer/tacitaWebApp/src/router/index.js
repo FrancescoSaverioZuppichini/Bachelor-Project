@@ -4,11 +4,13 @@ import Home from '../components/Home.vue'
 import DisplaysPage from '../components/DisplaysPage/DisplaysPage.vue'
 import PreferencePage from '../components/PreferencePage/PreferencePage.vue'
 import UserPreferencePage from '../components/UserPreferencePage/UserPreferencePage.vue'
+
+import ColorPickerPage from '../components/UserPreferencePage/ColorPickerPage/ColorPickerPage.vue'
+
 Vue.use(Router)
 
 const router = new Router({
-  routes: [
-    {
+  routes: [{
       path: '/app/home',
       name: 'Home',
       component: Home
@@ -26,7 +28,13 @@ const router = new Router({
     {
       path: '/app/user/preference',
       name: 'UserPreference',
-      component: UserPreferencePage
+      component: UserPreferencePage,
+
+    },
+    {
+      path: '/app/user/preference/color',
+      name: 'Color',
+      component: ColorPickerPage
     }
   ]
 })

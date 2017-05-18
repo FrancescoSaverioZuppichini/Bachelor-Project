@@ -25,6 +25,8 @@ class UserStore extends Store {
 
   reduce(action) {
     this.reduceMap(action, {
+      CREATE_USER_SUCCESS: (({ data }) => { this.sStore.actions.getMe(data.email) }),
+      CREATE_USER_FAILURE: (({ email }) => { this.sStore.actions.getMe(email) }),
       GET_MY_APPS_SUCCESS: (({ data }) => { this.state.user.apps = data.apps }),
       GET_ME_SUCCESS: (({ data }) => this.state.user = data),
       TOOGLE_APP_SUCCESS: this.onToogleAppSuccess
@@ -45,12 +47,21 @@ class UserStore extends Store {
             dispatcher.dispatch(new Action("GET_MY_APPS_SUCCESS", { data }))
           })
       },
+      updateUser(user) {
+        api.user.updateUser(user)
+          .then(() => { new Action("UPDATE_USER_SUCCESS") })
+      },
       toogleApp(app) {
         api.user.toogleApplication(ctx.state.user.id, app.id)
           .then(() => { dispatcher.dispatch(new Action("TOOGLE_APP_SUCCESS", { app })) })
       },
       toogleAll(state) {
         dispatcher.dispatch(new Action("TOOGLE_ALL_APP", { state }))
+      },
+      createOrFetchUser(email) {
+        api.user.create(email)
+          .then(data => dispatcher.dispatch(new Action("CREATE_USER_SUCCESS", data)))
+          .catch(err => dispatcher.dispatch(new Action("CREATE_USER_FAILURE", { email })))
       }
     }
   }

@@ -1,9 +1,17 @@
 <template>
-<iframe :src="src" scrolling="yes"></iframe>
+<div class='f-h uk-flex-column uk-flex'>
+  <nav-bar :home="true"></nav-bar>
+  <iframe :src="src +'/' + $store.state.user.id" scrolling="yes" class='uk-flex--grow'></iframe>
+</div>
 </template>
 <script>
+import NavBar from '../NavBar/NavBar.vue'
+
 export default {
   name: "",
+  components: {
+    NavBar
+  },
   watch: {
     '$route.params': function() {
       this.src = this.$route.params.src

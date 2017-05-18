@@ -36,10 +36,17 @@
   color: black;
 }
 
+.content {
+  margin-bottom: 40px;
+}
+
+.my-card--padding {
+  padding: 16px;
+}
+
 .navigation__actions {
   position: absolute;
-  padding-top: 8px;
-
+  height: 40px;
   background-color: white;
   position: fixed;
   z-index: 99;

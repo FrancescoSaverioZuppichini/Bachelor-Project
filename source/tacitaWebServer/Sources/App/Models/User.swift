@@ -15,6 +15,7 @@ public final class User: Model,RequestInitializable {
     public var id: Node?
     public var email: String
     public var exists: Bool = false
+    public var color: String?
     
     public init(email: String) {
         self.email = email
@@ -25,18 +26,24 @@ public final class User: Model,RequestInitializable {
             throw Abort.badRequest
         }
         
+        if let color = req.data["color"]?.string {
+            self.color = color
+        }
         self.email = email
     }
     
     public init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         email = try node.extract("email")
+        color = try node.extract("color")
+
     }
     
     public func makeNode(context: Context) throws -> Node {
         var node = try Node(node: [
             "id": id,
-            "email": email
+            "email": email,
+            "color": color
             ])
         
         switch context {
@@ -53,6 +60,8 @@ public final class User: Model,RequestInitializable {
         try database.create("users") { users in
             users.id()
             users.string("email")
+            users.string("color", optional: true)
+
         }
     }
     

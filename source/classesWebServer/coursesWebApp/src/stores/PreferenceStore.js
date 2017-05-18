@@ -69,7 +69,7 @@ class PreferenceStore extends Store {
   }
 
   makeQueryFromPreference(preference) {
-    // const preference = this.state.preference
+    preference = preference || this.state.preference
     return {
       facultyId: preference.faculty.id,
       type: preference.type.type ||preference.type.name_en ,
@@ -103,7 +103,6 @@ class PreferenceStore extends Store {
 
   resetAfterSuccess() {
     this.reset()
-
   }
 
   tooglePreferenceEdit({ preference }) {

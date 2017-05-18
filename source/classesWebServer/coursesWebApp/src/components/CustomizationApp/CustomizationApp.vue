@@ -1,11 +1,9 @@
 <template>
-<div class='uk-container uk-section uk-flex uk-flex-column'>
+<div class='uk-container uk-margin-top uk-flex uk-flex-column'>
   <keep-alive>
     <router-view></router-view>
-
   </keep-alive>
   <!-- <router-view></router-view> -->
-
   <preference-confirmationModal></preference-confirmationModal>
 
 </div>
@@ -18,8 +16,9 @@ export default {
     PreferenceConfirmationModal
   },
   mounted() {
+    console.log(this.$route.params);
     // this.$store.state.navigation.BASE_URL = this.$route.path
-    this.$store.actions.getMe("zuppif")
+    this.$store.actions.getMeById(this.$route.params.userId)
     this.$store.actions.fetchFaculties()
     this.$store.actions.fetchYears()
     this.$store.state.navigation._urls = ['faculty', 'study', 'year', 'studyType']

@@ -29,7 +29,7 @@ drop.group("api") {
     api.group("user") {
         user in
         user.get("",handler: UserController.getUser)
-        user.put("",User.self, handler: UserController.updateUser)
+        user.put(User.self, handler: UserController.updateUser)
         user.post(handler: UserController.saveUser)
         user.delete(User.self,handler: UserController.deleteUser)
         user.get(User.self,handler: UserController.getOne)

@@ -1,6 +1,7 @@
 import { Store, Action } from 'flue-vue'
 import axios from 'axios'
 import utils from '../utils.js'
+import router from '../router/index.js'
 
 // TODO put it into a config file for easy access
 const options = {
@@ -35,7 +36,8 @@ class ScheduleStore extends Store {
   }
 
   initialiaze() {
-    this.state.scheduledIds.push(setTimeout(() => { this.sStore.actions.startSchedules() }, options.THRESHOLD))
+
+    if(this.sStore.state.isInDisplay) this.state.scheduledIds.push(setTimeout(() => { this.sStore.actions.startSchedules() }, options.THRESHOLD))
   }
 
   startSchedules() {

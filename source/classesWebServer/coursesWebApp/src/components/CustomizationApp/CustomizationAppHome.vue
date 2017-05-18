@@ -16,10 +16,8 @@
       </div>
       <div class="uk-flex uk-flex-column" v-else>
         <preference :preference="preference" v-for="preference in $store.state.user.preferences.data.reverse()"></preference>
-
       </div>
     </div>
-    <!-- </div> -->
   </div>
   <div class="uk-margin-top navigation__actions padding--zero">
     <button class="uk-button uk-button-primary uk-float-right uk-width-auto@m" @click="$store.actions.goNext()">new</button>
@@ -46,7 +44,7 @@ export default {
   },
   watch: {
     '$route': function(newRoute) {
-      if (newRoute.path == '/app/home') {
+      if (newRoute.name == 'home') {
         this.$store.state.navigation.reset()
         this.$store.state.isInEditMode = false
         this.$store.state.navigation._urls = ['faculty', 'study', 'year', 'studyType']
@@ -74,7 +72,6 @@ export default {
         ]
         this.$store.actions.setGuards(guards)
 
-        console.log('again in home diocane');
         this.$store.actions.fetchUserPreferences()
       }
     }

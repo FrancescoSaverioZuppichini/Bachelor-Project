@@ -32,9 +32,17 @@ class BluetoothStore extends Store {
   }
 
   onDisplayLost({ data }) {
+    var display = this.state.displayChace[data.displayId]
     // soft delete, the obj is keep in memory
-    this.state.displayChace[data.displayId].isNearby = false
+    display.isNearby = false
     // this.state.nearbyDisplay.isNearby = false
+    ws.send(JSON.stringify({
+      "type": "USER_WENT_AWAY",
+      "payload": {
+        "userId": this.sStore.state.user.id,
+        "displayId": display.id
+      }
+    }))
   }
 
   onFetchDisplayLoading() {

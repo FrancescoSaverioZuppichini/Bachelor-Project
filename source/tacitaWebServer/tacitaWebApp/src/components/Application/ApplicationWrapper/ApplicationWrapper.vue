@@ -1,7 +1,6 @@
 <template>
 <div id="ApplicationWrapper" class="uk-section uk-section-muted container--scrollable">
-  <div class='uk-container'>
-
+  <div class='uk-container uk-margin-bottom '>
     <transition-group name="custom-classes-transition" enter-active-class="animated fadeInUp"  class='uk-flex uk-flex-column uk-grid-small' uk-grid>
       <div v-for="n in 2" :key="n"  v-if="$store.state.applications.isLoading">
         <application-dummy></application-dummy>

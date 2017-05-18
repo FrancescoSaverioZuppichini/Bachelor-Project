@@ -21,6 +21,9 @@ export default {
     getMe(email) {
       return axios.get(`${BASE_URL}${TACITA_URL}/user/?email=${email}`)
     },
+    getMeById(userId) {
+      return axios.get(`${BASE_URL}${TACITA_URL}/user/${userId}`)
+    },
     fetchUserPreferences(userId) {
       return axios.get(`${BASE_URL}${CLASSES_URL}/preference?userId=${userId}`)
     },

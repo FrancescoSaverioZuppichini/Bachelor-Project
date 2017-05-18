@@ -33,26 +33,40 @@ export default {
       bluetooth: {
         macAddress: null,
         connected: false
+      },
+      user: {
+        email: null
       }
     }
   },
   watch: {
     'bluetooth': {
-      handler: function() {
-        console.log('*************************');
+      handler: function(from,to) {
+        console.log(JSON.parse(JSON.stringify(to)));
+        console.log('*************** BEACON *************');
         if (bluetooth.connected)
           this.$store.actions.beaconFound(bluetooth)
         if (!bluetooth.connected)
           this.$store.actions.beaconLost(bluetooth)
       },
       deep: true
+    },
+    'user': {
+      handler: function() {
+        console.log('*************** USER *************');
+        // this.$store.actions.createOrFetchUser(user.email)
+      },
+      deep: true
     }
   },
   mounted() {
     window.bluetooth = this.bluetooth
+    window.user = this.user
+    this.$store.actions.createOrFetchUser('android.ubicomp.usi@gmail.com')
+
     // setTimeout(()=>{  window.test.test = 'PORODIO'},500)
     this.$store.actions.fetchApplications()
-    this.$store.actions.getMe('zuppif')
+    // this.$store.actions.getMe('zuppif')
   }
 }
 </script>

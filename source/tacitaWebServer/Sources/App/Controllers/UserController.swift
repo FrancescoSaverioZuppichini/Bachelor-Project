@@ -63,7 +63,16 @@ final class UserController {
     }
     
     static func updateUser(_ req: Request, user: User) throws -> ResponseRepresentable {
-        return "updateUser"
+        var user = user
+        
+        let updatedUser = try User(request: req)
+        
+        user.email = updatedUser.email
+        user.color = updatedUser.color
+        
+        try user.save()
+        
+        return user
     }
     
     static func saveUser(_ req: Request) throws -> ResponseRepresentable {

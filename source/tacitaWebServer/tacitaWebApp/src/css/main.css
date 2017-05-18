@@ -38,3 +38,14 @@ html {
 .dummy--background-color {
   background-color: rgb(246, 246, 246) !important;
 }
+
+.my-container {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.bottom-container--absolute {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+}

@@ -18,10 +18,12 @@ export default {
 
 <style lang="stylus">
 /*@import "./css/fullcalendar.css"*/
-@import "./css/main.css"
+@import "./css/main.css";
 
 #app {
-  height: 100vh
+  max-height: 100vh
+  min-height: 100vh
+
 }
 .full-h {
   height: 100%;

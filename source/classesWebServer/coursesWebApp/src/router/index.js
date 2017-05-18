@@ -48,10 +48,15 @@ export default new Router({
       name: 'CustomizationApp',
       component: CustomizationApp,
       children: [{
-          path: '/app/home',
+          path: '/app/home/:userId',
           name: 'home',
           component: CustomizationAppHome
         },
+        // {
+        //     path: '/app/home/',
+        //     name: 'home',
+        //     component: CustomizationAppHome
+        //   },
         {
           path: '/app/preference/:id/edit',
           name: 'edit',

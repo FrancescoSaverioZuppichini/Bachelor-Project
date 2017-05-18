@@ -9,7 +9,7 @@ class UserStore extends Store {
   constructor() {
     super()
     this.state.currentPreference = {}
-    this.state.user = { id: 1, preferences: { data: [], loading: false } }
+    this.state.user = { id: null, preferences: { data: [], loading: false } }
   }
 
   fetchUserPreferenceSuccess({ preferences }) {
@@ -23,11 +23,11 @@ class UserStore extends Store {
   }
 
   updatePreferenceSuccess({ preference }) {
-    router.push({ name: 'home' })
+    router.push({ name: 'home', params: { userId: this.state.user.id } })
   }
 
   addPreferenceSuccess({ preference }) {
-    router.push({ name: 'home' })
+    router.push({ name: 'home', params: { userId: this.state.user.id } })
   }
 
   reduce(action) {
@@ -49,6 +49,12 @@ class UserStore extends Store {
             dispatcher.dispatch(new Action("GET_ME_SUCCESS", { data }))
           })
       },
+      getMeById(userId) {
+        api.user.getMeById(userId)
+          .then(({ data }) => {
+            dispatcher.dispatch(new Action("GET_ME_SUCCESS", { data }))
+          })
+      },
       fetchUserPreferences() {
         dispatcher.dispatch({ type: "FETCH_USER_PREFERENCE_LOADING" })
         api.user.fetchUserPreferences(ctx.state.user.id)
@@ -58,7 +64,6 @@ class UserStore extends Store {
       },
       updateUserPreference(preference) {
         dispatcher.dispatch(new Action("UPDATE_PREFERENCE_LOADING"))
-        console.log(preference, 'merdadio');
         api.preference.updatePreference(preference)
           .then(() => {
             dispatcher.dispatch(new Action("UPDATE_USER_PREFERENCE_SUCCESS"))
@@ -70,7 +75,6 @@ class UserStore extends Store {
       },
       addPreference(newPreference) {
         dispatcher.dispatch(new Action("ADD_PREFERENCE_LOADING"))
-        console.log(newPreference);
         api.preference.addPreference(newPreference)
           .then(({ data }) => {
             dispatcher.dispatch(new Action("ADD_PREFERENCE_SUCCESS", { preference: data }))
