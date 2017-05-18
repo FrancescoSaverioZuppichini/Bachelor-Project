@@ -14,7 +14,7 @@ This class is used to store user information, in order:
 class UserStore extends Store {
   constructor() {
     super()
-    this.state.user = { id: 1, preferences: { data: [], loading: false } }
+    this.state.user = { id: null, preferences: { data: [], loading: false } }
   }
 
   fetchUserPreferenceSuccess({ userPreferences }) {
@@ -71,6 +71,12 @@ class UserStore extends Store {
             dispatcher.dispatch(new Action("GET_ME_SUCCESS", { user: data }))
           })
       },
+      getMeById(userId) {
+        api.user.getMeById(userId)
+          .then(({ data }) => {
+            dispatcher.dispatch(new Action("GET_ME_SUCCESS", { user: data }))
+          })
+      },
       updatePreference() {
         dispatcher.dispatch(new Action("UPDATE_PREFERENCE_LOADING"))
         // the updated preference is getted from the preferenceStore
@@ -105,7 +111,7 @@ class UserStore extends Store {
         // })
       },
       deletePreference(preference) {
-        api.preference.removePreference(preference.id,ctx.state.user.id)
+        api.preference.removePreference(preference.id, ctx.state.user.id)
           .then(({ data }) => dispatcher.dispatch(new Action("REMOVE_PREFERENCE_SUCCESS", { preference })))
       }
     }

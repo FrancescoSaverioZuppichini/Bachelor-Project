@@ -16,7 +16,6 @@ export default {
     PreferenceConfirmationModal
   },
   mounted() {
-    console.log(this.$route.params);
     // this.$store.state.navigation.BASE_URL = this.$route.path
     this.$store.actions.getMeById(this.$route.params.userId)
     this.$store.actions.fetchFaculties()

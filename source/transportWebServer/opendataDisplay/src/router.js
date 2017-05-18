@@ -23,7 +23,7 @@ export default new VueRouter({
         component: DisplayPage
       },
       {
-        path: 'app/home',
+        path: '/app/home/:userId',
         name: 'app',
         component: CreatePreferencePage,
         children: [{

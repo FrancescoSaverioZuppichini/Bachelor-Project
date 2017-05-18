@@ -15,9 +15,9 @@ export default {
   components: {
     Navigation
   },
-  created() {
+  mounted() {
+    this.$store.actions.getMeById(this.$route.params.userId)
     this.$store.actions.fetchNearbyLocations()
-
   },
   data() {
     return {

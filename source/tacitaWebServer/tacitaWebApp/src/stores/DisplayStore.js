@@ -74,7 +74,8 @@ class BluetoothStore extends Store {
           "type": "USER_NEARBY",
           "payload": {
             "userId": this.sStore.state.user.id,
-            "displayId": display.id
+            "displayId": display.id,
+            "color": this.sStore.state.user.color
           }
         }))
       }

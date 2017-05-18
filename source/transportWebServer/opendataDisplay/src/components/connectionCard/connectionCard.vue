@@ -20,7 +20,7 @@
   </div>
 </div>
 <div class='uk-flex-expand uk-flex uk-margin-left uk-margin-right uk-margin-bottom' v-else>
-  <div class="connection--user-nearby" :class="{'connection--user-nearby--active':connection.triggered && !location.isUser}">
+  <div class="connection--user-nearby--active" :style="{'background' : connection.color}" v-if="connection.triggered && !location.isUser">
   </div>
   <div class="uk-margin-right">
     <h1> {{connection.number}}</h1>
@@ -70,14 +70,14 @@ export default {
   left: 0;
 }
 
-.connection--user-nearby--active{
-    border-left: 10px solid rgba(255,0,0,0.6);
+.connection--user-nearby--active {
+  width: 24px;
+  margin-right: 8px;
 }
 
 
 .user-nearby--animation {
   animation: user-nearby 1s linear;
-
 }
 
 @@keyframes user-nearby {

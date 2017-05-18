@@ -9,8 +9,8 @@ import api from '../api.js'
 import cachedLocations from '../locations.js'
 
 const config = {
-  USER_NOTIFICATION_LIFE : 2000,
-  STATIONBOARD_UPLOAD_EVERY : 5000
+  USER_NOTIFICATION_LIFE: 2000,
+  STATIONBOARD_UPLOAD_EVERY: 5000
 }
 
 class LocationStore extends Store {
@@ -55,7 +55,7 @@ class LocationStore extends Store {
     }, config.USER_NOTIFICATION_LIFE)
   }
   // TODO refactor
-  createLocationForUser(pref) {
+  displayUserPrefererence(pref, color) {
     let location = this.state.locationsCache[pref.station.id]
     if (!location)
       return
@@ -69,10 +69,14 @@ class LocationStore extends Store {
     pref.buses.forEach(prefBus => {
       location.stationboard.forEach(bus => {
         if (prefBus.number == bus.number && prefBus.to == bus.to) {
+          console.log('diocaneee');
+          console.log('******************', color);
           Vue.set(bus, 'triggered', true)
+          Vue.set(bus, 'color', color)
           // toggle state
           this.setAutoDestruction(() => {
             Vue.set(bus, 'triggered', false)
+            Vue.set(bus, 'color', null)
           })
         }
       })
@@ -94,9 +98,9 @@ class LocationStore extends Store {
     }
   }
 
-  createLocationsForUsers({ userPreferences }) {
+  onDisplayUserPreferences({ userPreferences, color }) {
     // create a new location for each user by using the stored ones
-    userPreferences.forEach(pref => this.createLocationForUser(pref))
+    userPreferences.forEach(pref => this.displayUserPrefererence(pref, color))
   }
 
   displayLocation({ location }, destroy, putIntoStack) {
@@ -113,9 +117,7 @@ class LocationStore extends Store {
     if (putIntoStack) this.state.displayLocationsStack.addItem(location)
     Vue.set(location, 'open', true)
     // start data pooling
-    location.timeOutId = setInterval(() => {
-      this.sStore.actions.fetchLocationStationBoard(location)
-    }, config.STATIONBOARD_UPLOAD_EVERY)
+    location.timeOutId = setInterval(() => { this.sStore.actions.fetchLocationStationBoard(location) }, config.STATIONBOARD_UPLOAD_EVERY)
   }
 
   fetchNearbyLocationsLoading() {
@@ -128,7 +130,6 @@ class LocationStore extends Store {
     locations.forEach(location => {
       Vue.set(location, "stationboard", [])
       Vue.set(this.state.locationsCache, [location.id], location)
-
       if (location.number == this.state.display.defaultStation.number) {
         // override the pointer in order to get the fully updated location
         this.state.display.defaultStation = location
@@ -167,7 +168,7 @@ class LocationStore extends Store {
       FETCH_LOCATION_STATIONBOARD_SUCCESS: this.fetchLocationStationBoardSuccess,
       FETCH_LOCATION_STATIONBOARD_ERROR: (({ location }) => { location.isLoadingStationBoard = false }),
       PUT_LOCATION_IN_DISPLAY_STACK: this.displayLocation,
-      DISPLAY_USER_PREFERENCE: this.createLocationsForUsers
+      DISPLAY_USER_PREFERENCE: this.onDisplayUserPreferences
     })
   }
 
