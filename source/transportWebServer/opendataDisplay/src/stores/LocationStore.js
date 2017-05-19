@@ -9,8 +9,10 @@ import api from '../api.js'
 import cachedLocations from '../locations.js'
 
 const config = {
-  USER_NOTIFICATION_LIFE: 2000,
-  STATIONBOARD_UPLOAD_EVERY: 5000
+  USER_NOTIFICATION_LIFE: 10000,
+  STATIONBOARD_UPLOAD_EVERY: 5000,
+  MAX_OPEN_LOCATION: 2,
+  OPEN_LOCATION_LIFE: 10000
 }
 
 class LocationStore extends Store {
@@ -18,6 +20,7 @@ class LocationStore extends Store {
     super()
     this.state.locationsCache = {}
     this.state.locations = []
+    this.state.openedLocations = []
     this.state.displayLocationsStack = new FixedSizeStack(2, false)
     this.state.isLoadingNearbyLocations = false
     this.state.usersLocations = []
@@ -69,8 +72,6 @@ class LocationStore extends Store {
     pref.buses.forEach(prefBus => {
       location.stationboard.forEach(bus => {
         if (prefBus.number == bus.number && prefBus.to == bus.to) {
-          console.log('diocaneee');
-          console.log('******************', color);
           Vue.set(bus, 'triggered', true)
           Vue.set(bus, 'color', color)
           // toggle state
@@ -104,17 +105,23 @@ class LocationStore extends Store {
   }
 
   displayLocation({ location }, destroy, putIntoStack) {
-    destroy = destroy == null ? true : destroy
-    putIntoStack = putIntoStack == null ? true : destroy
-    if (destroy) {
-      // this.setAutoDestruction(() => {
-      //   this.state.displayLocationsStack.removeItem(location)
-      //   Vue.set(location, 'open', false)
-      //   clearInterval(location.timeOutId)
-      // })
-    }
-    if (location.number == this.state.display.defaultStation.number) { location.removable = false }
-    if (putIntoStack) this.state.displayLocationsStack.addItem(location)
+
+    if (location.number == this.state.display.defaultStation.number) return
+
+    if (this.state.openedLocations.indexOf(location) > 0) return
+
+    if (this.state.openedLocations.length == config.MAX_OPEN_LOCATION) this.state.openedLocations.shift()
+
+    this.state.openedLocations.push(location)
+
+    // if (destroy) {
+      this.setAutoDestruction(() => {
+        this.state.displayLocationsStack.removeItem(location)
+        Vue.set(location, 'open', false)
+        clearInterval(location.timeOutId)
+      })
+    // }
+
     Vue.set(location, 'open', true)
     // start data pooling
     location.timeOutId = setInterval(() => { this.sStore.actions.fetchLocationStationBoard(location) }, config.STATIONBOARD_UPLOAD_EVERY)
@@ -128,6 +135,7 @@ class LocationStore extends Store {
     this.state.isLoadingNearbyLocations = false
     this.state.locations = locations
     locations.forEach(location => {
+      if(location.number == this.state.display.defaultStation.number) location.timeOutId = setInterval(() => { this.sStore.actions.fetchLocationStationBoard(location) }, config.STATIONBOARD_UPLOAD_EVERY)
       Vue.set(location, "stationboard", [])
       Vue.set(this.state.locationsCache, [location.id], location)
       if (location.number == this.state.display.defaultStation.number) {

@@ -36,7 +36,7 @@ public final class Bus: Model {
         case BusContext.passList:
             node["passList"] = try passList().makeNode(context: PassContext.onlyStation)
         case BusContext.nextStop:
-            node["stop"] = try getNextStop().makeNode()
+            node["stop"] = try getNextStop()?.makeNode()
      
         default:
             break
@@ -87,9 +87,9 @@ extension Bus {
         return try getPasses().filter("arrival_timestamp", .greaterThanOrEquals,now).limit(8).all()
     }
     
-    public func getNextStop() throws -> Pass {
+    public func getNextStop() throws -> Pass? {
         let now = NSDate().timeIntervalSince1970
-        return try getPasses().filter("departure_timestamp", .greaterThanOrEquals,now).first()!
+        return try getPasses().filter("departure_timestamp", .greaterThanOrEquals,now).first()
 
 //        return try getPasses().filter("arrival_timestamp", .greaterThanOrEquals,now).first()!
     }

@@ -10,6 +10,7 @@
 <script>
 import ConfirmationModal from './ConfirmationModal/ConfirmationModal.vue'
 import Navigation from './Navigation/Navigation.vue'
+
 export default {
   name: "CreatePreferencePage",
   components: {
@@ -28,7 +29,6 @@ export default {
 }
 </script>
 <style>
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity .5s ease;

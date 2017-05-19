@@ -1,18 +1,18 @@
 <template>
 <div id='App'>
-<router-view></router-view>
+  <router-view class=''></router-view>
 </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import Vuetify from 'vuetify'
 
-
-// Vue.prototype.$store = SuperStore
+Vue.use(Vuetify)
 
 export default {
   name: 'App'
 }
-
 </script>
 
 <style stylus>
@@ -21,17 +21,6 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
-}
-
-.fade-enter, .fade-leave-to
-/* .fade-leave-active in <2.1.8 */
-
-{
-  opacity: 0
 }
 
 .flex-list {
@@ -55,7 +44,8 @@ body {
 #App {
   height: 100%;
   width: 100%;
-max-height: 100vh;
+  max-height: 100vh;
+  min-height: 100vh;
 }
 
 .card--horizontal {

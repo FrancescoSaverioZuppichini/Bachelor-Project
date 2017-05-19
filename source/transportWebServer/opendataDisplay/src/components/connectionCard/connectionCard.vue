@@ -3,7 +3,7 @@
   <div class="uk-card-body">
     <div class='uk-flex'>
       <div class="uk-margin-right">
-        <h1> {{connection.number}}</h1>
+        <h3> {{connection.number}}</h3>
       </div>
       <div class='uk-flex-stretch'>
         <h5 class="uk-margin-remove-bottom">
@@ -19,11 +19,11 @@
     </div>
   </div>
 </div>
-<div class='uk-flex-expand uk-flex uk-margin-left uk-margin-right uk-margin-bottom' v-else>
+<div class='uk-flex-expand uk-flex' v-else>
   <div class="connection--user-nearby--active" :style="{'background' : connection.color}" v-if="connection.triggered && !location.isUser">
   </div>
   <div class="uk-margin-right">
-    <h1> {{connection.number}}</h1>
+    <h3> {{connection.number}}</h3>
   </div>
   <div class='uk-flex-stretch  uk-width-1-1 uk-margin-right'>
     <h5 class="uk-margin-remove-bottom">
@@ -33,7 +33,7 @@
     <small> {{parseArrivalTime(connection.stop.departure)}}</small>
   </div>
   <div class=" uk-float-right">
-    <h3 class="uk-margin-remove-bottom uk-text-center"> {{getArrivalTimeFromNow().minutes() + "'" }}</h3>
+    <h4 class="uk-margin-remove-bottom uk-text-center"> {{getArrivalTimeFromNow().minutes() + "'" }}</h4>
     <small>arrives</small>
   </div>
 </div>

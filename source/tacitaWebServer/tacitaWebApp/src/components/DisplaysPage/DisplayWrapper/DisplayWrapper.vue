@@ -11,7 +11,9 @@
         <display-dummy v-if="$store.state.nearbyDisplay.isLoading"></display-dummy>
       </div>
     </transition-group>
-
+    <div uk-cover key='noDisplay' v-if="!$store.state.hasADisplayNearby() && !$store.state.nearbyDisplay.isLoading">
+      <h4 class='uk-text-center'>  No display around </h4>
+    </div>
   </div>
 </div>
 </template>

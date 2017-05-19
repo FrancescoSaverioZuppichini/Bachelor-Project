@@ -18,6 +18,10 @@
   flex-grow: 99;
 }
 
+.my-card--padding {
+  padding: 24px !important;
+}
+
 .dummy__text {
   height: 16px;
   width: 100%;
@@ -33,6 +37,33 @@
   height: 24px;
 }
 
+.btn--huge {
+  height: 4.5rem !important;
+  width: 4.5rem !important;
+}
+
+.icon--huge {
+  font-size: 6rem;
+  height: 3rem;
+}
+
 .dummy--background-color {
   background-color: rgb(246, 246, 246) !important;
+}
+
+.my-card__close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+
+.fade-enter, .fade-leave-to
+/* .fade-leave-active in <2.1.8 */
+
+{
+  opacity: 0
 }

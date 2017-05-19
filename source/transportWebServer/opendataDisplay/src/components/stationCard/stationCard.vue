@@ -1,21 +1,39 @@
 <template>
 <!-- <transition name="fade"> -->
-<div class="uk-card uk-card-default" >
-  <div class="uk-card-body">
-    <h4 class="uk-clearfix"><span class="uk-margin-small-right" uk-icon="icon: location; ratio: 1.5"></span>{{station.name}}
-      <span class="uk-float-right" uk-icon="icon:clock; ratio: 1.2" v-if="showConnection"></span>
-</h4>
-    <div class="uk-flex-center uk-flex uk-margin" v-if="station.isLoadingStationBoard && station.stationboard.length == 0">
-      <div class="uk-spinner--large" uk-spinner></div>
+<div class="uk-card uk-card-default" v-if="showConnection">
+  <div class="uk-card-body" :class="{'my-card--padding':!showConnection}">
+    <div class="my-card__close" large v-if="showConnection && station.number != $store.state.display.defaultStation.number">
+      <v-btn icon large class='grey--text text--darken-2' @click.native="$store.state.openedLocations.splice($store.state.openedLocations.indexOf(station),1)">
+        <v-icon>close</v-icon>
+      </v-btn>
+    </div>
+    <div class='uk-flex uk-flex-middle'>
+      <v-icon large class='uk-margin-right'>place</v-icon>
+      <h4 class='uk-margin-remove'>{{station.name}}</h4>
+      <div class="uk-flex-grow">
+      </div>
+      <v-icon>access_time</v-icon>
+    </div>
+    <div class="uk-flex uk-flex-column uk-margin-top" uk-grid>
+      <div v-for="connection in this.availableConections" v-if="station.stationboard">
+        <connection-card :connection="connection" behavior="list" :location="station" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="uk-card uk-card-default" v-else>
+  <div class="uk-card-body my-card--padding">
+    <div class='uk-flex uk-flex-middle uk-margin-small-bottom'>
+      <v-icon class='uk-margin-right'>place</v-icon>
+      <h5 class='uk-margin-remove'>{{station.name}}</h5>
+      <div class="uk-flex-grow">
+      </div>
     </div>
     <button type="button" class="uk-button uk-button-primary" @click="showStationWithInformation" v-if="activator"> leaving soon
         </button>
   </div>
-  <div v-if="showConnection" class="uk-flex uk-flex-column">
-    <div v-for="connection in this.availableConections" v-if="station.stationboard" class="uk-position-relative uk-margin-bottom">
-      <connection-card :connection="connection" behavior="list" :location="station" />
-    </div>
-  </div>
+
 </div>
 <!-- </transition> -->
 </template>

@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import VueCarousel from 'vue-carousel';
+// import VueCarousel from 'vue-carousel';
 
 import connectionStore from './stores/ConnectionStore.js'
 import locationStore from './stores/LocationStore.js'
@@ -16,7 +16,7 @@ import { flueVue,
 import socket from './socket.js'
 import router from './router.js'
 
-Vue.use(VueCarousel)
+// Vue.use(VueCarousel)
 Vue.use(flueVue)
 
 import UIkit from 'uikit';
