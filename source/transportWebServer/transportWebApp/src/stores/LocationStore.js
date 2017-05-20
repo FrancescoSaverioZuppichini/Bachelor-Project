@@ -10,7 +10,7 @@ import cachedLocations from '../locations.js'
 
 const config = {
   USER_NOTIFICATION_LIFE: 100000000,
-  STATIONBOARD_UPLOAD_EVERY: 5000,
+  STATIONBOARD_UPLOAD_EVERY: 500000000,
   MAX_OPEN_LOCATION: 2,
   OPEN_LOCATION_LIFE: 10000
 }
@@ -19,6 +19,7 @@ class LocationStore extends Store {
   constructor() {
     super()
     this.state.locationsCache = {}
+    this.state.preferencesCache = {}
     this.state.locations = []
     this.state.openedLocations = []
     this.state.displayLocationsStack = new FixedSizeStack(2, false)
@@ -60,8 +61,7 @@ class LocationStore extends Store {
   // TODO refactor
   displayUserPrefererence(pref, color) {
     let location = this.state.locationsCache[pref.station.id]
-    if (!location)
-      return
+    if (!location) return
     // deep copy of location
     let newLocation = Object.assign({}, location)
     newLocation.isUser = true
@@ -73,6 +73,9 @@ class LocationStore extends Store {
       location.stationboard.forEach(bus => {
         if (prefBus.number == bus.number && prefBus.to == bus.to) {
           Vue.set(bus, 'triggered', true)
+          if (bus.colors == undefined) Vue.set(bus, 'colors', [])
+          bus.colors.push(color)
+          console.log(bus.colors);
           Vue.set(bus, 'color', color)
           // toggle state
           this.setAutoDestruction(() => {
@@ -100,6 +103,10 @@ class LocationStore extends Store {
   }
 
   onDisplayUserPreferences({ userPreferences, color }) {
+    if (userPreferences.length <= 0) return
+    this.state.preferencesCache[userPreferences[0].user_id] = userPreferences
+
+    console.log(JSON.parse(JSON.stringify(this.state.preferencesCache)))
     // create a new location for each user by using the stored ones
     userPreferences.forEach(pref => this.displayUserPrefererence(pref, color))
   }
@@ -188,7 +195,6 @@ class LocationStore extends Store {
             return data
           })
           .then((data) => {
-            console.log(data);
             dispatcher.dispatch(new Action("FETCH_NEARBY_LOCATIONS_SUCCESS", { locations: data }))
           })
       },

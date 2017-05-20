@@ -47,6 +47,10 @@
   height: 3rem;
 }
 
+.flex-1 {
+  flex: 1;
+}
+
 .dummy--background-color {
   background-color: rgb(246, 246, 246) !important;
 }
