@@ -36,9 +36,8 @@ class BeaconStore extends Store {
     return {
       beaconFound(beacon) {
         api.beacon.fetchByBeaconId(beacon.macAddress)
-          .then(({ data }) => {
-            dispatcher.dispatch(new Action('BEACON_FOUND', { data }))
-          })
+          .then((data) => dispatcher.dispatch(new Action('BEACON_FOUND', data)))
+          .catch((err) => console.log('No beacon match in our DB'))
       },
       beaconLost(data) {
         dispatcher.dispatch(new Action('BEACON_LOST', { data }))

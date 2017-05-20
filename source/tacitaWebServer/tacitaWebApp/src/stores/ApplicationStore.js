@@ -66,9 +66,7 @@ class ApplicationStore extends Store {
       fetchApplications() {
         dispatcher.dispatch(new Action("FETCH_APPLICATION_LOADING"))
         return api.application.fetchApplications()
-          .then(({ data }) => {
-            dispatcher.dispatch(new Action("FETCH_APPLICATION_SUCCESS", { data }))
-          })
+          .then(( data ) => dispatcher.dispatch(new Action("FETCH_APPLICATION_SUCCESS",  data )) )
           .catch((err) => console.log(err))
       }
     }

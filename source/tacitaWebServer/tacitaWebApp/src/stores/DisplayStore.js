@@ -35,14 +35,10 @@ class BluetoothStore extends Store {
     var display = this.state.displayChace[data.displayId]
     // soft delete, the obj is keep in memory
     display.isNearby = false
-    // this.state.nearbyDisplay.isNearby = false
-    ws.send(JSON.stringify({
-      "type": "USER_WENT_AWAY",
-      "payload": {
-        "userId": this.sStore.state.user.id,
-        "displayId": display.id
-      }
-    }))
+
+    const user = this.sStore.state.user
+    ws.userWentAway({user,display})
+
   }
 
   onFetchDisplayLoading() {
@@ -68,15 +64,19 @@ class BluetoothStore extends Store {
     if (!display.isNearby) return
     for (let app of this.sStore.state.applications.data) {
       if (display.apps[0].id == app.id && app.toogle) {
-        console.log(`sending info to display ${display.id}`)
 
-        ws.send(JSON.stringify({
-          "type": "USER_NEARBY",
-          "payload": {
-            "userId": this.sStore.state.user.id,
-            "displayId": display.id
-          }
-        }))
+        console.log(`sending info to display ${display.id}`)
+        const user = this.sStore.state.user
+
+        ws.sendUserInfo({user,display})
+        // ws.send(JSON.stringify({
+        //   "type": "USER_NEARBY",
+        //   "payload": {
+        //     "userId": this.sStore.state.user.id,
+        //     "displayId": display.id,
+        //     "color": this.sStore.state.user.color
+        //   }
+        // }))
       }
     }
   }

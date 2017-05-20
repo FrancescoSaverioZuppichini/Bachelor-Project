@@ -9,7 +9,7 @@ class UserStore extends Store {
   constructor() {
     super()
     this.state.currentPreference = {}
-    this.state.user = { id: null, preferences: { data: [], loading: false } }
+    this.state.user = { id: null, preferences: { data: [], loading: false }, color: null }
   }
 
   fetchUserPreferenceSuccess({ preferences }) {

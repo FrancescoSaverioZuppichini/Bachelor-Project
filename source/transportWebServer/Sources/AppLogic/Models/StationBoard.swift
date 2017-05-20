@@ -55,7 +55,7 @@ public final class StationBoard: Model {
         switch context {
             
         case StationBoardContext.passes:
-            node["stop"] = try bus().getNextStop().makeNode()
+            node["stop"] = try bus().getNextStop()?.makeNode()
             node["number"] = try bus().number.makeNode()
 //            node["passList"] = try bus().passList().makeNode()
             

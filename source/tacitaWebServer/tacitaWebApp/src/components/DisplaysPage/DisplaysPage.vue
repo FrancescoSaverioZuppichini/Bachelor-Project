@@ -1,13 +1,14 @@
 <template>
 <page>
   <vue-pull-refresh :on-refresh="onRefresh" class='uk-flex-column uk-flex f-h'>
-
     <div class='uk-flex-column uk-flex f-h'>
       <display-wrapper class='uk-flex--grow' :displays="$store.state.nearbyDisplay.data"></display-wrapper>
+      
     </div>
   </vue-pull-refresh>
 </page>
 </template>
+
 <script>
 import DisplayWrapper from './DisplayWrapper/DisplayWrapper.vue'
 import VuePullRefresh from '../VuePullReflesh.vue'
@@ -27,7 +28,6 @@ export default {
   },
   methods: {
     onRefresh: function() {
-      console.log('onRefresh');
       // this.$store.actions.fetchApplications()
       const displays = this.$store.state.nearbyDisplay.data
       // var displaysPromises = displays.map(display => this.$store.actions.fetchDisplay(display.id))
