@@ -10,6 +10,8 @@ class DisplayStore extends Store {
   constructor() {
     super()
     this.state.display = {}
+    this.state.usersCache = {}
+
   }
 
   /**
@@ -22,6 +24,7 @@ class DisplayStore extends Store {
       console.log('NOT THIS DISPLAY');
       return
     }
+    this.state.usersCache[data.userId] = data.color 
     this.sStore.actions.displayUserPreferences(data)
   }
 

@@ -72,11 +72,19 @@ class LocationStore extends Store {
     pref.buses.forEach(prefBus => {
       location.stationboard.forEach(bus => {
         if (prefBus.number == bus.number && prefBus.to == bus.to) {
+
           Vue.set(bus, 'triggered', true)
+        
+          if (bus.users == undefined) Vue.set(bus, 'users', [])
           if (bus.colors == undefined) Vue.set(bus, 'colors', [])
-          bus.colors.push(color)
-          console.log(bus.colors);
-          Vue.set(bus, 'color', color)
+
+          const userIndex = bus.users.indexOf(pref.user_id)
+          const color = this.sStore.state.usersCache[pref.user_id]
+
+          if (userIndex < 0) {
+            bus.colors.push(color)
+            bus.users.push(pref.user_id)
+          }
           // toggle state
           this.setAutoDestruction(() => {
             Vue.set(bus, 'triggered', false)
