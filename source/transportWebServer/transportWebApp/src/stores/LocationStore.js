@@ -108,19 +108,16 @@ class LocationStore extends Store {
 
     if (location.number == this.state.display.defaultStation.number) return
 
-    if (this.state.openedLocations.indexOf(location) > 0) return
+    if (this.state.openedLocations.indexOf(location) >= 0) return
 
     if (this.state.openedLocations.length == config.MAX_OPEN_LOCATION) this.state.openedLocations.shift()
 
     this.state.openedLocations.push(location)
 
-    // if (destroy) {
-      this.setAutoDestruction(() => {
-        this.state.displayLocationsStack.removeItem(location)
-        Vue.set(location, 'open', false)
-        clearInterval(location.timeOutId)
-      })
-    // }
+    setTimeout(() => {
+      this.state.openedLocations.shift()
+      Vue.set(location, 'open', false)
+    }, config.OPEN_LOCATION_LIFE)
 
     Vue.set(location, 'open', true)
     // start data pooling
@@ -135,7 +132,7 @@ class LocationStore extends Store {
     this.state.isLoadingNearbyLocations = false
     this.state.locations = locations
     locations.forEach(location => {
-      if(location.number == this.state.display.defaultStation.number) location.timeOutId = setInterval(() => { this.sStore.actions.fetchLocationStationBoard(location) }, config.STATIONBOARD_UPLOAD_EVERY)
+      if (location.number == this.state.display.defaultStation.number) location.timeOutId = setInterval(() => { this.sStore.actions.fetchLocationStationBoard(location) }, config.STATIONBOARD_UPLOAD_EVERY)
       Vue.set(location, "stationboard", [])
       Vue.set(this.state.locationsCache, [location.id], location)
       if (location.number == this.state.display.defaultStation.number) {

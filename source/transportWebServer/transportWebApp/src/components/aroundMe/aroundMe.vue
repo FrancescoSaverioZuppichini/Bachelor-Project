@@ -1,9 +1,9 @@
 <template>
-<div class="uk-container uk-container-large ">
+<div class="uk-margin-bottom">
   <div class="uk-flex-center uk-flex" v-if="this.$store.state.isLoadingNearbyLocations">
     <div class="uk-spinner--large" uk-spinner></div>
   </div>
-  <carousel :perPage=4 :navigationEnabled="true" v-else>
+  <carousel :perPageCustom="[[350,1],[640, 2],[1024, 3], [1280, 4]]" :navigationEnabled="true" v-else>
     <slide v-for="(station,index) in this.$store.state.locations">
       <station-card :station="station" :showConnection="false" :activator="true" class='slide__item--margin'/>
     </slide>

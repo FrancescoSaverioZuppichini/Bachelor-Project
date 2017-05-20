@@ -6,11 +6,7 @@ import { SuperStore, Store, Action } from 'flue-vue'
 import api from '../api.js'
 import FixedSizeStack from '../FixedSizeStack.js'
 
-/**
-This class is used to store user information, in order:
-- the current user information {id,email}
-- the user's preference
-**/
+
 class UserStore extends Store {
   constructor() {
     super()

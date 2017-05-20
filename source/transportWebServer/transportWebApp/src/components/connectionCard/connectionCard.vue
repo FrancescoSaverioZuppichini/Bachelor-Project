@@ -25,15 +25,19 @@
   <div class="uk-margin-right">
     <h3> {{connection.number}}</h3>
   </div>
-  <div class='uk-flex-stretch  uk-width-1-1 uk-margin-right'>
+  <div class='uk-flex-grow'></div>
+  <div class='uk-width-1-1 uk-margin-right'>
     <h5 class="uk-margin-remove-bottom">
         <span class="uk-margin-small-right" uk-icon="icon:arrow-right"></span>
         {{connection.to}}
 </h5>
-    <small> {{parseArrivalTime(connection.stop.departure)}}</small>
+    <p class='uk-margin-remove'> {{parseArrivalTime(connection.stop.departure)}}</p>
   </div>
+  <div class='uk-flex-grow'></div>
+
   <div class=" uk-float-right">
-    <h4 class="uk-margin-remove-bottom uk-text-center"> {{getArrivalTimeFromNow().minutes() + "'" }}</h4>
+    <h5 class="uk-margin-remove-bottom uk-text-center" v-if="arrivesNow">Now</h5>
+    <h4 class="uk-margin-remove-bottom uk-text-center" v-else> {{getArrivalTimeFromNow().minutes() + "'" }}</h4>
     <small>arrives</small>
   </div>
 </div>
@@ -58,6 +62,11 @@ export default {
       // const duration = moment.duration(moment().diff(moment(this.connection.stop.departureTimestamp)));
       const duration = moment.duration(moment(this.connection.stop.departure).diff(moment(new Date())));
       return duration
+    }
+  },
+  computed: {
+    arrivesNow() {
+      return this.getArrivalTimeFromNow().minutes() == 0
     }
   }
 }

@@ -46,6 +46,7 @@ body {
   width: 100%;
   max-height: 100vh;
   min-height: 100vh;
+  overflow-y: hidden;
 }
 
 .card--horizontal {
