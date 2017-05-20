@@ -54,7 +54,7 @@ export default {
     'user': {
       handler: function() {
         console.log('*************** USER *************');
-        // this.$store.actions.createOrFetchUser(user.email)
+        this.$store.actions.createOrFetchUser(user.email)
       },
       deep: true
     }
@@ -62,7 +62,7 @@ export default {
   mounted() {
     window.bluetooth = this.bluetooth
     window.user = this.user
-    this.$store.actions.createOrFetchUser('android.ubicomp.usi@gmail.com')
+    // this.$store.actions.createOrFetchUser('android.ubicomp.usi@gmail.com')
 
     // setTimeout(()=>{  window.test.test = 'PORODIO'},500)
     this.$store.actions.fetchApplications()
