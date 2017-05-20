@@ -20,7 +20,9 @@
   </div>
 </div>
 <div class='uk-flex-expand uk-flex' v-else>
-  <div class="connection--user-nearby--active" :style="{'background' : connection.color}" v-if="connection.triggered && !location.isUser">
+<div class='uk-flex uk-flex-column connection--user-nearby--active'>
+  <div class="flex-1 " :style="{'background' : color}" v-if="connection.triggered && !location.isUser" v-for="color in connection.colors">
+</div>
   </div>
   <div class="uk-margin-right">
     <h3> {{connection.number}}</h3>

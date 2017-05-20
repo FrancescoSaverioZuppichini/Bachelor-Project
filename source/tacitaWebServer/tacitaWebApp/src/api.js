@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const BASE_URL = ''
-const TACITA_URL = '/auth/api'
+const TACITA_URL = '/tacita/api'
 const APPLICATION_URL = '/application/api'
 
 export default {

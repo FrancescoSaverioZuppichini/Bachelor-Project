@@ -10,19 +10,23 @@ class DisplayStore extends Store {
   constructor() {
     super()
     this.state.display = {}
+    this.state.usersCache = {}
+  }
+
+  shouldDisplayPreference(data) {
+    return data.displayId == this.state.display.id
   }
 
   /**
-   * When a user is closed to the display
-   * fetch it's preference and display them
-   * on the fly
-   **/
+   * Check if it should display the current
+   * preferences, if yes, it calls the correct action
+   * @param  {Object} data Preference pulled from the socket
+   */
   onUserNearby(data) {
-    if (data.displayId != this.state.display.id) {
-      console.log('NOT THIS DISPLAY');
-      return
+    if (this.shouldDisplayPreference(data)) {
+      this.state.usersCache[data.userId] = data.color
+      this.sStore.actions.displayUserPreferences(data)
     }
-    this.sStore.actions.displayUserPreferences(data)
   }
 
   fetchDisplaySuccess({ display }) {
