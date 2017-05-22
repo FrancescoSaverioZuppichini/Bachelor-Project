@@ -12,6 +12,7 @@
     "watch": "NODE_ENV=DEBUG webpack --progress --colors --watch --config build/webpack.prod.conf.js"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "axios": "^0.15.3",
     "bootstrap": "^4.0.0-alpha.6",
     "flue-vue": "^1.0.3",

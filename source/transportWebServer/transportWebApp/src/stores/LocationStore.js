@@ -10,7 +10,7 @@ import cachedLocations from '../locations.js'
 
 const config = {
   USER_NOTIFICATION_LIFE: 5000,
-  STATIONBOARD_UPLOAD_EVERY: 5000,
+  STATIONBOARD_UPLOAD_EVERY: 500000000,
   MAX_OPEN_LOCATION: 2,
   OPEN_LOCATION_LIFE: 1000000,
   OPEN_LOCATION_AUTODESTRUCTION: false
@@ -107,7 +107,16 @@ class LocationStore extends Store {
 
     if (location.number == this.state.display.defaultStation.number) return
 
-    if (this.state.openedLocations.indexOf(location) >= 0) return
+    if (this.state.openedLocations.indexOf(location) >= 0) {
+      if (!location.openFeedback) {
+        // trigger an animation letting the user know that the card
+        // is already open
+        Vue.set(location, 'openFeedback', true)
+        // disable it
+        setTimeout(() => location.openFeedback = false, 1000)
+      }
+      return
+    }
 
     if (this.state.openedLocations.length == config.MAX_OPEN_LOCATION) this.state.openedLocations.shift()
 

@@ -41,6 +41,8 @@ body {
 
 @import url('./css/main.css');
 @import url('./css/spinkit.css');
+@import url('../node_modules/animate.css/animate.min.css');
+
 #App {
   height: 100%;
   width: 100%;

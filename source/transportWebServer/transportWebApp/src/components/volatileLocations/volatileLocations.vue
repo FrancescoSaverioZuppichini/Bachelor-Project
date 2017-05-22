@@ -1,10 +1,13 @@
 <template>
-<transition-group name='fade' lass="uk-flex uk-flex-nowrap" uk-grid>
-<div key="default">
-  <station-card  :station="this.$store.state.display.defaultStation" :showConnection="true"></station-card>
+<transition-group name="custom-classes-transition" enter-active-class="animated fadeInRight" leave-class="animated fadeOutUp" leave-active-class="animated fadeOutUp" class="uk-flex uk-flex-nowrap" uk-grid>
+  <!-- <transition-group name="fade-cards"  class="uk-flex uk-flex-nowrap" uk-grid> -->
 
-</div>
+  <div key="default">
+    <station-card :station="this.$store.state.display.defaultStation" :showConnection="true"></station-card>
+  </div>
+<transition-group
   <div class='uk-visible@m' :key="station" v-for="station in this.$store.state.openedLocations">
+
     <station-card :station="station" :showConnection="true" autoDestroy="true"></station-card>
   </div>
 </transition-group>
