@@ -1,39 +1,24 @@
 <template>
-<div class="uk-card uk-card-default" v-if="behavior != 'list'">
-  <div class="uk-card-body">
-    <div class='uk-flex'>
-      <div class="uk-margin-right">
-        <h3> {{connection.number}}</h3>
-      </div>
-      <div class='uk-flex-stretch'>
-        <h5 class="uk-margin-remove-bottom">
-          <span class="uk-margin-small-right" uk-icon="icon:arrow-right"></span>
-          {{connection.to}}
-</h5>
-        <small> {{parseArrivalTime(this.connection.stop.departure_timestamp)}}</small>
-      </div>
-      <div class="uk-margin-right">
-        <h2 class="uk-margin-remove-bottom uk-text-center"> {{getArrivalTimeFromNow().minutes() + "'" }}</h2>
-        <small>arrives</small>
-      </div>
+<div class='uk-flex-expand uk-flex uk-flex-middle'>
+  <div class='uk-flex uk-flex-column connection--user-nearby--active' v-if="connection.triggered && !location.isUser ">
+    <div class="flex-1 " :style="{'background' : color}" v-for="color in connection.colors">
     </div>
   </div>
-</div>
-<div class='uk-flex-expand uk-flex' v-else>
-<div class='uk-flex uk-flex-column connection--user-nearby--active' v-if="connection.triggered && !location.isUser ">
-  <div class="flex-1 " :style="{'background' : color}"  v-for="color in connection.colors">
-</div>
-  </div>
   <div class="uk-margin-right">
-    <h3> {{connection.number}}</h3>
+    <div class="connection-number__container">
+      <h3 class='uk-margin-remove'> {{connection.number}}</h3>
+    </div>
   </div>
   <div class='uk-flex-grow'></div>
-  <div class='uk-width-1-1 uk-margin-right'>
-    <h5 class="uk-margin-remove-bottom">
-        <span class="uk-margin-small-right" uk-icon="icon:arrow-right"></span>
-        {{connection.to}}
-</h5>
-    <p class='uk-margin-remove'> {{parseArrivalTime(connection.stop.departure)}}</p>
+  <div class='uk-width-1-1 uk-margin-right uk-flex'>
+    <div class='uk-margin-small-right'>
+      <v-icon>arrow_forward</v-icon>
+    </div>
+    <div>
+      <h6 class='uk-margin-remove'>{{connection.to}}</h6>
+      <p class='uk-margin-remove'> {{parseArrivalTime(connection.stop.departure)}}</p>
+    </div>
+
   </div>
   <div class='uk-flex-grow'></div>
 
@@ -89,6 +74,12 @@ export default {
 
 .user-nearby--animation {
   animation: user-nearby 1s linear;
+}
+
+.connection-number__container {
+  border-radius: 7%;
+  border: 2px grey solid;
+  padding: 4px;
 }
 
 @@keyframes user-nearby {
