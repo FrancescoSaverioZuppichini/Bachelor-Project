@@ -85,6 +85,7 @@ class LocationStore extends Store {
           this.setAutoDestruction(() => {
             bus.users.splice(bus.users.indexOf(pref.user_id), 1)
             bus.colors.splice(bus.colors.indexOf(color), 1)
+            bus.triggered = bus.users.length > 0
           })
         }
       })

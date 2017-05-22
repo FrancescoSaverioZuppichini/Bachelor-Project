@@ -20,8 +20,8 @@
   </div>
 </div>
 <div class='uk-flex-expand uk-flex' v-else>
-<div class='uk-flex uk-flex-column connection--user-nearby--active'>
-  <div class="flex-1 " :style="{'background' : color}" v-if="connection.triggered && !location.isUser" v-for="color in connection.colors">
+<div class='uk-flex uk-flex-column connection--user-nearby--active' v-if="connection.triggered && !location.isUser ">
+  <div class="flex-1 " :style="{'background' : color}"  v-for="color in connection.colors">
 </div>
   </div>
   <div class="uk-margin-right">
