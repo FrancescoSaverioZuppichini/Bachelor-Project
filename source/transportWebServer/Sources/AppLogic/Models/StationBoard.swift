@@ -123,7 +123,7 @@ extension StationBoard {
     
     public func nextPasses() throws -> [Pass] {
         let now = NSDate().timeIntervalSince1970
-        return try passes().filter("departure_timestamp", .greaterThanOrEquals,now).limit(8).all()
+        return try passes().filter("departure_timestamp", .greaterThanOrEquals,now).filter("departure_timestamp",.lessThanOrEquals, now + 3600).limit(8).all()
         
     }
     

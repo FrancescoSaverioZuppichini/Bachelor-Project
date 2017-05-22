@@ -12,7 +12,8 @@ const config = {
   USER_NOTIFICATION_LIFE: 5000,
   STATIONBOARD_UPLOAD_EVERY: 5000,
   MAX_OPEN_LOCATION: 2,
-  OPEN_LOCATION_LIFE: 1000000
+  OPEN_LOCATION_LIFE: 1000000,
+  OPEN_LOCATION_AUTODESTRUCTION: false
 }
 
 class LocationStore extends Store {
@@ -111,12 +112,12 @@ class LocationStore extends Store {
     if (this.state.openedLocations.length == config.MAX_OPEN_LOCATION) this.state.openedLocations.shift()
 
     this.state.openedLocations.push(location)
-
-    setTimeout(() => {
-      // keep in mind, the first is the oldest
-      this.state.openedLocations.shift()
-      Vue.set(location, 'open', false)
-    }, config.OPEN_LOCATION_LIFE)
+    //
+    // setTimeout(() => {
+    //   // keep in mind, the first is the oldest
+    //   this.state.openedLocations.shift()
+    //   Vue.set(location, 'open', false)
+    // }, config.OPEN_LOCATION_LIFE)
 
     Vue.set(location, 'open', true)
     // start data pooling
@@ -146,8 +147,12 @@ class LocationStore extends Store {
         // show the default location
         this.displayLocation({ location }, false, false)
         location.default = true
+      } else if (!config.OPEN_LOCATION_AUTODESTRUCTION && this.state.openedLocations.length < config.MAX_OPEN_LOCATION) {
+        this.displayLocation({ location }, false, false)
+
       }
     })
+
     // get stationsBoards of all locations -> NO LAZY LOADING
     this.sStore.actions.fetchLocationsStationBoards(this.state.locations)
 
