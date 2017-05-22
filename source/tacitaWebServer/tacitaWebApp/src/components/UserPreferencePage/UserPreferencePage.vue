@@ -18,7 +18,7 @@
             </div>
             <div v-else>
               <h5 class='uk-text-muted uk-margin-remove'>You have no color !</h5>
-              <v-btn primary dark @click.native="$router.push({name:'Color'})">Select one</v-btn>
+              <v-btn primary light @click.native="$router.push({name:'Color'})">Select one</v-btn>
             </div>
           </div>
         </div>

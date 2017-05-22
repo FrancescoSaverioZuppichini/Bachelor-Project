@@ -49,3 +49,7 @@ html {
   bottom: 40px;
   width: 100%;
 }
+
+.uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+  height: auto !important;
+}

@@ -2,16 +2,22 @@
 <nav class="uk-navbar-container my-nav-bar uk-box-shadow" uk-navbar>
   <div class="uk-navbar-left">
     <ul class="uk-navbar-nav">
-      <a  class="uk-navbar-item uk-logo" v-if="$route.name == 'Home' || home" @click="$router.push({name:'Home'})">Tacita</a>
-        <v-btn icon="icon" class="white--text uk-navbar-item" @click.native="$router.go(-1)" v-else>
+      <a class="uk-navbar-item uk-logo" v-if="$route.name == 'Home' || home" @click="$router.push({name:'Home'})">Tacita</a>
+      <a v-else>
+        <v-btn icon="icon" class="white--text uk-navbar-item" @click.native="$router.go(-1)">
           <v-icon>arrow_back</v-icon>
         </v-btn>
+      </a>
+
     </ul>
   </div>
   <div class="uk-navbar-right">
     <ul class="uk-navbar-nav">
       <li class="">
-          <v-icon class='white--text uk-navbar-item' @click.native="$router.push({name:'UserPreference'})">settings</v-icon>
+        <!-- <a class='uk-padding-remove'> -->
+        <v-icon class='white--text uk-navbar-item' @click.native="$router.push({name:'UserPreference'})">settings</v-icon>
+
+        <!-- </a> -->
       </li>
     </ul>
   </div>
@@ -20,7 +26,7 @@
 <script>
 export default {
   name: "navbar",
-  props:['home'],
+  props: ['home'],
   data: function data() {
     return {
 
