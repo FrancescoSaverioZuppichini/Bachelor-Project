@@ -88,7 +88,7 @@ extension Station {
     
     public func stationBoard() throws -> [StationBoard] {
         
-        return try children().limit(4).all()
+        return try children().limit(5).all()
     }
     
     public func buses() throws -> [Bus] {
