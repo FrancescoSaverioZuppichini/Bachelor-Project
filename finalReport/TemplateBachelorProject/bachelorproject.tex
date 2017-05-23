@@ -41,7 +41,8 @@ An abstract describing what the prospectus is all about. ``Omit needless words''
 
 Big displays represent a widely used form of mass communication in almost all public places such as squares, subways and schools. They are used in a passive way by pushing un-targeted information, mostly advertisements, to the audience; enslaved by an bidirectional visible communication without any way to personalise the screen's content.
 
-This lack of aimed content bring to a uniqueness of the display's message, since it must be equal for everyone. We can see the abuse of this strategy in the following pictures showing two of the world's biggest squares that are invaded by static, brightly, unavoidable, content from the huge displays.
+This lack of aimed content bring to a uniqueness of the display's message, forced to be equal for everyone.
+In the following pictures you can easily observe the abuse of this strategy by looking at two of the world's biggest squares that are invaded by static, brightly, unavoidable, content from the huge displays.
 \begin{figure}[H]
   \centering
   \subfloat[]{\includegraphics[width=0.4\textwidth]{./images/new_york_displays.jpg}}
@@ -49,13 +50,13 @@ This lack of aimed content bring to a uniqueness of the display's message, since
   \subfloat[]{\includegraphics[width=0.45\textwidth]{./images/piccadilly_displays.jpg}}
 \end{figure} 
 
-We can see how such devices make a big impact on a town's shape, they chan it's look, colours and feel without adding anything useful. If we look carefully in the pictures we can notice that the only content showed is advertisement. The choice of content is not related directly to the technology, even before the display were available in such dimensions. In the following picture showing \emph{New York} in the early 60s we can notice the exactly same advertisement, even from the same companies, that is showed today. Therefore, what is the utility of using displays instead of posters, you may ask.
+Such devices make a big impact on a town's shape, they change it's look, colours and feel without adding anything useful. If we look carefully in the pictures we can notice that the only content showed is advertisement. This choice is not related directly to the technology; in the following picture, showing \emph{New York} in the early 60s, we can notice the exactly same advertisement, even from the same companies, that is showed today. Therefore, what is the utility of using displays instead of posters, you may ask.
 
 \begin{figure}[H]
   \centering
   \subfloat[]{\includegraphics[width=0.4\textwidth]{./images/new_york_posters.jpg}}
 \end{figure} 
-Since the message from the display is shared, or forced, to everyone, it seems logic thinking that everyone should share the screen, but that is not the case.
+Since the message from the display is shared, or forced, to everyone, it seems logic thinking that everyone should share the screen too, but that is not the case.
 
 A unified message cause a certainly reduction of the screen's utility and purpose, making it, as we stated before, a full passive element. An other example of a badly use of displays may be the ones in the Milan \emph{Stazione Centrale}, showed in the following picture.
 % add picture
@@ -72,29 +73,28 @@ The information should be pertinent and \emph{fast}, it must be easy for the use
 
 By doing that we completly transform a tool, such as a display, into a new one, a better one.
 % say something of how software can change hardware an it is the main layer
-\section{Topology}
+\section{Architecture}
 In this section we describe in detail the whole project design, bottom-up. Starting by a briefly description of how we structure all the parts.
-\subsection{Topology Architecture}
+\subsection{Introduction}
 % INTRODUCTION
 Design a working system is never easy. It has to logically mimic the answer to the problem we are trying to solve.
-\\
-\\
-We are looking for a scalable system where the user, identifier as an active entry, pull and push his information to the display. With \emph{scalable} we means that it does not directly depends on the number of application, or \emph{sercices}, our network exposes. Also the display number must be irrelevant, the system has to work with $n$ display and $m$ application without any changing in the core.
+
+In our case, we are looking for a scalable system where the user, identifier as an active entry, pull and push his information to the display. It must not directly depends on the number of application, or \emph{services}, our network exposes or on the number of display. Specifically the system has to work with $n$ display and $m$ application without any changing in the core. 
 % GENERAL OVERVIEW
-For such reasons we adopted a \emph{Micro Services} architecture where each element can be removed without effecting the intigrity of the system. Services communicate using either synchronous protocols such as HTTP/REST; thus can be developed and deployed independently of one another. Each service has its own database in order to be decoupled from other services. In our project we deployed all the services on the same server, but in a real world application they are usually physical separated.
 \\
 \\
- We started by \emph{abstracting} the applications layers, that for now, it is seen as a single entity. This layers provided a common interface for pull/push personalization.
- All the active logic of the network is handled by another Micro Service, called \emph{Tacita}, that links display, application and users. It's responsibility is to be the glue between the application layer and the other elements by storing users informations, display's state and available applications.
+For such reasons we adopted a \emph{Micro Services} architecture where each element can be removed without effecting the integrity of the network. Services communicate using either synchronous protocols such as HTTP/REST; thus they can be developed and deployed independently. Each service has its own database in order to be decoupled from other services. Such architectures scale faster than a classic monolithic approach, for instance, a new application can be deployed from everywhere really fast by just using the same interface of the existing one. Moreover, each application provider, can use his favourite technologies and hosting platform. In our project we deployed all the services on the same server, but in a real world, as we said,  they are usually physically separated. Since all the applications provide a common interface for pull/push personalization content, we are going to call this set of services the \emph{Application Layer}.\\
+\\
+All the active logic of the network is handled by another Micro Service, called \emph{Tacita}, that links display, application and users. It's responsibility is to be the glue between the \emph{Application Layer} and all the other elements by storing users' informations, screen's state and available applications.
 % TALK about the system that must be anynimous 
 
-\subsection{Topology Elements}
+\subsection{Architecture Elements}
 \subsubsection{General Overview}
 
-We talked superfically of the elements of our Topology: it is time to deeply describe them one per one. We start from the most important one: The User  
+We talked superfically of the elements of our Architecture: it is time to deeply describe them one per one. We start from the most important one: The User  
 \subsubsection{User}
 
-The User has a fully active role, he is the trigger of the whole system; without him, the network has not reason to exits. He uses his smartphone in order to access the front-end application exposed by our back-end micro services through the \emph{Tacita} platform.
+The User has a fully active role, he is the trigger of the whole system; without him, the network has not reason to exits. He uses his smartphone in order to access the front-end application exposed by the \emph{Appliction Layer} through the \emph{Tacita} platform.
 
 By using it the User can selects his custom settings in order to quickly identify his information on the screens. For instance, a favourite colour can be used for such pourpose gaining, at the same time, anonymity, and a quick way to identify his personalized content by just watching the screen. Thus only the targeted client knows which are his information. The app will be deeply analised into the next sections, but, from a user point of view, it is the door to access the array of services.
 
@@ -114,9 +114,9 @@ Since a touch interface is used in our project the communication channel can be 
 
 % add photo of the user display interaction
  We choose a web interface as mainly platform for our display since it is easy to maintain ad  scale; a full section about the web techonologies used can be founded in 2.4. Briefly, a website is show on the big screens and, thank to a socket connection, real-time changes can be displayed.
-\subsection{Topology Interactions}
-\subsection{Topology Technologies}
-\subsection{Topology Scalability}
+\subsection{Architecture Interactions}
+\subsection{Architecture Technologies}
+\subsection{Architecture Scalability}
 \section{Design}
 \subsection{Back-end}
 \subsection{Front-end}
