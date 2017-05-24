@@ -11,7 +11,7 @@ import cachedLocations from '../locations.js'
 
 const config = {
   USER_NOTIFICATION_LIFE: 5000,
-  STATIONBOARD_UPLOAD_EVERY: 50000000,
+  STATIONBOARD_UPLOAD_EVERY: 5000,
   MAX_OPEN_LOCATION: 2,
   OPEN_LOCATION_LIFE: 10000,
   OPEN_LOCATION_AUTODESTRUCTION: false
@@ -142,7 +142,7 @@ class LocationStore extends Store {
   addDistanceFromHereToLocation(location) {
     utils.getCurrentPosition()
       .then(({ coords }) => coords.latitude + ',' + coords.longitude)
-      .then((here) => googleMaps.getDirectionFrom(here, 'bus lugano ' + location.name))
+      .then((here) => googleMaps.getDirectionFrom(here, 'bus station lugano' + location.name.toLowerCase()))
       .then((res) => {
         Vue.set(location, 'googleMaps', res)
         Vue.set(location, 'duration', res.routes[0].legs[0].duration)

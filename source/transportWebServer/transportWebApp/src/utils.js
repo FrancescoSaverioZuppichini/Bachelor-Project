@@ -18,7 +18,6 @@ export default {
     const origin = coords.latitude + ',' + coords.longitude
     var destination = 'bus station lugano' + station.name.toLowerCase()
     const travelMode = 'WALKING'
-    console.log(destination);
     // const destination = '46.011574,8.9574'
     // const destination = 'bus lugano universita'
     const request = {

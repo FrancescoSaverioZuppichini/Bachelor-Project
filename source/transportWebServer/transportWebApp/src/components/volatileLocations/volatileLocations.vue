@@ -5,8 +5,11 @@
   <div key="default" class='uk-width-1-3'>
     <station-card-with-connection :station="this.$store.state.display.defaultStation" :show="true"></station-card-with-connection>
   </div>
-  <div class='uk-visible@m uk-width-1-3' :key="station" v-for="station in this.$store.state.locations" v-show="show(station)">
+  <!-- <div class='uk-visible@m uk-width-1-3' :key="station" v-for="station in this.$store.state.locations" v-show="show(station)">
     <station-card-with-connection :station="station" autoDestroy="true"  :show="show(station)"></station-card-with-connection>
+  </div> -->
+  <div class='uk-visible@m uk-width-1-3' :key="station" v-for="station in this.$store.state.openedLocations">
+    <station-card-with-connection :station="station" autoDestroy="true"  :show="true"></station-card-with-connection>
   </div>
 </transition-group>
 </template>
