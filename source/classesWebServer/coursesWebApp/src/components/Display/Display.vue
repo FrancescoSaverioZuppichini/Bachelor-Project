@@ -1,6 +1,6 @@
 <template>
 <div class="full-h uk-flex uk-flex-column uk-margin-left uk-margin-top">
-  <h2 class="uk-text-center" v-if="$store.state.lastQuery.studyType">{{`${$store.state.lastQuery.studyType.name_en}, ${$store.state.lastQuery.year}st year` }}</h2>
+  <h1 class="uk-text-center" v-if="$store.state.lastQuery.studyType">{{`${$store.state.lastQuery.studyType.name_en}, ${$store.state.lastQuery.year}st year` }}</h1>
   <div class="uk-flex" uk-grid>
     <div class="uk-width-1-1 uk-width-3-4@m">
       <div id='fullcalendar'></div>
@@ -11,10 +11,10 @@
     </div>
     <div class='uk-width-1-1 uk-margin-left uk-margin-right'>
       <div class='uk-flex' uk-grid>
-        <div v-for="course in $store.state.selectedCourses()">
+        <!-- <div v-for="course in $store.state.selectedCourses()">
           <course :course='course'>
           </course>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

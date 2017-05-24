@@ -91,7 +91,7 @@ public func load(_ _drop: Droplet) throws {
         
         api.group("stationboard") {
             stationboard in
-            stationboard.get("", handler: stationboardController.getStationboard)
+            stationboard.get(StationBoard.self, handler: stationboardController.getStationboard)
         }
         api.group("bus") {
             stations in

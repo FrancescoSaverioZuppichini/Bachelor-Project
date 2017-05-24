@@ -18,8 +18,20 @@
 
 <body>
   <div id="app"></div>
+  <div id='map'>
+
+  </div>
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script> -->
   <!-- built files will be auto injected -->
-<script type="text/javascript" src="/js/manifest.f15b39feabe08ed21e94.js"></script><script type="text/javascript" src="/js/vendor.3911015468756256ac8d.js"></script><script type="text/javascript" src="/js/app.18837913de5140798f21.js"></script></body>
+<script type="text/javascript" src="/js/manifest.1593c0c09cf3797b1c96.js"></script><script type="text/javascript" src="/js/vendor.bc0536b62fd4e1285e7b.js"></script><script type="text/javascript" src="/js/app.be56faaf83d5b72fc892.js"></script></body>
+<script>
+  var map;
+
+  function initMap() {
+    window.google = google
+
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ00xCGE8wsfI8Y2ZKeyh6_tvBtCMakcc&callback=initMap" async defer></script>
 
 </html>

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 import utils from '../utils.js'
+import googleMaps from '../googleMaps.js'
 import { SuperStore, Store, Action } from 'flue-vue'
 import FixedSizeStack from '../FixedSizeStack.js'
 
@@ -12,7 +13,8 @@ const config = {
   USER_NOTIFICATION_LIFE: 5000,
   STATIONBOARD_UPLOAD_EVERY: 5000,
   MAX_OPEN_LOCATION: 2,
-  OPEN_LOCATION_LIFE: 10000
+  OPEN_LOCATION_LIFE: 10000,
+  OPEN_LOCATION_AUTODESTRUCTION: false
 }
 
 class LocationStore extends Store {
@@ -101,22 +103,32 @@ class LocationStore extends Store {
     userPreferences.forEach(pref => this.displayUserPrefererence(pref, color))
   }
 
+  feedbackIfLocationIsOpen(location) {
+    if (!location.openFeedback) {
+      // trigger an animation letting the user know that the card
+      // is already open
+      Vue.set(location, 'openFeedback', true)
+      // disable it
+      setTimeout(() => location.openFeedback = false, 1000)
+    }
+  }
+
   displayLocation({ location }, destroy, putIntoStack) {
     Vue.set(location, 'open', true)
 
-    if (location.number == this.state.display.defaultStation.number) return
+    if (location.number == this.state.display.defaultStation.number) {
+      this.feedbackIfLocationIsOpen(location)
+      return
+    }
 
-    if (this.state.openedLocations.indexOf(location) >= 0) return
+    if (this.state.openedLocations.indexOf(location) >= 0) {
+      this.feedbackIfLocationIsOpen(location)
+      return
+    }
 
     if (this.state.openedLocations.length == config.MAX_OPEN_LOCATION) this.state.openedLocations.shift()
 
     this.state.openedLocations.push(location)
-
-    setTimeout(() => {
-      // keep in mind, the first is the oldest
-      this.state.openedLocations.shift()
-      Vue.set(location, 'open', false)
-    }, config.OPEN_LOCATION_LIFE)
 
     Vue.set(location, 'open', true)
     // start data pooling
@@ -127,14 +139,25 @@ class LocationStore extends Store {
     this.state.isLoadingNearbyLocations = true
   }
 
+  addDistanceFromHereToLocation(location) {
+    utils.getCurrentPosition()
+      .then(({ coords }) => coords.latitude + ',' + coords.longitude)
+      .then((here) => googleMaps.getDirectionFrom(here, 'bus station lugano' + location.name.toLowerCase()))
+      .then((res) => {
+        Vue.set(location, 'googleMaps', res)
+        Vue.set(location, 'duration', res.routes[0].legs[0].duration)
+      })
+
+  }
+
   fetchNearbyLocationsSuccess({ locations }) {
     this.state.isLoadingNearbyLocations = false
     this.state.locations = locations
-
     locations.forEach(location => {
       if (location.number == this.state.display.defaultStation.number) {
         location.timeOutId = setInterval(() => { this.sStore.actions.fetchLocationStationBoard(location) }, config.STATIONBOARD_UPLOAD_EVERY)
       }
+      this.addDistanceFromHereToLocation(location)
 
       Vue.set(location, "stationboard", [])
 
@@ -146,8 +169,12 @@ class LocationStore extends Store {
         // show the default location
         this.displayLocation({ location }, false, false)
         location.default = true
+      } else if (!config.OPEN_LOCATION_AUTODESTRUCTION && this.state.openedLocations.length < config.MAX_OPEN_LOCATION) {
+        this.displayLocation({ location }, false, false)
+
       }
     })
+
     // get stationsBoards of all locations -> NO LAZY LOADING
     this.sStore.actions.fetchLocationsStationBoards(this.state.locations)
 
@@ -161,13 +188,16 @@ class LocationStore extends Store {
     location.isLoadingStationBoard = false
     if (!stationboard)
       return
+
+    stationboard.sort((a, b) => a.stop.departure_timestamp > b.stop.departure_timestamp)
     // update the stationboard in order to not override the use preference info
-    if (location.stationboard.length <= 0) location.stationboard = stationboard
-    else {
-      for (let i = 0; i < stationboard.length; i++) {
-        location.stationboard[i] = Object.assign(location.stationboard[i], stationboard[i])
-      }
-    }
+    location.stationboard = stationboard
+    // if (location.stationboard.length <= 0) location.stationboard = stationboard
+    // else {
+    //   for (let i = 0; i < stationboard.length; i++) {
+    //     location.stationboard[i] = Object.assign(location.stationboard[i], stationboard[i])
+    //   }
+    // }
   }
 
   reduce(action) {

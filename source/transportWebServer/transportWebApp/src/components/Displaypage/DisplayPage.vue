@@ -1,5 +1,5 @@
 <template>
-<div class="full-h uk-background-muted uk-section">
+<div class="full-h uk-background-muted" id='display-page__container'>
   <div class='uk-container uk-container-large full-h'>
     <div class='uk-flex uk-flex-unwrap uk-flex-column full-h' uk-grid>
       <div class="uk-flex uk-flex-grow uk-margin-top">
@@ -9,7 +9,7 @@
           <volatile-locations class="uk-flex-center uk-flex-left@m uk-flex-nowrap" />
         </div>
       </div>
-      <div class="uk-width-1-1">
+      <div class="uk-width-1-1 uk-visible@m">
 <!-- uk-visible@s -->
         <around-me/>
       </div>
@@ -47,6 +47,11 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
+
+#display-page__container{
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
 
 </style>

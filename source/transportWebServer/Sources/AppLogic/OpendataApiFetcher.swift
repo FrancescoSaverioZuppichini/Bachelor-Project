@@ -34,15 +34,16 @@ public final class OpendataApiFetcher {
     
     public static func storePasses(from passList:[Polymorphic], with station: Station, with bus: Bus, in createdStationBoard: StationBoard) throws {
         for pass in passList {
-            let passObj = pass.object
-            
-            guard let arrivalTimestamp = passObj?["arrivalTimestamp"]?.double  else {
-                continue
+            var pass = pass.object
+            guard  let departureTimestamp = pass?["arrivalTimestamp"]?.double, let departure = pass?["arrival"]?.string   else {
+                
+                throw  OpendataApiFetcherError.OpendataParseError
             }
             
-            let pass = try Pass.createIfNotExist(bus: bus.id, through: station.id, arrivalTimestamp: arrivalTimestamp, departureTimestamp: nil, departure: nil)
             
-            var pivot = Pivot<StationBoard,Pass>(createdStationBoard,pass)
+            let passModel = try Pass.createIfNotExist(bus: bus.id, through: station.id, arrivalTimestamp: nil, departureTimestamp: departureTimestamp, departure: departure)
+            
+            var pivot = Pivot<StationBoard,Pass>(createdStationBoard,passModel)
             try pivot.save()
             
         }
@@ -69,7 +70,7 @@ public final class OpendataApiFetcher {
         // * the direction
         // * the passList of a bus
         if let to = stationBoardObj?["to"]?.string {
-            
+           
             let createdStationBoard = try StationBoard.createIfNotExist(stationId: station.id, busId: bus.id, to: to)
             
             let stopObj = stationBoardObj?["stop"]?.object
@@ -81,6 +82,8 @@ public final class OpendataApiFetcher {
             
             let pass = try Pass.createIfNotExist(bus: bus.id, through: station.id, arrivalTimestamp: nil, departureTimestamp: departureTimestamp, departure: departure)
             
+//            storePasses(from: (stationBoardObj!["passList"]?.object!)!, with: station, with: bus, in: createdStationBoard)
+//            
             var pivot = Pivot<StationBoard,Pass>(createdStationBoard,pass)
             try pivot.save()
         }
@@ -130,6 +133,8 @@ public final class OpendataApiFetcher {
         // remove all previous information regarding bus and date
         try Pass.query().delete()
         try Pivot<StationBoard,Pass>.query().delete()
+        try Pivot<Station,Bus>.query().delete()
+
         
     }
     

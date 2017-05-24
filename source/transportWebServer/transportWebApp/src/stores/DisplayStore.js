@@ -6,11 +6,16 @@ import {
   Action
 } from 'flue-vue'
 
+import utils from '../utils.js'
+
+
 class DisplayStore extends Store {
   constructor() {
     super()
     this.state.display = {}
     this.state.usersCache = {}
+    this.state.coords = {}
+
   }
 
   shouldDisplayPreference(data) {
@@ -33,6 +38,12 @@ class DisplayStore extends Store {
     this.state.display = display
     this.sStore.actions.fetchNearbyLocations()
     this.sStore.actions.sendAppToDisplay(this.state.display.id, 2)
+    utils.getCurrentPosition()
+      .then(({ coords }) => {
+        Vue.set(this.state.display, 'coords', {})
+        Vue.set(this.state.display.coords, 'latitude', coords.latitude)
+        Vue.set(this.state.display.coords, 'longitude', coords.longitude)
+      })
   }
 
   reduce(action) {

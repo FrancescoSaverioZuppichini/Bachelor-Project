@@ -55,16 +55,16 @@ public final class StationBoard: Model {
         switch context {
             
         case StationBoardContext.passes:
-            node["stop"] = try bus().getNextStop()?.makeNode()
+//            node["stop"] = try bus().getNextStop()?.makeNode()
             node["number"] = try bus().number.makeNode()
-//            node["passList"] = try bus().passList().makeNode()
+            node["stop"] = try nextPasses().first?.makeNode()
+            //            node["passList"] = try bus().passList().makeNode()
             
         case StationBoardContext.all:
             node["bus"] = try bus().makeNode()
             node["station"] = try station().makeNode()
             
         case StationBoardContext.bus:
-            print("DASDaDS")
             let currentBus = try bus()
             node = try Node(node:[
                 "id":   currentBus.id,
@@ -123,7 +123,7 @@ extension StationBoard {
     
     public func nextPasses() throws -> [Pass] {
         let now = NSDate().timeIntervalSince1970
-        return try passes().filter("arrival_timestamp", .greaterThanOrEquals,now).limit(8).all()
+        return try passes().filter("departure_timestamp", .greaterThanOrEquals,now).filter("departure_timestamp",.lessThanOrEquals, now + 3600).limit(8).all()
         
     }
     

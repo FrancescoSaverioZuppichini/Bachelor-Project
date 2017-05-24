@@ -124,7 +124,7 @@ public final class USIAPIFetcher {
     
     public static func storeFacultiesAndCoursesInformation() throws {
         
-        let facultiesIds = [3]
+        let facultiesIds = [1,3]
         
         for facultyId in facultiesIds {
             

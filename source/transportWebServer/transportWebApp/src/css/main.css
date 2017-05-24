@@ -61,13 +61,11 @@
   right: 0px;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
+.fade-cards-enter-active, .fade-cards-leave-active {
+  transition: opacity 0.5s
 }
 
-.fade-enter, .fade-leave-to
-/* .fade-leave-active in <2.1.8 */
-
+.fade-cards-enter, .fade-cards-leave-to, .fade-cards-leave-active
 {
   opacity: 0
 }
