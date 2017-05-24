@@ -11,7 +11,7 @@
         </div>
         <!-- show content -->
         <div v-else>
-          <div @click="$store.actions.selectFaculty(faculty,false)" v-if="!$store.state.preference.faculty || !($route.params.facultyId == faculty.id)">
+          <div @click="$store.actions.selectFaculty(faculty,true)" v-if="!$store.state.preference.faculty || !($route.params.facultyId == faculty.id)">
             <h3 class='uk-margin-remove'>{{faculty.name_en}}</h3>
           </div>
           <h4 class='uk-margin-remove' v-else>{{faculty.name_en}}</h4>
@@ -36,13 +36,7 @@ export default {
     return {
       transitionName: 'slide-left'
     }
-  },
-  beforeRouteUpdate(to, from, next) {
-    const toDepth = to.path.split('/').length
-    const fromDepth = from.path.split('/').length
-    this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-    next()
-  },
+  }
 }
 </script>
 <style>

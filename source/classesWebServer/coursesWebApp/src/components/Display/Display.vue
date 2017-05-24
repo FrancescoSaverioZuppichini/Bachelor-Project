@@ -1,8 +1,8 @@
 <template>
-<div class="full-h uk-flex uk-flex-column uk-margin-left uk-margin-top">
+<div class="full-h uk-flex uk-flex-column uk-background-muted" id='display'>
   <h1 class="uk-text-center" v-if="$store.state.lastQuery.studyType">{{`${$store.state.lastQuery.studyType.name_en}, ${$store.state.lastQuery.year}st year` }}</h1>
-  <div class="uk-flex" uk-grid>
-    <div class="uk-width-1-1 uk-width-3-4@m">
+  <div class="uk-flex uk-margin-top uk-margin-left" uk-grid>
+    <div class="uk-width-1-1 uk-width-3-4@m ">
       <div id='fullcalendar'></div>
     </div>
     <!-- <div class="uk-flex--grow"></div> -->
@@ -53,6 +53,14 @@ export default {
 }
 </script>
 <style>
+#display {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.fc-view-container{
+background-color: white;
+}
 .btn--toogle {
   border-color: black !important;
   color: black !important;

@@ -36,6 +36,7 @@ class Navigation {
 
   reset(basicUrl) {
     this._index = 0
+    router.push(this.BASE_URL)
     // ce stava un push de basicUrl a caso
   }
 }
