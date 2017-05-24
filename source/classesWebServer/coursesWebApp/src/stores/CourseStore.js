@@ -50,7 +50,6 @@ class CourseStore extends Store {
   addEventsToFullCalendar(events) {
     const fullCalendarEl = $('#fullcalendar')
     fullCalendarEl.fullCalendar('renderEvents', events, true);
-
   }
 
   deselectAllCourse() {

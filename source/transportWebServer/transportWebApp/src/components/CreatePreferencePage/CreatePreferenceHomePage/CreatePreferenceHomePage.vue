@@ -22,7 +22,6 @@
           <div>
             <span uk-icon="icon: trash; ratio: 1.2" @click="$store.state.currentPreference = pref" uk-toggle="target: #preference-confirmation__modal"></span>
           </div>
-
         </div>
         <div v-if="pref.station">
           <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>

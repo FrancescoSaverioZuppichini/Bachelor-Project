@@ -56,13 +56,15 @@ public final class Preference: Model {
         switch context {
             
         case ResourseContext.all:
-//            node["years"] =  try getYears().all().makeNode()
-            node["year"] =  try getYears().first()!.makeNode()
+            //            node["years"] =  try getYears().all().makeNode()
+            if let year =  try getYears().first() {
+                node["year"] = try year.makeNode()
+            }
             node["faculty"] = try getFaculty().makeNode(context: ResourseContext.all)
             node["courses"] = try getCourses().all().makeNode()
             node["type"] = try getStudy().first()?.makeNode()
             node["studyType"] = try getStudyType().first()?.makeNode()
-
+            
         default:
             break
         }
@@ -104,7 +106,7 @@ public extension Preference {
         
         return try siblings()
     }
-
+    
     
     public func getStudyType() throws -> Siblings<StudyType> {
         
