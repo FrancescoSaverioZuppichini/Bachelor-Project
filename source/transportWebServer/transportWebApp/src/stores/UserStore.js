@@ -45,6 +45,7 @@ class UserStore extends Store {
     this.reduceMap(action, {
       FETCH_USER_PREFERENCE_LOADING: () => { this.state.user.preferences.loading = true },
       FETCH_USER_PREFERENCE_SUCCESS: this.fetchUserPreferenceSuccess,
+      FETCH_USER_PREFERENCE_FAILURE: () => { this.state.user.preferences.loading = false },
       // UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess,
       ADD_PREFERENCE_SUCCESS: this.addPreferenceSuccess,
       REMOVE_PREFERENCE_SUCCESS: this.removePreferenceSuccess,
@@ -60,6 +61,8 @@ class UserStore extends Store {
           .then((res) => {
             dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { userPreferences: res.data }))
           })
+          .catch((err) => dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_FAILURE", err)))
+
       },
       getMe(email) {
         api.users.getMe(email)
