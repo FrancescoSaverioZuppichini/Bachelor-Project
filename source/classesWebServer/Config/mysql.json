@@ -2,7 +2,7 @@
     "host": "localhost",
     "user": "root",
     "password": "root",
-    "database": "courses",
+    "database": "Classes",
     "port": "3306",
     "encoding": "utf8"
 }
