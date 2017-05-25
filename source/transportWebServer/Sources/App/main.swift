@@ -9,4 +9,5 @@ let drop = Droplet()
 try load(drop)
 
 OpendataApiFetcher.start()
+
 drop.run()
