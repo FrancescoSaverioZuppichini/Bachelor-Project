@@ -1,6 +1,7 @@
 <template>
 <div class='uk-flex-expand uk-flex uk-flex-middle'>
-  <div class='uk-flex uk-flex-column connection--user-nearby--active' v-if="connection.triggered && !location.isUser ">
+
+  <div class='uk-flex uk-flex-column connection--user-nearby--active' v-if="connection.triggered && !location.isUser && connection.colors.length > 0">
     <div class="flex-1 " :style="{'background' : color}" v-for="color in connection.colors">
     </div>
   </div>
@@ -67,6 +68,7 @@ export default {
 .connection--user-nearby--active {
   width: 24px;
   margin-right: 8px;
+height: 70px;
 }
 
 

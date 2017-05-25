@@ -33,7 +33,9 @@ export default {
         center: {
           lat: coords.latitude,
           lng: coords.longitude
-        }
+        },
+        // we don't want user to click on links on the map
+        clickableIcons: false
       })
       var marker = new google.maps.Marker({
         position: {

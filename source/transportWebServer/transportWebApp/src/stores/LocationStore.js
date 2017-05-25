@@ -10,7 +10,7 @@ import api from '../api.js'
 import cachedLocations from '../locations.js'
 
 const config = {
-  USER_NOTIFICATION_LIFE: 5000,
+  USER_NOTIFICATION_LIFE: 20000,
   STATIONBOARD_UPLOAD_EVERY: 5000,
   MAX_OPEN_LOCATION: 2,
   OPEN_LOCATION_LIFE: 10000,
@@ -64,8 +64,7 @@ class LocationStore extends Store {
   displayUserPrefererence(pref, color) {
     let location = this.state.locationsCache[pref.station.id]
     if (!location) return
-
-    this.displayLocation({ location }, false, false)
+    this.displayLocation({ location }, false, false, false)
 
     pref.buses.forEach(prefBus => {
       location.stationboard.forEach(bus => {
@@ -113,16 +112,16 @@ class LocationStore extends Store {
     }
   }
 
-  displayLocation({ location }, destroy, putIntoStack) {
+  displayLocation({ location }, destroy, putIntoStack, shake) {
+    if (shake == undefined) shake = true
     Vue.set(location, 'open', true)
-
     if (location.number == this.state.display.defaultStation.number) {
-      this.feedbackIfLocationIsOpen(location)
+      if (shake) this.feedbackIfLocationIsOpen(location)
       return
     }
 
     if (this.state.openedLocations.indexOf(location) >= 0) {
-      this.feedbackIfLocationIsOpen(location)
+      if (shake) this.feedbackIfLocationIsOpen(location)
       return
     }
 
@@ -167,7 +166,7 @@ class LocationStore extends Store {
         // override the pointer in order to get the fully updated location
         this.state.display.defaultStation = location
         // show the default location
-        this.displayLocation({ location }, false, false)
+        this.displayLocation({ location }, false, false, false)
         location.default = true
       } else if (!config.OPEN_LOCATION_AUTODESTRUCTION && this.state.openedLocations.length < config.MAX_OPEN_LOCATION) {
         this.displayLocation({ location }, false, false)
@@ -191,13 +190,19 @@ class LocationStore extends Store {
 
     stationboard.sort((a, b) => a.stop.departure_timestamp > b.stop.departure_timestamp)
     // update the stationboard in order to not override the use preference info
-    location.stationboard = stationboard
-    // if (location.stationboard.length <= 0) location.stationboard = stationboard
-    // else {
-    //   for (let i = 0; i < stationboard.length; i++) {
-    //     location.stationboard[i] = Object.assign(location.stationboard[i], stationboard[i])
-    //   }
-    // }
+    // location.stationboard = stationboard
+    if (location.stationboard.length <= 0) location.stationboard = stationboard
+    else {
+      for (let newStationBoard of stationboard) {
+        for (let oldStationBoard of location.stationboard) {
+          if (newStationBoard.number == oldStationBoard.number && newStationBoard.to == oldStationBoard.to) {
+            oldStationBoard.stop = newStationBoard.stop
+            newStationBoard = Object.assign(newStationBoard,oldStationBoard)
+          }
+        }
+      }
+      location.stationboard = stationboard
+    }
   }
 
   reduce(action) {

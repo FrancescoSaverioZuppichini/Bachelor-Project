@@ -3,7 +3,7 @@ import utils from './utils.js'
 
 const BASE_URL = ''
 const TRANSPORT_URL = '/transport/api'
-const TACITA_URL = '/auth/api'
+const TACITA_URL = '/tacita/api'
 
 export default {
   fetchNearbyLocations() {

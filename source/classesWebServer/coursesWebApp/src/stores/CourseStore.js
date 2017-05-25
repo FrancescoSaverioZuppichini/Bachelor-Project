@@ -15,17 +15,9 @@ class CourseStore extends Store {
     this.state.selectedCourses = () => this.state.courses.data.filter(course => course.selected)
   }
 
-
-
   fetchCoursesSuccess({ data, facultyId, year, type, studyType }) {
     $('#fullcalendar').fullCalendar('removeEvents')
-    console.log('***************', this.state.preference.studyType);
     this.state.lastQuery = { year, type, studyType: this.state.preference.studyType }
-    // console.log(this.state.lastQuery);
-    // this.state.coursesCache[facultyId] = Object.assign({}, this.state.coursesCache[facultyId])
-    // this.state.coursesCache[facultyId][type] = Object.assign({}, this.state.coursesCache[facultyId][type])
-    // this.state.coursesCache[facultyId][type][studyType] = Object.assign({}, this.state.coursesCache[facultyId][type][studyType])
-    // this.state.coursesCache[facultyId][type][studyType][year] = data
     this.state.courses.data = data
     router.push({ name: 'Display' })
     this.state.courses.data.forEach(course => this.sStore.actions.fetchSchedules(course))
@@ -56,12 +48,8 @@ class CourseStore extends Store {
   }
 
   addEventsToFullCalendar(events) {
-    // Vue.set(this.state.courses.data[0], 'selected', true)
-    // Vue.set(this.state.courses.data[1], 'selected', true)
-
     const fullCalendarEl = $('#fullcalendar')
     fullCalendarEl.fullCalendar('renderEvents', events, true);
-
   }
 
   deselectAllCourse() {
@@ -79,7 +67,6 @@ class CourseStore extends Store {
     const userPreference = userPreferences[0]
     const query = this.sStore.PreferenceStore.makeQueryFromPreference(userPreference)
     this.sStore.actions.fetchCourses(query)
-    // console.log(query);
   }
 
   reduce(action) {
@@ -98,9 +85,6 @@ class CourseStore extends Store {
       fetchCourses({ facultyId, year, type, studyType }) {
         dispatcher.dispatch(new Action("FETCH_COURSES_LOADING"))
 
-        // if (context.state.coursesCache[facultyId] != undefined && context.state.coursesCache[facultyId][type][studyType] != undefined && context.state.coursesCache[facultyId][type][studyType][year] != undefined) {
-        //   dispatcher.dispatch(new Action("FETCH_COURSES_SUCCESS_CACHE", { data: context.state.coursesCache[facultyId][type][year] }))
-        // } else {
         facultyId = facultyId || ""
         year = year || ""
         type = type || ""

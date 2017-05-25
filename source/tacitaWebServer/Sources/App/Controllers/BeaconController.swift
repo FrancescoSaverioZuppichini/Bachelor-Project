@@ -42,6 +42,7 @@ final class BeaconController {
         return try newBeacon.makeJSON()
     }
     
+    
     static func delete(_ req: Request, beacon: Beacon) throws -> ResponseRepresentable {
         try beacon.delete()
         

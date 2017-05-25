@@ -9,9 +9,17 @@ class FacultyStore extends Store {
     this.state.faculties = []
   }
 
+  onFetchFacultySuccess({ data }) {
+    this.state.faculties = data
+    // sort the years TODO do it server side
+    for (let faculty of this.state.faculties) {
+      faculty.studies.forEach(study => study.years.sort((a, b) => a.yearNumber > b.yearNumber))
+    }
+  }
+
   reduce(action) {
     this.reduceMap(action, {
-      FETCH_FACULTY_SUCCESS: (({ data }) => { this.state.faculties = data })
+      FETCH_FACULTY_SUCCESS: this.onFetchFacultySuccess
     })
   }
   // actions takes the dispacher and the store back from the superStore,

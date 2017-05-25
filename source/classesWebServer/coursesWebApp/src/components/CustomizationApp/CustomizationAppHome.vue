@@ -45,6 +45,8 @@ export default {
   watch: {
     '$route': function(newRoute) {
       if (newRoute.name == 'home') {
+        console.log($route.path);
+        // this.$store.state.navigation.BASE_URL = $route.path
         this.$store.state.navigation.reset()
         this.$store.state.isInEditMode = false
         this.$store.state.navigation._urls = ['faculty', 'study', 'year', 'studyType']

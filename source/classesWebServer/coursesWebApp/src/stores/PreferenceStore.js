@@ -36,7 +36,7 @@ class Navigation {
 
   reset(basicUrl) {
     this._index = 0
-    // ce stava un push de basicUrl a caso
+    if(this.BASE_URL != '' && this.BASE_URL) router.push(this.BASE_URL)
   }
 }
 
@@ -72,7 +72,7 @@ class PreferenceStore extends Store {
     preference = preference || this.state.preference
     return {
       facultyId: preference.faculty.id,
-      type: preference.type.type ||preference.type.name_en ,
+      type: preference.type.type || preference.type.name_en,
       studyType: preference.studyType.id,
       year: preference.year.yearNumber,
       userId: this.sStore.state.user.id,

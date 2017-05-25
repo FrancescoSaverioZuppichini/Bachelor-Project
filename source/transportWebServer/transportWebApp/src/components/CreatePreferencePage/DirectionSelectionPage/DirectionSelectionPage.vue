@@ -34,7 +34,7 @@ export default {
   watch: {
     '$route': function(newRoute) {
       this.show = false
-      if (newRoute.path == '/app/home/direction') {
+      if (newRoute.name == 'direction') {
         this.getDirections()
       }
     }
