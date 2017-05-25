@@ -1,0 +1,55 @@
+html {
+  overflow-y: hidden;
+}
+
+.red {
+  background-color: red !important;
+}
+
+.container--scrollable {
+  overflow-y: auto;
+}
+
+.dummy__text {
+  height: 16px;
+  width: 100%;
+}
+
+.dummy__text--big {
+  height: 24px;
+  width: 100%;
+}
+
+.dummy__text--small {
+  height: 14px;
+  width: 100%;
+}
+
+.dummy__bus {
+  width: 24px;
+  height: 24px;
+}
+
+.dummy__application__icon {
+  width: 50px;
+  height: 50px;
+}
+
+.dummy--background-color {
+  background-color: rgb(246, 246, 246) !important;
+}
+
+.my-container {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.bottom-container--absolute {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+}
+
+.uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+  height: auto !important;
+}
