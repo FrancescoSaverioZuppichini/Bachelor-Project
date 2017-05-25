@@ -1,6 +1,5 @@
 import Vapor
 import VaporMySQL
-import VaporPostgreSQL
 import Fluent
 
 // Global drop of the module AppLogic
@@ -10,11 +9,8 @@ public func load(_ _drop: Droplet) throws {
     
     drop = _drop
     
-    #if os(Linux)
-        try drop.addProvider(VaporPostgreSQL.Provider.self)
-    #else
-        try drop.addProvider(VaporMySQL.Provider.self)
-    #endif
+
+    try drop.addProvider(VaporMySQL.Provider.self)
     
     drop.preparations.append(User.self)
     drop.preparations.append(Preference.self)
