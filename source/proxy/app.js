@@ -2,11 +2,21 @@ var express = require('express');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-const fs = require('fs')
-const https = require('https');
+var fs = require('fs')
+
+var https = require('https');
 var http = require('http');
 
+const url = require('url')
+const axios = require('axios')
+const config = require('./config.js');
+
+var proxy = require('express-http-proxy');
+
+var app = express();
+
 var options = {}
+
 try {
   options = {
     cert: fs.readFileSync('./sslcert/fullchain.pem'),
@@ -17,12 +27,6 @@ try {
 }
 
 var proxy = require('express-http-proxy');
-
-var app = express();
-
-const url = require('url')
-const axios = require('axios')
-const config = require('./config.js');
 
 app.use(logger('dev'));
 
@@ -45,10 +49,9 @@ for (let key in config) {
   }))
 }
 
-var port =process.env.PORT || '3000' ;
-app.set('port', port);
+var port = process.env.PORT || '3000' ;
 var server = http.createServer(app);
 
-https.createServer(options, app).listen(3443);
-
+https.createServer(options, app).listen(port + 443);
+console.log(`http: ${port}\nhttps:${port + 443}`);
 module.exports = app;
