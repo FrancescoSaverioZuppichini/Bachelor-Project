@@ -4,5 +4,5 @@
     "password": "root",
     "database": "Classes",
     "port": "3306",
-    "encoding": "utf8"
+    "encoding": "utf8mb4"
 }
