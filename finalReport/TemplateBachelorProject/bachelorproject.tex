@@ -95,25 +95,64 @@ We talked superfically of the elements of our Architecture: it is time to deeply
 
 The User has a fully active role, he is the trigger of the whole system; without him, the network has not reason to exits. He uses his smartphone in order to access the front-end application exposed by the \emph{Appliction Layer} through the \emph{Tacita} platform.
 
-By using it the User can selects his custom settings in order to quickly identify his information on the screens. For instance, a favourite colour can be used for such pourpose gaining, at the same time, anonymity, and a quick way to identify his personalized content by just watching the screen. Thus only the targeted client knows which are his information. The app will be deeply analised into the next sections, but, from a user point of view, it is the door to access the array of services.
+By using it the User can selects his custom settings in order to quickly identify his information on the screens. For instance, a favourite colour can be used for such purpose gaining, at the same time, anonymity, and a quick way to identify his personalized content by just watching the screen. Thus only the targeted client knows which are his information. The app will be deeply analised into the next sections, but, from a user point of view, it is the door to access the array of services.
 
 We talked about the User as a \emph{trigger}, it means that, with his physical being, it \emph{triggers} actions; actions that are universally recognizable by our topology. In our system we use bluetooth beacon near the screens to map them in the space, and, thanks to the smartphone application, we can detect the user walking into the trigger range and show the personalized content into the screen at the right time. 
 
 Timing is a fundamental variable in our ecosystem, if the actions is not handled at the correct time the topology is unreliable and the display is not used correctly, or, not used at all. 
 \subsubsection{Display}
 
-Display represent our \emph{tabula rasa} in which we can out a wide array of applications can be showed. By itself it is a \emph{passive} entry, but, combined to the User becomes the second \emph{active} element of our topology. The two way communication channel between them is created thanks to web socket and bluetooth beacon. When a user walk next to a screen a bluetooth sensor notify the \emph{Tacita} application that there is a screen, such information is used to push into a web socket, in which the display is connected, the user unique identifier. As soon as it is received, a request to the running application is made in order to get the preferences and showed them; since we are using a common \emph{interface} in the Application layer, each of them expose the same structure to perform CRUD operations.
-In our design we decide to only send the minimum amount of data that the display can need. Assuming a user walk near display one, this the notification pushed into the socked:
+Display represent our \emph{tabula rasa} in which a wide array of applications can be showed. By default it can be identify as a \emph{passive} entry, but, combined to the User becomes the second \emph{active} element of our architecture. The two way communication channel between them is created by using a web socket and bluetooth beacon that is notifies the \emph{Tacita} application when a user walk next to a screen. Such information is used to push into a web socket, in which the display is connected, the user unique identifier. As soon as it is received, a request to the running display's application is made in order to get the preferences and showed them; since we are using a common \emph{interface} in the Application layer, each of them expose the same structure to perform CRUD operations, the screen can create the same request structure without being bound to an application .
+In our design we decide to only send the minimum amount of data that the display needs, delegating to him the work to fetch further informations making the socket channel faster. The less the display needs, the better. Assuming a user walk near display one, this the notification is pushed into the socked allowing real time notification:
 
 % ADD JSON
-
-As you can see, we just send the user's id, the display's id and the custom color, by doing that, the display can be completely independent.
-
-Since a touch interface is used in our project the communication channel can be enlarge by also allowing the user to click in order to reveal some content, for example, a specific bus number.
-
+Since in each client used a Flux architecture, see SECTION NUMBER, we just need to push a specific action and it will be globally recognized. As soon as it is received, the display, makes a request to the running application asking for the user's preference:
+% ADD request example
+After the request was successful, obviously, the screen display them.
 % add photo of the user display interaction
- We choose a web interface as mainly platform for our display since it is easy to maintain ad  scale; a full section about the web techonologies used can be founded in 2.4. Briefly, a website is show on the big screens and, thank to a socket connection, real-time changes can be displayed.
+ An extra communication channel exposed is the touch interface. It allows user to quickly get content without being chained to the \emph{Tacita} application, for instance, we can allowing the user to click somewhere in order to reveal a specific content, for example, a specific bus number.
+% talk about design with tach and say that you can find more information at ...
+  
+\subsubsection{Tacita}
+In the previous sections we have said that \emph{Tacita} is the glue of the architecture: it allows communication between users, display and application layer. In order to do so, we create a database's entry for each of these elements and we linked them with the correct relations. Since we are using MySQL we can take advantages of the relation structure that is imposed. A \one to one relation is create between the Display and the Application table, since, a single screen can run only one application at the moment. Also, when the the service is changed, the display automatically notify all the client connected to the web socket of the new state allowing each user to know in real time which application is running where.
+% add a photo of the relation in Tacita database
+
+A many to many pivot is used to keep track of witch application is enabled by a user. \emph{Tacita} allows to enable and disable custom services. If an application is turned off  and if a user is near to a display with that application running, the no interaction between the two will happen. Since the client knows the state of a specific screen, it can filter and send only information to the correct entity.
+% CHECK
+
+The physical device that make the in-walk communication possible is the bluetooth beacon; thanks to the custom android SDK provided by the manufactor, we can know exactly in which monitoring "region" somebody entered. On the server side, a one to one relation between Beacon and Display is created in order to quickly know, based on the beacon unique Id, which display is linked to. These devices must be putted really close to the machine we want identify in order to increase the location accuracy. Moreover, thanks to our API design, they can be changed at any time by just send the correct request to the server.
+% put somewhere else and spiega di piu
+We also store the user information, such as email and favourite colour in another table. The email is fetched from the mobile app and used as identifier; by doing so no login is required 
+
+\subsubsection{Transport Micro Service}
+The Transport application allows users to navigate the nearby bus station and create preferences through the mobile interface. We decided to gather the data from the Opendata API; a set of well designed endpoint for fetch all kind of transportation, in our case, we used only the buses. However, due to the limit number of request we can made, fixed to three per second and the necessity to have some custom endpoint, we cloned them.
+
+We also have integrated Google Maps API into the screen's front-end; so, after fetching the exactly display's position thanks to web browser geo localization, we can show the estimate time to get to a specific station by walk. Imagine the benefit for a user to have know the minutes he needs to get to a nearby station, also, we can create a visible feedback before it is too late to reach them.
+
+Since we are using API and built-in browser features, our system is scalable. As soon as a display is moved, its position is updated as well with all the other functionalities related to it.
+% say how ofter we clone them
+% link to opendata
+% put some pictures of the scree gui
+For what the mobile application, as we talked before, it is made following the required interface. When it is loaded through \emph{Tacita}, the user can create, remove and update his preference. Each of these must have a station as mainly identifier, and an illimited number of buses.
+% show some pictures of the preference flow
+\subsubsection{Classes Micro Service}
+The second implemented application is \emph{Upcoming Classes}, as the name says, it is used to provide the faculty student with useful information such as the course schedule for the next days. Similarly to the Transport application, we had issues with the API, in our case, provided by the University itself.
+A single API call to know all the schedules takes more than $3000ms$ as showed:
+% metti roba che le loro api fanno schifo
+It gets worse if you try to get all the courses for a faculty:
+% stessa di sopra
+
+Even if, from the client, we always cache the request, we cannot avoid totwait for the first time. You can already guess why they are so slow by looking at the previous pictures: the response size. They response are heavy due to a poorly model population; for each course that is sent back, tons of unused field are provided. Also, by inspecting a response for a class schedules, we can notice the same huge course object appears, unnecessary, for each schedule object.
+Therefore, again, we needed to clone all the API in order to just sent the right amount of information, by doing that, the previous request that tooks more than $3000$ms, now it just needs $METTI VALORE$.
+
+The display's front end application is divided into two main part easily identificable, the calendar and the query engine next to it. The calendar is create using \emph{fullcalendar} jQuery library that does all the dirty work of render and setting up all the events into the corrects slots. 
+The courses can be selected thanks to the query engine on the right part of the screen. As soon as the user clieck on the button representing the faculty, it is guided in order to create a valid query using a step by step approach; even if it may be not the faster way, it is the safest since no wrong request can be generated. The procedure is shows in the following storyboard:
+% aggiungi storyboard classi
+
+As we did for the Transport Application, we also created a smart phone interface in order to create, remove and edit preferences. Since the interface is always the same we decided to also decide to keep the same design for consistency reason.
+% show transport app similar to this one
 \subsection{Architecture Interactions}
+In the previous part we define in detail each element of our architecture without giving a global overview of how each parts collaborate with the all system. In this section we are going to analize all the interaction, especiatally between user and display, in detail showing each message that the entities exchange, explaing our design decision and analyzing the interactions.
 \subsection{Architecture Technologies}
 \subsection{Architecture Scalability}
 \section{Design}
