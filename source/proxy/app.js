@@ -51,6 +51,7 @@ for (let key in config) {
 
 var port = 3000;
 var server = http.createServer(app).listen(port);
+console.log(server.address())
 https.createServer(options, app).listen(port + 443);
 
 console.log(`http: ${port}\nhttps:${port + 443}`);
