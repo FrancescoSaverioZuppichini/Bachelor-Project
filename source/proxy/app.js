@@ -2,6 +2,19 @@ var express = require('express');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const fs = require('fs')
+const https = require('https');
+var http = require('http');
+
+var options = {}
+try {
+  options = {
+    cert: fs.readFileSync('./sslcert/fullchain.pem'),
+    key: fs.readFileSync('./sslcert/privkey.pem')
+  }
+} catch (err) {
+
+}
 
 var proxy = require('express-http-proxy');
 
@@ -32,5 +45,10 @@ for (let key in config) {
   }))
 }
 
+var port =process.env.PORT || '3000' ;
+app.set('port', 3000);
+
+var server = http.createServer(app).listen(3000);
+https.createServer(options, app).listen(3443);
 
 module.exports = app;
