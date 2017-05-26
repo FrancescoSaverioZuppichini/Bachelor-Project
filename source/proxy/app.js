@@ -49,10 +49,9 @@ for (let key in config) {
   }))
 }
 
-var port = 3000;
-var server = http.createServer(app).listen(port);
-console.log(server.address())
-https.createServer(options, app).listen(port + 443);
+var port = process.env.PORT || 3000 ;
+var server = http.createServer(app);
 
-console.log(`http: ${port}\nhttps:${port + 443}`);
+// https.createServer(options, app).listen(port + 443);
+// console.log(`http: ${port}\nhttps:${port + 443}`);
 module.exports = app;
