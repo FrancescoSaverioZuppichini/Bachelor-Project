@@ -85,7 +85,7 @@ public final class USIAPIFetcher {
             
             let years = rawYears.characters.flatMap { Int($0.description) }
             
-            let newCourse = try Course.createIfNotExist(facultyId: facultyId, usiApiID: usiApiID, name_en: name_en, name_it: name_it, semester_academic_year: semester_academic_year, description_it: description_it, description_en: description_en, professor_full_name: professor_full_name)
+            let newCourse = try Course.createIfNotExist(facultyId: facultyId, usiApiID: usiApiID, name_en: name_en, name_it: name_it, semester_academic_year: semester_academic_year, description_it: "", description_en: description_en, professor_full_name: professor_full_name)
             
             
             let study =  try Study.createIfNotExist(facultyId:facultyId,type: type )
