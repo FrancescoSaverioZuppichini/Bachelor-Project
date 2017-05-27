@@ -3198,7 +3198,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         })
       }
     }
-  }, [_vm._v("Tacita")]) : _c('a', [_c('v-btn', {
+  }, [_vm._v("Tacita")]) : _c('v-btn', {
     staticClass: "white--text uk-navbar-item",
     attrs: {
       "icon": "icon"
@@ -3208,7 +3208,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$router.go(-1)
       }
     }
-  }, [_c('v-icon', [_vm._v("arrow_back")])], 1)], 1)])]), _vm._v(" "), _c('div', {
+  }, [_c('v-icon', [_vm._v("arrow_back")])], 1), _vm._v("\nasddaas\n      ")], 1)]), _vm._v(" "), _c('div', {
     staticClass: "uk-navbar-right"
   }, [_c('ul', {
     staticClass: "uk-navbar-nav"
@@ -3971,4 +3971,4 @@ if(false) {
 
 /***/ })
 ]),[127]);
-//# sourceMappingURL=app.3b63dc14912fa92f3e1a.js.map
+//# sourceMappingURL=app.8b46b16c1a33e941cd32.js.map
