@@ -197,6 +197,9 @@ class LocationStore extends Store {
         for (let oldStationBoard of location.stationboard) {
           if (newStationBoard.number == oldStationBoard.number && newStationBoard.to == oldStationBoard.to) {
             oldStationBoard.stop = newStationBoard.stop
+            console.log(newStationBoard,'newStationBoard');
+            console.log(oldStationBoard,'oldStationBoard');
+
             newStationBoard = Object.assign(newStationBoard,oldStationBoard)
           }
         }
