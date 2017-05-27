@@ -5663,12 +5663,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "uk-container uk-container-large full-h"
   }, [_c('div', {
-    staticClass: "uk-flex uk-flex-unwrap uk-flex-column full-h uk-width-1-1 ",
+    staticClass: "uk-flex uk-flex-unwrap uk-flex-column full-h",
     attrs: {
       "uk-grid": ""
     }
   }, [_c('div', {
-    staticClass: "uk-flex uk-flex-grow uk-margin-top"
+    staticClass: "uk-flex uk-flex-grow uk-margin-top uk-width-1-1 "
   }, [_c('div', {
     staticClass: " uk-width-1-1 uk-flex uk-flex-column"
   }, [_c('volatile-locations', {
@@ -5695,7 +5695,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('v-btn', {
     staticClass: "grey--text text--darken-2 VueCarousel-navigation-button VueCarousel-navigation-prev btn--huge",
     attrs: {
-      "icon": ""
+      "icon": "",
+      "disabled": !_vm.canAdvanceBackward
     },
     nativeOn: {
       "click": function($event) {
@@ -5707,7 +5708,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("keyboard_arrow_left")])], 1), _vm._v(" "), _c('v-btn', {
     staticClass: "grey--text text--darken-2 VueCarousel-navigation-button VueCarousel-navigation-next btn--huge",
     attrs: {
-      "icon": ""
+      "icon": "",
+      "disabled": "!canAdvanceBackward"
     },
     nativeOn: {
       "click": function($event) {
@@ -6650,4 +6652,4 @@ if(false) {
 
 /***/ })
 ],[245]);
-//# sourceMappingURL=app.a4c1c75e9175924c5652.js.map
+//# sourceMappingURL=app.52a78c6a8740e5d2279d.js.map

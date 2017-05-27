@@ -5695,7 +5695,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('v-btn', {
     staticClass: "grey--text text--darken-2 VueCarousel-navigation-button VueCarousel-navigation-prev btn--huge",
     attrs: {
-      "icon": ""
+      "icon": "",
+      "disabled": _vm.canAdvanceBackward
     },
     nativeOn: {
       "click": function($event) {
@@ -5706,6 +5707,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "icon--huge "
   }, [_vm._v("keyboard_arrow_left")])], 1), _vm._v(" "), _c('v-btn', {
     staticClass: "grey--text text--darken-2 VueCarousel-navigation-button VueCarousel-navigation-next btn--huge",
+    class: {
+      'red--text': !_vm.canAdvanceForward
+    },
     attrs: {
       "icon": ""
     },
@@ -6650,4 +6654,4 @@ if(false) {
 
 /***/ })
 ],[245]);
-//# sourceMappingURL=app.4e0df9094b8e59cca0f8.js.map
+//# sourceMappingURL=app.f13ca66a1d233f399b04.js.map
