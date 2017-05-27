@@ -203,8 +203,36 @@ No comment are needed to understand what it does.
 \\
 \\
 After selecting a programming language, we need a framework to create our applications. We choose Vapor for the job; a powerful, beautifully, expressive and easy to use MVC framework to build web servers. In our project it powers all micro service creating a common interface. Vapor is easy to start with thanks to the clear API that that, not also speed up the developer work, but makes the code more maintanable and more understandable. One of his strength point is the performance. You can see in the following table a benchmark in which it outstands also the most blasonated framework such as Spring.
+\begin{figure}[H]
+  \centering
+  \subfloat[Plaintext Request/second]{\includegraphics[width=0.5\textwidth]{./images/vapor_1_benchmark.png}}
+\end{figure} 
 % agginugu benchmark
+\subsubsection{Front-end}
+In order to archieve the best results in term of scalability and performance we choose Vue.js as mainly front-end framework. Vue.js is a library for building interactive web interfaces, it uses web components to provide a convinient way to organize an application.
+A web component is similar to a Object Oriented programming classes, it encapsulate all the logic behind a certain part on a web site. In Vue, a component, in formed by three parts: template, script and style.
 
+The template allows the developer to write html and include variables, conditions and loops, thank to build in loaders, is it possible to easily use any pre-processing html library such as Pug.
+The second part is the core of each components, the script. As the name may suggest, it is the code part. Each component expose a javascript object allowing Vue to grab it and render it in the proper way.
+The last tag is were is possible to style a component using CSS, as before, it is tremendously easy to use less, sass and other css-processors.
+One of the main advantages of Vue over other front-end framework is reactivity. Reactive programming is an synchronous programming paradigm concerned with data streams and the propagation of change. It uses Observers in order to trigger event every time a change of state is detechted; therefore Vue can automatically call a render only in the part that was actually mutated minimizing the DOM access.
+A deeply comparison with other frameworks can be fount at: https://vuejs.org/v2/guide/comparison.html. The following graph shows its performance against Angular and React, the other two most used framework developed by Google and Facebook respectivily.
+\begin{figure}[H]
+  \centering
+  \subfloat[]{\includegraphics[width=0.5\textwidth]{./images/vue2_benchmark.png}}
+\end{figure} 
+As we said, each component represent a feature, a part of the web application. It may appeans that one of them need to communicate with another, maybe after a change of state or a user event. In order manage the data flow we used the Flux pattern; it is composed by four parts: Dispatcher, Store, Actions and View.
+The mainly idea is that the state can be mutated thought actions that are reduced into the stores. The dispatcher is a singleton that receives them and dispatches to every stores that have registered with it; its important to highlight that every store receives every action.
+The Store is only source of truth in the applications; it holds its state and manage the logic behind it. The data must only be mutated by responding to and action by emitting a "change" event.
+Actions are the internal API of each application, they define all the possible interaction that may happen. They are plain javascript object composed by a type field and some data.
+Views displays store's data; in our application, a single view is a Vue component.
+
+Even if there already exist a fantastic Flux library for Vue created by its author, we decide to create a new one from scratch. Our library, called Flue, aims to provide a better object oriented approach than the existing one. You can find examples and documentation at our Github repository: https://github.com/FrancescoSaverioZuppichini/Flue.
+
+\begin{figure}[H]
+  \centering
+  \subfloat[Flux data flow]{\includegraphics[width=0.5\textwidth]{./images/flux_data_flow.png}}
+\end{figure} 
 \subsection{Architecture Scalability}
 \section{Design}
 \subsection{Back-end}

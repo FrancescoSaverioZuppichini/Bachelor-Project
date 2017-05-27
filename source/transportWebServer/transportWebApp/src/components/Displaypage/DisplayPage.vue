@@ -2,7 +2,7 @@
 <div class="full-h uk-background-muted" id='display-page__container'>
   <div class='uk-container uk-container-large full-h'>
     <div class='uk-flex uk-flex-unwrap uk-flex-column full-h' uk-grid>
-      <div class="uk-flex uk-flex-grow uk-margin-top">
+      <div class="uk-flex uk-flex-grow uk-margin-top uk-width-1-1 ">
         <div class=" uk-width-1-1 uk-flex uk-flex-column">
           <!-- <div class='uk-width-1-1 uk-flex-grow uk-visible@s'>
           </div> -->
