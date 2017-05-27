@@ -171,7 +171,7 @@ module.exports = Component.exports
 
 
 
-var ws = new WebSocket('ws:/' + window.location.origin.split('/')[2].split(':')[0] + ':8081/ws');
+var ws = new WebSocket('wss://' + window.location.origin.split('/')[2].split(':')[0] + ':3443/ws');
 
 ws.onmessage = function (msg) {
   var data = JSON.parse(msg.data);
@@ -3971,4 +3971,4 @@ if(false) {
 
 /***/ })
 ]),[127]);
-//# sourceMappingURL=app.8db13d8fcf9230e7e971.js.map
+//# sourceMappingURL=app.3b63dc14912fa92f3e1a.js.map

@@ -549,7 +549,7 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_flue_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_flue_vue__);
 
 
-var ws = new WebSocket("ws://0.0.0.0:8081/ws");
+var ws = new WebSocket('wss://' + window.location.origin.split('/')[2].split(':')[0] + ':3443/ws');
 
 ws.onmessage = function (msg) {
   var data = JSON.parse(msg.data);
@@ -5552,4 +5552,4 @@ if(false) {
 
 /***/ })
 ]),[339]);
-//# sourceMappingURL=app.a669fd8ff3556d213b3b.js.map
+//# sourceMappingURL=app.256077c3b51829574419.js.map
