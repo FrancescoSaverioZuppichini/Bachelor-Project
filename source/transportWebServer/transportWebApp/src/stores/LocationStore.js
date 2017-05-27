@@ -83,6 +83,8 @@ class LocationStore extends Store {
             bus.users.push(pref.user_id)
           }
 
+          bus.colors[userIndex] = color
+
           this.setAutoDestruction(() => {
             bus.users.splice(bus.users.indexOf(pref.user_id), 1)
             bus.colors.splice(bus.colors.indexOf(color), 1)
@@ -170,7 +172,6 @@ class LocationStore extends Store {
         location.default = true
       } else if (!config.OPEN_LOCATION_AUTODESTRUCTION && this.state.openedLocations.length < config.MAX_OPEN_LOCATION) {
         this.displayLocation({ location }, false, false)
-
       }
     })
 
@@ -185,8 +186,7 @@ class LocationStore extends Store {
 
   fetchLocationStationBoardSuccess({ location, stationboard }) {
     location.isLoadingStationBoard = false
-    if (!stationboard)
-      return
+    if (!stationboard) return
 
     stationboard.sort((a, b) => a.stop.departure_timestamp > b.stop.departure_timestamp)
     // update the stationboard in order to not override the use preference info
@@ -197,9 +197,6 @@ class LocationStore extends Store {
         for (let oldStationBoard of location.stationboard) {
           if (newStationBoard.number == oldStationBoard.number && newStationBoard.to == oldStationBoard.to) {
             oldStationBoard.stop = newStationBoard.stop
-            console.log(newStationBoard,'newStationBoard');
-            console.log(oldStationBoard,'oldStationBoard');
-
             newStationBoard = Object.assign(newStationBoard,oldStationBoard)
           }
         }
