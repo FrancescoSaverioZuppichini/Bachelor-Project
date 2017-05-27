@@ -137,14 +137,32 @@ For what the mobile application, as we talked before, it is made following the r
 % show some pictures of the preference flow
 \subsubsection{Classes Micro Service}
 The second implemented application is \emph{Upcoming Classes}, as the name says, it is used to provide the faculty student with useful information such as the course schedule for the next days. Similarly to the Transport application, we had issues with the API, in our case, provided by the University itself.
-A single API call to know all the schedules takes more than $3000ms$ as showed:
+A single API call to know all the schedules takes more than $1500ms$ as showed below;
 % metti roba che le loro api fanno schifo
 It gets worse if you try to get all the courses for a faculty:
+\\
+\\
+\begin{tabular}{ l | c }
+	Request & Time \\
+	\hline
+	http://search.usi.ch/api/courses/35255488/schedules & 1952ms \\
+	http://search.usi.ch/api/faculties/1/courses & 9294ms\\
+\end{tabular}
+\\
+\\
 % stessa di sopra
-
-Even if, from the client, we always cache the request, we cannot avoid totwait for the first time. You can already guess why they are so slow by looking at the previous pictures: the response size. They response are heavy due to a poorly model population; for each course that is sent back, tons of unused field are provided. Also, by inspecting a response for a class schedules, we can notice the same huge course object appears, unnecessary, for each schedule object.
-Therefore, again, we needed to clone all the API in order to just sent the right amount of information, by doing that, the previous request that tooks more than $3000$ms, now it just needs $METTI VALORE$.
-
+Therefore they cannot be properly used in a real application. Even if, from the client, we always cache the request, we cannot avoid totwait for the first time. You can already guess why they are so slow by looking at the previous pictures: the response size. They response are heavy due to a poorly model population; for each course that is sent back, tons of unused field are provided. Also, by inspecting a response for a class schedules, we can notice the same huge course object appears, unnecessary, for each schedule object.
+Therefore, again, we needed to clone all the API in order to just sent the right amount of information, by doing that, the previous schedule request now needs just $18$ms.
+\\
+\\
+\begin{tabular}{ l | c }
+	Request & Time \\
+	\hline
+	 http://tacita/classes/api/course/246/schedules & 18ms \\
+	 http://tacita/classes/api/faculty/1/courses & 1000ms\\
+\end{tabular}
+\\
+\\
 The display's front end application is divided into two main part easily identificable, the calendar and the query engine next to it. The calendar is create using \emph{fullcalendar} jQuery library that does all the dirty work of render and setting up all the events into the corrects slots. 
 The courses can be selected thanks to the query engine on the right part of the screen. As soon as the user clieck on the button representing the faculty, it is guided in order to create a valid query using a step by step approach; even if it may be not the faster way, it is the safest since no wrong request can be generated. The procedure is shows in the following storyboard:
 % aggiungi storyboard classi
@@ -153,7 +171,40 @@ As we did for the Transport Application, we also created a smart phone interface
 % show transport app similar to this one
 \subsection{Architecture Interactions}
 In the previous part we define in detail each element of our architecture without giving a global overview of how each parts collaborate with the all system. In this section we are going to analize all the interaction, especiatally between user and display, in detail showing each message that the entities exchange, explaing our design decision and analyzing the interactions.
+When a User walk near to a display:
+\begin{itemize}
+	\item They see each others thanks to the bluetooth phone's sensor and beacons near the screens
+	\item A request to \emph{Tacita} is made in order to know which display is associated with that beacon
+	\item If there is one, a message containing user's id and display's is pushed into the socket only if the screen application is enabled
+	\item As soon as the display receive the message, it checks if it has the same id; if so a request to out back-end services is made in order to get the user's preference
+	\item They are showed into the screen.
+\end{itemize}
+If something unexpected happen, such as, there is no application on the screen or no beacon is linked to anything the system will just fails silently without any repercussion on its stability.
+ 
+
 \subsection{Architecture Technologies}
+In this section we talk about the technologies that we used for the back-end and the front-end. For this project, we choose to use the last state of the art technologies and programming languages in order to provide a service that will last without being obsolete.
+\subsubsection{Back-End}
+We firstly started to develop the first application using Django, a python web framawork, but, even if its widely used among back-end developer, we encored problem with web socket that were not supported "out of the box".
+So, we decide to completely switch both language and framework by choosing Swift 3 and Vapor.
+
+Swift is a "powerful and intuitive" open source programming language developed by Apple born in 2015 for booth MacOs X and Linux. It is a Protocol Oriented Programming Languages, quoting from Apple:
+\\
+\\
+\emph{A protocol defines a blueprint of methods, properties .. The protocol can then be adopted by a class, structure, or enumeration - Apple}
+\\
+\\
+Unlike classes, the fundamental of POP programming is Value Type encouraging flat and not nested code. This benefic is reflected into its performance as you can see in the following picture showing a benchmark: notice the score of Swift.
+
+The syntax is concise yet expressive, it uses labels and spaces to improve the code readability making possible to write complete sentences only with code. Take a look at the following snippet:
+\\
+\\
+No comment are needed to understand what it does. 
+\\
+\\
+After selecting a programming language, we need a framework to create our applications. We choose Vapor for the job; a powerful, beautifully, expressive and easy to use MVC framework to build web servers. In our project it powers all micro service creating a common interface. Vapor is easy to start with thanks to the clear API that that, not also speed up the developer work, but makes the code more maintanable and more understandable. One of his strength point is the performance. You can see in the following table a benchmark in which it outstands also the most blasonated framework such as Spring.
+% agginugu benchmark
+
 \subsection{Architecture Scalability}
 \section{Design}
 \subsection{Back-end}

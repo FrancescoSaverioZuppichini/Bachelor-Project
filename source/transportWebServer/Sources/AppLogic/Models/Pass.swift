@@ -109,7 +109,7 @@ extension Pass {
 
 extension Pass {
     
-    public func station() throws -> StationBoard? {
+    public func station() throws -> Station? {
         return try parent(stationId).get()
     }
     

@@ -33,4 +33,18 @@ public  class StationboardController {
         return try stationBoardQuery.all().makeNode(context: StationBoardContext.all).converted(to: JSON.self)
         
     }
+    
+    func getPasses(_ req: Request, bus: Bus) throws -> ResponseRepresentable {
+        guard let direction = req.query?["direction"]?.string  else {
+            throw Abort.custom(status: .badRequest, message: ResourseError.parameterIsMissing("direction").description)
+        }
+        
+//        guard let stationBoards = try StationBoard.query().filter("bus_id", bus.id!).filter("to",direction) else {
+//            return ""
+//        }
+        
+//        return try bus.getPasses().all().makeNode(context: PassContext.onlyStation).converted(to:JSON.self)
+        return  try StationBoard.query().filter("bus_id", bus.id!).filter("to",direction).all().makeNode(context: StationBoardContext.all).converted(to: JSON.self)
+//        return try stationBoard.passes().all().makeNode(context: PassContext.onlyStation).converted(to:JSON.self)
+    }
 }

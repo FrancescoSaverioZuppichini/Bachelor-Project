@@ -92,7 +92,7 @@ public func load(_ _drop: Droplet) throws {
         }
         api.group("bus") {
             stations in
-            stations.get(Bus.self,"passList", handler: busController.getPassList)
+            stations.get(Bus.self,"passList", handler: stationboardController.getPasses)
         }
     }
     

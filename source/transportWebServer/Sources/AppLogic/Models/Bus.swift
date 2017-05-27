@@ -84,7 +84,7 @@ extension Bus {
     public func passList() throws -> [Pass] {
         let now = NSDate().timeIntervalSince1970
 
-        return try getPasses().filter("arrival_timestamp", .greaterThanOrEquals,now).limit(8).all()
+        return try getPasses().filter("departure_timestamp", .greaterThanOrEquals,now).limit(8).all()
     }
     
     public func getNextStop() throws -> Pass? {

@@ -20,20 +20,30 @@ class ConnectionStore extends Store {
     const currentPreference = this.sStore.state.currentPreference
     for (let connInPref of currentPreference.buses) {
       for (let conn of this.state.connections) {
-          if (conn.id == connInPref.id) Vue.set(conn,'toogle', true)
+        if (conn.id == connInPref.id) Vue.set(conn, 'toogle', true)
       }
     }
+  }
+
+  onFetchPassListSuccess({ data, bus }) {
+    bus.passList = data
+    bus.passList.sort((a, b) => a.departure_timestamp < b.departure_timestamp)
   }
 
   reduce(action) {
     this.reduceMap(action, {
       FETCH_BUSES_SUCCESS: this.fetchBusesSuccess,
+      FETCH_BUS_PASS_LIST_SUCCESS: this.onFetchPassListSuccess,
       ADD_PREFERENCE_SUCCESS: () => this.state.connections.forEach(connection => connection.toogle = false)
     })
   }
 
   actions(dispatcher) {
     return {
+      getPassList(bus) {
+        return api.bus.getPassList(bus)
+          .then(({ data }) => dispatcher.dispatch(new Action('FETCH_BUS_PASS_LIST_SUCCESS', { data, bus })))
+      },
       fetchBusesFromStation(stationsId) {
         return api.fetchBusesForStation(stationsId)
           .then(({ data }) => dispatcher.dispatch(new Action('FETCH_BUSES_SUCCESS', { data })))

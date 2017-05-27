@@ -13,6 +13,10 @@ const config = require('./config.js');
 
 var proxy = require('express-http-proxy');
 
+var WebSocketServer = require('websocket').server
+var WebSocketClient = require('websocket').client
+
+
 var app = express();
 
 var options = {}
@@ -49,8 +53,66 @@ for (let key in config) {
   }))
 }
 
-var port = process.env.PORT || 3000 ;
-var server = http.createServer(app).listen(port);
-https.createServer(options, app).listen(port + 443);
+var port = process.env.PORT || 3000;
+var server = http.createServer(app).listen(port)
+// server.listen(port);
+var httpsServer = https.createServer(options, app)
+httpsServer.listen(port + 443)
+
+// var wsServer = new WebSocketServer({
+//   httpServer: [server, httpsServer]
+// });
+//
+// var client = new WebSocketClient();
+// client.connect('ws://localhost:8081/ws', null, null, null);
+//
+// client.on('connect', function(connection) {
+//   connection = connection.connected
+//   console.log('client connected');
+//
+//   wsServer.on('request', function connection(request) {
+//     var clientConnect = request.accept()
+//
+//     clientConnect.on('message', function(msg) {
+//       console.log(msg);
+//       connection.sendUTF(msg.utf8Data)
+//     })
+//   })
+// })
+
+
+var WebSocketServer = require('ws').Server
+var WebSocket = require('ws');
+
+const clientWs = new WebSocket('ws://localhost:8081/ws');
+
+clientWs.on('open', function open() {
+  console.log('connected to server');
+});
+
+clientWs.on('message', function incoming(data) {
+  wss.broadcast(data)
+});
+
+wss = new WebSocketServer({ server: httpsServer });
+
+wss.broadcast = function broadcast(data) {
+  wss.clients.forEach(function each(client) {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(data);
+    }
+  });
+};
+// set up server
+wss.on('connection', function connection(ws) {
+  console.log('new connection');
+  ws.on('message', function incoming(data) {
+
+    clientWs.send(data)
+  });
+});
+
+
+
 console.log(`http: ${port}\nhttps:${port + 443}`);
 module.exports = app;

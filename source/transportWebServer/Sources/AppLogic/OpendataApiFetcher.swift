@@ -82,8 +82,8 @@ public final class OpendataApiFetcher {
             
             let pass = try Pass.createIfNotExist(bus: bus.id, through: station.id, arrivalTimestamp: nil, departureTimestamp: departureTimestamp, departure: departure)
             
-//            storePasses(from: (stationBoardObj!["passList"]?.object!)!, with: station, with: bus, in: createdStationBoard)
-//            
+//           try storePasses(from: (stationBoardObj!["passList"]?.array)!, with: station, with: bus, in: createdStationBoard)
+////
             var pivot = Pivot<StationBoard,Pass>(createdStationBoard,pass)
             try pivot.save()
         }

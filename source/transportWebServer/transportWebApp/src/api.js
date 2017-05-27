@@ -23,13 +23,18 @@ export default {
       return axios.get(`${BASE_URL}${TRANSPORT_URL}/preference?userId=${userId}`)
     }
   },
+  'bus': {
+    getPassList(bus) {
+      return axios.get(`${BASE_URL}${TRANSPORT_URL}/bus/${bus.bus_id}/passList?direction=${bus.to}`)
+    },
+  },
   "user": {
     getMe(email) {
       return axios.get(`${BASE_URL}${TACITA_URL}/user/?email=${email}`)
     },
     getMeById(userId) {
-        return axios.get(`${BASE_URL}${TACITA_URL}/user/${userId}`)
-      },
+      return axios.get(`${BASE_URL}${TACITA_URL}/user/${userId}`)
+    },
     fetchUserPreferences(userId) {
       return axios.get(`${BASE_URL}${TRANSPORT_URL}/preference?userId=${userId}`)
     }
