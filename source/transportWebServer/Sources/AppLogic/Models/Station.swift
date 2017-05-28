@@ -45,7 +45,7 @@ public final class Station: Model {
 //            node["stationBoard"] = try buses().makeNode(context: BusContext.nextStop)
             
         case StationContext.buses:
-            node["bus"] = try buses().makeNode()
+            node["buses"] = try buses().makeNode()
 
         default:
             break

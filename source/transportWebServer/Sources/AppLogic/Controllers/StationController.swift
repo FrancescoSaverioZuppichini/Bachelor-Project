@@ -14,7 +14,7 @@ import Fluent
 public  class StationController {
     
     func getStations(_ req: Request) throws -> ResponseRepresentable {
-        return try Station.all().makeJSON()
+        return try Station.all().makeNode(context: StationContext.buses).converted(to: JSON.self)
     }
     
     func getPassList(_ req: Request, station: Station) throws -> ResponseRepresentable {
