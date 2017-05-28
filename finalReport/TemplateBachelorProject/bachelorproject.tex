@@ -205,7 +205,7 @@ No comment are needed to understand what it does.
 After selecting a programming language, we need a framework to create our applications. We choose Vapor for the job; a powerful, beautifully, expressive and easy to use MVC framework to build web servers. In our project it powers all micro service creating a common interface. Vapor is easy to start with thanks to the clear API that that, not also speed up the developer work, but makes the code more maintanable and more understandable. One of his strength point is the performance. You can see in the following table a benchmark in which it outstands also the most blasonated framework such as Spring.
 \begin{figure}[H]
   \centering
-  \subfloat[Plaintext Request/second]{\includegraphics[width=0.5\textwidth]{./images/vapor_1_benchmark.png}}
+  \subfloat[Plaintext request/second]{\includegraphics[width=0.5\textwidth]{./images/vapor_1_benchmark.png}}
 \end{figure} 
 % agginugu benchmark
 \subsubsection{Front-end}
@@ -219,9 +219,9 @@ One of the main advantages of Vue over other front-end framework is reactivity. 
 A deeply comparison with other frameworks can be fount at: https://vuejs.org/v2/guide/comparison.html. The following graph shows its performance against Angular and React, the other two most used framework developed by Google and Facebook respectivily.
 \begin{figure}[H]
   \centering
-  \subfloat[]{\includegraphics[width=0.5\textwidth]{./images/vue2_benchmark.png}}
+  \subfloat[Vue2 vs other popular libraries]{\includegraphics[width=0.5\textwidth]{./images/vue2_benchmark.png}}
 \end{figure} 
-As we said, each component represent a feature, a part of the web application. It may appeans that one of them need to communicate with another, maybe after a change of state or a user event. In order manage the data flow we used the Flux pattern; it is composed by four parts: Dispatcher, Store, Actions and View.
+As we said, each component represent a feature, a part of the web application; it may happen that one of them need to communicate with another, maybe after a change of state or a user event. In order manage the data flow we used the Flux pattern; it is composed by four parts: Dispatcher, Store, Actions and View.
 The mainly idea is that the state can be mutated thought actions that are reduced into the stores. The dispatcher is a singleton that receives them and dispatches to every stores that have registered with it; its important to highlight that every store receives every action.
 The Store is only source of truth in the applications; it holds its state and manage the logic behind it. The data must only be mutated by responding to and action by emitting a "change" event.
 Actions are the internal API of each application, they define all the possible interaction that may happen. They are plain javascript object composed by a type field and some data.
@@ -234,12 +234,37 @@ Even if there already exist a fantastic Flux library for Vue created by its auth
   \subfloat[Flux data flow]{\includegraphics[width=0.5\textwidth]{./images/flux_data_flow.png}}
 \end{figure} 
 \subsection{Architecture Scalability}
+Scalability is the ability of a system to grow larger with minimum changes. In the previous sections we often talk about how some design choice leads to an improvement in term of scalability. In our specific case, our system can change very quickly; just image if the provided buy new displays or new applications are available.
+
+In order to make it possible to deploy independently from the network a new application, we abstract the concept of it creating a layer of services that can be expanded very easily. In order to create a new application, the developing team just need to setup and run a web server being conform to our generic interface.
+
+Another possibility problem that can may appear is when a display is moved away. We explained our each screen, when its connected, fetch its position and use it in order to communicate with Google Maps API in order to show real direction indications. If such problem appears, very easily, the provider just need to refresh the screen and the front-end software will automatically update itself.
+
+Also displays can be removed or added by simply using \emph{Tacita} REST API. Image a screen brokes, then the associated beacon can be moved to another screen or the display is replaced. The last case is the easiest, since we can just turn on the screen and use the last display's id, if no new devices is avaliable then the bluetooth beacon can be quickly be linked to the a new screen . 
+
+or the screen itself may be replaced. 
 \section{Design}
+In our project design plays a key role. Since our applications can be used to anybody, a clear and effective interface is mandatory to ensure a global usability. Moreover, when dealing with big display, we have to provide a no blocking content flow meaning that an interaction should not prevent, or block, another. Also, all state changing must be displayed using design techniques, such as well targeted animation, in order to make the user understanding what is happening around him.
+
+We decide to follow a \emph{content first} strategy by making the content clear and visible using a minimalistic approach; no unused element is present in any application. We used \emph{cards} as only way to organize information. In design, a card is a sheet of material that serves as an entry point to more detailed information proving a convenient way to display content composed of different elements.
+% qualche foto di card
+You can see notice how they are used in the Transport application as only data flow container.
+% screen display Application
+
+Another challenge was to design an big touch interface. We started by keeping in mind that every information must be quickly receable and meaningful; the user must understand in a fraction of second what he needs. By keeping that constrains in mind.
+Our design process starts with wireframes; representin the skeletron of the application exposing its main functionalities. They are terribly useful to get a first general look of what the application is going to be. For what It concern the Transport service, we begin by discard every not necessary element following, as we said, a minimilistic approach. In the following picture you can see the first wireframe's muck up and the final product
+\begin{figure}[H]
+  \centering
+  \subfloat[wireframe]{\includegraphics[width=0.43\textwidth]{./images/transport_wireframe.png}}
+  \hfill
+  \subfloat[final product]{\includegraphics[width=0.53\textwidth]{./images/transport_application}}
+\end{figure} 
+If you look at the left image you can notice that all the functionalities are intuitively recognizable. As we said, our design, must be carefully studied for big display; we focus on the interactive part.
+At the bottom of the application there is a carousel used to change station on the fly. All buttons are big enough to be easily be used from everyone without any problems. Moreover, we used animation to increase the user experience; when a station is selected is pushed on the right part using a slide in animation making more visible. Also, a open station shakes when a user try to open it again giving a strong visible feedback of where it is on the display 
 \subsection{Back-end}
 \subsection{Front-end}
 \section{Conclusion}
-\section{Acknowledges}
-
+ 
 \newpage
 
 
