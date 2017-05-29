@@ -251,7 +251,8 @@ We decide to follow a \emph{content first} strategy by making the content clear 
 You can see notice how they are used in the Transport application as only data flow container.
 % screen display Application
 
-Another challenge was to design an big touch interface. We started by keeping in mind that every information must be quickly receable and meaningful; the user must understand in a fraction of second what he needs. By keeping that constrains in mind.
+\subsubsection{Display}
+The main challenge was to design for a big touch interface. We started by keeping in mind that every information must be quickly receable and accesible; the user must understand in a fraction of second what he needs. By keeping that constrains in mind.
 Our design process starts with wireframes; representin the skeletron of the application exposing its main functionalities. They are terribly useful to get a first general look of what the application is going to be. For what It concern the Transport service, we begin by discard every not necessary element following, as we said, a minimilistic approach. In the following picture you can see the first wireframe's muck up and the final product
 \begin{figure}[H]
   \centering
@@ -263,13 +264,28 @@ If you look at the left image you can notice that all the functionalities are in
 At the bottom of the application there is a carousel used to change station on the fly. All buttons are big enough to be easily be used from everyone without any problems.
 Moreover, we used animation to increase the user experience; when a station is selected is pushed on the right part using a slide in animation making more visible. Also, a open station shakes when a user try to open it again giving a strong visible feedback of where it is on the display. 
 
-In the Class application we used the same approach, we started by sketching the wireframes and defining the main functionalities, in this specific case, we need two components: a Calendar and a query engine to search courses.
-\subsection{Back-end}
-\subsection{Front-end}
+In the Class application we used the same approach, we started by sketching the wireframes and defining the main functionalities. In this specific case, we need two components: a Calendar and a query engine to search courses. 
+\begin{figure}[H]
+  \centering
+  \subfloat[wireframe]{\includegraphics[width=0.43\textwidth]{./images/classes_wireframe.png}}
+  \hfill
+  \subfloat[final product]{\includegraphics[width=0.53\textwidth]{./images/classes_application}}
+\end{figure}
+\subsubsection{Smartphone}
+As we have explained before, we also develop an smartphone application called \emph{Tacita} in order to organize the user interaction with the display. We design it from sketch in order to be accessible from everyone. Logically, from the main page of the application is possible to see and enable all the existing application. In order to provide a more confortable user experience we added skeletron loader instead of a classic spinner; therefore, in case of slow internet, is possibile to 'guess' the content of a page. The following picture show the process.
+\begin{figure}[H]
+  \centering
+  \subfloat[loading]{\includegraphics[width=0.25\textwidth]{./images/tacita_skeletron}}
+  \
+  \
+  \
+  \subfloat[finish]{\includegraphics[width=0.25\textwidth]{./images/tacita_main}}
+\end{figure}
+When a User walk nearby a screen a float button pops up making the displays page avaliable, and, since we are using socket connection, if the display changes the running application, the client will be notified
+
 \section{Conclusion}
  
-\newpage
-
+t
 
 
 %%%%%

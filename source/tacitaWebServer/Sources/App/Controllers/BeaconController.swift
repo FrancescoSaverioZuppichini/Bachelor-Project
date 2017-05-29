@@ -19,7 +19,7 @@ final class BeaconController {
     }
     
     static func getOne(_ req: Request, beacon: Beacon) throws -> ResponseRepresentable {
-        
+
         return try beacon.makeNode(context: ResourseContext.all).converted(to:JSON.self)
     }
     
@@ -32,6 +32,30 @@ final class BeaconController {
         }
         
         return try beacon.makeJSON()
+    }
+    
+    static func edit(_ req: Request, beacon: Beacon) throws -> ResponseRepresentable {
+        var beacon = beacon
+        
+        beacon.displayId = nil
+        
+        if let displayId = req.data["displayId"]?.int {
+            guard let display = try Display.find(displayId) else {
+                throw Abort.custom(status: .notFound, message: ResourseError.resourceNotFoud("Display").description)
+            }
+            
+            beacon.displayId = display.id
+        }
+        
+        guard let beaconId = req.data["beaconId"]?.string else{
+            throw Abort.custom(status: .badRequest, message: ResourseError.parameterIsMissing("beaconId").description)
+        }
+        
+        beacon.beaconId = beaconId
+        try beacon.save()
+        
+        return try  beacon.makeJSON()
+        
     }
     
     static func create(_ req: Request) throws -> ResponseRepresentable {

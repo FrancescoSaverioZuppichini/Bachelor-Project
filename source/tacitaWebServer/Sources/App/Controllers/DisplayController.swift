@@ -19,22 +19,8 @@ final class DisplayController {
     }
     
     static func getOne(_ req: Request, display: Display) throws -> ResponseRepresentable {
-        var context: Context = ResourseContext.snippet
         
-        if let reqContext =  req.query?["context"]?.string {
-            switch reqContext {
-            case "all":
-                context = ResourseContext.all
-            case "apps":
-                context = DisplayContext.currentApps
-
-            default:
-                break
-            }
-           
-        }
-        
-        return try display.makeNode(context: context).converted(to: JSON.self)
+        return try display.makeNode(context: req.context ).converted(to: JSON.self)
     }
     
     static func create(_ req: Request) throws -> ResponseRepresentable {
@@ -45,17 +31,11 @@ final class DisplayController {
     
     static func delete(_ req: Request, display: Display) throws -> ResponseRepresentable {
         try display.delete()
+
         return try display.makeJSON()
     }
     
     static func setCurrentApp(_ req: Request, display: Display, application: Application) throws -> ResponseRepresentable {
-        
-//        var node = try Node(node: [
-//            "type": "DISPLAY_CHANGE_APP",
-//            "data": try Node(node :[
-//                "displayId": display.id!,
-//                "appId": application.id!])
-//            ])
         
         let json = "{\"type\":\"DISPLAY_CHANGE_APP\",\"payload\":{\"displayId\":\(display.id!.int!),\"appId\":\(application.id!.int!)}}"
         

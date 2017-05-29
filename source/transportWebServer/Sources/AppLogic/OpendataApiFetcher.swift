@@ -170,6 +170,7 @@ public final class OpendataApiFetcher {
             if #available(OSX 10.12, *) {
                 let timer = Timer(fire: tomorrowMorning, interval: 60 * 60 * 24, repeats: true) { _ in
                     do {
+                        print("diocanenen")
                         try OpendataApiFetcher.cacheOpendataApi()
                         
                     } catch{

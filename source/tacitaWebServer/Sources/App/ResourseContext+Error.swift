@@ -12,7 +12,6 @@ import Vapor
 public enum ResourseContext: Context {
     case all
     case snippet
-
 }
 
 enum ResourseError: Error, CustomStringConvertible {
