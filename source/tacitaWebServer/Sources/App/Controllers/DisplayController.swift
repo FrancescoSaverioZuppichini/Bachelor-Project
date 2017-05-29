@@ -53,7 +53,7 @@ final class DisplayController {
         
        
         
-        return try display.makeNode(context: DisplayContext.currentApps).converted(to: JSON.self)
+        return try display.makeNode(context: ResourseContext.all).converted(to: JSON.self)
     }
 
     

@@ -43,6 +43,7 @@ drop.group("api") {
             application in
             application.get("", handler: ApplicationController.getAll)
             application.get(Application.self,"", handler: ApplicationController.getOne)
+            application.put(Application.self,"", handler: ApplicationController.edit)
             application.post("", handler: ApplicationController.create)
             application.delete(Application.self,"", handler: ApplicationController.delete)
         }

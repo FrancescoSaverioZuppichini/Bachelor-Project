@@ -9,6 +9,8 @@ import locationStore from './stores/LocationStore.js'
 import userStore from './stores/UserStore.js'
 import preferenceStore from './stores/PreferenceStore.js'
 import displayStore from './stores/DisplayStore.js'
+import transportDisplayStore from './stores/TransportDisplayStore.js'
+
 import { flueVue,
   SuperStore
 } from 'flue-vue'
@@ -21,7 +23,7 @@ Vue.use(flueVue)
 
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
-SuperStore.addStores([locationStore, userStore, preferenceStore,connectionStore,displayStore])
+SuperStore.addStores([locationStore, userStore, preferenceStore,connectionStore,displayStore,transportDisplayStore])
 // loads the Icon plugin
 window.UIkit = UIkit
 UIkit.use(Icons);

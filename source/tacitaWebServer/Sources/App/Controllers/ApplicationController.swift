@@ -37,6 +37,19 @@ final class ApplicationController {
         return try application.makeJSON()
     }
     
+    static func edit(_ req: Request, application: Application) throws -> ResponseRepresentable {
+        var application = application
+        
+        if (try Application.query().filter("name", application.name).filter("url", application.url).first()) != nil {
+            
+            throw Abort.custom(status: .badRequest, message: ResourseError.resourceAlreadyExist("Application").description)
+        }
+        
+        try application.save()
+        
+        return try application.makeJSON()
+    }
+    
     static func delete(_ req: Request, application: Application) throws -> ResponseRepresentable {
         try application.delete()
         return try application.makeJSON()

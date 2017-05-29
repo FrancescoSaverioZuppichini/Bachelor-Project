@@ -11,7 +11,7 @@ import cachedLocations from '../locations.js'
 
 const config = {
   USER_NOTIFICATION_LIFE: 10000,
-  STATIONBOARD_UPLOAD_EVERY: 5000,
+  STATIONBOARD_UPLOAD_EVERY: 5000000000,
   MAX_OPEN_LOCATION: 2,
   OPEN_LOCATION_LIFE: 10000,
   OPEN_LOCATION_AUTODESTRUCTION: false
@@ -197,12 +197,16 @@ class LocationStore extends Store {
         for (let oldStationBoard of location.stationboard) {
           if (newStationBoard.number == oldStationBoard.number && newStationBoard.to == oldStationBoard.to) {
             oldStationBoard.stop = newStationBoard.stop
-            newStationBoard = Object.assign(newStationBoard,oldStationBoard)
+            newStationBoard = Object.assign(newStationBoard, oldStationBoard)
           }
         }
       }
       location.stationboard = stationboard
     }
+  }
+
+  onFetchDisplaySuccess({ display }) {
+    this.sStore.actions.fetchNearbyLocations()
   }
 
   reduce(action) {
@@ -213,7 +217,8 @@ class LocationStore extends Store {
       FETCH_LOCATION_STATIONBOARD_SUCCESS: this.fetchLocationStationBoardSuccess,
       FETCH_LOCATION_STATIONBOARD_ERROR: (({ location }) => { location.isLoadingStationBoard = false }),
       PUT_LOCATION_IN_DISPLAY_STACK: this.displayLocation,
-      DISPLAY_USER_PREFERENCE: this.onDisplayUserPreferences
+      DISPLAY_USER_PREFERENCE: this.onDisplayUserPreferences,
+      FETCH_DISPLAY_SUCCESS: this.onFetchDisplaySuccess
     })
   }
 

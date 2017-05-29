@@ -66,5 +66,13 @@ export default {
       return axios.get(`${BASE_URL}${TRANSPORT_URL}/display/${displayId}`)
 
     }
+  },
+  'application': {
+    fetchApplications() {
+      return axios.get(`${BASE_URL}${TACITA_URL}/application`)
+    },
+    fetchApplication(app) {
+      return axios.get(`${BASE_URL}${TACITA_URL}/application/${app.id}`)
+    }
   }
 }
