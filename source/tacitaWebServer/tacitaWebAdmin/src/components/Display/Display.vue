@@ -2,6 +2,7 @@
 <resource>
   <div class='uk-flex uk-flex-column'>
     <div class='uk-flex uk-flex-middle uk-margin-bottom'>
+      <v-icon class='grey--text text--darken-2 uk-margin-small-right'>desktop_windows</v-icon>
       <h3 class='uk-margin-remove'>{{"Display " + data.id}}</h3>
       <div class='uk-flex--grow uk-margin-right'>
       </div>

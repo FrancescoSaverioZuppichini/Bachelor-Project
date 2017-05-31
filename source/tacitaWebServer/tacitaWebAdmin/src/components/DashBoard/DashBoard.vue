@@ -1,45 +1,35 @@
 <template>
-<page title="Display">
-  <resources-wrapper :data='$store.state.displays'>
-    <display :data="el" v-for="el in $store.state.displays.data"></display>
-  </resources-wrapper>
-  <transition name="fade">
-    <div uk-modal="center: true" class="uk-modal uk-open uk-flex uk-flex-center uk-flex-middle" v-show="$store.state.showCreateDisplayModal">
-      <div class="uk-modal-dialog uk-modal-body">
-        <h4>Create a new display?</h4>
-        <div>
-          <v-btn default flat @click.native="$store.state.showCreateDisplayModal = false">Cancel</v-btn>
-          <v-btn primary dark @click.native="$store.actions.createDisplay({})">Yes</v-btn>
-        </div>
-      </div>
+<div class='f-h uk-flex uk-offcanvas-content'>
+  <div class='tm-sidebar-left uk-visible@s'>
+    <ul class="uk-nav">
+      <li><a @click="$router.push({name:'DisplayPage'})">Display</a></li>
+      <li><a href="">Beacon</a></li>
+    </ul>
+  </div>
+  <keep-alive>
+    <router-view class='uk-flex--grow'></router-view>
+  </keep-alive>
+  <div id="my-sidenav" uk-offcanvas>
+    <div class="uk-offcanvas-bar">
+      <v-btn icon large class='grey--text text--darken-2 uk-offcanvas-close'>
+        <v-icon>close</v-icon>
+      </v-btn>
+      <h3></h3>
+
+      <ul class="uk-nav uk-nav-default">
+        <li><a @click="$router.push({name:'DisplayPage'})">Display</a></li>
+        <li><a href="">Beacon</a></li>
+      </ul>
     </div>
-  </transition>
-  <div class='uk-text-center'>
-    <v-btn primary dark @click.native="$store.state.showCreateDisplayModal = true">Add</v-btn>
+
   </div>
-  <div>
-    Unliked Beacons
-    <draggable v-model="beacons" class='display-beacon__container' :options="{group:'people'}">
-      <div v-for="beacon in beacons" :key='beacon'>
-        {{beacon.beacon_id}}
-      </div>
-    </draggable>
-  </div>
-</page>
+</div>
 </template>
 <script>
-import draggable from 'vuedraggable'
-import ResourcesWrapper from '../Resources/ResourcesWrapper.vue'
-import Display from '../Display/Display.vue'
-import Page from '../Page/Page.vue'
-
 export default {
   name: "DashBoard",
   components: {
-    ResourcesWrapper,
-    Display,
-    Page,
-    draggable
+
   },
   data: function data() {
     return {
@@ -49,25 +39,24 @@ export default {
   mounted() {
     this.$store.actions.fetchDisplays()
     this.$store.actions.fetchBeacons()
-  },
-  computed: {
-    beacons: {
-      get() {
-        return this.$store.state.freeBeacons()
-      },
-      set(value) {
-        if (value.length > 0) {
-          console.log(value[0])
-
-          const newBeacon = Object.assign({}, value[0])
-          newBeacon.display_id = null
-
-          this.$store.actions.editBeacon(newBeacon)
-        }
-      }
-    }
   }
 }
 </script>
-<style>
+<style scoped>
+.tm-sidebar-left {
+  min-width: 200px !important;
+  padding: 40px 24px 40px 24px;
+}
+
+.uk-offcanvas-bar {
+  background: white !important;
+}
+
+.uk-nav>li>a {
+  color: #666;
+}
+
+.uk-nav>li>a:hover {
+  color: #222
+}
 </style>

@@ -39,10 +39,9 @@ An abstract describing what the prospectus is all about. ``Omit needless words''
 \section{Introduction}
 \subsection{Motivation}
 
-Big displays represent a widely used form of mass communication in almost all public places such as squares, subways and schools. They are used in a passive way by pushing un-targeted information, mostly advertisements, to the audience; enslaved by an bidirectional visible communication without any way to personalise the screen's content.
+Big displays represent a widely used form of mass communication in almost all public places such as squares, subways and schools. They are used in a passive way by pushing un-targeted information, mostly advertisements, to the audience; enslaved by a unidirectional visible communication without any way to personalise the screen's content.
 
-This lack of aimed content bring to a uniqueness of the display's message, forced to be equal for everyone.
-In the following pictures you can easily observe the abuse of this strategy by looking at two of the world's biggest squares that are invaded by static, brightly, unavoidable, content from the huge displays.
+This lack of aimed informations brings to a uniqueness of the display's message, forced to be equal for everyone. Therefore, in the eyes of the device, is treated in the same way without making distinction. In the following pictures you can easily observe the abuse of this strategy by looking at two of the world's biggest squares that are invaded by static, brightly, unavoidable, content from the huge displays.
 \begin{figure}[H]
   \centering
   \subfloat[]{\includegraphics[width=0.43\textwidth]{./images/new_york_displays.jpg}}
@@ -50,25 +49,24 @@ In the following pictures you can easily observe the abuse of this strategy by l
   \subfloat[]{\includegraphics[width=0.5\textwidth]{./images/piccadilly_displays.jpg}}
 \end{figure} 
 
-Such devices make a big impact on a town's shape, they change it's look, colours and feel without adding anything useful. If we look carefully in the pictures we can notice that the only content showed is advertisement. This choice is not related directly to the technology; in the following picture, showing \emph{New York} in the early 60s, we can notice the exactly same advertisement, even from the same companies, that is showed today. Therefore, what is the utility of using displays instead of posters, you may ask.
-
+Such devices make a big impact on a town's shape, they change it's look, colours and feel without adding anything useful. If we look in the pictures we can notice that the only content showed is advertisement. This choice is not directly related to the technology; in the following image, showing \emph{New York} in the early 60s, we can see the exactly same advertisement, even from the same companies, that is showed today. Therefore, even if the hardware has changed, it had not lead to an evolution of the context in which is used.
 \begin{figure}[H]
   \centering
   \subfloat[]{\includegraphics[width=0.5\textwidth]{./images/new_york_posters.jpg}}
 \end{figure} 
-Since the message from the display is shared, or forced, to everyone, it seems logic thinking that everyone should share the screen too, but that is not the case.
+The display's message is shared, or forced, to everyone; Thus it seems logic thinking that everyone should share the screen too, but that is not the case.
 
-A unified message cause a certainly reduction of the screen's utility and purpose, making it, as we stated before, a full passive element. An other example of a badly use of displays may be the ones in the Milan \emph{Stazione Centrale}, showed in the following picture.
+A unified message cause a certainly reduction of the device's utility and purpose, making it, as we stated before, a full passive element. An other example of a badly use of displays may be the ones in the Milan \emph{Stazione Centrale}, showed in the following picture.
 % add picture
-They are used only to show publicity from the TV's channels loosing all the power that such devices embraces. Would be nice to just walk close to one of these and see our train schedules? Obviously yes. 
+They are used only to show publicity from the TV's channels loosing all the power that such devices embraces. Would be nice to just walk close to one of these and see our train schedules? Obviously yes.
 
-
+An in-walk content personalisation is a logic step to made for using the full potential of such devices.
 \subsection{Goal}
 
-Our goal is to create a bi-lateral channel with the screen: the user must be able to quickly filter the information that he needs in just few seconds without being shelled by tons of useless brands and images. As it is deeply described in the next sections, in our architecture, the user is the active trigger that push and pull it's personal content into and from the screen. This informations can be showed by just walking to the display thanks to proximity sensors such as bluetooth beacons allowing a non blocking information flow where only the relevant content is target to the interested user at the right time.
+Our goal is to create a bi-lateral channel with the screen: the user must be able to quickly filter the information that he needs in just few seconds without being shelled by tons of useless brands and images. As it is deeply described in the next sections, in our architecture, the user is the active trigger that push and pull it's personal content directly into and from the display. This informations can be showed by just walking to the screen thanks to proximity sensors such as bluetooth beacons allowing a non blocking information flow where only the relevant content is target to the interested user at the right time.
 \\
 \\
-The information should be pertinent and \emph{fast}, it must be easy for the user to enter the netowkr and become a part of it without loosing any time. Tons of studied shows the connection between poorly user interaction and high learning curve. Since we are addressing a endless mass of people, our application must be easy to start with and addressable, for those we used smart phones as mainly platform
+The showed content must be pertinent and \emph{fast}, it must be easy for the user to enter the network becoming a part of it without loosing any time. For this reason we focus our attentions of the design part, aimed to provide a natural way of interaction between the system. Tons of studied shows the connection between poorly user interaction and high learning curve. Since we are addressing a endless mass of people, our application must be easy to start with and addressable. Therefore we decide to use smart phones as mainly platform
 % ADD SOMETHING talk abou speed and user interaface with the smartphone
 By doing that we completly transform a tool, such as a display, into a new one, a better one.
 % say something of how software can change hardware an it is the main layer
@@ -76,13 +74,14 @@ By doing that we completly transform a tool, such as a display, into a new one, 
 In this section we describe in detail the whole project design, bottom-up. Starting by a briefly description of how we structure all the parts.
 \subsection{Introduction}
 % INTRODUCTION
-Design a working system is never easy. It has to logically mimic the answer to the problem we are trying to solve.
+Design a full working system is never easy job. It has to logically mimic the answer to the problem we are trying to solve.
 
-In our case, we are looking for a scalable system where the user, identifier as an active entry, pull and push his information to the display. It must not directly depends on the number of application, or \emph{services}, our network exposes or on the number of display. Specifically the system has to work with $n$ display and $m$ application without any changing in the core. 
+In our case, we are looking for a scalable system where the user, identifier as an active entry, pull and push his information to the display. It must not directly depends on the number of application, or \emph{services}, that our network exposes or on the number of display. Specifically the system has to work with $n$ display and $m$ application without any changing in the core. 
 % GENERAL OVERVIEW
 \\
 \\
-For such reasons we adopted a \emph{Micro Services} architecture where each element can be removed without effecting the integrity of the network. Services communicate using either synchronous protocols such as HTTP/REST; thus they can be developed and deployed independently. Each service has its own database in order to be decoupled from other services. Such architectures scale faster than a classic monolithic approach, for instance, a new application can be deployed from everywhere really fast by just using the same interface of the existing one. Moreover, each application provider, can use his favourite technologies and hosting platform. In our project we deployed all the services on the same server, but in a real world, as we said,  they are usually physically separated. Since all the applications provide a common interface for pull/push personalization content, we are going to call this set of services the \emph{Application Layer}.\\
+For such reasons we adopted a \emph{Micro Services} architecture where each element can be removed without effecting the global integrity. Services communicate using either synchronous protocols such as HTTP/REST; thus they can be developed and deployed independently. Each service has its own database in order to be decoupled from other services. Such architectures scale faster than a classic monolithic approach, for instance, a new application can be deployed from everywhere really fast by just using the same interface of the existing ones. Moreover, each application can be added from everywhere allowing developers to use their favourites technologies and hosting platform.
+In our project we deployed all the services on the same server, but in a real world, as we said,  they are usually physically separated. Since all the applications provide a common interface for pull/push personalization content, we are going to call this set of services the \emph{Application Layer}.\\
 \\
 All the active logic of the network is handled by another Micro Service, called \emph{Tacita}, that links display, application and users. It's responsibility is to be the glue between the \emph{Application Layer} and all the other elements by storing users' informations, screen's state and available applications.
 % TALK about the system that must be anynimous 

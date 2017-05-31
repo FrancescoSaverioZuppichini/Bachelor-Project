@@ -168,20 +168,18 @@ public final class OpendataApiFetcher {
         let queue = DispatchQueue(label: "opendataApiFetcherQueue")
         queue.asyncAfter(deadline: .now() + 0.5)  {
             if #available(OSX 10.12, *) {
-                let timer = Timer(fire: tomorrowMorning, interval: 60 * 60 * 24, repeats: true) { _ in
+                Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
                     do {
-                        print("diocanenen")
                         try OpendataApiFetcher.cacheOpendataApi()
                         
                     } catch{
                         print("Error during fetching")
                     }
                 }
-                timer.fire()
-                
             } else {
                 // Fallback on earlier versions
             }
+     
         }
     }
     

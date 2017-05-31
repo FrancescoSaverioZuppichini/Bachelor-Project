@@ -11,37 +11,27 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [{
-    path: '/app',
-    name: 'App',
-    component: PhoneApp,
-    children: [{
-        path: '/app/home',
-        name: 'Home',
-        component: Home
-      },
-      {
-        path: '/app/display',
-        name: 'Display',
-        component: DisplaysPage
-      },
-      {
-        path: '/app/preference/:src',
-        name: 'Preference',
-        component: PreferencePage
-      },
-      {
-        path: '/app/user/preference',
-        name: 'UserPreference',
-        component: UserPreferencePage,
+      path: '/app/home',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/app/preference/:src',
+      name: 'Preference',
+      component: PreferencePage
+    },
+    {
+      path: '/app/user/preference',
+      name: 'UserPreference',
+      component: UserPreferencePage,
 
-      },
-      {
-        path: '/app/user/preference/color',
-        name: 'Color',
-        component: ColorPickerPage
-      }
-    ]
-  }]
+    },
+    {
+      path: '/app/user/preference/color',
+      name: 'Color',
+      component: ColorPickerPage
+    }
+  ]
 })
 
 export default router

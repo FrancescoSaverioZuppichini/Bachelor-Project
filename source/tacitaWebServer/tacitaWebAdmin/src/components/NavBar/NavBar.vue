@@ -5,6 +5,16 @@
       <a class="uk-navbar-item uk-logo" @click="$router.push({name:'DashBoard'})">Tacita</a>
     </ul>
   </div>
+  <div class="uk-navbar-right">
+    <ul class="uk-navbar-nav">
+      <a class="uk-navbar-toggle">
+        <v-btn icon large class="uk-hidden@s uk-navbar-toggle-icon uk-icon white--text" uk-toggle="target: #my-sidenav">
+          <v-icon>menu</v-icon>
+        </v-btn>
+      </a>
+    </ul>
+  </div>
+
 </nav>
 </template>
 <script>
