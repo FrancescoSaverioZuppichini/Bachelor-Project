@@ -30,7 +30,7 @@ class UserStore extends Store {
   onToogleAppFailure({ error }) {
     console.log(error);
     this.state.userError.error = true
-    this.state.userError.msg = "Something go wrong"
+    this.state.userError.msg = "Something went wrong."
   }
 
   reduce(action) {

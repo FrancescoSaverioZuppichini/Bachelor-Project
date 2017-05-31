@@ -80,7 +80,9 @@ In our case, we are looking for a scalable system where the user, identifier as 
 % GENERAL OVERVIEW
 \\
 \\
-For such reasons we adopted a \emph{Micro Services} architecture where each element can be removed without effecting the global integrity. Services communicate using either synchronous protocols such as HTTP/REST; thus they can be developed and deployed independently. Each service has its own database in order to be decoupled from other services. Such architectures scale faster than a classic monolithic approach, for instance, a new application can be deployed from everywhere really fast by just using the same interface of the existing ones. Moreover, each application can be added from everywhere allowing developers to use their favourites technologies and hosting platform.
+For such reasons we adopted a \emph{Micro Services} architecture where 
+
+each element can be removed without effecting the global integrity. Services communicate using either synchronous protocols such as HTTP/REST; thus they can be developed and deployed independently. Each service has its own database in order to be decoupled from other services. Such architectures scale faster than a classic monolithic approach, for instance, a new application can be deployed from everywhere really fast by just using the same interface of the existing ones. Moreover, each application can be added from everywhere allowing developers to use their favourites technologies and hosting platform.
 In our project we deployed all the services on the same server, but in a real world, as we said,  they are usually physically separated. Since all the applications provide a common interface for pull/push personalization content, we are going to call this set of services the \emph{Application Layer}.\\
 \\
 All the active logic of the network is handled by another Micro Service, called \emph{Tacita}, that links display, application and users. It's responsibility is to be the glue between the \emph{Application Layer} and all the other elements by storing users' informations, screen's state and available applications.

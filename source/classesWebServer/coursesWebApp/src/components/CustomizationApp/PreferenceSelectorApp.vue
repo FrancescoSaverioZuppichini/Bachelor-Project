@@ -1,33 +1,28 @@
 <template>
-<div id="PreferenceSelector">
-  <div class="">
-      <h3>Select your faculty</h3>
-      <!-- <transition name='fade'>
-        <div class="uk-alert-danger" uk-alert v-if="showError">
-          <p>{{error.msg}}</p>
-        </div>
-      </transition> -->
-    </div>
-  <div class="uk-flex" uk-grid>
-    <div v-for="faculty in $store.state.faculties" class="uk-width-auto@s uk-width-1-1@m">
-      <div class="uk-card uk-card-default uk-card-body">
-        <div @click="$store.actions.selectFaculty(faculty,false)" v-if="!$store.state.preference.faculty || !($route.params.facultyId == faculty.id)">
-          <p class='uk-margin-remove uk-text-large'>{{faculty.name_en}}</p>
-        </div>
-        <h4 class='uk-margin-remove' v-else>{{faculty.name_en}}</h4>
+<selector-wrapper title="Select Faculty">
+  <div class='uk-container bottom--offset '>
+    <div class="uk-flex uk-margin-top" uk-grid>
+      <div v-for="faculty in $store.state.faculties" class="uk-width-auto@s uk-width-1-1@m">
+        <resource @click.native="$store.actions.selectFaculty(faculty,false)">
+          <h4 class='uk-margin-remove'>{{faculty.name_en}}</h4>
+        </resource>
       </div>
     </div>
+    <navigation :onlyBack="true"></navigation>
   </div>
-<navigation :onlyBack="true"></navigation>
-</div>
+</selector-wrapper>
 </template>
 <script>
+import Resource from './Resource.vue'
 import Navigation from './Navigation.vue'
+import SelectorWrapper from './SelectorWrapper.vue'
 
 export default {
   name: "PreferenceSelector",
   components: {
-Navigation
+    Navigation,
+    SelectorWrapper,
+    Resource
   }
 }
 </script>

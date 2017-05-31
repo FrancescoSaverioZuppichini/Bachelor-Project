@@ -9,10 +9,13 @@ class UserStore extends Store {
   constructor() {
     super()
     this.state.currentPreference = {}
+    this.state.showConfirmationModal = false
+
     this.state.user = { id: null, preferences: { data: [], loading: false }, color: null }
   }
 
   fetchUserPreferenceSuccess({ preferences }) {
+    preferences.reverse()
     this.state.user.preferences.data = preferences
     this.state.user.preferences.loading = false
   }
@@ -23,11 +26,19 @@ class UserStore extends Store {
   }
 
   updatePreferenceSuccess({ preference }) {
+    this.state.showConfirmationModal = false
     router.push({ name: 'home', params: { userId: this.state.user.id } })
   }
 
   addPreferenceSuccess({ preference }) {
+    this.state.showConfirmationModal = false
+    this.state.user.preferences.data.unshift(preference)
     router.push({ name: 'home', params: { userId: this.state.user.id } })
+  }
+
+  onGetMeSuccess({ data }) {
+    this.state.user.id = data.id
+    this.sStore.actions.fetchUserPreferences()
   }
 
   reduce(action) {
@@ -38,7 +49,7 @@ class UserStore extends Store {
       UPDATE_USER_PREFERENCE_SUCCESS: this.updatePreferenceSuccess,
       ADD_PREFERENCE_SUCCESS: this.addPreferenceSuccess,
       REMOVE_PREFERENCE_SUCCESS: this.removePreferenceSuccess,
-      GET_ME_SUCCESS: (({ data }) => this.state.user.id = data.id)
+      GET_ME_SUCCESS: this.onGetMeSuccess
     })
   }
 

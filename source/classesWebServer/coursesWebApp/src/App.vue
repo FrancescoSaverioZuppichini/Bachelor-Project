@@ -1,10 +1,12 @@
 <template>
 <div id="app">
-  <router-view></router-view>
+  <router-view class='f-h'></router-view>
 </div>
 </template>
 
 <script>
+import Resource from './components/CustomizationApp/Resource.vue'
+
 window.jQuery = window.$ = require('jquery')
 import Vue from 'vue'
 import Vuetify from 'vuetify'
@@ -16,13 +18,13 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-/*@import "./css/fullcalendar.css"*/
+<style stylus>
+@import "./css/vuetify.min.css";
 @import "./css/main.css";
 
 #app {
-  max-height: 100vh
-  min-height: 100vh
+  max-height: 100vh;
+  min-height: 100vh;
 
 }
 .full-h {

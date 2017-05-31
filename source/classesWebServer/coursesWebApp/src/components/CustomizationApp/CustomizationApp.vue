@@ -1,11 +1,10 @@
 <template>
-<div class='uk-container uk-margin-top uk-flex uk-flex-column'>
+<div class='f-h'>
   <keep-alive>
-    <router-view></router-view>
+    <router-view class='f-v'></router-view>
   </keep-alive>
   <!-- <router-view></router-view> -->
   <preference-confirmationModal></preference-confirmationModal>
-
 </div>
 </template>
 <script>

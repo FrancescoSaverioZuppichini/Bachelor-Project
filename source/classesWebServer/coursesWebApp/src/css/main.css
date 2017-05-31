@@ -13,6 +13,27 @@
   width: 100%;
 }
 
+.f-h {
+  height: 100%;
+}
+
+.uk-flex--grow {
+  flex-grow: 99;
+}
+
+.f-v {
+  height: 100vh;
+}
+
+.uk-section-small {
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+}
+
+.bottom--offset {
+  margin-bottom: 70px;
+}
+
 .icon--circle {
   width: 25px;
   height: 25px;

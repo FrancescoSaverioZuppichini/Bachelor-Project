@@ -9,7 +9,7 @@ import PreferenceSelectorYear from '../components/PreferenceSelector/PreferenceS
 import PreferenceSelectorStudyType from '../components/PreferenceSelector/PreferenceSelectorStudyType.vue'
 
 import PreferenceSelectorApp from '../components/CustomizationApp/PreferenceSelectorApp.vue'
-import PreferenceSelectorFacultyApp from '../components/CustomizationApp/PreferenceSelectorFacultyApp.vue'
+// import PreferenceSelectorFacultyApp from '../components/CustomizationApp/PreferenceSelectorFacultyApp.vue'
 import PreferenceSelectorStudyApp from '../components/CustomizationApp/PreferenceSelectorStudyApp.vue'
 import PreferenceSelectorYearApp from '../components/CustomizationApp/PreferenceSelectorYearApp.vue'
 import PreferenceSelectorStudyTypeApp from '../components/CustomizationApp/PreferenceSelectorStudyTypeApp.vue'

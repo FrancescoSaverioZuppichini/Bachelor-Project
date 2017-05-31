@@ -36,7 +36,7 @@ class Navigation {
 
   reset(basicUrl) {
     this._index = 0
-    if(this.BASE_URL != '' && this.BASE_URL) router.push(this.BASE_URL)
+    if (this.BASE_URL != '' && this.BASE_URL) router.push(this.BASE_URL)
   }
 }
 

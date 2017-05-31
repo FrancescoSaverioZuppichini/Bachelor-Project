@@ -4,8 +4,10 @@
     <h3>create preference?</h3>
     <p class="uk-text-meta">This is how it's gonna look</p>
     <preference :preference="this.$store.state.preference"></preference>
-    <button class="uk-button uk-button-link uk-button-borderless uk-float-left uk-modal-close"> Cancel </button>
-    <button class="uk-button uk-button-primary uk-float-right uk-modal-close" @click="$store.actions.goNext()"> Yes </button>
+    <v-btn flat @click.native="this.$store.state.showConfirmationModal = false">Cancel</v-btn>
+    <v-btn primary dark @click.native="$store.actions.goNext()">Yes</v-btn>
+
+
   </div>
 </div>
 </template>
