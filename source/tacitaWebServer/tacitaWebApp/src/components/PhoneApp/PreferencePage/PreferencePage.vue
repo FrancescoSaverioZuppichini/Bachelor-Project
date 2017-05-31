@@ -19,7 +19,8 @@ export default {
   },
   data: function data() {
     return {
-      src: this.$route.params.src
+      src: this.$route.params.src,
+      iframeContent: null
     }
   }
 }
