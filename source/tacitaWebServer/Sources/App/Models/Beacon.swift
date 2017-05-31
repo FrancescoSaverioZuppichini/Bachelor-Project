@@ -24,7 +24,7 @@ public final class Beacon: Model,RequestInitializable {
     
     public init(request req: Request) throws {
         
-        if let displayId = req.data["displayId"]?.int {
+        if let displayId = req.data["display_id"]?.int {
             guard let display = try Display.find(displayId) else {
                 throw Abort.custom(status: .notFound, message: ResourseError.resourceNotFoud("Display").description)
             }
@@ -32,8 +32,8 @@ public final class Beacon: Model,RequestInitializable {
             self.displayId = display.id
         }
         
-        guard let beaconId = req.data["beaconId"]?.string else{
-            throw Abort.custom(status: .badRequest, message: ResourseError.parameterIsMissing("beaconId").description)
+        guard let beaconId = req.data["beacon_id"]?.string else{
+            throw Abort.custom(status: .badRequest, message: ResourseError.parameterIsMissing("beacon_id").description)
         }
         
         if let _ = try Beacon.query().filter("beacon_id", beaconId ).first() {

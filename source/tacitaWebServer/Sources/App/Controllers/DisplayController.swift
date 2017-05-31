@@ -15,7 +15,8 @@ final class DisplayController {
     
     static func getAll(_ req: Request) throws -> ResponseRepresentable {
         
-        return try Display.query().all().makeJSON()
+        return try Display.query().all().makeNode(context: req.context ).converted(to: JSON.self)
+
     }
     
     static func getOne(_ req: Request, display: Display) throws -> ResponseRepresentable {

@@ -38,7 +38,8 @@ app.use(cookieParser());
 
 // handle the js case
 app.use('/js/*', (req, res) => {
-  var key = (url.parse(req.headers.referer).pathname).replace(new RegExp('/', 'g'), '')
+  var key  = url.parse(req.headers.referer).pathname.split('/')[1]
+  // var key = (url.parse(req.headers.referer).pathname).replace(new RegExp('/', 'g'), '')
   axios.get(config[key] + req.originalUrl)
     .then(data => res.send(data.data))
     .catch(({ response }) => {

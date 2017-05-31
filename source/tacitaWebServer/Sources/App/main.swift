@@ -16,6 +16,11 @@ drop.preparations.append(Display.self)
 drop.preparations.append(Pivot<User,Application>.self)
 drop.preparations.append(Pivot<Display,Application>.self)
 
+drop.get("admin") {
+    request in
+    try drop.view.make("admin.html")
+}
+
 drop.get("") {
     request in
     try drop.view.make("index.html")

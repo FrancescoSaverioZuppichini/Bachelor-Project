@@ -20,7 +20,7 @@ public final class Display: Model, Preparation {
         switch context {
         case ResourseContext.all:
             display["apps"] = try getCurrentApp().all().makeNode(context: ResourseContext.snippet)
-            display["beacons"] = try getBeacons().makeNode()
+            display["beacons"] = try getBeacons().makeNode(context: ResourseContext.snippet)
         default:
             break
             

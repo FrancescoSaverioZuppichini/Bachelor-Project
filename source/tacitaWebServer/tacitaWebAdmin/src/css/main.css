@@ -1,0 +1,36 @@
+.my-card__actions {
+  position: absolute !important;
+  top: 16px;
+  right: 4px;
+}
+
+.f-h {
+  height: 100%;
+}
+
+.uk-flex--grow {
+  flex-grow: 99
+}
+
+.uk-card-body {
+  padding: 16px !important
+}
+
+button {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+.uk-dropdown {
+  min-width: 100px !important;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 4s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}
