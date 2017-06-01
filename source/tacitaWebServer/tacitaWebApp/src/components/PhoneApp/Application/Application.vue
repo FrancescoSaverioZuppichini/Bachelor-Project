@@ -3,11 +3,11 @@
   <div class='uk-flex uk-flex-middle'>
     <div class='uk-flex--grow uk-flex uk-flex-middle'>
       <div class='uk-margin-right'>
-        <v-btn icon @click.native="$router.push({name:'Preference',params:{src: this.window.location.origin + '/'+ application.url + '/#/app/home'}})" class="grey--text text--darken-2" large>
-          <v-icon  large>{{application.material_icon}}</v-icon>
+        <v-btn icon @click.native="$router.push({name:'Preference',params:{src: getUrl(application)}})" class="grey--text text--darken-2" large>
+          <v-icon large>{{application.material_icon}}</v-icon>
         </v-btn>
       </div>
-        <h4 class='uk-margin-remove' @click="$router.push({name:'Preference',params:{src: this.window.location.origin + '/'+ application.url + '/#/app/home'}})">{{application.name.toUpperCase()}}</h4>
+      <h4 class='uk-margin-remove' @click="$router.push({name:'Preference',params:{src: getUrl(application)}})">{{application.name.toUpperCase()}}</h4>
       <div class='uk-flex--grow'>
       </div>
     </div>
@@ -24,6 +24,11 @@ export default {
   data: function data() {
     return {
 
+    }
+  },
+  methods: {
+    getUrl(application) {
+      return window.location.origin + '/' + application.url + '/#/app/home/'
     }
   }
 }

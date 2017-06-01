@@ -38,7 +38,7 @@ public func load(_ _drop: Droplet) throws {
     drop.preparations.append(Pivot<Preference, Study>.self)
     drop.preparations.append(Pivot<Preference, StudyType>.self)
 
-//    USIAPIFetcher.start()
+    USIAPIFetcher.start()
     
     drop.get("") {
         request in

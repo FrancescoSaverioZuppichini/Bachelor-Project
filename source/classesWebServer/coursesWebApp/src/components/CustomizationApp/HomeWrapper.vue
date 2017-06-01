@@ -1,7 +1,7 @@
 <template>
 <div id="HomeWrapper">
   <div class='uk-flex uk-flex-column f-h'>
-    <div class='uk-margin-bottom uk-margin-left uk-margin-right uk-section uk-section-small'>
+    <div class='uk-margin-bottom uk-margin-left uk-margin-right'>
       <h3 class='uk-margin-remove'>Your preferences
       <br />
       <small class='uk-text-meta'>{{$store.state.user.preferences.data.length}} entries</small></h3>

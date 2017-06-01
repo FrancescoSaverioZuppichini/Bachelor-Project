@@ -1,7 +1,7 @@
 <template>
 <div class='f-h uk-flex-column uk-flex'>
   <nav-bar :home="true"></nav-bar>
-  <iframe :src="src +'/' + $store.state.user.id" scrolling="yes" class='uk-flex--grow'></iframe>
+  <iframe :src="src + $store.state.user.id" scrolling="yes" class='uk-flex--grow'></iframe>
 </div>
 </template>
 <script>
