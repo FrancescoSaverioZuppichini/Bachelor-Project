@@ -52,11 +52,6 @@ export default new Router({
           name: 'home',
           component: CustomizationAppHome
         },
-        // {
-        //     path: '/app/home/',
-        //     name: 'home',
-        //     component: CustomizationAppHome
-        //   },
         {
           path: '/app/preference/:id/edit',
           name: 'edit',

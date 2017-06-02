@@ -51,7 +51,9 @@ class UserStore extends Store {
           .then(({ data }) => {
             dispatcher.dispatch(new Action("GET_ME_SUCCESS", { data }))
           })
-        // .catch((err) => /* do something*/ )
+          .catch((err) => {
+            /* do something*/
+          })
 
       },
       getMyApps() {
@@ -59,13 +61,17 @@ class UserStore extends Store {
           .then(({ data }) => {
             dispatcher.dispatch(new Action("GET_MY_APPS_SUCCESS", { data }))
           })
-        // .catch((err) => /* do something*/ )
+          .catch((err) => {
+            /* do something*/
+          })
 
       },
       updateUser(user) {
         api.user.updateUser(user)
           .then(() => { new Action("UPDATE_USER_SUCCESS") })
-        // .catch((err) => /* do something*/ )
+          .catch((err) => {
+            /* do something*/
+          })
 
       },
       toogleApp(app) {

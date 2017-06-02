@@ -3,14 +3,13 @@
   <div class='uk-container'>
     <div class="uk-flex uk-margin-top" uk-grid>
       <div v-for="study in $store.state.preference.faculty.studies" class="uk-width-auto@s uk-width-1-1@m">
-        <resource :toogle="toogle(study.type)" @click.native="$store.actions.updatePreference({type:study})">
+        <resource :toogle="toogle(study.type)" @click.native="goNext({type:study})">
           <h4 class='uk-margin-remove'>{{study.type}}</h4>
         </resource>
       </div>
     </div>
   </div>
   <navigation :id="$route.params.id" :onlyBack="true" v-if="!this.$store.isInEditMode"></navigation>
-
   <div class="uk-margin-top navigation__actions" v-else>
     <a uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)"> </a>
   </div>
@@ -29,7 +28,7 @@ export default {
     Navigation,
     PreferenceSummary,
     SelectorWrapper,
-Resource
+    Resource
   },
   data: function data() {
     return {
@@ -39,6 +38,16 @@ Resource
   methods: {
     toogle(type) {
       return (type == this.$store.state.preference.type)
+    },
+    goNext(stuff) {
+      this.$store.actions.updatePreference(stuff)
+      if (this.$store.state.isInEditMode) this.$router.go(-1)
+      else {
+        this.$router.push({
+          name: 'year',
+          params: this.$route.params
+        })
+      }
     }
   }
 }

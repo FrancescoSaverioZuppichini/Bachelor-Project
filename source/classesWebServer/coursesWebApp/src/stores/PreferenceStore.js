@@ -7,36 +7,27 @@ import path from 'path'
 
 class Navigation {
   constructor() {
-    this._urls = ['faculty', 'study', 'year', 'studyType']
-    this._guards = []
+    this._urls = []
     this._index = 0
+    this.route = {}
   }
 
-  setGuards(guards) {
-    this._guards = guards
-  }
+  goNext(params) {
 
-  goNext(id) {
-
-    id = id || ''
-
-    // if (this._index >= this._urls.length) return
-
-    this._guards[this._index]()
-    router.push({ name: this._urls[this._index], params: { facultyId: id } })
+    console.log(this._urls[this._index]);
+    router.push({ name: this._urls[this._index], params: params })
     this._index += 1
 
   }
 
   goBack() {
     this._index -= 1
-    if (this._index <= this._guards.length && this.index >= 0) this._guards[this._index]()
     router.go(-1)
   }
 
-  reset(basicUrl) {
+  reset(params) {
     this._index = 0
-    if (this.BASE_URL != '' && this.BASE_URL) router.push(this.BASE_URL)
+    router.push({ name: 'home', params: params })
   }
 }
 
@@ -47,25 +38,6 @@ class PreferenceStore extends Store {
     this.state.preference = {}
     this.state.navigation = new Navigation()
     this.state.isInEditMode = false
-    this.state.navigation.setGuards(this.navigationGuards())
-  }
-
-  onNavigationDone() {
-    Vue.set(this.state.preference, 'isLoading', true)
-    console.log('onNavigationDone');
-    this.sStore.actions.fetchCourses(this.makeQueryFromPreference(this.state.preference))
-  }
-
-  navigationGuards() {
-    return [
-      () => { console.log('beforeGoToStudy') },
-      () => { console.log('beforeGoToYear') },
-      () => {
-        const studyType = this.state.preference.faculty.studies.filter(study => this.state.preference.type == study.type)
-        console.log(studyType.length)
-      },
-      this.onNavigationDone.bind(this)
-    ]
   }
 
   makeQueryFromPreference(preference) {
@@ -85,20 +57,16 @@ class PreferenceStore extends Store {
     this.state.navigation.reset()
   }
 
-  selectFaculty({ faculty, reset }) {
+  selectFaculty({ faculty }) {
     this.state.preference = {}
     this.state.preference.isLoading = false
-    if (reset) this.reset()
     this.state.preference.faculty = faculty
-    this.sStore.actions.goNext(faculty.id)
+    this.sStore.actions.goNext({ facultyId: faculty.id })
   }
 
-  updatePreference({ data, goNext }) {
-    if (goNext == undefined) goNext = true
+  updatePreference({ data }) {
     // this.state.preference = Object.assign(this.state.preference, data)
     this.state.preference = Object.assign({}, this.state.preference, data)
-    console.log(this.state.preference);
-    if (goNext) this.sStore.actions.goNext(this.state.preference.faculty.id)
   }
 
   resetAfterSuccess() {
@@ -111,18 +79,13 @@ class PreferenceStore extends Store {
     this.state.isInEditMode = !this.state.isInEditMode
   }
 
-  setGuards({ guards }) {
-    this.state.navigation.setGuards(guards.map(guard => guard.bind(this)))
-  }
-
   reduce(action) {
     this.reduceMap(action, {
       FETCH_COURSES_SUCCESS: this.resetAfterSuccess,
       SELECT_FACULTY: this.selectFaculty,
       UPDATE_PREFERENCE: this.updatePreference,
-      GO_NEXT: ({ id }) => this.state.navigation.goNext(id),
+      GO_NEXT: ({ params }) => this.state.navigation.goNext(params),
       GO_BACK: () => this.state.navigation.goBack(),
-      SET_GUARDS: this.setGuards,
       ADD_PREFERENCE_SUCCESS: (() => { this.reset() }),
       TOOGLE_PREFERENCE_EDIT: this.tooglePreferenceEdit
     })
@@ -137,14 +100,11 @@ class PreferenceStore extends Store {
       updatePreference(data, goNext) {
         dispatcher.dispatch(new Action('UPDATE_PREFERENCE', { data, goNext }))
       },
-      goNext(id) {
-        dispatcher.dispatch(new Action('GO_NEXT', { id }))
+      goNext(params) {
+        dispatcher.dispatch(new Action('GO_NEXT', { params }))
       },
       goBack() {
         dispatcher.dispatch(new Action('GO_BACK'))
-      },
-      setGuards(arrayOfFunction) {
-        dispatcher.dispatch(new Action('SET_GUARDS', { guards: arrayOfFunction }))
       },
       tooglePreferenceEdit(preference) {
         dispatcher.dispatch(new Action('TOOGLE_PREFERENCE_EDIT', { preference }))

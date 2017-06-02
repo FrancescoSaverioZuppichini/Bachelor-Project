@@ -55,7 +55,6 @@ export default {
     window.user = this.user
     // this.$store.actions.createOrFetchUser('android.ubicomp.usi@gmail.com')
 
-    // setTimeout(()=>{  window.test.test = 'PORODIO'},500)
     this.$store.actions.fetchApplications()
     // this.$store.actions.getMe('zuppif')
   }

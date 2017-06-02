@@ -27,6 +27,11 @@ class UserStore extends Store {
 
   updatePreferenceSuccess({ preference }) {
     this.state.showConfirmationModal = false
+    console.log(this.state.user.preferences.data);
+    console.log(preference);
+    for (let pref of this.state.user.preferences.data) {
+      if (pref.id == preference.id) pref = preference
+    }
     router.push({ name: 'home', params: { userId: this.state.user.id } })
   }
 
@@ -60,12 +65,14 @@ class UserStore extends Store {
           .then(({ data }) => {
             dispatcher.dispatch(new Action("GET_ME_SUCCESS", { data }))
           })
+          .catch((err) => {})
       },
       getMeById(userId) {
         api.user.getMeById(userId)
           .then(({ data }) => {
             dispatcher.dispatch(new Action("GET_ME_SUCCESS", { data }))
           })
+          .catch((err) => {})
       },
       fetchUserPreferences() {
         dispatcher.dispatch({ type: "FETCH_USER_PREFERENCE_LOADING" })
@@ -79,7 +86,7 @@ class UserStore extends Store {
         dispatcher.dispatch(new Action("UPDATE_PREFERENCE_LOADING"))
         api.preference.updatePreference(preference)
           .then(() => {
-            dispatcher.dispatch(new Action("UPDATE_USER_PREFERENCE_SUCCESS"))
+            dispatcher.dispatch(new Action("UPDATE_USER_PREFERENCE_SUCCESS",{preference}))
           })
           .catch(({ response }) => {
             const err = response.data

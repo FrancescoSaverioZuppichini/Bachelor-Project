@@ -5,10 +5,10 @@
       <div v-for="study in $store.state.preference.faculty.studies" v-if="$store.state.preference.type.type == study.type">
         <div class="uk-flex" uk-grid>
           <div v-for="studyType in study.studyTypes" class="uk-width-1-1">
-            <resource :toogle="toogle(studyType)" @click.native="next(studyType)" v-if="!$store.state.isInEditMode">
+            <resource :toogle="toogle(studyType)" @click.native="next({studyType})" v-if="!$store.state.isInEditMode">
               {{parseName(studyType.name_en)}}
             </resource>
-            <resource :toogle="toogle(studyType)" @click.native="$store.actions.updatePreference({studyType})" v-if="$store.state.isInEditMode">
+            <resource :toogle="toogle(studyType)" @click.native="next({studyType})" v-if="$store.state.isInEditMode">
               {{parseName(studyType.name_en)}}
             </resource>
           </div>
@@ -44,11 +44,12 @@ export default {
       if (!this.$store.state.preference.studyType) return false
       return (studyType.id == this.$store.state.preference.studyType.id)
     },
-    next(studyType) {
-      this.$store.actions.updatePreference({
-        studyType
-      }, false)
-      this.$store.state.showConfirmationModal = true
+    next(stuff) {
+      this.$store.actions.updatePreference(stuff, false)
+      if (this.$store.state.isInEditMode) this.$router.go(-1)
+      else {
+        this.$store.state.showConfirmationModal = true
+      }
     },
     parseName(name) {
       const words = name.split(' ')
@@ -60,11 +61,9 @@ export default {
           break;
         case "Bachelor":
           parsedName = search('of')
-
         default:
 
       }
-
       return parsedName
 
     }

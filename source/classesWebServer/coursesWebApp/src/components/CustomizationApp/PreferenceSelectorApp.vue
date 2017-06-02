@@ -3,7 +3,7 @@
   <div class='uk-container bottom--offset '>
     <div class="uk-flex uk-margin-top" uk-grid>
       <div v-for="faculty in $store.state.faculties" class="uk-width-auto@s uk-width-1-1@m">
-        <resource @click.native="$store.actions.selectFaculty(faculty,false)">
+        <resource @click.native="goNext(faculty)">
           <h4 class='uk-margin-remove'>{{faculty.name_en}}</h4>
         </resource>
       </div>
@@ -23,6 +23,20 @@ export default {
     Navigation,
     SelectorWrapper,
     Resource
+  },
+  methods: {
+    goNext(stuff) {
+      this.$store.actions.selectFaculty(stuff)
+      if (this.$store.state.isInEditMode) this.$router.go(-1)
+      else {
+        this.$router.push({
+          name: 'study',
+          params: {
+            facultyId: stuff.id
+          }
+        })
+      }
+    }
   }
 }
 </script>

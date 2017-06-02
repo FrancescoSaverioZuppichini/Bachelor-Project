@@ -2,8 +2,6 @@
 <div class="pull-down-container">
   <div class="pull-down-header" v-bind:style="{'height': pullDown.height + 'px'}">
     <div class="pull-down-content uk-section">
-      <!-- <v-progress-circular indeterminate class="primary--text" v-if="this.pullDown.status==1" /> -->
-      <!-- <v-icon class="grey--text text--darken-2" large v-if="this.pullDown.status==1">arrow_downward</v-icon> -->
       <v-progress-circular indeterminate class="primary--text" v-if="this.pullDown.status==2" />
       <i class="pull-down-content--icon" v-bind:class="iconClass"></i>
     </div>

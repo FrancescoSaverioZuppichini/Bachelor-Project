@@ -38,49 +38,7 @@ export default {
     return {
 
     }
-  },
-  mounted: function mounted() {
-    //do something after mounting vue instance
-    this.$store.state.navigation._urls = ['']
-    var router = this.$router
-    const guards = [
-      function() {
-        this.state.navigation.reset()
-        router.go(-1)
-        // router.push({
-        //   name: 'edit',
-        //   params: {
-        //     id: this.state.preference.id
-        //   }
-        // })
-      }
-    ]
-    this.$store.actions.setGuards(guards)
-
-  },
-  watch: {
-    '$route': function(newRoute) {
-      if (newRoute.path == `/app/preference/${this.$store.state.preference.id}/edit`) {
-        this.$store.state.navigation.reset()
-        this.$store.state.navigation._urls = ['']
-        var router = this.$router
-        const guards = [
-          function() {
-            this.state.navigation.reset()
-            router.go(-1)
-            // router.push({
-            //   name: 'edit',
-            //   params: {
-            //     id: this.state.preference.id
-            //   }
-            // })
-          }
-        ]
-        this.$store.actions.setGuards(guards)
-
-      }
-    }
-  },
+  }
 }
 </script>
 <style>

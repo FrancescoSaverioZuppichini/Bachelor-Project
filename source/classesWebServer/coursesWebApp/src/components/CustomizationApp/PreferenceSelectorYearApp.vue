@@ -5,7 +5,7 @@
       <div class="uk-margin-top">
         <div v-for="study in $store.state.preference.faculty.studies" v-if="$store.state.preference.type.type == study.type">
           <div class="uk-flex uk-margin-small-bottom">
-            <div :class="{'uk-box-shadow-large': toogle(year.yearNumber)}" class="uk-button btn-circle btn-circle--large uk-button-default uk-margin-small-right uk-box-shadow-medium" v-for="year in study.years" @click="$store.actions.updatePreference({year})">
+            <div :class="{'uk-box-shadow-large': toogle(year.yearNumber)}" class="uk-button btn-circle btn-circle--large uk-button-default uk-margin-small-right uk-box-shadow-medium" v-for="year in study.years" @click="goNext({year})">
               {{year.yearNumber}}
             </div>
           </div>
@@ -39,7 +39,17 @@ export default {
     toogle(yearNumber) {
       if (!this.$store.state.preference.year) return false
       return (yearNumber == this.$store.state.preference.year.yearNumber)
+    },
+    goNext(stuff) {
+      this.$store.actions.updatePreference(stuff)
+      if (this.$store.state.isInEditMode) this.$router.go(-1)
+      else {
+      this.$router.push({
+        name: 'studyType',
+        params: this.$route.params
+      })
     }
+}
   }
 }
 </script>
