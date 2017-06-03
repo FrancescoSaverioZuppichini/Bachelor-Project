@@ -1,16 +1,7 @@
 <template>
 <div class="uk-container uk-margin-small-top ">
-  <!-- <h5>Change station  <router-link  class='uk-float-right' :to="{ path: 'station'}"> <span  uk-icon="icon:  arrow-right; ratio: 1.5"></span></router-link> </h5> -->
   <div class="uk-card content">
     <h3 class='uk-margin-remove'> {{$store.state.preference.faculty.name_en}}</h3>
-    <!-- <h5>Change Faculty </h5> -->
-    <!-- <div v-if="$store.state.preference.faculty">
-      <div class="uk-card uk-card-default uk-card-body my-card--padding">
-        <h5> {{$store.state.preference.faculty.name_en}}</h5>
-      </div>
-    </div> -->
-    {{this.$store.state.preference.studyType}}
-    <!-- <h6 class='uk-text-center' v-else @click="$router.push({name: 'faculty'})"> No faculty selected </h6> -->
     <h5>Change Study Plan </h5>
     <div v-if="$store.state.preference.type" @click="$router.push({name:'study',params:{facultyId:$store.state.preference.faculty.id}})">
       <div class="uk-card uk-card-default uk-card-body my-card--padding">

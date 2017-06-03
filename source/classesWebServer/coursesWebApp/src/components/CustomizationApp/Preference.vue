@@ -1,5 +1,5 @@
 <template>
-<div class="uk-card uk-card-default uk-card-body uk-margin-bottom">
+<div class="uk-card uk-card-default uk-card-body">
   <div class="uk-float-right uk-flex">
     <div>
       <v-btn icon="icon" class="grey--text text--darken-2" @click.native="$store.actions.tooglePreferenceEdit(preference)">

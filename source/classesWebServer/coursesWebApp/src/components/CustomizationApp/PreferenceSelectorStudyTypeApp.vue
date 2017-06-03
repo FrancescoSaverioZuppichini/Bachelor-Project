@@ -2,18 +2,20 @@
 <selector-wrapper title="Select your study program">
   <div class='uk-container bottom--offset '>
     <div class="uk-margin-top">
-      <div v-for="study in $store.state.preference.faculty.studies" v-if="$store.state.preference.type.type == study.type">
-        <div class="uk-flex" uk-grid>
-          <div v-for="studyType in study.studyTypes" class="uk-width-1-1">
-            <resource :toogle="toogle(studyType)" @click.native="next({studyType})" v-if="!$store.state.isInEditMode">
-              {{parseName(studyType.name_en)}}
-            </resource>
-            <resource :toogle="toogle(studyType)" @click.native="next({studyType})" v-if="$store.state.isInEditMode">
-              {{parseName(studyType.name_en)}}
-            </resource>
+      <resource-transition-wrapper>
+        <div v-for="study in $store.state.preference.faculty.studies" v-if="$store.state.preference.type.type == study.type" :key='study'>
+          <div class="uk-flex" uk-grid>
+            <div v-for="studyType in study.studyTypes" class="uk-width-1-1">
+              <resource :toogle="toogle(studyType)" @click.native="next({studyType})" v-if="!$store.state.isInEditMode">
+                {{parseName(studyType.name_en)}}
+              </resource>
+              <resource :toogle="toogle(studyType)" @click.native="next({studyType})" v-if="$store.state.isInEditMode">
+                {{parseName(studyType.name_en)}}
+              </resource>
+            </div>
           </div>
         </div>
-      </div>
+      </resource-transition-wrapper>
     </div>
   </div>
   <navigation :id="$route.params.id" :onlyBack="true" v-if="!this.$store.isInEditMode"></navigation>
@@ -26,13 +28,15 @@
 import Navigation from './Navigation.vue'
 import SelectorWrapper from './SelectorWrapper.vue'
 import Resource from './Resource.vue'
+import ResourceTransitionWrapper from './ResourceTransitionWrapper.vue'
 
 export default {
   name: "PreferenceSelectorStudyType",
   components: {
     Navigation,
     SelectorWrapper,
-    Resource
+    Resource,
+    ResourceTransitionWrapper
   },
   data: function data() {
     return {

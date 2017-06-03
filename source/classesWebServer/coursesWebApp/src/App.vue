@@ -21,6 +21,7 @@ export default {
 <style stylus>
 @import "./css/vuetify.min.css";
 @import "./css/main.css";
+@import "../node_modules/animate.css/animate.css";
 
 #app {
   max-height: 100vh;

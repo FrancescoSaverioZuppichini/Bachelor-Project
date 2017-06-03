@@ -40,15 +40,17 @@ export default {
       return (type == this.$store.state.preference.type)
     },
     goNext(data) {
-      if (data.type.type != this.$store.state.preference.type.type)  this.$store.state.preference.studyType = {}
-      this.$store.actions.updatePreference(data)
-      if (this.$store.state.isInEditMode) this.$router.go(-1)
-      else {
+      if (this.$store.state.isInEditMode) {
+        if (data.type.type != this.$store.state.preference.type.type) this.$store.state.preference.studyType = {}
+        this.$router.go(-1)
+      } else {
         this.$router.push({
           name: 'year',
           params: this.$route.params
         })
       }
+      this.$store.actions.updatePreference(data)
+
     }
   }
 }

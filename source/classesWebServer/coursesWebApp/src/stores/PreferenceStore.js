@@ -75,7 +75,7 @@ class PreferenceStore extends Store {
 
   tooglePreferenceEdit({ preference }) {
     router.push({ name: 'edit', params: { id: preference.id } })
-    this.state.preference = Object.assign({},preference)
+    this.state.preference = Object.assign({}, preference)
     this.state.isInEditMode = !this.state.isInEditMode
   }
 

@@ -12,6 +12,7 @@
     "watch": "cd ../Public/js && rm * && cd ../../coursesWebApp && NODE_ENV=DEBUG webpack --progress --colors --watch --config build/webpack.prod.conf.js"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "animated-vue": "^0.4.0",
     "axios": "^0.16.1",
     "flue-vue": "^1.0.4",
