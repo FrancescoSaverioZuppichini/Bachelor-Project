@@ -39,18 +39,6 @@ export default {
       if (to.name == 'home') this.$store.state.isInEditMode = false
     }
   },
-  methods: {
-    onNavigationDone() {
-      console.log('dicoane');
-      this.$store.actions.addPreference(this.$store.PreferenceStore.makeQueryFromPreference())
-    },
-    setUpNavigation() {
-      this.$store.state.isInEditMode = false
-      this.$store.state.navigation._index = 0
-      this.$store.state.navigation.route = this.$route
-      this.$store.state.navigation._urls = ['faculty', 'study', 'year', 'studyType']
-    },
-  },
   data: function data() {
     return {
 

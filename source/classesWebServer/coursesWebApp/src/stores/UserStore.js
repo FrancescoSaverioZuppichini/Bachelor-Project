@@ -10,7 +10,6 @@ class UserStore extends Store {
     super()
     this.state.currentPreference = {}
     this.state.showConfirmationModal = false
-
     this.state.user = { id: null, preferences: { data: [], loading: false }, color: null }
   }
 
@@ -27,10 +26,8 @@ class UserStore extends Store {
 
   updatePreferenceSuccess({ preference }) {
     this.state.showConfirmationModal = false
-    console.log(this.state.user.preferences.data);
-    console.log(preference);
     for (let pref of this.state.user.preferences.data) {
-      if (pref.id == preference.id) pref = preference
+      if (pref.id == preference.id) pref = Object.assign(pref, preference)
     }
     router.push({ name: 'home', params: { userId: this.state.user.id } })
   }
@@ -85,8 +82,8 @@ class UserStore extends Store {
       updateUserPreference(preference) {
         dispatcher.dispatch(new Action("UPDATE_PREFERENCE_LOADING"))
         api.preference.updatePreference(preference)
-          .then(() => {
-            dispatcher.dispatch(new Action("UPDATE_USER_PREFERENCE_SUCCESS",{preference}))
+          .then(({ data }) => {
+            dispatcher.dispatch(new Action("UPDATE_USER_PREFERENCE_SUCCESS", { preference: data }))
           })
           .catch(({ response }) => {
             const err = response.data

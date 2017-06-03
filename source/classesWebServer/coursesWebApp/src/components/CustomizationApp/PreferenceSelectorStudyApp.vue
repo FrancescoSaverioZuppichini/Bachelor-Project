@@ -39,8 +39,9 @@ export default {
     toogle(type) {
       return (type == this.$store.state.preference.type)
     },
-    goNext(stuff) {
-      this.$store.actions.updatePreference(stuff)
+    goNext(data) {
+      if (data.type.type != this.$store.state.preference.type.type)  this.$store.state.preference.studyType = {}
+      this.$store.actions.updatePreference(data)
       if (this.$store.state.isInEditMode) this.$router.go(-1)
       else {
         this.$router.push({

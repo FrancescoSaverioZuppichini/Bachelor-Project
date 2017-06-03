@@ -12,7 +12,6 @@
         </div>
       </div>
       <navigation :onlyBack="true"></navigation>
-
     </div>
   </div>
 
@@ -59,6 +58,16 @@ export default {
   height: 75px;
   border-radius: 50%;
   font-size: 40px;
+  color: rgb(66, 66, 66);
+  border: none;
+  background: white;
+}
+
+.btn-circle--medium {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 25px;
   color: rgb(66, 66, 66);
   border: none;
   background: white;

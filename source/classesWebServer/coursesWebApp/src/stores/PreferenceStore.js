@@ -53,12 +53,12 @@ class PreferenceStore extends Store {
   }
 
   reset() {
-    this.state.preference = {}
+    this.state.preference = { faculty: {} }
     this.state.navigation.reset()
   }
 
   selectFaculty({ faculty }) {
-    this.state.preference = {}
+    this.state.preference = { id: this.state.preference.id }
     this.state.preference.isLoading = false
     this.state.preference.faculty = faculty
     this.sStore.actions.goNext({ facultyId: faculty.id })
@@ -75,8 +75,14 @@ class PreferenceStore extends Store {
 
   tooglePreferenceEdit({ preference }) {
     router.push({ name: 'edit', params: { id: preference.id } })
-    this.state.preference = preference
+    this.state.preference = Object.assign({},preference)
     this.state.isInEditMode = !this.state.isInEditMode
+  }
+
+  onGoBackFromEditMode() {
+    // this.state.preference = Object.assign(this.state.preference, this.state.preferenceBackUp)
+    this.state.isInEditMode = false
+    router.go(-1)
   }
 
   reduce(action) {
@@ -87,7 +93,8 @@ class PreferenceStore extends Store {
       GO_NEXT: ({ params }) => this.state.navigation.goNext(params),
       GO_BACK: () => this.state.navigation.goBack(),
       ADD_PREFERENCE_SUCCESS: (() => { this.reset() }),
-      TOOGLE_PREFERENCE_EDIT: this.tooglePreferenceEdit
+      TOOGLE_PREFERENCE_EDIT: this.tooglePreferenceEdit,
+      GO_BACK_FROM_EDIT_MODE: this.onGoBackFromEditMode
     })
   }
 
@@ -108,6 +115,10 @@ class PreferenceStore extends Store {
       },
       tooglePreferenceEdit(preference) {
         dispatcher.dispatch(new Action('TOOGLE_PREFERENCE_EDIT', { preference }))
+
+      },
+      goBackFromEditMode() {
+        dispatcher.dispatch(new Action('GO_BACK_FROM_EDIT_MODE'))
 
       }
     }

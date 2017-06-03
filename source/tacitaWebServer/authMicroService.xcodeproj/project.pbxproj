@@ -5478,6 +5478,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D80F5D01EE29C9D0033234E /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = ../../../../../../Desktop/MyPlayground.playground; sourceTree = "<group>"; };
 		9DD92B7E1EDCA7E800F99942 /* ResourceContextMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceContextMiddleware.swift; sourceTree = "<group>"; };
 		OBJ_10 /* ResourseContext+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResourseContext+Error.swift"; sourceTree = "<group>"; };
 		OBJ_100 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
@@ -9035,6 +9036,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
+				9D80F5D01EE29C9D0033234E /* MyPlayground.playground */,
 				OBJ_7 /* Sources */,
 				OBJ_23 /* Tests */,
 				OBJ_24 /* Config */,
