@@ -10,7 +10,7 @@
       <slot></slot>
     </div>
   </div>
-  <v-btn primary floating dark @click.native="$router.push({name:'faculty', params:$route.params})" id='create-preference__btn'>
+  <v-btn primary floating dark @click.native="$router.push({name:'station',params:$route.params})" id='create-preference__btn'>
     <v-icon light>add</v-icon>
   </v-btn>
 </div>

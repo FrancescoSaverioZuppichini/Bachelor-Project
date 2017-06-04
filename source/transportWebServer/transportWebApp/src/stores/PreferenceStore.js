@@ -98,6 +98,7 @@ class PreferenceStore extends Store {
   addStationToPreference({ station }) {
     this.initializeCurrentPreference()
     station.toogle = true
+console.log(station);
     Vue.set(this.state.currentPreference, 'station', station)
     router.push({ name: 'bus' })
 

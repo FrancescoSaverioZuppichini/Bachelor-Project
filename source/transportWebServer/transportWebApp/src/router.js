@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import App from './App'
 
 import DisplayPage from './components/Displaypage/DisplayPage.vue'
-import CreatePreferencePage from './components/CreatePreferencePage/CreatePreferencePage.vue'
+import CustomizationApp from './components/CreatePreferencePage/CustomizationApp.vue'
+
 import StationSelectionPage from './components/CreatePreferencePage/StationSelectionPage/StationSelectionPage.vue'
 import BusSelectionPage from './components/CreatePreferencePage/BusSelectionPage/BusSelectionPage.vue'
 import CreatePreferenceHomePage from './components/CreatePreferencePage/CreatePreferenceHomePage/CreatePreferenceHomePage.vue'
@@ -25,7 +26,7 @@ export default new VueRouter({
       {
         path: '/app/home/:userId',
         name: 'app',
-        component: CreatePreferencePage,
+        component: CustomizationApp,
         children: [{
             path: '',
             name: 'preferenceHome',

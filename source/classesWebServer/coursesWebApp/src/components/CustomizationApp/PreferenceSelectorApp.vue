@@ -15,9 +15,9 @@
 </selector-wrapper>
 </template>
 <script>
-import Resource from './Resource.vue'
 import Navigation from './Navigation.vue'
 import SelectorWrapper from './SelectorWrapper.vue'
+import Resource from './Resource.vue'
 import ResourceTransitionWrapper from './ResourceTransitionWrapper.vue'
 
 export default {

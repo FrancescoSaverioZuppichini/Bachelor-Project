@@ -51,6 +51,14 @@
   flex: 1;
 }
 
+.f-v {
+  height: 100vh;
+}
+
+.uk-flex--grow{
+flex-grow: 99;
+}
+
 .dummy--background-color {
   background-color: rgb(246, 246, 246) !important;
 }
@@ -68,4 +76,30 @@
 .fade-cards-enter, .fade-cards-leave-to, .fade-cards-leave-active
 {
   opacity: 0
+}
+
+.bottom--offset {
+  margin-bottom: 70px;
+}
+
+.navigation__actions {
+  position: absolute;
+  height: 40px;
+  background-color: white;
+  position: fixed;
+  z-index: 99;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  right: 0
+}
+
+.flex--center {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
 }

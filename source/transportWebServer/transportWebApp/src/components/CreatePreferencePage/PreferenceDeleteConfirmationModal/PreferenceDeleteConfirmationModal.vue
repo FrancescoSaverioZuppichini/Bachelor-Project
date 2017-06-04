@@ -10,7 +10,7 @@
 </template>
 <script>
 export default {
-  name: "ConfirmationModal",
+  name: "PreferenceDeleteConfirmationModal",
   data: function data() {
     return {}
   }

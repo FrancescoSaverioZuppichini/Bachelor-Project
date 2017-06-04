@@ -11,10 +11,12 @@ class UserStore extends Store {
   constructor() {
     super()
     this.state.user = { id: null, preferences: { data: [], loading: false } }
+    this.state.showConfirmationModal = false
   }
 
-  fetchUserPreferenceSuccess({ userPreferences }) {
-    this.state.user.preferences.data = userPreferences
+  fetchUserPreferenceSuccess({ preferences }) {
+    preferences.reverse()
+    this.state.user.preferences.data = preferences
     this.state.user.preferences.loading = false
   }
 
@@ -24,21 +26,20 @@ class UserStore extends Store {
   }
 
   updatePreferenceSuccess({ preference }) {
-
+    this.state.showConfirmationModal = false
+    for (let pref of this.state.user.preferences.data) {
+      if (pref.id == preference.id) pref = Object.assign(pref, preference)
+    }
   }
 
   addPreferenceSuccess({ preference }) {
-    var userPreferences = this.state.user.preferences.data
-    for (let i = 0; i < userPreferences.length; i++) {
-      let pref = userPreferences[i]
+    this.state.showConfirmationModal = false
+    this.state.user.preferences.data.unshift(preference)
+  }
 
-      if (pref.id == preference.id) {
-        pref.buses = preference.buses
-        return
-      }
-    }
-
-    this.state.user.preferences.data.push(preference)
+  onGetMeSuccess({ data }) {
+    this.state.user.id = data.id
+    this.sStore.actions.fetchUserPreferences()
   }
 
   reduce(action) {
@@ -49,7 +50,7 @@ class UserStore extends Store {
       // UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess,
       ADD_PREFERENCE_SUCCESS: this.addPreferenceSuccess,
       REMOVE_PREFERENCE_SUCCESS: this.removePreferenceSuccess,
-      GET_ME_SUCCESS: (({ user }) => this.state.user.id = user.id)
+      GET_ME_SUCCESS: this.onGetMeSuccess
     })
   }
 

@@ -1,47 +1,49 @@
 <template>
-<div class='uk-container uk-section uk-flex uk-flex-column'>
-  <div class="">
-    <h5>Select a Bus for {{this.$store.state.currentPreference.station.name}}</h5>
-    <transition name='fade'>
-      <div class="uk-alert-danger" uk-alert v-if="showError">
-        <p>{{error.msg}}</p>
-      </div>
-    </transition>
-  </div>
-  <div>
-  </div>
-  <div v-if="$store.state.preferenceError.message">
-    <div class="uk-alert-danger" uk-alert>
-      <p>{{$store.state.preferenceError.message}}</p>
-    </div>
-  </div>
-  <div class="uk-flex-center">
-    <div class="uk-flex" uk-grid>
-      <div v-for="bus in $store.state.connections" class="uk-width-1-1">
-        <div class="uk-card uk-card-default" :class="{'uk-box-shadow-large': bus.toogle}" @click="toogleBus(bus)">
-          <div class="uk-card-body">
-            <h3>{{bus.number}}</h3>
-          </div>
+<selector-wrapper title="Select a Bus">
+  <div class='uk-container bottom--offset'>
+    <div class="uk-margin-top">
+
+      <transition name='fade'>
+        <div class="uk-alert-danger" uk-alert v-if="showError">
+          <p>{{error.msg}}</p>
         </div>
-      </div>
+      </transition>
+      <resource-transition-wrapper>
+        <div v-for="bus in this.$store.state.currentPreference.station.buses" class="uk-width-1-1" :key="bus">
+          <resource @click.native="toogleBus(bus)" :toogle="bus.toogle">
+            <h3>{{bus.number}}</h3>
+          </resource>
+        </div>
+      </resource-transition-wrapper>
     </div>
   </div>
   <div class="uk-margin-top navigation__actions">
-    <a uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)" > </a>
-    <a uk-icon="icon: chevron-right; ratio: 1.5" class='uk-float-right'  @click="next"></a>
+    <v-btn icon="icon" class="grey--text grey--darken-2" @click.native="$router.go(-1)">
+      <v-icon>arrow_back</v-icon>
+    </v-btn>
+    <v-btn icon="icon" class="grey--text grey--darken-2 uk-float-right" @click.native="next">
+      <v-icon>arrow_forward</v-icon>
+    </v-btn>
   </div>
-</div>
+</selector-wrapper>
 </template>
 <script>
 import StationCard from '../../stationCard/stationCard.vue'
 import ConnectionCard from '../../connectionCard/connectionCard.vue'
 import api from '../../../api.js'
+import SelectorWrapper from '../SelectorWrapper.vue'
+import Resource from '../Resource/Resource.vue'
+import ResourceTransitionWrapper from '../Resource/ResourceTransitionWrapper.vue'
+
 
 export default {
   name: "BusSelectionPage",
   components: {
     StationCard,
-    ConnectionCard
+    ConnectionCard,
+    Resource,
+    ResourceTransitionWrapper,
+    SelectorWrapper
   },
   data() {
     return {
@@ -59,11 +61,11 @@ export default {
     }
   },
   created() {
-    this.fetchBuses()
+    // this.fetchBuses()
   },
   watch: {
     '$route': function(newRoute) {
-      if (newRoute.path == '/preference/bus') this.fetchBuses()
+      // if (newRoute.name == 'bus') this.fetchBuses()
     }
   },
   methods: {
@@ -74,10 +76,14 @@ export default {
         this.show = false
         this.$store.actions.addBusToPreference(bus)
       }
-      bus.toogle = !bus.toogle
+      if (bus.toogle == undefined) this.$set(bus, 'toogle', true)
+      else {
+        bus.toogle = !bus.toogle
+      }
     },
     fetchBuses() {
       const stationId = this.$store.state.currentPreference.station.id
+      // console.log(stationId);
       this.$store.actions.fetchBusesFromStation(stationId)
     },
     next() {

@@ -5,12 +5,12 @@
     <p class="uk-text-meta">This is how it's gonna look</p>
     <preference :preference="$store.state.preference"></preference>
     <v-btn flat @click.native="$store.state.showConfirmationModal = false">Cancel</v-btn>
-    <v-btn primary dark @click.native="$store.actions.addPreference($store.PreferenceStore.makeQueryFromPreference())" class='uk-float-right'>Yes</v-btn>
+    <v-btn primary dark @click.native="$store.actions.addPreference()" class='uk-float-right'>Yes</v-btn>
   </div>
 </div>
 </template>
 <script>
-import Preference from './Preference.vue'
+import Preference from '../Preference/Preference.vue'
 export default {
   name: "",
   components: {

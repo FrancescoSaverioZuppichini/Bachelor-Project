@@ -60,27 +60,7 @@ var server = http.createServer(app).listen(port)
 var httpsServer = https.createServer(options, app)
 httpsServer.listen(port + 443)
 
-// var wsServer = new WebSocketServer({
-//   httpServer: [server, httpsServer]
-// });
-//
-// var client = new WebSocketClient();
-// client.connect('ws://localhost:8081/ws', null, null, null);
-//
-// client.on('connect', function(connection) {
-//   connection = connection.connected
-//   console.log('client connected');
-//
-//   wsServer.on('request', function connection(request) {
-//     var clientConnect = request.accept()
-//
-//     clientConnect.on('message', function(msg) {
-//       console.log(msg);
-//       connection.sendUTF(msg.utf8Data)
-//     })
-//   })
-// })
-
+// proxy for ws
 
 var WebSocketServer = require('ws').Server
 var WebSocket = require('ws');

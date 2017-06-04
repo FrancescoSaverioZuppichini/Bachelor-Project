@@ -1,41 +1,36 @@
 <template>
-<div class='uk-container uk-section uk-flex uk-flex-column'>
-  <h5 class="uk-margin-remove">Select a Station</h5>
-  <transition name='fade'>
+<selector-wrapper title="Select Station">
+  <div class='uk-container bottom--offset'>
+    <div class="uk-margin-top">
+      <transition name='fade'>
 
-    <div class="uk-alert-danger" uk-alert v-if="showError">
-      <p>{{error.msg}}</p>
-    </div>
-  </transition>
-
-  <div class="uk-flex-center uk-margin-bottom">
-    <div class="uk-flex" uk-grid>
-
-    <div class="uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-4@l uk-grid-match preference-station__container" uk-grid>
-      <div v-for="index in [1,2,3]" v-if="$store.isLoadingNearbyLocations">
-        <station-card-dummy></station-card-dummy>
-      </div>
-      <div class="" :key="index" v-for="(station,index) in $store.state.locations">
-        <div class='uk-card uk-card-default uk-card-body' :class="{'uk-box-shadow-large': station.id == $store.state.currentPreference.station.id}" @click="addStation(station)">
-          <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
-        {{station.name}}</h6>
+        <div class="uk-alert-danger" uk-alert v-if="showError">
+          <p>{{error.msg}}</p>
         </div>
-      </div>
+      </transition>
+      <resource-transition-wrapper>
+        <div v-for="station in $store.state.locations" class="uk-width-1-1" :key="station">
+          <resource @click.native="$store.PreferenceStore.addStationToPreference({station})">
+            <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
+        {{station.name}}</h6>
+          </resource>
+        </div>
+      </resource-transition-wrapper>
     </div>
   </div>
-</div>
-
-  <div class="navigation__actions">
-    <a  uk-icon="icon: chevron-left; ratio: 1.5" @click="$router.go(-1)"> </a>
-    <!-- <a  uk-icon="icon: chevron-right; ratio: 1.5" class='uk-float-right' v-if='!$store.state.isInEditMode' @click="next"></a> -->
-    <!-- <button class='uk-button uk-button-default uk-float-left uk-width-1-1' @click="$router.go(-1)">Back</button>
-    <button class='uk-button uk-button-primary uk-float-right  uk-width-1-1' @click="next">Next</button> -->
+  <div class="uk-margin-top navigation__actions">
+    <v-btn icon="icon" class="grey--text grey--darken-2" @click.native="$router.go(-1)">
+      <v-icon>arrow_back</v-icon>
+    </v-btn>
   </div>
-</div>
+</selector-wrapper>
 </template>
 <script>
 import StationCard from '../../stationCard/stationCard.vue'
 import StationCardDummy from '../../stationCard/StationCardDummy.vue'
+import SelectorWrapper from '../SelectorWrapper.vue'
+import Resource from '../Resource/Resource.vue'
+import ResourceTransitionWrapper from '../Resource/ResourceTransitionWrapper.vue'
 
 import api from '../../../api.js'
 
@@ -43,7 +38,11 @@ export default {
   name: "StationSelectionPage",
   components: {
     StationCard,
-    StationCardDummy
+    StationCardDummy,
+    Resource,
+    ResourceTransitionWrapper,
+    SelectorWrapper
+
   },
   data() {
     return {
