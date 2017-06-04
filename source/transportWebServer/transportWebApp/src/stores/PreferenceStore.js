@@ -58,7 +58,6 @@ class PreferenceStore extends Store {
   addBusToPreference({ bus }) {
     var buses = this.state.preference.buses
     if (this.findBusInPreference(bus) < 0) {
-      bus.directions = []
       buses.push(bus)
     }
   }
@@ -67,42 +66,30 @@ class PreferenceStore extends Store {
     const busId = stationboard.bus_id
     const to = stationboard.to
     var buses = this.state.preference.buses
+    var shouldAdd = true
 
     buses.forEach((bus) => {
-      if (bus.id == busId) {
-        const idx = bus.directions.indexOf({ to })
-        let shouldAdd = true
-        for (let direction of bus.directions) {
-          if (direction.to == to) shouldAdd = false
-        }
-        if (shouldAdd) {
-          console.log('add directin');
-          bus.directions.push({ to })
-        } else {
-          console.log('remove');
-          bus.directions.splice(idx, 1)
-        }
-        if (bus.directions.length == 0) {
-          buses.splice(buses.indexOf(bus), 1)
-        }
+      if (bus.id == busId && (bus.to == null || bus.to == to)) {
+        bus.to = to
+        shouldAdd = false
       }
     })
-
     // // multiple buses can be selected, then, if we don't find a previouse one, we just need to add it
-    // if (shouldAdd) {
-    //   const newBus = { id: busId, number: stationboard.bus.number, to: to }
-    //   this.state.preference.buses.push(newBus)
-    // }
+    if (shouldAdd) {
+      const newBus = { id: busId, number: stationboard.bus.number, to: to }
+      this.state.preference.buses.push(newBus)
+    }
   }
 
   removeDirectionToPreference({ stationboard }) {
     const busToRemove = { id: stationboard.bus_id, number: stationboard.bus.number, to: stationboard.to }
     var buses = this.state.preference.buses
-    for (let bus of buses) {
-      for (let direction of bus.directions) {
-        if (bus.id == busToRemove.id && direction.to == busToRemove.to) {
-          bus.directions.splice(bus.directions.indexOf(direction), 1)
-        }
+
+    for (let i = 0; i < buses.length; i++) {
+      let currBus = buses[i]
+      if (currBus.id == busToRemove.id && currBus.to == busToRemove.to) {
+        buses.splice(i, 1)
+        break
       }
     }
   }
@@ -148,7 +135,6 @@ class PreferenceStore extends Store {
   tooglePreferenceEdit({ preference }) {
     router.push({ name: 'edit', params: { id: preference.id } })
     this.state.preference = Object.assign({}, preference)
-    this.state.preference.station.buses = Object.assign([], this.state.preference.buses)
     this.state.isInEditMode = !this.state.isInEditMode
   }
 

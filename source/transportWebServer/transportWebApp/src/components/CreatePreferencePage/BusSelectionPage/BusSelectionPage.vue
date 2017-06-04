@@ -9,8 +9,9 @@
       </transition>
       {{this.$store.state.preference}}
       <resource-transition-wrapper>
-        <div v-for="bus in this.$store.state.preference.station.buses" class="uk-width-1-1" :key="bus">
-          <resource @click.native="toogle(bus)" :toogle="$store.state.preference.buses.indexOf(bus) >= 0">
+        <div v-for="bus in this.$store.state.connections" class="uk-width-1-1" :key="bus">
+          <resource @click.native="toogle(bus)" :toogle="bus.toogle">
+            <!-- $store.state.preference.buses.indexOf(bus) >= 0 -->
             <h3>{{bus.number}}</h3>
           </resource>
         </div>
@@ -69,19 +70,29 @@ export default {
     }
   },
   methods: {
+    isToogled(bus) {
+      for (let connInPref of this.$store.state.preference.buses) {
+        for (let conn of this.buses) {
+          if (conn.id == connInPref.id) return true
+        }
+      }
+      return false
+    },
     toogle(bus) {
 
       if (this.$store.state.preference.buses.indexOf(bus) >= 0) {
         this.$store.actions.removeBusToPreference(bus)
+        bus.toogle = false
 
       } else {
         this.$store.actions.addBusToPreference(bus)
+        bus.toogle = true
 
       }
       // if (bus.toogle) {
       //   this.$store.actions.removeBusToPreference(bus)
       // } else {
-      //   this.show = falseå
+      //   this.show = false
       //   this.$store.actions.addBusToPreference(bus)
       // }
       // if (bus.toogle == undefined) this.$set(bus, 'toogle', true)

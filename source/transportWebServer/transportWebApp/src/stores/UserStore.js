@@ -26,7 +26,7 @@ class UserStore extends Store {
 
   fetchUserPreferenceSuccess({ preferences }) {
     preferences.reverse()
-    preferences.forEach(preference => preference.buses = this.formatPreference(preference))
+    // preferences.forEach(preference => preference.buses = this.formatPreference(preference))
     this.state.user.preferences.data = preferences
     this.state.user.preferences.loading = false
   }
@@ -45,7 +45,7 @@ class UserStore extends Store {
   }
 
   addPreferenceSuccess({ preference }) {
-    preference.buses = this.formatPreference(preference)
+    // preference.buses = this.formatPreference(preference)
 
     this.state.showConfirmationModal = false
     this.state.user.preferences.data.unshift(preference)

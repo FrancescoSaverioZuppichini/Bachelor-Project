@@ -48,16 +48,12 @@ public final class Preference: Model {
         try Pivot<Preference,StationBoard>.query().filter("preference_id", newPreference.id!).delete()
         
         for busObj in buses {
-            guard let busId = busObj["id"]?.int, let directionArray = busObj["directions"]?.array else {
+            guard let busId = busObj["id"]?.int, let to = busObj["to"]?.string else {
                 throw Abort.badRequest
             }
-            
-            for directionObj in directionArray {
-                var directionObj = directionObj.object
+
                 
-                var to = directionObj?["to"]?.string
-                print(to)
-                guard let stationBoard = try StationBoard.query().filter("bus_id",busId).filter("station_id", stationId).filter("to", to!).first() else {
+                guard let stationBoard = try StationBoard.query().filter("bus_id",busId).filter("station_id", stationId).filter("to", to).first() else {
                     throw Abort.custom(status: .badRequest, message: "Cannot find any stationboard")
                     
                 }
@@ -67,7 +63,7 @@ public final class Preference: Model {
                 var newPivot = Pivot<Preference,StationBoard>(newPreference,stationBoard)
                 try newPivot.save()
             }
-        }
+        
         
         return newPreference
     }

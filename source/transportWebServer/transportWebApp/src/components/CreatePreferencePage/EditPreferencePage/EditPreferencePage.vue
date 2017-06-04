@@ -16,16 +16,14 @@
 
     <h6 class='uk-text-center' @click="$router.push({name:'bus'})" v-if="$store.state.preference.buses.length <= 0"> No bus selected </h6>
     <h5>Change locations</h5>
-    <div v-for="bus in $store.state.preference.buses">
-      <div class="uk-flex uk-flex-column">
-        <div v-for="direction in bus.directions">
-          <div class="uk-card uk-card-default uk-card-body my-card--padding uk-margin-small-bottom" @click="$router.push({ name: 'direction'})">
+    <div class="uk-flex uk-flex-column" uk-grid>
+      <div v-for="bus in $store.state.preference.buses">
+          <div class="uk-card uk-card-default uk-card-body my-card--padding" @click="$router.push({ name: 'direction'})">
             <div class='uk-flex uk-flex-middle'>
               <h4 class='uk-margin-remove uk-margin-small-right'>{{bus.number}}</h4>
-              <h6 class='uk-margin-remove'>{{direction.to}}</h6>
+              <h6 class='uk-margin-remove'>{{bus.to}}</h6>
             </div>
           </div>
-        </div>
       </div>
 
     </div>

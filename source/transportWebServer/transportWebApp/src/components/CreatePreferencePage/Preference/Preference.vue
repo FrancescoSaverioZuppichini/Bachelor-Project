@@ -14,21 +14,13 @@
   </div>
   <div v-if="preference.station">
     <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
-{{preference.station.name}}</h6> 
+{{preference.station.name}}</h6>
     <div v-for="bus in preference.buses">
-      <div v-for="direction in bus.directions">
-        <div class='uk-flex uk-flex-middle'>
-          <h4 class='uk-margin-remove uk-margin-small-right'>{{bus.number}}</h4>
-          <h6 class='uk-margin-remove'>{{direction.to}}</h6>
-        </div>
-      </div>
-    </div>
-    <!-- <div v-for="bus in preference.buses">
       <div class='uk-flex uk-flex-middle'>
         <h3 class='uk-margin-remove'>{{bus.number}}</h3>
         <small class="uk-margin-left">{{bus.to}}</small>
       </div>
-    </div> -->
+    </div>
   </div>
 </div>
 </template>

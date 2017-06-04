@@ -7,6 +7,7 @@
           <p>{{error.msg}}</p>
         </div>
       </transition>
+      {{$store.state.preference}}
       <resource-transition-wrapper>
         <div v-for="stationboard in stationboards" :key='stationboard'>
           <resource @click.native="toogleStationboard(stationboard)" :toogle="stationboard.toogle">
@@ -75,17 +76,21 @@ export default {
   },
   methods: {
     getDirectionsSelected() {
-      var total = 0
-      for (let bus of this.$store.state.preference.buses) {
-        total += bus.directions.length
-      }
-
-      return total
+      return this.$store.state.preference.buses.filter(bus => bus.to).length
     },
     getDirections() {
       const stationId = this.$store.state.preference.station.id
       this.stationboards = []
-      this.$store.state.preference.buses.forEach((bus) => {
+      const removeDuplicateFromArray = (array, key) => {
+        var cache = {}
+        for (let item of array) {
+          cache[item[key]] = item
+        }
+        return Object.values(cache)
+      }
+      const uniqueBuses = removeDuplicateFromArray(this.$store.state.preference.buses,'id')
+
+      uniqueBuses.forEach((bus) => {
         api.stationboards.featchStationboards({
             stationId: stationId,
             busId: bus.id
