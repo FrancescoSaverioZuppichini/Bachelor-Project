@@ -14,7 +14,7 @@
       <!-- <span uk-icon="icon: trash; ratio: 1.2" @click="$store.state.currentPreference = preference" uk-toggle="target: #preference-delete-confirmation__modal"></span> -->
     </div>
   </div>
-  <div v-if="pref.station">
+  <div v-if="preference.station">
     <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
 {{preference.station.name}}</h6>
     <div v-for="bus in preference.buses">

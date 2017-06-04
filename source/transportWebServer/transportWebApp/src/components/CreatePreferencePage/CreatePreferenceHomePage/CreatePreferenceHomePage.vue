@@ -8,7 +8,6 @@
     <h6 class="uk-text-meta uk-text-large">No preferences found.</h6>
   </div>
   <div class='uk-container uk-margin-small-top'>
-    <!-- <div class="uk-flex uk-flex-column" uk-grid> -->
     <resource-transition-wrapper>
       <div v-for="preference in $store.state.user.preferences.data" :key="preference">
         <preference :preference="preference"></preference>
@@ -30,7 +29,8 @@ export default {
     PreferenceDeleteConfirmationModal,
     UserPreferenceDummy,
     HomeWrapper,
-    Preference
+    Preference,
+ResourceTransitionWrapper
   },
   watch: {
     '$route': function(newRoute) {

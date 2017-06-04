@@ -96,9 +96,10 @@ class PreferenceStore extends Store {
   }
 
   addStationToPreference({ station }) {
+    if (station.id == this.state.currentPreference.station.id) router.push({ name: 'bus' })
+    station.buses.forEach(bus => bus.toogle = false)
     this.initializeCurrentPreference()
     station.toogle = true
-console.log(station);
     Vue.set(this.state.currentPreference, 'station', station)
     router.push({ name: 'bus' })
 

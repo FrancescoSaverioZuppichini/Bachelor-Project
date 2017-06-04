@@ -59,8 +59,8 @@ class UserStore extends Store {
       fetchUserPreferences() {
         dispatcher.dispatch({ type: "FETCH_USER_PREFERENCE_LOADING" })
         api.users.fetchUserPreferences(ctx.state.user.id)
-          .then((res) => {
-            dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { userPreferences: res.data }))
+          .then(({data}) => {
+            dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { preferences: data }))
           })
           .catch((err) => dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_FAILURE", err)))
 
@@ -73,8 +73,8 @@ class UserStore extends Store {
       },
       getMeById(userId) {
         api.user.getMeById(userId)
-          .then(({ data }) => {
-            dispatcher.dispatch(new Action("GET_ME_SUCCESS", { user: data }))
+          .then(( data ) => {
+            dispatcher.dispatch(new Action("GET_ME_SUCCESS", data ))
           })
       },
       updatePreference() {

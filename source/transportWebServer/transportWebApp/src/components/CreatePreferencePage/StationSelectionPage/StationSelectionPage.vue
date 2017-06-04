@@ -10,7 +10,7 @@
       </transition>
       <resource-transition-wrapper>
         <div v-for="station in $store.state.locations" class="uk-width-1-1" :key="station">
-          <resource @click.native="$store.PreferenceStore.addStationToPreference({station})">
+          <resource @click.native="$store.PreferenceStore.addStationToPreference({station})" :toogle="station.id == $store.state.currentPreference.station.id">
             <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
         {{station.name}}</h6>
           </resource>

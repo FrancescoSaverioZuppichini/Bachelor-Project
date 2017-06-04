@@ -2,7 +2,6 @@
 <selector-wrapper title="Select a Bus">
   <div class='uk-container bottom--offset'>
     <div class="uk-margin-top">
-
       <transition name='fade'>
         <div class="uk-alert-danger" uk-alert v-if="showError">
           <p>{{error.msg}}</p>
