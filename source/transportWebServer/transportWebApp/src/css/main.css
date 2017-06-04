@@ -82,6 +82,12 @@ flex-grow: 99;
   margin-bottom: 70px;
 }
 
+.absolute--center {
+  position: absolute;
+  top: 50%;
+  left: auto;
+  width: 100%;
+}
 .navigation__actions {
   position: absolute;
   height: 40px;

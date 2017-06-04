@@ -10,7 +10,7 @@
       </transition>
       <resource-transition-wrapper>
         <div v-for="station in $store.state.locations" class="uk-width-1-1" :key="station">
-          <resource @click.native="$store.PreferenceStore.addStationToPreference({station})" :toogle="station.id == $store.state.currentPreference.station.id">
+          <resource @click.native="$store.PreferenceStore.addStationToPreference({station})" :toogle="station.id == $store.state.preference.station.id">
             <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
         {{station.name}}</h6>
           </resource>
@@ -75,7 +75,7 @@ export default {
 
     },
     toogleIfInPreference() {
-      const preferenceStation = this.$store.state.currentPreference.station
+      const preferenceStation = this.$store.state.preference.station
       this.$set(location, 'toogle', false)
       for (let location of this.$store.state.locations) {
         if (location.id == preferenceStation.id) this.$set(location, 'toogle', true)
