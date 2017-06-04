@@ -7,7 +7,6 @@
           <p>{{error.msg}}</p>
         </div>
       </transition>
-      {{this.$store.state.preference}}
       <resource-transition-wrapper>
         <div v-for="stationboard in stationboards" :key='stationboard'>
           <resource @click.native="toogleStationboard(stationboard)" :toogle="stationboard.toogle">
@@ -66,7 +65,7 @@ export default {
   },
   computed: {
     showError() {
-  
+
       return this.getDirectionsSelected() <= 0 && this.show
 
     }

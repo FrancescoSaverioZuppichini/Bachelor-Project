@@ -67,16 +67,27 @@ class PreferenceStore extends Store {
     const busId = stationboard.bus_id
     const to = stationboard.to
     var buses = this.state.preference.buses
-    var shouldAdd = true
 
     buses.forEach((bus) => {
-      if (bus.id == busId && (bus.to == null || bus.to == to)) {
-        if (bus.directions.indexOf({ to }) < 0) {
+      if (bus.id == busId) {
+        const idx = bus.directions.indexOf({ to })
+        let shouldAdd = true
+        for (let direction of bus.directions) {
+          if (direction.to == to) shouldAdd = false
+        }
+        if (shouldAdd) {
           console.log('add directin');
           bus.directions.push({ to })
+        } else {
+          console.log('remove');
+          bus.directions.splice(idx, 1)
+        }
+        if (bus.directions.length == 0) {
+          buses.splice(buses.indexOf(bus), 1)
         }
       }
     })
+
     // // multiple buses can be selected, then, if we don't find a previouse one, we just need to add it
     // if (shouldAdd) {
     //   const newBus = { id: busId, number: stationboard.bus.number, to: to }

@@ -61,11 +61,11 @@ export default {
     }
   },
   created() {
-    // this.fetchBuses()
+    this.fetchBuses()
   },
   watch: {
     '$route': function(newRoute) {
-      // if (newRoute.name == 'bus') this.fetchBuses()
+      if (newRoute.name == 'bus') this.fetchBuses()
     }
   },
   methods: {
@@ -81,7 +81,7 @@ export default {
       // if (bus.toogle) {
       //   this.$store.actions.removeBusToPreference(bus)
       // } else {
-      //   this.show = false
+      //   this.show = falseå
       //   this.$store.actions.addBusToPreference(bus)
       // }
       // if (bus.toogle == undefined) this.$set(bus, 'toogle', true)
