@@ -14,8 +14,19 @@ class UserStore extends Store {
     this.state.showConfirmationModal = false
   }
 
+  formatPreference(preference) {
+    var cache = {}
+    for (let bus of preference.buses) {
+      if (cache[bus.id] == undefined) cache[bus.id] = { id: bus.id, number: bus.number, directions : [] }
+      cache[bus.id].directions.push({to:bus.to})
+    }
+
+    return preference.buses = Object.values(cache)
+  }
+
   fetchUserPreferenceSuccess({ preferences }) {
     preferences.reverse()
+    preferences.forEach(preference => preference.buses = this.formatPreference(preference))
     this.state.user.preferences.data = preferences
     this.state.user.preferences.loading = false
   }
@@ -34,6 +45,8 @@ class UserStore extends Store {
   }
 
   addPreferenceSuccess({ preference }) {
+    preference.buses = this.formatPreference(preference)
+
     this.state.showConfirmationModal = false
     this.state.user.preferences.data.unshift(preference)
   }
