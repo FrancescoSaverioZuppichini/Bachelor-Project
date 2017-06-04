@@ -7,10 +7,9 @@
           <p>{{error.msg}}</p>
         </div>
       </transition>
-      {{this.$store.state.preference}}
       <resource-transition-wrapper>
-        <div v-for="bus in this.$store.state.preference.station.buses" class="uk-width-1-1" :key="bus">
-          <resource @click.native="toogle(bus)" :toogle="$store.state.preference.buses.indexOf(bus) >= 0">
+        <div v-for="bus in this.$store.state.currentPreference.station.buses" class="uk-width-1-1" :key="bus">
+          <resource @click.native="toogleBus(bus)" :toogle="bus.toogle">
             <h3>{{bus.number}}</h3>
           </resource>
         </div>
@@ -57,7 +56,7 @@ export default {
   },
   computed: {
     showError() {
-      return this.$store.state.preference.buses.length == 0 && this.show
+      return this.$store.state.currentPreference.buses.length == 0 && this.show
     }
   },
   created() {
@@ -69,34 +68,26 @@ export default {
     }
   },
   methods: {
-    toogle(bus) {
-
-      if (this.$store.state.preference.buses.indexOf(bus) >= 0) {
+    toogleBus(bus) {
+      if (bus.toogle) {
         this.$store.actions.removeBusToPreference(bus)
-
       } else {
+        this.show = false
         this.$store.actions.addBusToPreference(bus)
-
       }
-      // if (bus.toogle) {
-      //   this.$store.actions.removeBusToPreference(bus)
-      // } else {
-      //   this.show = false
-      //   this.$store.actions.addBusToPreference(bus)
-      // }
-      // if (bus.toogle == undefined) this.$set(bus, 'toogle', true)
-      // else {
-      //   bus.toogle = !bus.toogle
-      // }
+      if (bus.toogle == undefined) this.$set(bus, 'toogle', true)
+      else {
+        bus.toogle = !bus.toogle
+      }
     },
     fetchBuses() {
-      const stationId = this.$store.state.preference.station.id
+      const stationId = this.$store.state.currentPreference.station.id
       // console.log(stationId);
       this.$store.actions.fetchBusesFromStation(stationId)
     },
     next() {
       this.show = true
-      const isAtLeastOneBusSelected = this.$store.state.preference.buses.length > 0
+      const isAtLeastOneBusSelected = this.$store.state.currentPreference.buses.length > 0
       this.error.hasError = !isAtLeastOneBusSelected
       if (isAtLeastOneBusSelected) {
         this.show = false
