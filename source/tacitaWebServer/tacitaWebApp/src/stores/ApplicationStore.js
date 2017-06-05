@@ -24,20 +24,7 @@ class ApplicationStore extends Store {
     this.state.applications.data = data
     this.state.applications.isLoading = false
 
-    // this.onGetMyAppsSuccess({ data: this.sStore.state.user })
   }
-
-  // onGetMyAppsSuccess({ data }) {
-  //   const apps = data.apps
-  //
-  //   this.state.applications.data.forEach(app => app.toogle = false)
-  //
-  //   for (let userApp of apps) {
-  //     for (let app of this.state.applications.data) {
-  //       if (userApp.id == app.id) app.toogle = true
-  //     }
-  //   }
-  // }
 
   onToogleAllApp({ state }) {
     for (let app of this.state.applications.data) {
@@ -52,7 +39,7 @@ class ApplicationStore extends Store {
       FETCH_APPLICATION_SUCCESS: this.fetchApplicationsSuccess,
       FETCH_APPLICATION_FAILURE: ({ err }) => { this.state.applications.error = err },
       TOOGLE_APP_SUCCESS: (({ app }) => { /* toogle state is handled client side */ }),
-      GET_ME_SUCCESS: (() => this.sStore.actions.fetchApplications()),
+      // GET_ME_SUCCESS: (() => this.sStore.actions.fetchApplications()),
       GET_MY_APPS_SUCCESS: this.onGetMyAppsSuccess,
       TOOGLE_ALL_APP: this.onToogleAllApp
 

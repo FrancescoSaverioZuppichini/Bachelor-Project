@@ -49,7 +49,7 @@ class UserStore extends Store {
     this.reduceMap(action, {
       CREATE_USER_SUCCESS: (({ data }) => { this.sStore.actions.getMe(data.email) }),
       CREATE_USER_FAILURE: (({ email }) => { this.sStore.actions.getMe(email) }),
-      FETCH_APPLICATION_SUCCESS: (() => this.sStore.actions.getMyApps()),
+      // FETCH_APPLICATION_SUCCESS: (() => this.sStore.actions.getMyApps()),
       GET_MY_APPS_SUCCESS: this.onGetMyAppsSuccess,
       GET_ME_SUCCESS: (({ data }) => this.state.user = data),
       TOOGLE_APP_SUCCESS: this.onToogleAppSuccess,
@@ -60,7 +60,7 @@ class UserStore extends Store {
   actions(dispatcher, ctx) {
     return {
       getMe(email) {
-        api.user.getMe(email)
+        return api.user.getMe(email)
           .then(({ data }) => {
             dispatcher.dispatch(new Action("GET_ME_SUCCESS", { data }))
           })
@@ -70,7 +70,7 @@ class UserStore extends Store {
 
       },
       getMyApps() {
-        api.user.getMyApps(ctx.state.user.id)
+        return api.user.getMyApps(ctx.state.user.id)
           .then(({ data }) => {
             dispatcher.dispatch(new Action("GET_MY_APPS_SUCCESS", { data }))
           })
@@ -96,7 +96,7 @@ class UserStore extends Store {
         dispatcher.dispatch(new Action("TOOGLE_ALL_APP", { state }))
       },
       createOrFetchUser(email) {
-        api.user.create(email)
+        return api.user.create(email)
           .then(data => dispatcher.dispatch(new Action("CREATE_USER_SUCCESS", data)))
           .catch(err => dispatcher.dispatch(new Action("CREATE_USER_FAILURE", { email })))
       }

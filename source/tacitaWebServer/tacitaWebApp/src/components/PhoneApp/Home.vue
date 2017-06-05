@@ -32,7 +32,7 @@ export default {
   },
   watch: {
     'bluetooth': {
-      handler: function(from,to) {
+      handler: function(from, to) {
         console.log(JSON.parse(JSON.stringify(to)));
         console.log('*************** BEACON *************');
         if (bluetooth.connected)
@@ -46,6 +46,8 @@ export default {
       handler: function() {
         console.log('*************** USER *************');
         this.$store.actions.createOrFetchUser(user.email)
+          .then(() => this.$store.actions.fetchApplications())
+          .then(() => this.$store.actions.getMyApps())
       },
       deep: true
     }
