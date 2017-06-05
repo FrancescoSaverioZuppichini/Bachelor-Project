@@ -26,18 +26,31 @@ class UserStore extends Store {
     }
   }
 
-
   onToogleAppFailure({ error }) {
-    console.log(error);
     this.state.userError.error = true
     this.state.userError.msg = "Something went wrong."
+  }
+
+  onGetMyAppsSuccess({ data }) {
+    const apps = data.apps
+
+    this.sStore.state.applications.data.forEach(app => app.toogle = false)
+
+    for (let userApp of apps) {
+      for (let app of this.state.applications.data) {
+        if (userApp.id == app.id) app.toogle = true
+      }
+    }
+
+    this.state.user.apps = data.apps
   }
 
   reduce(action) {
     this.reduceMap(action, {
       CREATE_USER_SUCCESS: (({ data }) => { this.sStore.actions.getMe(data.email) }),
       CREATE_USER_FAILURE: (({ email }) => { this.sStore.actions.getMe(email) }),
-      GET_MY_APPS_SUCCESS: (({ data }) => { this.state.user.apps = data.apps }),
+      FETCH_APPLICATION_SUCCESS: (() => this.sStore.actions.getMyApps()),
+      GET_MY_APPS_SUCCESS: this.onGetMyAppsSuccess,
       GET_ME_SUCCESS: (({ data }) => this.state.user = data),
       TOOGLE_APP_SUCCESS: this.onToogleAppSuccess,
       TOOGLE_APP_FAILURE: this.onToogleAppFailure

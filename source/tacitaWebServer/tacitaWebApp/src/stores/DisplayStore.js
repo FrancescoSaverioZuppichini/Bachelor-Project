@@ -129,7 +129,7 @@ class BluetoothStore extends Store {
       },
       fetchDisplay(id) {
         dispatcher.dispatch(new Action("FETCH_DISPLAY_LOADING"))
-        return api.display.fetchDisplay(id, 'apps')
+        return api.display.fetchDisplay(id, 'all')
           .then(({ data }) => dispatcher.dispatch(new Action("FETCH_DISPLAY_SUCCESS", { data })))
       },
       notifyDisplays() {

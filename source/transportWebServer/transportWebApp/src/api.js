@@ -26,7 +26,7 @@ export default {
   'bus': {
     getPassList(bus) {
       return axios.get(`${BASE_URL}${TRANSPORT_URL}/bus/${bus.bus_id}/passList?direction=${bus.to}`)
-    },
+    }
   },
   "user": {
     getMe(email) {

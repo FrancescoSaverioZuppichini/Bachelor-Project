@@ -55,7 +55,7 @@ export default {
     window.user = this.user
     // this.$store.actions.createOrFetchUser('android.ubicomp.usi@gmail.com')
 
-    this.$store.actions.fetchApplications()
+    // this.$store.actions.fetchApplications()
     // this.$store.actions.getMe('zuppif')
   }
 }

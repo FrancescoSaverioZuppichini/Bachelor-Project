@@ -21,10 +21,14 @@ const router = new Router({
       component: PreferencePage
     },
     {
+      path: '/app/display',
+      name: 'Display',
+      component: DisplaysPage
+    },
+    {
       path: '/app/user/preference',
       name: 'UserPreference',
       component: UserPreferencePage,
-
     },
     {
       path: '/app/user/preference/color',
