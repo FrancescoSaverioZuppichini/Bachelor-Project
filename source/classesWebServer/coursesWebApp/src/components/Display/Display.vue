@@ -1,6 +1,6 @@
 <template>
 <div class="full-h uk-flex uk-flex-column uk-background-muted" id='display'>
-  <h1 class="uk-text-center" v-if="$store.state.lastQuery.studyType">{{`${$store.state.lastQuery.studyType.name_en}, ${$store.state.lastQuery.year}st year` }}</h1>
+  <!-- <h1 class="uk-text-center" v-if="$store.state.lastQuery.studyType">{{`${$store.state.lastQuery.studyType.name_en}, ${$store.state.lastQuery.year}st year` }}</h1> -->
   <div class="uk-flex uk-margin-top uk-margin-left" uk-grid>
     <div class="uk-width-1-1 uk-width-3-4@m ">
       <div id='fullcalendar'></div>
@@ -44,8 +44,9 @@ export default {
     this.$store.state.navigation._urls = ['studyDisplay', 'yearDisplay', 'studyTypeDisplay']
     this.$store.state.isInDisplay = true
     $('body').click(() => {
-      SuperStore.dispatcher.dispatch(new Action("USER_INTERACTION"))
+      this.$store.dispatcher.dispatch(new Action("USER_INTERACTION"))
     })
+    // this.$store.actions.initializeSchedules()
     const displayId = this.$route.params.id
     const appId = 1
     this.$store.actions.fetchDisplay(displayId)

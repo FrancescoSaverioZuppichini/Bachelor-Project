@@ -61,7 +61,6 @@ class PreferenceStore extends Store {
     this.state.preference = { id: this.state.preference.id }
     this.state.preference.isLoading = false
     this.state.preference.faculty = faculty
-    this.sStore.actions.goNext({ facultyId: faculty.id })
   }
 
   updatePreference({ data }) {
@@ -70,7 +69,9 @@ class PreferenceStore extends Store {
   }
 
   resetAfterSuccess() {
-    this.reset()
+    this.state.preference = { faculty: {} }
+
+    // this.reset()
   }
 
   tooglePreferenceEdit({ preference }) {

@@ -61,6 +61,7 @@ describe("DisplayStore", () => {
       assert.ok($store.state.nearbyDisplay.isLoading)
     })
   })
+
   describe('FETCH_DISPLAY_SUCCESS', () => {
     it('should add the featched display', () => {
       dispatcher.dispatch(new Action("FETCH_DISPLAY_SUCCESS", { data: display }))
@@ -71,13 +72,13 @@ describe("DisplayStore", () => {
 
     })
   })
+
   describe('DISPLAY_FOUND', () => {
     it('should add the founded display', () => {
       console.log('Unimplemented since it requires socket connections');
     })
   })
 })
-
 
 describe("User data Flow", () => {
   it('should get user, get applications and get user applications', () => {

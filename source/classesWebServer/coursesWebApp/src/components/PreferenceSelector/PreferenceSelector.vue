@@ -11,10 +11,10 @@
         </div>
         <!-- show content -->
         <div v-else>
-          <div @click="$store.actions.selectFaculty(faculty,true)" v-if="!$store.state.preference.faculty || !($route.params.facultyId == faculty.id)">
-            <h3 class='uk-margin-remove'>{{faculty.name_en}}</h3>
+          <div @click="next(faculty)" v-if="!$store.state.preference.faculty || !($route.params.facultyId == faculty.id)">
+            <h4 class='uk-margin-remove'>{{faculty.name_en}}</h4>
           </div>
-          <h4 class='uk-margin-remove' v-else>{{faculty.name_en}}</h4>
+          <h5 class='uk-margin-remove' v-else>{{faculty.name_en}}</h5>
           <!-- show nested content step -->
           <router-view v-if="$route.params.facultyId == faculty.id"></router-view>
         </div>
@@ -35,6 +35,17 @@ export default {
   data() {
     return {
       transitionName: 'slide-left'
+    }
+  },
+  methods: {
+    next(faculty) {
+      this.$store.actions.selectFaculty(faculty, true)
+      this.$router.push({
+        name: "studyDisplay",
+        params: {
+          facultyId: faculty.id
+        }
+      })
     }
   }
 }
