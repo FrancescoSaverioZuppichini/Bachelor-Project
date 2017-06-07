@@ -23,7 +23,7 @@ class BeaconStore extends Store {
     var oldBeacon = this.find(beacon)
     oldBeacon = Object.assign(oldBeacon, beacon)
     // oldBeacon.display_id = beacon.display_id
-    oldBeacon.edit = false
+    Vue.set(oldBeacon, 'edit', false)
     // oldBeacon.display_id = beacon.display_id
 
   }

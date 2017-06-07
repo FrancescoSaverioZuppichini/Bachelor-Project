@@ -13,6 +13,7 @@ class DisplayStore extends Store {
     this.state.displays = { data: [], error: {}, isLoading: false }
     this.state.isDraggingBeacons = false
     this.state.showCreateDisplayModal = false
+    this.state.isDraggingBeacon = false
   }
 
   addBeacon(display) {

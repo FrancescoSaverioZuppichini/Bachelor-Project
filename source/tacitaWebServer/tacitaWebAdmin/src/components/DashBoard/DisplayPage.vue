@@ -22,7 +22,10 @@
   </transition>
   <div class='unlinked-beacon__container'>
     <h4 class='uk-margin-small-bottom'>Unliked Beacons</h4>
-    <draggable v-model="beacons" class='display-beacon__container uk-flex uk-grid-small' :options="{group:'people'}" uk-grid>
+    <draggable v-model="beacons" class='display-beacon__container uk-flex uk-grid-small' :options="{group:'people',filter: '.ignore'}" uk-grid>
+      <!-- <div class="ignore">
+        ignore
+      </div> -->
       <div v-for="beacon in beacons" :key='beacon'>
         <div class='beacon-icon'>
         </div>

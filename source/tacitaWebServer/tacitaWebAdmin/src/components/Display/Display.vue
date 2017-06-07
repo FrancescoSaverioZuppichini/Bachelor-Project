@@ -25,11 +25,12 @@
       </div>
     </div>
     <!-- beacons  -->
-    <div v-show="beacons.length <= 0">
-      Drag here beacons to link them
-    </div>
 
-    <draggable v-model="beacons" class='display-beacon__container uk-flex uk-grid-small' :options="{group:'people'}" uk-grid>
+
+    <draggable v-model="beacons" class='display-beacon__container uk-flex uk-grid-small' :options="{group:'people',filter: '.ignore'}" uk-grid @start="start" @end="end">
+      <!-- <div v-show="beacons.length <= 0" class='disabled'>
+        Drag here beacons to link them
+      </div> -->
       <div v-for="beacon in beacons" :key='beacon'>
         <div class='beacon-icon'>
         </div>
@@ -59,11 +60,14 @@ export default {
     }
   },
   methods: {
-    onChange(change) {
-      console.log(change);
+    start() {
+      console.log('is dragging out');
+      this.$store.state.isDraggingBeacon = true
     },
-    onAdd(item) {
-      console.log(item);
+    end() {
+      console.log('end');
+
+      this.$store.state.isDraggingBeacon = false
     }
   },
   computed: {
