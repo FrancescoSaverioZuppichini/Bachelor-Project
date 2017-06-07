@@ -3,7 +3,7 @@
   <div class='tm-sidebar-left uk-visible@s'>
     <ul class="uk-nav">
       <li><a @click="$router.push({name:'DisplayPage'})">Display</a></li>
-      <li><a href="">Beacon</a></li>
+      <li><a @click="$router.push({name:'BeaconPage'})">Beacon</a></li>
     </ul>
   </div>
   <keep-alive>
@@ -18,7 +18,7 @@
 
       <ul class="uk-nav uk-nav-default">
         <li><a @click="$router.push({name:'DisplayPage'})">Display</a></li>
-        <li><a href="">Beacon</a></li>
+        <li><a @click="$router.push({name:'BeaconPage'})">Beacon</a></li>
       </ul>
     </div>
 

@@ -36,12 +36,13 @@ class DisplayStore extends Store {
   onFetchDisplaySuccess({ display }) {
     this.state.display = display
     this.sStore.actions.sendAppToDisplay(this.state.display.id, 2)
+    this.state.display.defaultStation = { number: 8595133, id: 1, name: 'Lugano, Università' }
   }
 
   onDisplayChangeApp(data) {
     if (data.appId == this.state.display.app.id) return
     api.application.fetchApplication({ id: data.appId })
-      .then(({ data }) => window.location.href = window.location.origin + `/${data.url}` + `/display/${this.state.display.id}`)
+      .then(({ data }) => window.location.href = window.location.origin + `/${data.url}` + `/#/display/${this.state.display.id}`)
   }
 
   reduce(action) {

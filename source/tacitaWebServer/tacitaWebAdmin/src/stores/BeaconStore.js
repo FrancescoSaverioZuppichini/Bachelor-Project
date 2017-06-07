@@ -12,7 +12,7 @@ class BeaconStore extends Store {
     super()
     this.state.beacons = { data: [], error: {}, isLoading: false }
     this.state.beaconsLinkTo = (id) => this.state.beacons.data.filter((beacon) => beacon.display_id == id)
-    this.state.freeBeacons = () => this.state.beacons.data.filter((beacon) => !beacon.display_id)
+    this.state.freeBeacons = () => this.state.beacons.data.filter((beacon) => beacon.display_id == null)
 
   }
   find(toFind) {
@@ -20,13 +20,24 @@ class BeaconStore extends Store {
   }
 
   onEditBeaconSuccess({ data, beacon }) {
-    this.find(beacon).display_id = beacon.display_id
+    var oldBeacon = this.find(beacon)
+    oldBeacon = Object.assign(oldBeacon, beacon)
+    // oldBeacon.display_id = beacon.display_id
+    oldBeacon.edit = false
+    // oldBeacon.display_id = beacon.display_id
+
+  }
+  onCreateBeaconSuccess({ data }) {
+    this.state.beacons.data.push(data)
+    this.state.showCreateDisplayModal = false
   }
 
   reduce(action) {
     this.reduceMap(action, {
       FETCH_BEACONS_SUCCESS: (({ data }) => this.state.beacons.data = data),
-      EDIT_BEACON_SUCCESS: this.onEditBeaconSuccess
+      EDIT_BEACON_SUCCESS: this.onEditBeaconSuccess,
+      DELETE_BEACON_SUCCESS: (({ beacon }) => this.state.beacons.data.splice(this.state.beacons.data.indexOf(beacon), 1)),
+      CREATE_BEACON_SUCCESS: this.onCreateBeaconSuccess
     })
   }
 
@@ -39,6 +50,14 @@ class BeaconStore extends Store {
       editBeacon(beacon) {
         api.beacon.editBeacon(beacon)
           .then(({ data }) => dispatcher.dispatch(new Action('EDIT_BEACON_SUCCESS', { data, beacon })))
+      },
+      createBeacon(beacon) {
+        api.beacon.createBeacon(beacon)
+          .then((data) => dispatcher.dispatch(new Action('CREATE_BEACON_SUCCESS', data)))
+      },
+      deleteBeacon(beacon) {
+        api.beacon.deleteBeacon(beacon)
+          .then((data) => dispatcher.dispatch(new Action('DELETE_BEACON_SUCCESS', { beacon })))
       }
     }
   }

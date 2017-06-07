@@ -23,6 +23,7 @@ class DisplayStore extends Store {
 
   onFetchDisplaysSuccess({ data }) {
     this.state.displays.data = data
+    console.log(this.state.displays.data);
     this.state.displays.isLoading = false
     // get beacons reference
     this.state.displays.data.forEach(display => this.addBeacon(display))
@@ -33,11 +34,18 @@ class DisplayStore extends Store {
     this.addBeacon(data)
     this.state.displays.data.push(data)
   }
+
+  onDisplayChangeApp(data) {
+    console.log(data);
+  }
+
   reduce(action) {
     this.reduceMap(action, {
       FETCH_DISPLAYS_SUCCESS: this.onFetchDisplaysSuccess,
-      DELETE_DISPLAY_SUCCESS: (({ display }) => this.state.displays.data.splice(this.state.displays.data.indexOf(display),1)),
-      CREATE_DISPLAY_SUCCESS: this.onCreateDisplaySuccess
+      DELETE_DISPLAY_SUCCESS: (({ display }) => this.state.displays.data.splice(this.state.displays.data.indexOf(display), 1)),
+      CREATE_DISPLAY_SUCCESS: this.onCreateDisplaySuccess,
+      DISPLAY_CHANGE_APP: this.onDisplayChangeApp
+
     })
   }
 

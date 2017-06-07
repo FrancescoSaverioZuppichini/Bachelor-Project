@@ -3,7 +3,7 @@
   <div class='uk-background uk-section-small'>
     <h2 class='uk-text-center uk-margin-remove'>{{title}}</h2>
   </div>
-  <div class='uk-background-muted uk-flex--grow'>
+  <div class='uk-background-muted uk-flex--grow uk-flex uk-flex-column'>
     <slot></slot>
   </div>
 </div>

@@ -1,5 +1,5 @@
 <template>
-<div class="uk-container uk-section">
+<div class="uk-container uk-container-expand uk-section">
   <div class='' uk-grid>
     <slot></slot>
   </div>

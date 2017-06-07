@@ -12,18 +12,33 @@
       <div uk-dropdown="mode: click;pos: bottom-right">
         <ul class="uk-nav uk-dropdown-nav">
           <li><a @click="$store.actions.deleteDisplay(data)">Remove</a></li>
-          <li><a >Edit</a></li>
+          <li><a>Edit</a></li>
         </ul>
       </div>
     </div>
+    <!-- applications  -->
+
+    <div class="uk-flex uk-margin-bottom" v-for="application in data.apps">
+      <div class='uk-flex uk-flex-middle'>
+        <v-icon class="grey--text text--darken-2 uk-margin-right">{{application.material_icon}}</v-icon>
+        <h5 class='uk-margin-remove'>{{application.name.toUpperCase()}}</h5>
+      </div>
+    </div>
+    <!-- beacons  -->
     <div v-show="beacons.length <= 0">
       Drag here beacons to link them
     </div>
-    <draggable v-model="beacons" class='display-beacon__container' :options="{group:'people'}">
+
+    <draggable v-model="beacons" class='display-beacon__container uk-flex uk-grid-small' :options="{group:'people'}" uk-grid>
       <div v-for="beacon in beacons" :key='beacon'>
-        {{beacon.beacon_id}}
+        <div class='beacon-icon'>
+        </div>
+        <div class='uk-text-center'>
+          {{beacon.beacon_id}}
+        </div>
       </div>
     </draggable>
+  </div>
   </div>
 </resource>
 </div>
@@ -57,12 +72,12 @@ export default {
         return this.data.beacons()
       },
       set(value) {
-        console.log(value, this.data.id);
-        if (value.length > 0 && value[0].display_id != this.data.id) {
-          const newBeacon = Object.assign({}, value[0])
-          newBeacon.display_id = this.data.id
-
-          this.$store.actions.editBeacon(newBeacon)
+        for (let beacon of value) {
+          if (beacon.display_id == null) {
+            const newBeacon = Object.assign({}, beacon)
+            newBeacon.display_id = this.data.id
+            this.$store.actions.editBeacon(newBeacon)
+          }
         }
       }
     }

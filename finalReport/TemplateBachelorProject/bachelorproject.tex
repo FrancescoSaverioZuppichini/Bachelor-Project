@@ -199,78 +199,82 @@ As we did for the Transport Application, we also created a smart phone interface
 % show transport app similar to this one
 \subsection{Architecture Interactions}
 In the previous part we define in detail each element of our architecture without giving a global overview of how each parts collaborate with the all system. In this section we are going to analize all the interaction, especiatally between user and display, in detail showing each message that the entities exchange, explaing our design decision and analyzing the interactions.
-When a User walk near to a display:
-\begin{itemize}
-	\item They see each others thanks to the bluetooth phone's sensor and beacons near the screens
-	\item A request to \emph{Tacita} is made in order to know which display is associated with that beacon
-	\item If there is one, a message containing user's id and display's is pushed into the socket only if the screen application is enabled
-	\item As soon as the display receive the message, it checks if it has the same id; if so a request to out back-end services is made in order to get the user's preference
-	\item They are showed into the screen.
-\end{itemize}
-If something unexpected happen, such as, there is no application on the screen or no beacon is linked to anything the system will just fails silently without any repercussion on its stability.
- 
 
+From a User point of view, the first actions that can happen is walking into a display. As soon as the smartphone deteachs the beacons, they can talk to each other by exchanging information. The first message collected is the beacon id. After that, a request to \emph{Tacita} is made in order to know which display is associated with that beacon. If there is one, a message containing user's id and display's is pushed into the socket only if the screen application is enabled. As soon as the display receive the message, it checks if it has the same id; if so a request to out back-end services is made in order to get the user's preference. Finally, the user's content is showed into the screen.
+
+The display does some additional actions. When he receives the preferences, it uses a in memory cache to avoid processing the same information two or more times. Also, a life duration is set for each of them in order to remove them if no exist event is detected.
+
+Moreover, when a screen is deployed, it need a unique id to become officially part of the system. Such id is create thought a POST call to \emph{Tacita} and it is passed to the display by adding it in the end of the url that is processed by the front-end software.
+Then, the newly created screen, can finally get the application by the correct micro service and display it.
+
+
+
+\begin{figure}[H]
+  \centering
+  \subfloat[User interactions]{\includegraphics[width=0.5\textwidth]{./images/user_interactions.jpeg}}
+    \subfloat[Display interactions]{\includegraphics[width=0.5\textwidth]{./images/display_interactions.jpeg}}
+
+\end{figure} 
 \subsection{Architecture Technologies}
-In this section we talk about the technologies that we used for the back-end and the front-end. For this project, we choose to use the last state of the art technologies and programming languages in order to provide a service that will last without being obsolete.
+In this section we talk about the technologies that we used for the back-end and the front-end. For this project, we choose the latest technologies and programming languages in order to provide a service that will last without being obsolete in a long term.
 \subsubsection{Back-End}
-We firstly started to develop the first application using Django, a python web framawork, but, even if its widely used among back-end developer, we encored problem with web socket that were not supported "out of the box".
+We firstly started to develop the first application using Django, a python web framework, but, even if its widely used among back-end developers, we encored problems with web socket that were not supported "out of the box".
 So, we decide to completely switch both language and framework by choosing Swift 3 and Vapor.
 
-Swift is a "powerful and intuitive" open source programming language developed by Apple born in 2015 for booth MacOs X and Linux. It is a Protocol Oriented Programming Languages, quoting from Apple:
+Swift is a "powerful and intuitive" open source programming language developed by Apple in 2015 for booth MacOs X and Linux. It is a Protocol Oriented Programming Languages, quoting from Apple:
 \\
 \\
 \emph{A protocol defines a blueprint of methods, properties .. The protocol can then be adopted by a class, structure, or enumeration - Apple}
 \\
 \\
-Unlike classes, the fundamental of POP programming is Value Type encouraging flat and not nested code. This benefic is reflected into its performance as you can see in the following picture showing a benchmark: notice the score of Swift.
+Unlike classes, the fundamental of POP, Protocol Oriented Programming, programming is Value Type encouraging flat and not nested code. This benefit is reflected into its performance and flexibility.
+The syntax is concise yet expressive, it uses labels and spaces to improve the code readability making possible to write complete sentences only with code. Apple wanted to create a product that was at the same time, feast and beauty.
 
-The syntax is concise yet expressive, it uses labels and spaces to improve the code readability making possible to write complete sentences only with code. Take a look at the following snippet:
-\\
-\\
-No comment are needed to understand what it does. 
-\\
-\\
-After selecting a programming language, we need a framework to create our applications. We choose Vapor for the job; a powerful, beautifully, expressive and easy to use MVC framework to build web servers. In our project it powers all micro service creating a common interface. Vapor is easy to start with thanks to the clear API that that, not also speed up the developer work, but makes the code more maintanable and more understandable. One of his strength point is the performance. You can see in the following table a benchmark in which it outstands also the most blasonated framework such as Spring.
+After selecting a programming language, we need a framework to create our applications. We choose Vapor for the job; a powerful, beautifull and easy to use MVC framework to build web servers. In our project it powers all micro service including Tacita.
+Vapor is easy to start with thanks to the clear APIs that, not also speed up the developer work, makes the code more maintainable and more understandable. One of his strength point is the performance inherited from Swift. You can see in the following table a benchmark in which Vapor outstands also the most blasonated framework such as Spring.
 \begin{figure}[H]
   \centering
   \subfloat[Plaintext request/second]{\includegraphics[width=0.5\textwidth]{./images/vapor_1_benchmark.png}}
 \end{figure} 
 % agginugu benchmark
 \subsubsection{Front-end}
-In order to archieve the best results in term of scalability and performance we choose Vue.js as mainly front-end framework. Vue.js is a library for building interactive web interfaces, it uses web components to provide a convinient way to organize an application.
-A web component is similar to a Object Oriented programming classes, it encapsulate all the logic behind a certain part on a web site. In Vue, a component, in formed by three parts: template, script and style.
+In order to archieve the best results in term of scalability and performance we choose Vue.js as main front-end framework. Vue.js is a library for building interactive web interfaces, it uses web components to provide a convenient way to organize an application by decoupled its element into blocks.
+A web component is similar to a Object Oriented programming classes, it encapsulate all the logic behind a certain functionality of the application. In Vue, a component, in formed by three parts: template, script and style.
 
-The template allows the developer to write html and include variables, conditions and loops, thank to build in loaders, is it possible to easily use any pre-processing html library such as Pug.
+The template allows the developer to write html and include variables, conditions and loops. Also, thanks to build in loaders, is it possible to easily use any pre-processing html library such as Pug.
 The second part is the core of each components, the script. As the name may suggest, it is the code part. Each component expose a javascript object allowing Vue to grab it and render it in the proper way.
-The last tag is were is possible to style a component using CSS, as before, it is tremendously easy to use less, sass and other css-processors.
-One of the main advantages of Vue over other front-end framework is reactivity. Reactive programming is an synchronous programming paradigm concerned with data streams and the propagation of change. It uses Observers in order to trigger event every time a change of state is detechted; therefore Vue can automatically call a render only in the part that was actually mutated minimizing the DOM access.
-A deeply comparison with other frameworks can be fount at: https://vuejs.org/v2/guide/comparison.html. The following graph shows its performance against Angular and React, the other two most used framework developed by Google and Facebook respectivily.
+The last tag is were is possible to style a component using CSS, as before, it is tremendously easy to use Less, Sass and other css-processors.
+One of the main advantages of Vue over other front-end framework is \emph{reactivity}. Reactive programming is an synchronous programming paradigm concerned with data streams and the propagation of change. It uses Observers in order to trigger events every time a change of state is detected; therefore Vue can automatically call a render only in the part that was actually mutated minimizing the DOM access and increasing speed.
+A deeply comparison with other frameworks can be fount at: https://vuejs.org/v2/guide/comparison.html. The following graph shows its performance against Angular and React, the other two most used framework developed by Google and Facebook respectively. We used Vue 2.0.
 \begin{figure}[H]
   \centering
-  \subfloat[Vue2 vs other popular libraries]{\includegraphics[width=0.5\textwidth]{./images/vue2_benchmark.png}}
+  \subfloat[Vue.js vs other popular libraries]{\includegraphics[width=0.5\textwidth]{./images/vue2_benchmark.png}}
 \end{figure} 
-As we said, each component represent a feature, a part of the web application; it may happen that one of them need to communicate with another, maybe after a change of state or a user event. In order manage the data flow we used the Flux pattern; it is composed by four parts: Dispatcher, Store, Actions and View.
-The mainly idea is that the state can be mutated thought actions that are reduced into the stores. The dispatcher is a singleton that receives them and dispatches to every stores that have registered with it; its important to highlight that every store receives every action.
+As we said, each component represent a feature, a part of the web application; it may happen that one of them need to communicate with another, maybe after a change of state or a user event. In order manage the data flow we used the Flux pattern. The mainly idea behind this pattern is that the state can be mutated thought actions that are reduced into the stores. It is composed by four parts: Dispatcher, Store, Actions and View.
+
+The dispatcher is a singleton that receives them and dispatches to every stores that have registered with it; its important to highlight that every store receives every action.
+
 The Store is only source of truth in the applications; it holds its state and manage the logic behind it. The data must only be mutated by responding to and action by emitting a "change" event.
+
 Actions are the internal API of each application, they define all the possible interaction that may happen. They are plain javascript object composed by a type field and some data.
+
 Views displays store's data; in our application, a single view is a Vue component.
 
-Even if there already exist a fantastic Flux library for Vue created by its author, we decide to create a new one from scratch. Our library, called Flue, aims to provide a better object oriented approach than the existing one. You can find examples and documentation at our Github repository: https://github.com/FrancescoSaverioZuppichini/Flue.
+Even if there already exist a fantastic Flux library, Vuex, for Vue created by its author, we decide to create a new one from scratch. Our library, called Flue, aims to provide a better object oriented approach than the existing one. You can find examples and documentation at our Github repository: https://github.com/FrancescoSaverioZuppichini/Flue.
 
 \begin{figure}[H]
   \centering
   \subfloat[Flux data flow]{\includegraphics[width=0.5\textwidth]{./images/flux_data_flow.png}}
 \end{figure} 
 \subsection{Architecture Scalability}
-Scalability is the ability of a system to grow larger with minimum changes. In the previous sections we often talk about how some design choice leads to an improvement in term of scalability. In our specific case, our system can change very quickly; just image if the provided buy new displays or new applications are available.
+Scalability is the ability of a system to grow larger with minimum changes. In the previous sections we often talk about how some design choices lead to an improvement in term of scalability. In our specific case, our system can change very quickly at any moment: just image if the provided buy new displays or new applications are available.
 
-In order to make it possible to deploy independently from the network a new application, we abstract the concept of it creating a layer of services that can be expanded very easily. In order to create a new application, the developing team just need to setup and run a web server being conform to our generic interface.
+In order to make it possible to deploy independently from the network a new application, we abstract the its concept creating a layer of services that can be expanded very easily. The developers can create a new applications by just creating a web server being conform to our generic interface and expose his url.
 
-Another possibility problem that can may appear is when a display is moved away. We explained our each screen, when its connected, fetch its position and use it in order to communicate with Google Maps API in order to show real direction indications. If such problem appears, very easily, the provider just need to refresh the screen and the front-end software will automatically update itself.
+Another possibile problem that can may appear is when a display is moved away. We explained before how each screen, when its connected, fetch its position and use it in order to communicate with Google Maps API to show real direction indications. If such problem appears, very easily, the provider just need to refresh the screen and the front-end software will automatically update itself.
 
-Also displays can be removed or added by simply using \emph{Tacita} REST API. Image a screen brokes, then the associated beacon can be moved to another screen or the display is replaced. The last case is the easiest, since we can just turn on the screen and use the last display's id, if no new devices is avaliable then the bluetooth beacon can be quickly be linked to the a new screen . 
+Also displays can be removed or added by simply using \emph{Tacita} REST API. Imagine a screen brokes, then the associated beacon can be moved to another screen or the display may be replaced. The last case is the easiest, since we can just turn on the screen and use the last display's id, if no new devices is avaliable then the beacons can be quickly be linked to the a new screen.
 
-or the screen itself may be replaced. 
 \section{Design}
 In our project design plays a key role. Since our applications can be used to anybody, a clear and effective interface is mandatory to ensure a global usability. Moreover, when dealing with big display, we have to provide a no blocking content flow meaning that an interaction should not prevent, or block, another. Also, all state changing must be displayed using design techniques, such as well targeted animation, in order to make the user understanding what is happening around him.
 
@@ -303,20 +307,48 @@ In the Class application we used the same approach, we started by sketching the 
 As we have explained before, we also develop an smartphone application called \emph{Tacita} in order to organize the user interaction with the display. We design it from sketch in order to be accessible from everyone. Logically, from the main page of the application is possible to see and enable all the existing application. In order to provide a more confortable user experience we added skeletron loader instead of a classic spinner; therefore, in case of slow internet, is possibile to 'guess' the content of a page. The following picture show the process.
 \begin{figure}[H]
   \centering
-  \subfloat[loading]{\includegraphics[width=0.25\textwidth]{./images/tacita_skeletron}}
+  \subfloat[Loading]{\includegraphics[width=0.25\textwidth]{./images/tacita_skeletron}}
   \
   \
   \
-  \subfloat[finish]{\includegraphics[width=0.25\textwidth]{./images/tacita_main}}
+  \subfloat[Finish]{\includegraphics[width=0.25\textwidth]{./images/tacita_main}}
 \end{figure}
 When a User walk nearby a screen a float button pops up making the displays page avaliable, and, since we are using socket connection, if the display changes the running application, the client will be notified
 
+\begin{figure}[H]
+  \centering
+  \subfloat[Beacon found]{\includegraphics[width=0.25\textwidth]{./images/tacita_display_found}}
+   \
+  \
+  \
+  \subfloat[Display found]{\includegraphics[width=0.25\textwidth]{./images/tacita_display_view}}
+\end{figure}
+We also provide a convenient way to select a custom personalisation. As we said before, we choose a colour based approach in order to highlight the visibility of a own content.
+
+\begin{figure}[H]
+  \centering
+  \subfloat[Select a colour]{\includegraphics[width=0.25\textwidth]{./images/preference_colour/colour_select}}
+   \
+  \
+  \
+  \subfloat[Personalization page]{\includegraphics[width=0.25\textwidth]{./images/preference_colour/personalization_page}}
+     \
+  \
+  \
+    \subfloat[Appearence on a display]{\includegraphics[width=0.25\textwidth]{./images/preference_colour/result}}
+\end{figure}
+In this example, the User selected a "blue" colour as identifier of his preferences. In figure \emph{u} you can see the actually final result on the display, a little labeled is added on the left part of the selected colour. If one of more users walk in, then the label is splitted.
+\begin{figure}[H]
+  \centering
+  \subfloat[More users]{\includegraphics[width=0.25\textwidth]{./images/preference_colour/result_splitted}}
+\end{figure}
+
 \section{Conclusion}
- 
-t
+We show that is possible to create a new way to interaction with public displays by just changing the software. 
 
 
 %%%%%
+\newpage
 \bibliographystyle{abbrv}
 \bibliography{references}
 \end{document}
