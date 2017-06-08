@@ -31,6 +31,14 @@ final class DisplayController {
     }
     
     static func delete(_ req: Request, display: Display) throws -> ResponseRepresentable {
+        var linkedBeacons = try display.getBeacons()
+        
+        for beacon in linkedBeacons {
+            var beacon = beacon
+            beacon.displayId = nil
+            try beacon.save()
+        }
+        
         try display.delete()
 
         return try display.makeJSON()

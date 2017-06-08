@@ -22,8 +22,7 @@ class FacultyStore extends Store {
       FETCH_FACULTY_SUCCESS: this.onFetchFacultySuccess
     })
   }
-  // actions takes the dispacher and the store back from the superStore,
-  // so we can call our function as soon as we dispatch
+  
   actions(dispatcher, context) {
     return {
       fetchFaculties() {

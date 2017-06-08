@@ -26,18 +26,31 @@ class UserStore extends Store {
     }
   }
 
-
   onToogleAppFailure({ error }) {
-    console.log(error);
     this.state.userError.error = true
     this.state.userError.msg = "Something went wrong."
+  }
+
+  onGetMyAppsSuccess({ data }) {
+    const apps = data.apps
+
+    this.sStore.state.applications.data.forEach(app => app.toogle = false)
+
+    for (let userApp of apps) {
+      for (let app of this.state.applications.data) {
+        if (userApp.id == app.id) app.toogle = true
+      }
+    }
+
+    this.state.user.apps = data.apps
   }
 
   reduce(action) {
     this.reduceMap(action, {
       CREATE_USER_SUCCESS: (({ data }) => { this.sStore.actions.getMe(data.email) }),
       CREATE_USER_FAILURE: (({ email }) => { this.sStore.actions.getMe(email) }),
-      GET_MY_APPS_SUCCESS: (({ data }) => { this.state.user.apps = data.apps }),
+      // FETCH_APPLICATION_SUCCESS: (() => this.sStore.actions.getMyApps()),
+      GET_MY_APPS_SUCCESS: this.onGetMyAppsSuccess,
       GET_ME_SUCCESS: (({ data }) => this.state.user = data),
       TOOGLE_APP_SUCCESS: this.onToogleAppSuccess,
       TOOGLE_APP_FAILURE: this.onToogleAppFailure
@@ -47,7 +60,7 @@ class UserStore extends Store {
   actions(dispatcher, ctx) {
     return {
       getMe(email) {
-        api.user.getMe(email)
+        return api.user.getMe(email)
           .then(({ data }) => {
             dispatcher.dispatch(new Action("GET_ME_SUCCESS", { data }))
           })
@@ -57,7 +70,7 @@ class UserStore extends Store {
 
       },
       getMyApps() {
-        api.user.getMyApps(ctx.state.user.id)
+        return api.user.getMyApps(ctx.state.user.id)
           .then(({ data }) => {
             dispatcher.dispatch(new Action("GET_MY_APPS_SUCCESS", { data }))
           })
@@ -83,7 +96,7 @@ class UserStore extends Store {
         dispatcher.dispatch(new Action("TOOGLE_ALL_APP", { state }))
       },
       createOrFetchUser(email) {
-        api.user.create(email)
+        return api.user.create(email)
           .then(data => dispatcher.dispatch(new Action("CREATE_USER_SUCCESS", data)))
           .catch(err => dispatcher.dispatch(new Action("CREATE_USER_FAILURE", { email })))
       }

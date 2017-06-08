@@ -70,6 +70,7 @@ class PreferenceStore extends Store {
 
     buses.forEach((bus) => {
       if (bus.id == busId && (bus.to == null || bus.to == to)) {
+<<<<<<< HEAD
         Vue.set(bus, 'to', to)
         // the bus with that direciton already exists -> override its direction
         shouldAdd = false
@@ -79,12 +80,26 @@ class PreferenceStore extends Store {
     if (shouldAdd) {
       const newBus = { id: busId, number: stationboard.bus.number, to: to }
       this.state.currentPreference.buses.push(newBus)
+=======
+        bus.to = to
+        shouldAdd = false
+      }
+    })
+    // // multiple buses can be selected, then, if we don't find a previouse one, we just need to add it
+    if (shouldAdd) {
+      const newBus = { id: busId, number: stationboard.bus.number, to: to }
+      this.state.preference.buses.push(newBus)
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
     }
   }
 
   removeDirectionToPreference({ stationboard }) {
     const busToRemove = { id: stationboard.bus_id, number: stationboard.bus.number, to: stationboard.to }
+<<<<<<< HEAD
     var buses = this.state.currentPreference.buses
+=======
+    var buses = this.state.preference.buses
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
 
     for (let i = 0; i < buses.length; i++) {
       let currBus = buses[i]
@@ -135,8 +150,15 @@ class PreferenceStore extends Store {
     this.state.preferenceError = err
   }
 
+<<<<<<< HEAD
   toogleEditModeFalse() {
     this.initializeCurrentPreference()
+=======
+  tooglePreferenceEdit({ preference }) {
+    router.push({ name: 'edit', params: { id: preference.id } })
+    this.state.preference = Object.assign({}, preference)
+    this.state.isInEditMode = !this.state.isInEditMode
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
   }
 
   toogleEditModeTrue({ preference }) {

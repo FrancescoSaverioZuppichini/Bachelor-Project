@@ -44,3 +44,31 @@ html, body {
   right: 16px;
   bottom: 16px;
 }
+
+.flex--center {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.absolute--center {
+  position: absolute;
+  top: 50%;
+  left: auto;
+  width: 100%;
+}
+
+.unlinked-beacon__container {
+  /*position: absolute;*/
+}
+
+.beacon-icon {
+  height: 50px;
+  width: 25px;
+  background-size: contain;
+  background-image: url('/tacita/images/beacon_small.png')
+}

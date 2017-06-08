@@ -54,6 +54,7 @@ public extension Display {
     }
     
     public func getBeacons() throws -> [Beacon] {
+        
         return try children().all()
     }
 }

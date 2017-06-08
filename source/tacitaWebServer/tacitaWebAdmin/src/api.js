@@ -35,6 +35,13 @@ export default {
     },
     editBeacon(beacon) {
       return axios.put(`${BASE_URL}${TACITA_URL}/beacon/${beacon.id}`, { ...beacon })
+    },
+    createBeacon(beacon) {
+      return axios.post(`${BASE_URL}${TACITA_URL}/beacon`, beacon)
+    },
+    deleteBeacon(beacon) {
+      return axios.delete(`${BASE_URL}${TACITA_URL}/beacon/${beacon.id}`)
+
     }
   }
 }

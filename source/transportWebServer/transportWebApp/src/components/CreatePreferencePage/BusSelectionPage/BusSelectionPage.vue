@@ -8,8 +8,14 @@
         </div>
       </transition>
       <resource-transition-wrapper>
+<<<<<<< HEAD
         <div v-for="bus in this.$store.state.currentPreference.station.buses" class="uk-width-1-1" :key="bus">
           <resource @click.native="toogleBus(bus)" :toogle="bus.toogle">
+=======
+        <div v-for="bus in this.$store.state.connections" class="uk-width-1-1" :key="bus">
+          <resource @click.native="toogle(bus)" :toogle="bus.toogle">
+            <!-- $store.state.preference.buses.indexOf(bus) >= 0 -->
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
             <h3>{{bus.number}}</h3>
           </resource>
         </div>
@@ -60,20 +66,42 @@ export default {
     }
   },
   created() {
-    // this.fetchBuses()
+    this.fetchBuses()
   },
   watch: {
     '$route': function(newRoute) {
-      // if (newRoute.name == 'bus') this.fetchBuses()
+      if (newRoute.name == 'bus') this.fetchBuses()
     }
   },
   methods: {
+<<<<<<< HEAD
     toogleBus(bus) {
       if (bus.toogle) {
         this.$store.actions.removeBusToPreference(bus)
+=======
+    isToogled(bus) {
+      for (let connInPref of this.$store.state.preference.buses) {
+        for (let conn of this.buses) {
+          if (conn.id == connInPref.id) return true
+        }
+      }
+      return false
+    },
+    toogle(bus) {
+
+      if (this.$store.state.preference.buses.indexOf(bus) >= 0) {
+        this.$store.actions.removeBusToPreference(bus)
+        bus.toogle = false
+
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
       } else {
         this.show = false
         this.$store.actions.addBusToPreference(bus)
+<<<<<<< HEAD
+=======
+        bus.toogle = true
+
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
       }
       if (bus.toogle == undefined) this.$set(bus, 'toogle', true)
       else {

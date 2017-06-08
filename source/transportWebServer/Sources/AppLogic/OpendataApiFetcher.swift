@@ -159,14 +159,9 @@ public final class OpendataApiFetcher {
      [opendata transport API](https://transport.opendata.ch/docs.html)
      */
     public static func start() {
-        let calendar = Calendar(identifier: .gregorian)
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date())!
-        var components = calendar.dateComponents([.year, .month, .day, .hour], from: tomorrow)
-        components.hour = 5
-        let tomorrowMorning = calendar.date(from: components)!
+        
         
         let queue = DispatchQueue(label: "opendataApiFetcherQueue")
-        
         
         queue.asyncAfter(deadline: .now() + 0.5)  {
             Jobs.add(interval: .seconds(60*60)) {
@@ -176,23 +171,7 @@ public final class OpendataApiFetcher {
                 } catch{
                     print("Error during fetching")
                 }
-                
             }
-            //            if #available(OSX 10.12, *) {
-            //                let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            //                    do {
-            //                        try OpendataApiFetcher.cacheOpendataApi()
-            //
-            //                    } catch{
-            //                        print("Error during fetching")
-            //                    }
-            //                }
-            //                timer.fire()
-            //            } else {
-            //                // Fallback on earlier versions
-            //            }
-            
         }
     }
-    
 }

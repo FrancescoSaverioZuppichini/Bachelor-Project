@@ -8,17 +8,17 @@ public final class Application: Model, RequestInitializable {
     var name: String
     var url: String
     var materialIcon: String
-
-   public var exists: Bool = false
+    
+    public var exists: Bool = false
     var entity: String = "applications"
     
     init(name: String, url: String, materialIcon: String) {
         self.name = name
-         self.url = url
+        self.url = url
         self.materialIcon = materialIcon
     }
     
-   public init(node: Node, in context: Context) throws {
+    public init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         name = try node.extract("name")
         url = try node.extract("url")
@@ -35,7 +35,7 @@ public final class Application: Model, RequestInitializable {
         }
         
         guard let materialIcon = request.data["materialIcon"]?.string else {
-              throw Abort.custom(status: .badRequest, message: ResourseError.parameterIsMissing("materialIcon").description)
+            throw Abort.custom(status: .badRequest, message: ResourseError.parameterIsMissing("materialIcon").description)
         }
         
         self.name = name
@@ -43,13 +43,22 @@ public final class Application: Model, RequestInitializable {
         self.materialIcon = materialIcon
     }
     
-   public func makeNode(context: Context) throws -> Node {
-        return try Node(node: [
+    public func makeNode(context: Context) throws -> Node {
+        var node =  try Node(node: [
             "id": id,
             "name": name,
             "url": url,
             "material_icon": materialIcon
             ])
+        
+        switch context {
+        case ResourseContext.all:
+            node["displays"] = try getDisplay().all().makeNode()
+        default:
+            break
+        }
+        
+        return node
     }
     
     public static func prepare(_ database: Database) throws {
@@ -64,5 +73,15 @@ public final class Application: Model, RequestInitializable {
     public static func revert(_ database: Database) throws {
         try database.delete(entity)
     }
+}
+
+extension Application {
+    
+    func getDisplay() throws -> Siblings<Display> {
+        
+        return try siblings()
+        
+    }
+    
 }
 

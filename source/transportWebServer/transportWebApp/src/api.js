@@ -26,7 +26,7 @@ export default {
   'bus': {
     getPassList(bus) {
       return axios.get(`${BASE_URL}${TRANSPORT_URL}/bus/${bus.bus_id}/passList?direction=${bus.to}`)
-    },
+    }
   },
   "user": {
     getMe(email) {
@@ -63,7 +63,7 @@ export default {
       return axios.put(`${BASE_URL}${TACITA_URL}/display/${displayId}/app/${appId}`)
     },
     fetchDisplay(displayId) {
-      return axios.get(`${BASE_URL}${TRANSPORT_URL}/display/${displayId}`)
+      return axios.get(`${BASE_URL}${TACITA_URL}/display/${displayId}`)
 
     }
   },

@@ -18,9 +18,11 @@ components: {
 
 
 <style stylus>
+
 #app{
   height: 100%;
 }
+
 @import "./css/main.css";
 @import "./css/vuetify.min.css";
 @import "../node_modules/uikit/dist/css/uikit.min.css";
