@@ -14,22 +14,24 @@
                 {3.25ex \@plus1ex \@minus.2ex}%
                 {-1em}%
                 {\normalfont\normalsize\bfseries}}
-\author{Your Name}
+\author{Francesco Saverio Zuppichini}
 
-\title{The Title}
+\title{Design Interactive Display Applications for Active and Walk-by Contact Personalization}
 \subtitle{The (optional) subtitle}
 \versiondate{\today}
 \begin{committee}
 %With more than 1 advisor an error is raised...: only 1 advisor is allowed!
-\advisor[Universit\`a della Svizzera Italiana, Switzerland]{Prof.}{AdvisorName}{AdvisorSurname}
+\advisor[Universit\`a della Svizzera Italiana, Switzerland]{Prof.}{Marc}{Langheinrich}
 %You can comment out  these lines if you don't have any assistant
-\assistant[Universit\`a della Svizzera Italiana, Switzerland]{Title}{AssistantName1}{AssistanSurname1}
-\assistant[Universit\`a della Svizzera Italiana, Switzerland]{Title}{AssistantName2}{AssistanSurname2}
+\assistant[Universit\`a della Svizzera Italiana, Switzerland]{}{Ivan}{Elhart}
+%\assistant[Universit\`a della Svizzera Italiana, Switzerland]{}{AssistantName2}{AssistanSurname2}
 \end{committee}
 
 
 \abstract {
-An abstract describing what the prospectus is all about. ``Omit needless words'' \cite{Stru1899a}: It should fit within the page without making the footer of the title page break the page --- otherwise what kind of abstract would it be?
+Nowadays displays are everywhere. They are mostly used to show information to huge amount of people by using a passive and unilateral channel. Our application, \emph{Tacita}, reshape that channel by creating a bilateral relationship between the user and such devices in order to provide in-walk personalised content.
+
+Traditionally, personalization rely on user broadcasting their preference to a local display running an application without notify any other screen in the grid. With \emph{Tacita}, all elements of the architecture are aware of everything that may happen outside sharing a global state pushed into a reliable web socket proving a more convinient way to manage user's preferences.
 }
 
 
@@ -73,12 +75,16 @@ Our goal is to create a bi-lateral channel with the screen: the user must be abl
 \\
 The showed content must be pertinent and \emph{fast}, it must be easy for the user to enter the network becoming a part of it without loosing any time. For this reason we focus our attentions of the design part, aimed to provide a natural way of interaction between the system. Tons of studied shows the connection between poorly user interaction and high learning curve. Since we are addressing a endless mass of people, our application must be easy to start with and addressable. Therefore we decide to use smart phones as mainly platform
 % ADD SOMETHING talk abou speed and user interaface with the smartphone
-By doing that we completly transform a tool, such as a display, into a new one, a better one.
+By doing that we completely transform a tool, such as a display, into a new one, a better one.
 % say something of how software can change hardware an it is the main layer
 
 \subsection{Results}
-As it will be deeply explained in the pages, we succesfully create a fully functional network that allow to create a bidirection communication channel making the display also an \emph{active} element that changes dynamically based on the users interactions. Our project uses a main application, called \emph{Tacita}, to provide the necessary instruments to create, manage and personalize preferences. A common interface is exposed from each Application using a Micro Services approach in order to make it easy to add new functionalities without interfere with the others elements.
-A touch display is used as main platform to show target content providing even more actions to the user that can just click and discover useful information.
+%As it will be deeply explained in the pages, we successfully create a fully functional architecture that allows to create a bidirectional communication channel making the display also an \emph{active} a that changes dynamically based on the users interactions. Our project uses a main application, called \emph{Tacita}, to provide the necessary instruments to create, manage and personalize preferences. A common interface is exposed from each Application using a Micro Services approach in order to make it easy to add new functionalities without interfere with the others elements.
+%A touch display is used as main platform to show target content providing even more actions to the user that can just click and discover useful information.
+We created a network that allows user to create, manage and see their preference by just walking nearby one of such devices. Moreover, they are also used in a old fashion way to show content on the fly by using the touch interface.
+Each application is individually deployed by each provided without effecting in any way the system thanks to a micro services approach. They expose the same structure allowing a quick developing and integration in the network. The main entity that handles all the logic interactions between users, displays and beacons is \emph{Tacita}. It provides a solid web socket channel to push/pull notifications such as when somebody walk near a screen. It also stores all the components state providing a way to reach the applications from the mobile client to create personalized content.
+
+A clean design is used as communication way to let users enter into the architecture without creating any account. The existing phone's account email is used to create an unique identifier entry into the database allowing a quick and safe access to the application. The smartphone is used to discovers displays thought bluetooth beacons connected to them. When one of those is reach, it starts pooling data from its application and display the user's preference using a colour base approach providing anonymity. 
 
 \section{Architecture}
 In this section we describe in detail the whole project design, bottom-up. Starting by a briefly description of how we structure all the parts.
@@ -101,13 +107,13 @@ All the active logic of the network is handled by another Micro Service, called 
 \subsection{Architecture Elements}
 \subsubsection{General Overview}
 
-We talked superfically of the elements of our Architecture: it is time to deeply describe them one per one. We start from the most important one: The User  
+We talked superficially of the elements of our Architecture: it is time to deeply describe them one per one. We start from the most important one: The User  
 \subsubsection{User}
 
 The User has a fully active role, he is the trigger of the whole system; without him, the network has not reason to exits. He uses his smartphone in order to access the front-end application exposed by the \emph{Appliction Layer} through the \emph{Tacita} platform.
 
 By using it the User can selects his custom settings in order to quickly identify his information on the screens.
-In our design, a favourite color can be selected in order to filter fast the owned content and gaining anonymity, since nobody else can know who is linked to a specific coulor. Also, colour base information can be idenfity really fast by just watching the screen.
+In our design, a favourite colour can be selected in order to filter fast the owned content and gaining anonymity, since nobody else can know who is linked to a specific colour. Also, colour base information can be identify really fast by just watching the screen.
 This application will be deeply analized into the next sections, but, from a user point of view, it is the door to access the whole array of services.
 
 We talked about the User as a \emph{trigger}, it means that, with his physical being, it \emph{triggers} actions; actions that are universally recognizable by our architecture. While walking near a screen, the architecture, thanks to bluetooth beacon that map them in the space, and, thanks to the smartphone application, can detect the movement show the personalized content into the screen at the right time. For the client, this is very convenient, since no other interaction is needed at all. One challenge we encountered was to make sure that the required content is showed in the correct time because, if the architecture is unreliable for the user then nobody will trust to use it.
@@ -137,7 +143,7 @@ In our project, we used touch display with an Intel Nuc to drive them. Thanks to
 In the previous sections we have said that \emph{Tacita} is the glue of the architecture: it allows communication between users, display and application layer. In order to do so, we create a database's entry for each of these elements and we linked them with the correct relations. Since we are using MySQL we can take advantages of the relation structure that is imposed. A \one to one relation is create between the Display and the Application table, since, a single screen can run only one application at the moment. Also, when the the service is changed, the display automatically notify all the client connected to the web socket of the new state allowing each user to know in real time which application is running where.
 
 Since \emph{Tacita} allows to enable and disable custom services, a many to many pivot is used to keep track of local user's applications state. If an application is turned off and a user is near to a display that runs that application, then no interaction between the two will happen. In our design, this check, is done on the client side giving to the display even more independent.
-The physical device that make the in-walk communication possible is the bluetooth beacon produced by Estimote. Thanks to the custom android SDK provided by the manufactor, we can know exactly in which monitoring "region" somebody entered. On the server side, a one to one relation between Beacon and Display is created in order to quickly know, based on the beacon unique Id, which display is linked to. These devices must be putted really close to the machine we want identify in order to increase the location accuracy. Moreover, thanks to our API design, they can be changed at any time by just send the correct request to the server.
+The physical device that make the in-walk communication possible is the bluetooth beacon produced by Estimote. Thanks to the custom android SDK provided by the manufactore, we can know exactly in which monitoring "region" somebody entered. On the server side, a one to one relation between Beacon and Display is created in order to quickly know, based on the beacon unique Id, which display is linked to. These devices must be putted really close to the machine we want identify in order to increase the location accuracy. Moreover, thanks to our API design, they can be changed at any time by just send the correct request to the server.
 
 \begin{figure}[H]
   \centering
@@ -304,7 +310,8 @@ In the Class application we used the same approach, we started by sketching the 
   \subfloat[final product]{\includegraphics[width=0.53\textwidth]{./images/classes_application}}
 \end{figure}
 \subsubsection{Smartphone}
-As we have explained before, we also develop an smartphone application called \emph{Tacita} in order to organize the user interaction with the display. We design it from sketch in order to be accessible from everyone. Logically, from the main page of the application is possible to see and enable all the existing application. In order to provide a more confortable user experience we added skeletron loader instead of a classic spinner; therefore, in case of slow internet, is possibile to 'guess' the content of a page. The following picture show the process.
+As we have explained before, we develop an smartphone application called \emph{Tacita} in order to organize the user interaction with the display. We design it from sketch to be accessible for everyone from everywhere. 
+Logically, in main page of the application is possible to see and enable all the existing application exposed by the \emph{Application layer}. Since we wanted to provide a more comfortable user experience we added skeletron loader instead of a classic spinner; therefore, in case of slow internet, is possible to 'guess' the content of a page. The following pictures show the process.
 \begin{figure}[H]
   \centering
   \subfloat[Loading]{\includegraphics[width=0.25\textwidth]{./images/tacita_skeletron}}
@@ -313,6 +320,7 @@ As we have explained before, we also develop an smartphone application called \e
   \
   \subfloat[Finish]{\includegraphics[width=0.25\textwidth]{./images/tacita_main}}
 \end{figure}
+As you may notice, is it easy to understand how the content
 When a User walk nearby a screen a float button pops up making the displays page avaliable, and, since we are using socket connection, if the display changes the running application, the client will be notified
 
 \begin{figure}[H]
@@ -344,8 +352,10 @@ In this example, the User selected a "blue" colour as identifier of his preferen
 \end{figure}
 
 \section{Conclusion}
-We show that is possible to create a new way to interaction with public displays by just changing the software. 
+Public displays are a powerful way to show content by interacting with it. With out system we showed that software can lead to improvement. The display, as it is, is a useless piece of hardware, but, combined with software it can becomes a better device. We started by exposing today's problem linked to a badly utilization of public screen showing, with examples, that they are mainly used for undirected advertisement.
 
+
+After acknowledged such problems, we thought of a better system, in witch users are in control called \emph{Tacita}. In \emph{Tacita}, the displays becomes a real means of communication that can be dynamically adjust to target the correct user and the right time creating a new way of interaction. 
 
 %%%%%
 \newpage

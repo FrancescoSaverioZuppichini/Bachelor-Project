@@ -1,3 +1,1 @@
 Nowadays displays are everywhere. They are used mostly to show information to huge amount of people by using a passive and unilateral channel. Our application reshape that channel by creating a bilateral relationship between the user and such devices in order to provide in-walk personalised content.
-
-We let the user select a preference on public transportation and upcoming classes through mobile devices that will be displayed as soon as he walks near a public display. 

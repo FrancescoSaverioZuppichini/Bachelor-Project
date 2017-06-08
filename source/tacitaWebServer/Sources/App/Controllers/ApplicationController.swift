@@ -15,12 +15,11 @@ final class ApplicationController {
     
     static func getAll(_ req: Request) throws -> ResponseRepresentable {
         
-        return try Application.query().all().makeJSON()
-    }
+        return try Application.query().all().makeNode(context: req.context).converted(to : JSON.self)    }
     
     static func getOne(_ req: Request, application: Application) throws -> ResponseRepresentable {
         
-        return try application.makeJSON()
+        return try application.makeNode(context: req.context).converted(to : JSON.self)
     }
     
 
