@@ -4,6 +4,8 @@
     <ul class="uk-nav">
       <li><a @click="$router.push({name:'DisplayPage'})">Display</a></li>
       <li><a @click="$router.push({name:'BeaconPage'})">Beacon</a></li>
+      <li><a @click="$router.push({name:'ApplicationPage'})">Application</a></li>
+
     </ul>
   </div>
   <keep-alive>
@@ -19,6 +21,8 @@
       <ul class="uk-nav uk-nav-default">
         <li><a @click="$router.push({name:'DisplayPage'})">Display</a></li>
         <li><a @click="$router.push({name:'BeaconPage'})">Beacon</a></li>
+        <li><a @click="$router.push({name:'ApplicationPage'})">Application</a></li>
+
       </ul>
     </div>
 

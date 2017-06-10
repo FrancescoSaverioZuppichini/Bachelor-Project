@@ -8,6 +8,15 @@ export default {
   'application': {
     fetchApplications() {
       return axios.get(`${BASE_URL}${TACITA_URL}/application`)
+    },
+    createApplication(app) {
+      return axios.post(`${BASE_URL}${TACITA_URL}/application`, app)
+    },
+    editApplication(app) {
+      return axios.put(`${BASE_URL}${TACITA_URL}/application/${app.id}`, app)
+    },
+    removeApplication(app) {
+      return axios.delete(`${BASE_URL}${TACITA_URL}/application/${app.id}`, )
     }
   },
   'display': {

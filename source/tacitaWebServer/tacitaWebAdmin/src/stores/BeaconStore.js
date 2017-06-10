@@ -15,6 +15,7 @@ class BeaconStore extends Store {
     this.state.freeBeacons = () => this.state.beacons.data.filter((beacon) => beacon.display_id == null)
 
   }
+
   find(toFind) {
     return this.state.beacons.data.filter(beacon => beacon.id == toFind.id)[0]
   }
