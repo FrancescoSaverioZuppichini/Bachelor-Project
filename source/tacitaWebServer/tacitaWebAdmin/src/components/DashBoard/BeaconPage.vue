@@ -37,6 +37,11 @@ export default {
     Beacon,
     Page
   },
+  watch: {
+    '$store.state.showCreateDisplayModal': function(from, to) {
+      this.newBeacon = {}
+    }
+  },
   data: function data() {
     return {
       newBeacon: {
