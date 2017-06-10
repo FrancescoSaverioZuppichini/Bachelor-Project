@@ -19,10 +19,12 @@ export default {
     },
     createDisplay(display) {
       return axios.post(`${BASE_URL}${TACITA_URL}/display/`, { display })
-
     },
     deteleDisplay(display) {
       return axios.delete(`${BASE_URL}${TACITA_URL}/display/${display.id}`)
+    },
+    changeApp(display, app) {
+      return axios.put(`${BASE_URL}${TACITA_URL}/display/${display.id}/app/${app.id}`)
     }
   },
   'beacon': {

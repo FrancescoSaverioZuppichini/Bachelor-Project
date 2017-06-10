@@ -5,7 +5,6 @@
       <h6 class='uk-text-meta uk-text-large'>No Beacons</h6>
     </div>
     <resources-wrapper :data='$store.state.beacons'>
-
       <beacon :data="el" v-for="el in $store.state.beacons.data"></beacon>
     </resources-wrapper>
   </div>

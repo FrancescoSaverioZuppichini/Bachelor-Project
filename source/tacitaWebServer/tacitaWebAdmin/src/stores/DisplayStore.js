@@ -24,7 +24,6 @@ class DisplayStore extends Store {
 
   onFetchDisplaysSuccess({ data }) {
     this.state.displays.data = data
-    console.log(this.state.displays.data);
     this.state.displays.isLoading = false
     // get beacons reference
     this.state.displays.data.forEach(display => this.addBeacon(display))
@@ -36,8 +35,19 @@ class DisplayStore extends Store {
     this.state.displays.data.push(data)
   }
 
-  onDisplayChangeApp(data) {
+  onDisplayChangeApp({ data }) {
     console.log(data);
+  }
+
+  onChangeDisplayAppSuccess({ display, app }) {
+    display.apps = [app]
+    this.onToogleDisplayApplicationsEdit({ display })
+  }
+
+  onToogleDisplayApplicationsEdit({ display }) {
+    console.log(display);
+    if (display.editApplications == undefined) Vue.set(display, 'editApplications', false)
+    display.editApplications = !display.editApplications
   }
 
   reduce(action) {
@@ -45,7 +55,9 @@ class DisplayStore extends Store {
       FETCH_DISPLAYS_SUCCESS: this.onFetchDisplaysSuccess,
       DELETE_DISPLAY_SUCCESS: (({ display }) => this.state.displays.data.splice(this.state.displays.data.indexOf(display), 1)),
       CREATE_DISPLAY_SUCCESS: this.onCreateDisplaySuccess,
-      DISPLAY_CHANGE_APP: this.onDisplayChangeApp
+      DISPLAY_CHANGE_APP: this.onDisplayChangeApp,
+      CHANGE_DISPLAY_APP_SUCCESS: this.onChangeDisplayAppSuccess,
+      TOOGLE_DISPLAY_APPLICATIONS_EDIT: this.onToogleDisplayApplicationsEdit
 
     })
   }
@@ -63,11 +75,19 @@ class DisplayStore extends Store {
       deleteDisplay(display) {
         api.display.deteleDisplay(display)
           .then(() => dispatcher.dispatch(new Action('DELETE_DISPLAY_SUCCESS', { display })))
+      },
+      changeApp(display, app) {
+        return api.display.changeApp(display, app)
+          .then((data) => dispatcher.dispatch(new Action("CHANGE_DISPLAY_APP_SUCCESS", { display, app })))
+          .catch((err) => console.log(err))
+      },
+      toogleDisplayApplicationsEdit(display) {
+        dispatcher.dispatch(new Action('TOOGLE_DISPLAY_APPLICATIONS_EDIT', { display }))
+        }
       }
     }
   }
-}
 
 
-const displayStore = new DisplayStore()
-export default displayStore
+  const displayStore = new DisplayStore()
+  export default displayStore

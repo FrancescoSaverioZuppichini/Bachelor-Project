@@ -2,7 +2,11 @@
 <resource>
   <div class='uk-flex uk-flex-column'>
     <div class='uk-margin-small-bottom'>
-      <h5 class='uk-margin-remove'>{{`Beacon ${data.id}`}}</h5>
+      <div class='uk-flex uk-flex-middle'>
+        <div class='beacon-icon--small uk-margin-small-right'>
+        </div>
+        <h5 class='uk-margin-remove'>{{`Beacon ${data.id}`}}</h5>
+      </div>
       <div class='uk-flex--grow uk-margin-right'>
       </div>
       <v-btn icon class='grey--text text--darken-2 my-card__actions uk-margin-remove'>

@@ -16,8 +16,8 @@
                 {\normalfont\normalsize\bfseries}}
 \author{Francesco Saverio Zuppichini}
 
-\title{Design Interactive Display Applications for Active and Walk-by Contact Personalization}
-\subtitle{The (optional) subtitle}
+\title{Design Interactive Display Applications}
+\subtitle{for Active and Walk-by Contact Personalization}
 \versiondate{\today}
 \begin{committee}
 %With more than 1 advisor an error is raised...: only 1 advisor is allowed!
@@ -29,9 +29,11 @@
 
 
 \abstract {
-Nowadays displays are everywhere. They are mostly used to show information to huge amount of people by using a passive and unilateral channel. Our application, \emph{Tacita}, reshape that channel by creating a bilateral relationship between the user and such devices in order to provide in-walk personalised content.
+Nowadays displays are mostly used to show static information to huge amount of people by using a passive and unilateral communication channel. With our application, \emph{Tacita}, we reshape that channel by creating a bilateral relationship between the user and the screen providing in-walk personalised content.
 
-Traditionally, personalization rely on user broadcasting their preference to a local display running an application without notify any other screen in the grid. With \emph{Tacita}, all elements of the architecture are aware of everything that may happen outside sharing a global state pushed into a reliable web socket proving a more convinient way to manage user's preferences.
+Usually, personalization rely on user broadcasting their preference to a local display running an application without notify any other screen in the grid. With \emph{Tacita}, all elements of the architecture are aware of any external interaction by sharing a global state pushed into a reliable web socket proving a more convenient way to manage user's preferences.
+
+Also, our scalable architecture design make it possible to deploy as many displays and applications as it is necessary without making any change in its core by decoupling its provider into a specific micro service.
 }
 
 
@@ -44,7 +46,7 @@ Traditionally, personalization rely on user broadcasting their preference to a l
 
 Big displays represent a widely used form of mass communication in almost all public places such as squares, subways and schools. They are used in a passive way by pushing un-targeted information, mostly advertisements, to the audience; enslaved by a unidirectional visible communication without any way to personalise the screen's content.
 
-This lack of aimed informations brings to a uniqueness of the display's message, forced to be equal for everyone. Therefore, in the eyes of the device, is treated in the same way without making distinction. In the following pictures you can easily observe the abuse of this strategy by looking at two of the world's biggest squares that are invaded by static, brightly, unavoidable, content from the huge displays.
+This lack of aimed informations brings to a uniqueness of the display's message, forced to be equal for everyone. Therefore, in the eyes of the device, every user is treated in the same way without making distinction. In the following pictures you can easily observe the abuse of this strategy by looking at two of the world's biggest squares that are invaded by static, brightly, unavoidable, content from the huge displays.
 \begin{figure}[H]
   \centering
   \subfloat[]{\includegraphics[width=0.43\textwidth]{./images/new_york_displays.jpg}}
@@ -52,53 +54,45 @@ This lack of aimed informations brings to a uniqueness of the display's message,
   \subfloat[]{\includegraphics[width=0.5\textwidth]{./images/piccadilly_displays.jpg}}
 \end{figure} 
 
-Such devices make a big impact on a town's shape, they change it's look, colours and feel without adding anything useful. If we look in the pictures we can notice that the only content showed is advertisement. This choice is not directly related to the technology; in the following image, showing \emph{New York} in the early 60s, we can see the exactly same advertisement, even from the same companies, that is showed today. Therefore, even if the hardware has changed, it had not lead to an evolution of the context in which is used.
+Such devices make a really big impact on a town's shape, they change its look, colours and feel without adding anything useful. If we look in the pictures we can notice that the only content showed is advertisement. This choice is not directly related to the technology. For instance, in the following image, showing \emph{New York} in the early 60s, we can see the exactly same advertisement, even from the same companies, that is showed today. Therefore, even if the hardware has changed, it had not lead to an evolution of the context in which is used.
 \begin{figure}[H]
   \centering
   \subfloat[]{\includegraphics[width=0.5\textwidth]{./images/new_york_posters.jpg}}
-\end{figure} 
-The display's message is shared, or forced, to everyone; thus it seems logic thinking that everyone should share the screen too, but that is not the case.
+\end{figure}
+Since the display's message is shared, or forced, to everyone, it seems logic thinking that everyone should share the screen too, but that is not the case. Fortunately, we can do something about it.
 
-A unified message cause a certainly reduction of the device's utility and purpose, making it, as we stated before, a full passive element. An other example of a badly use of displays may be the ones in the Milan \emph{Stazione Centrale}, showed in the following picture.
+A unified content cause a certainly reduction of the device's utility and purpose, making it, as we stated before, a full passive element. An other example of a badly use of displays may be the ones in the Milan \emph{Stazione Centrale}, showed in the following picture.
 % add picture
 \begin{figure}[H]
   \centering
   \subfloat[]{\includegraphics[width=0.5\textwidth]{./images/display_milano.jpg}}
 \end{figure} 
-They are used only to show publicity from the TV's channels loosing all the power that such devices embraces. Would be nice to just walk close to one of these and see our train schedules? Obviously yes.
-
-An in-walk content personalisation is a logic step to made for using the full potential of such devices.
+They are used only to show publicity from the TV's channels loosing all the power that such devices embraces. They are even annoying due to their loud volume. Would be nice to just walk close to one of these and see our train schedules? Obviously yes. Thus, a in-walk content personalisation is a logic step to made for using the full potential of such devices.
 \subsection{Goal}
 
-Our goal is to create a bi-lateral channel with the screen: the user must be able to quickly filter the information that he needs in just few seconds without being shelled by tons of useless brands and images. As it is deeply described in the next sections, in our architecture, the user is the active trigger that push and pull it's personal content directly into and from the display. This informations can be showed by just walking to the screen thanks to proximity sensors such as bluetooth beacons allowing a non blocking information flow where only the relevant content is target to the interested user at the right time.
+Our goal is to create a bi lateral communication channel with the screen: the user must be able to quickly filter the information that he needs in just few seconds without being shelled by tons of useless brands and images. As it is deeply described in the next sections, in our architecture, he is the active trigger that push and pull its personal content directly into and from the display. This informations can be showed by just walking to the screen thanks to proximity sensors such as bluetooth beacons allowing a non blocking flow where only the relevant content is target to the interested client at the right time.
 \\
 \\
-The showed content must be pertinent and \emph{fast}, it must be easy for the user to enter the network becoming a part of it without loosing any time. For this reason we focus our attentions of the design part, aimed to provide a natural way of interaction between the system. Tons of studied shows the connection between poorly user interaction and high learning curve. Since we are addressing a endless mass of people, our application must be easy to start with and addressable. Therefore we decide to use smart phones as mainly platform
-% ADD SOMETHING talk abou speed and user interaface with the smartphone
-By doing that we completely transform a tool, such as a display, into a new one, a better one.
-% say something of how software can change hardware an it is the main layer
+The showed content must be pertinent and fast accessible, it must be easy for the user to enter the network becoming a part of it without loosing too much time. For this reason we focus our attentions of the design part, aimed to provide a natural way of interaction between the architecture and a low learning curve making our application application quickly addressable. For such reasons we decide to user smartphones as platform for manage preferences.
 
 \subsection{Results}
 %As it will be deeply explained in the pages, we successfully create a fully functional architecture that allows to create a bidirectional communication channel making the display also an \emph{active} a that changes dynamically based on the users interactions. Our project uses a main application, called \emph{Tacita}, to provide the necessary instruments to create, manage and personalize preferences. A common interface is exposed from each Application using a Micro Services approach in order to make it easy to add new functionalities without interfere with the others elements.
 %A touch display is used as main platform to show target content providing even more actions to the user that can just click and discover useful information.
-We created a network that allows user to create, manage and see their preference by just walking nearby one of such devices. Moreover, they are also used in a old fashion way to show content on the fly by using the touch interface.
-Each application is individually deployed by each provided without effecting in any way the system thanks to a micro services approach. They expose the same structure allowing a quick developing and integration in the network. The main entity that handles all the logic interactions between users, displays and beacons is \emph{Tacita}. It provides a solid web socket channel to push/pull notifications such as when somebody walk near a screen. It also stores all the components state providing a way to reach the applications from the mobile client to create personalized content.
+We created a network that allows users to create, manage and see their preference by just walking nearby the displays. Moreover, they are also used in a old fashion way to show content on the fly by using the touch interface; for example, is possible to click on them to see the bus schedules from a specific station.
 
-A clean design is used as communication way to let users enter into the architecture without creating any account. The existing phone's account email is used to create an unique identifier entry into the database allowing a quick and safe access to the application. The smartphone is used to discovers displays thought bluetooth beacons connected to them. When one of those is reach, it starts pooling data from its application and display the user's preference using a colour base approach providing anonymity. 
+Each application is individually deployed from each provided without effecting in any way the system thanks to a micro services approach. They expose the same structure allowing a quick developing and integration in the architecture. The main entity that handles all the interactions' logic between users, displays and beacons is \emph{Tacita}. It provides a solid web socket channel to push/pull notifications when somebody walk near a screen. It also stores all the components state providing a way to reach the applications from the mobile client and see in real time which one is running where.
+
+To make the architecture more accessible, we decide to use the existing phone's account email is used to create an unique identifier entry into the database allowing a quick and safe access to the application removing the time needed to create a new account. The smartphone is used to discovers displays thought bluetooth beacons connected to them. When one of those is detected, it starts pooling data from its application and display the user's preference using a colour base approach providing anonymity. 
 
 \section{Architecture}
 In this section we describe in detail the whole project design, bottom-up. Starting by a briefly description of how we structure all the parts.
 \subsection{Introduction}
 % INTRODUCTION
-Design a full working system is never easy job. It has to logically mimic the answer to the problem we are trying to solve.
-
-In our case, we are looking for a scalable system where the user, identifier as an active entry, pull and push his information to the display. It must not directly depends on the number of application, or \emph{services}, that our network exposes or on the number of display. Specifically the system has to work with $n$ display and $m$ application without any changing in the core. 
+Design a full working system is never easy job. It has to logically mimic the answer to the problem we are trying to solve. In our case, we are looking for a scalable system where the user, identifier as an active entry, pull and push his information to the display. It must not directly depends on the number of application, or \emph{services}, that our network exposes or on the number of display. Specifically the system has to work with $n$ display and $m$ application without any changing in the core. 
 % GENERAL OVERVIEW
 \\
 \\
-For such reasons we adopted a \emph{Micro Services} architecture where 
-
-each element can be removed without effecting the global integrity. Services communicate using either synchronous protocols such as HTTP/REST; thus they can be developed and deployed independently. Each service has its own database in order to be decoupled from other services. Such architectures scale faster than a classic monolithic approach, for instance, a new application can be deployed from everywhere really fast by just using the same interface of the existing ones. Moreover, each application can be added from everywhere allowing developers to use their favourites technologies and hosting platform.
+For such reasons we adopted a \emph{Micro Services} architecture where each element can be removed without effecting the global integrity. Services communicate using either synchronous protocols such as HTTP/REST; thus they can be developed and deployed independently. Each service has its own database in order to be decoupled from other services. Such architectures scale faster than a classic monolithic approach, for instance, a new application can be deployed from everywhere really fast by just using the same interface of the existing ones. Moreover, each application can be added from everywhere allowing developers to use their favourites technologies and hosting platform.
 In our project we deployed all the services on the same server, but in a real world, as we said,  they are usually physically separated. Since all the applications provide a common interface for pull/push personalization content, we are going to call this set of services the \emph{Application Layer}.\\
 \\
 All the active logic of the network is handled by another Micro Service, called \emph{Tacita}, that links display, application and users. It's responsibility is to be the glue between the \emph{Application Layer} and all the other elements by storing users' informations, screen's state and available applications.
@@ -311,41 +305,42 @@ In the Class application we used the same approach, we started by sketching the 
 \end{figure}
 \subsubsection{Smartphone}
 As we have explained before, we develop an smartphone application called \emph{Tacita} in order to organize the user interaction with the display. We design it from sketch to be accessible for everyone from everywhere. 
-Logically, in main page of the application is possible to see and enable all the existing application exposed by the \emph{Application layer}. Since we wanted to provide a more comfortable user experience we added skeletron loader instead of a classic spinner; therefore, in case of slow internet, is possible to 'guess' the content of a page. The following pictures show the process.
+Logically, in main page of the application is possible to see and enable all the existing application exposed by the \emph{Application layer}. Since we wanted to provide a more comfortable user experience we added skeletron loader instead of a classic spinner; therefore, in case of slow internet, is possible to 'guess' the content of a page. Picture $o$ and $p$ shows this strategy. As you may notice, is it easy to understand how the content is going to appear on the application.
+When a User walk nearby a screen a float button pops up making the displays page avaliable, and, since we are using socket connection, if the display changes the running application, the client will be notified. This interaction is showed into figure $q$ and $r$
 \begin{figure}[H]
   \centering
-  \subfloat[Loading]{\includegraphics[width=0.25\textwidth]{./images/tacita_skeletron}}
+  \subfloat[Loading]{\includegraphics[width=0.2\textwidth]{./images/tacita_skeletron}}
   \
+  \subfloat[Finish]{\includegraphics[width=0.2\textwidth]{./images/tacita_main}}
   \
-  \
-  \subfloat[Finish]{\includegraphics[width=0.25\textwidth]{./images/tacita_main}}
-\end{figure}
-As you may notice, is it easy to understand how the content
-When a User walk nearby a screen a float button pops up making the displays page avaliable, and, since we are using socket connection, if the display changes the running application, the client will be notified
+    \subfloat[Beacon found]{\includegraphics[width=0.205\textwidth]{./images/tacita_display_found}}
+    \
+  \subfloat[Display found]{\includegraphics[width=0.205\textwidth]{./images/tacita_display_view}}
 
+\end{figure}
+%
+%\begin{figure}[H]
+%  \centering
+%  \subfloat[Beacon found]{\includegraphics[width=0.2\textwidth]{./images/tacita_display_found}}
+%   \
+%  \
+%  \
+%  \subfloat[Display found]{\includegraphics[width=0.2\textwidth]{./images/tacita_display_view}}
+%\end{figure}
+As we said before, We also provide a convenient way to select a custom personalisation. We choose a colour based approach in order to highlight the visibility of a own content. The user can pick up a colour from the wheel and use it to find his preferences on the screens. Moreover, our system can easily support any other identifier such as username or avatar.
 \begin{figure}[H]
   \centering
-  \subfloat[Beacon found]{\includegraphics[width=0.25\textwidth]{./images/tacita_display_found}}
+  \subfloat[Select a colour]{\includegraphics[width=0.22\textwidth]{./images/preference_colour/colour_select}}
    \
   \
   \
-  \subfloat[Display found]{\includegraphics[width=0.25\textwidth]{./images/tacita_display_view}}
-\end{figure}
-We also provide a convenient way to select a custom personalisation. As we said before, we choose a colour based approach in order to highlight the visibility of a own content.
-
-\begin{figure}[H]
-  \centering
-  \subfloat[Select a colour]{\includegraphics[width=0.25\textwidth]{./images/preference_colour/colour_select}}
-   \
-  \
-  \
-  \subfloat[Personalization page]{\includegraphics[width=0.25\textwidth]{./images/preference_colour/personalization_page}}
+  \subfloat[Personalization page]{\includegraphics[width=0.22\textwidth]{./images/preference_colour/personalization_page}}
      \
   \
   \
     \subfloat[Appearence on a display]{\includegraphics[width=0.25\textwidth]{./images/preference_colour/result}}
 \end{figure}
-In this example, the User selected a "blue" colour as identifier of his preferences. In figure \emph{u} you can see the actually final result on the display, a little labeled is added on the left part of the selected colour. If one of more users walk in, then the label is splitted.
+In this example, the User selected a "blue" colour as identifier of his preferences. In figure \emph{u} you can see the actually final result on the display, a little label is added on the left part of the selected buses. If one of more users walk in, then the label is splitted.
 \begin{figure}[H]
   \centering
   \subfloat[More users]{\includegraphics[width=0.25\textwidth]{./images/preference_colour/result_splitted}}
@@ -354,8 +349,8 @@ In this example, the User selected a "blue" colour as identifier of his preferen
 \section{Conclusion}
 Public displays are a powerful way to show content by interacting with it. With out system we showed that software can lead to improvement. The display, as it is, is a useless piece of hardware, but, combined with software it can becomes a better device. We started by exposing today's problem linked to a badly utilization of public screen showing, with examples, that they are mainly used for undirected advertisement.
 
+After acknowledged such problems, we thought of a better system, in wich users are in control called \emph{Tacita}. In \emph{Tacita}, the displays becomes a real means of communication that can be dynamically adjust to target the correct user and the right time creating a new way of interaction. 
 
-After acknowledged such problems, we thought of a better system, in witch users are in control called \emph{Tacita}. In \emph{Tacita}, the displays becomes a real means of communication that can be dynamically adjust to target the correct user and the right time creating a new way of interaction. 
 
 %%%%%
 \newpage

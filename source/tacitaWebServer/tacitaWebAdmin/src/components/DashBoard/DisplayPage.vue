@@ -29,8 +29,26 @@
       <div v-for="beacon in beacons" :key='beacon'>
         <div class='beacon-icon'>
         </div>
+        <div uk-dropdown="mode: hover;pos: top">
+          <div class='uk-flex uk-flex-column'>
+            <div class='uk-margin-small-bottom'>
+              <p class='uk-margin-remove'>
+                {{`Beacon ${beacon.id}`}}
+              </p>
+            </div>
+            <div>
+              <p class='uk-text-meta uk-margin-remove'>
+                Mac address
+              </p>
+              <p class='uk-margin-remove'>
+                {{beacon.beacon_id}}
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div class='uk-text-center'>
-          {{beacon.beacon_id}}
+          {{beacon.id}}
         </div>
       </div>
     </draggable>

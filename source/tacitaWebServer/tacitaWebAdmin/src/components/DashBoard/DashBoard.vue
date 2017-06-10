@@ -39,6 +39,8 @@ export default {
   mounted() {
     this.$store.actions.fetchDisplays()
     this.$store.actions.fetchBeacons()
+    this.$store.actions.fetchApplications()
+
   }
 }
 </script>

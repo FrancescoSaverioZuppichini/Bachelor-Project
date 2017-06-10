@@ -24,8 +24,7 @@ class ApplicationStore extends Store {
     this.reduceMap(action, {
       FETCH_APPLICATION_LOADING: this.fetchApplicationsLoading,
       FETCH_APPLICATION_SUCCESS: this.fetchApplicationsSuccess,
-      FETCH_APPLICATION_FAILURE: ({ err }) => { this.state.applications.error = err },
-
+      FETCH_APPLICATION_FAILURE: ({ err }) => { this.state.applications.error = err }
     })
   }
 

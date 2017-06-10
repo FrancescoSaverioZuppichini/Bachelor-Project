@@ -17,16 +17,38 @@
       </div>
     </div>
     <!-- applications  -->
-
-    <div class="uk-flex uk-margin-bottom" v-for="application in data.apps">
-      <div class='uk-flex uk-flex-middle'>
-        <v-icon class="grey--text text--darken-2 uk-margin-right">{{application.material_icon}}</v-icon>
-        <h5 class='uk-margin-remove'>{{application.name.toUpperCase()}}</h5>
+    <div class='uk-flex'>
+      <div class="uk-flex" v-for="application in data.apps">
+        <div class='uk-flex uk-flex-middle'>
+          <v-icon class="grey--text text--darken-2 uk-margin-right">{{application.material_icon}}</v-icon>
+          <h5 class='uk-margin-remove'>{{application.name.toUpperCase()}}</h5>
+        </div>
+      </div>
+      <div class='uk-flex--grow'>
+      </div>
+      <v-btn icon class='grey--text text--darken-2' @click.native="$store.actions.toogleDisplayApplicationsEdit(data)" v-if="!data.editApplications">
+        <v-icon>edit</v-icon>
+      </v-btn>
+      <v-btn icon class='grey--text text--darken-2' @click.native="$store.actions.toogleDisplayApplicationsEdit(data)" v-else>
+        <v-icon>keyboard_arrow_up</v-icon>
+      </v-btn>
+    </div>
+    <div v-if="data.editApplications">
+      Change application
+      <div class='uk-flex'>
+        <div v-for="application in $store.state.applications.data">
+          <v-btn icon @click.native="$store.actions.changeApp(data,application)">
+            <v-icon class="grey--text text--darken-2 uk-margin-right">{{application.material_icon}}</v-icon>
+          </v-btn>
+        </div>
+        <div class='uk-flex--grow'>
+        </div>
       </div>
     </div>
+<div class='uk-margin-small-bottom'>
+
+</div>
     <!-- beacons  -->
-
-
     <draggable v-model="beacons" class='display-beacon__container uk-flex uk-grid-small' :options="{group:'people',filter: '.ignore'}" uk-grid @start="start" @end="end">
       <!-- <div v-show="beacons.length <= 0" class='disabled'>
         Drag here beacons to link them
@@ -34,8 +56,26 @@
       <div v-for="beacon in beacons" :key='beacon'>
         <div class='beacon-icon'>
         </div>
+        <div uk-dropdown="mode: hover">
+          <div class='uk-flex uk-flex-column'>
+            <div class='uk-margin-small-bottom'>
+              <p class='uk-margin-remove'>
+                {{`Beacon ${beacon.id}`}}
+              </p>
+            </div>
+            <div>
+              <p class='uk-text-meta uk-margin-remove'>
+                Mac address
+              </p>
+              <p class='uk-margin-remove'>
+                {{beacon.beacon_id}}
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div class='uk-text-center'>
-          {{beacon.beacon_id}}
+          {{beacon.id}}
         </div>
       </div>
     </draggable>
@@ -56,7 +96,8 @@ export default {
   props: ['data'],
   data: function data() {
     return {
-      drag: false
+      drag: false,
+      editApplication: false
     }
   },
   methods: {
