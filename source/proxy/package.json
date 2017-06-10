@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production node app.js",
-    "serve": "NODE_ENV=production node app.js &",
+    "serve": "forever start app.js &",
     "watch": "nodemon app.jsx"
   },
   "dependencies": {
