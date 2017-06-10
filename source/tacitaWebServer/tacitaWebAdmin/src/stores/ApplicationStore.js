@@ -66,8 +66,8 @@ class ApplicationStore extends Store {
           .catch((err) => console.log(err))
       },
       removeApplication(app) {
-        return api.application.createApplication(app)
-          .then((data) => dispatcher.dispatch(new Action("REMOVE_APPLICATION_SUCCESS", { app })))
+        return api.application.removeApplication(app)
+          .then((data) => dispatcher.dispatch(new Action("DELETE_APPLICATION_SUCCESS", { app })))
           .catch((err) => console.log(err))
       }
     }
