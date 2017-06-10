@@ -34,8 +34,8 @@ public final class Application: Model, RequestInitializable {
             throw Abort.custom(status: .badRequest, message: ResourseError.parameterIsMissing("name").description)
         }
         
-        guard let materialIcon = request.data["materialIcon"]?.string else {
-            throw Abort.custom(status: .badRequest, message: ResourseError.parameterIsMissing("materialIcon").description)
+        guard let materialIcon = request.data["material_icon"]?.string else {
+            throw Abort.custom(status: .badRequest, message: ResourseError.parameterIsMissing("material_icon").description)
         }
         
         self.name = name

@@ -1,6 +1,7 @@
 import { Store, Action } from 'flue-vue'
 import axios from 'axios'
 import api from '../api.js'
+import Vue from 'vue'
 
 class ApplicationStore extends Store {
   constructor() {

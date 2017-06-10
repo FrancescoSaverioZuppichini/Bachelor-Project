@@ -38,12 +38,12 @@ final class ApplicationController {
     
     static func edit(_ req: Request, application: Application) throws -> ResponseRepresentable {
         var application = application
+        var newApplication = try Application(request: req)
         
-        if (try Application.query().filter("name", application.name).filter("url", application.url).first()) != nil {
-            
-            throw Abort.custom(status: .badRequest, message: ResourseError.resourceAlreadyExist("Application").description)
-        }
-        
+        application.name = newApplication.name
+        application.url = newApplication.url
+        application.materialIcon = newApplication.materialIcon
+                
         try application.save()
         
         return try application.makeJSON()
