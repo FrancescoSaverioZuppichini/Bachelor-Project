@@ -40,10 +40,13 @@ final class ApplicationController {
         var application = application
         var newApplication = try Application(request: req)
         
+        
         application.name = newApplication.name
         application.url = newApplication.url
         application.materialIcon = newApplication.materialIcon
-                
+        application.description_en = newApplication.description_en
+        application.description_it = newApplication.description_it
+
         try application.save()
         
         return try application.makeJSON()
