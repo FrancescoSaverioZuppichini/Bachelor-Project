@@ -13,7 +13,9 @@ var env = process.env.NODE_ENV === 'testing' ?
   require('../config/test.env') :
   config.build.env
 
-const VAPOR_STATIC_DIR = '/Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/source/tacitaWebServer/Public/'
+const VAPOR_STATIC_DIR = path.resolve("../Public");
+
+// const VAPOR_STATIC_DIR = '/Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/source/tacitaWebServer/Public/'
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {

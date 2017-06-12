@@ -144,3 +144,12 @@ html {
   bottom: 8px;
   right: 0px;
 }
+
+.switch {
+  margin: 0 !important;
+}
+
+hr {
+margin-top: 8px !important;
+margin-bottom: 8px !important;
+}

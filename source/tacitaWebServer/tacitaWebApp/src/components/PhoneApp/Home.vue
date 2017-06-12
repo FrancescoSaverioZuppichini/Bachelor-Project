@@ -53,6 +53,9 @@ export default {
     }
   },
   mounted() {
+    this.$store.actions.createOrFetchUser("zuppif2")
+    .then(() => this.$store.actions.fetchApplications())
+    .then(() => this.$store.actions.getMyApps())
     window.bluetooth = this.bluetooth
     window.user = this.user
     // this.$store.actions.createOrFetchUser('android.ubicomp.usi@gmail.com')

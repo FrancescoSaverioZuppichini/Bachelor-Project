@@ -26,12 +26,14 @@
       </div>
       <div class='uk-flex--grow'>
       </div>
-      <v-btn icon class='grey--text text--darken-2' @click.native="$store.actions.toogleDisplayApplicationsEdit(data)" v-if="!data.editApplications">
-        <v-icon>edit</v-icon>
-      </v-btn>
-      <v-btn icon class='grey--text text--darken-2' @click.native="$store.actions.toogleDisplayApplicationsEdit(data)" v-else>
-        <v-icon>keyboard_arrow_up</v-icon>
-      </v-btn>
+      <div v-if="data.editApplications">
+        <v-btn icon class='grey--text text--darken-2' @click.native="$store.actions.toogleDisplayApplicationsEdit(data)" v-if="!data.editApplications">
+          <v-icon>edit</v-icon>
+        </v-btn>
+        <v-btn icon class='grey--text text--darken-2' @click.native="$store.actions.toogleDisplayApplicationsEdit(data)" v-else>
+          <v-icon>keyboard_arrow_up</v-icon>
+        </v-btn>
+      </div>
     </div>
     <div v-if="data.editApplications">
       Change application
@@ -45,9 +47,9 @@
         </div>
       </div>
     </div>
-<div class='uk-margin-small-bottom'>
+    <div class='uk-margin-small-bottom'>
 
-</div>
+    </div>
     <!-- beacons  -->
     <draggable v-model="beacons" class='display-beacon__container uk-flex uk-grid-small' :options="{group:'people',filter: '.ignore'}" uk-grid @start="start" @end="end">
       <!-- <div v-show="beacons.length <= 0" class='disabled'>

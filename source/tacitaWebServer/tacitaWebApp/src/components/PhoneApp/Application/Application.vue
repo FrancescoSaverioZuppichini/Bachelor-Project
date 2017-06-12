@@ -4,9 +4,9 @@
     <div class='uk-flex uk-flex-middle'>
       <div class='uk-flex--grow uk-flex uk-flex-middle'>
         <div class='uk-margin-right'>
-          <v-btn icon @click.native="$router.push({name:'Preference',params:{src: getUrl(application)}})" class="grey--text text--darken-2" large>
-            <v-icon large>{{application.material_icon}}</v-icon>
-          </v-btn>
+          <!-- <v-btn icon large> -->
+          <v-icon large @click.native="$router.push({name:'Preference',params:{src: getUrl(application)}})" class="grey--text text--darken-2 uk-margin-remove">{{application.material_icon}}</v-icon>
+          <!-- </v-btn> -->
         </div>
         <h4 class='uk-margin-remove' @click="$router.push({name:'Preference',params:{src: getUrl(application)}})">{{application.name.toUpperCase()}}</h4>
         <div class='uk-flex--grow'>
@@ -17,18 +17,22 @@
       </div>
     </div>
     <div class='uk-flex uk-flex-column' v-if="application.description_en">
+
+<hr />
       <div class='uk-flex uk-flex-middle'>
-      <small>More info</small>
+        <div class=''>
+          <h5 class='uk-margin-remove'>MORE INFO</h5>
+        </div>
         <div class='uk-flex--grow'>
         </div>
-        <v-btn icon class='grey--text grey--darken-2'>
-          <v-icon v-if="showDescription" @click.native='showDescription = false'>keyboard_arrow_up</v-icon>
-          <v-icon v-else-if="!showDescription" @click.native='showDescription = true'>keyboard_arrow_down</v-icon>
+        <v-btn icon class='grey--text grey--darken-2 uk-margin-remove'>
+          <v-icon v-if="showDescription" @click.native='showDescription = false' medium>keyboard_arrow_up</v-icon>
+          <v-icon v-else-if="!showDescription" @click.native='showDescription = true' medium>keyboard_arrow_down</v-icon>
         </v-btn>
       </div>
       <div v-if="showDescription">
         <div>
-          <h5>{{application.description_en}}</h5>
+          <p>{{application.description_en}}</p>
         </div>
       </div>
     </div>
