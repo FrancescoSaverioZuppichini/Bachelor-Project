@@ -10,6 +10,34 @@ The system is built following a microservices architecture, it means that is com
 
 To start the topology you can used the `start.sh` file that will automatically run in background all the servers. 
 
+The project is organized in the following way:
+
+```
+├── ProjectPlan
+├── finalReport
+├── log.jpg
+├── reports
+├── source
+└── utils
+```
+
+The code is contained into the `source` folder:
+
+```
+.
+├── README.md
+├── build.sh
+├── clear.sh
+├── proxy
+├── start.sh
+├── classesWebServer
+├── tacitaWebServer
+└── transportWebServer
+```
+
+Each servers containes its webapp/s. They follow a convention name: `WEB_NAME+WebApp`
+
+The server lives at `URL/3000` for http and `3443` for https, sockets are also avaliables at the same ports.
 ##Proxy
 Each request passed from our proxy, written, for convenience, in [Node](https://nodejs.org/it/docs/) and [Express](http://expressjs.com/). It is located into `source/proxy` and the main file is `app.js`. You can look at the current configuration by inspecting `config.js`.
 
