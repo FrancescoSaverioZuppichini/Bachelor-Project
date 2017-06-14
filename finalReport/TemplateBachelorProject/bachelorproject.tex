@@ -55,9 +55,9 @@ Active personalisation means that the user is in control of the content he wish 
 
 Big displays represent a widely used form of mass communication in almost all public places such as squares, subways and schools. They are used in a passive way by pushing static information, mostly advertisements, to the audience; without a possibility to personalise the screen's content. In the Picture \emph{(a)} you can easily observe this phenomenon by looking and the numbers of public huge displays and to the informations they provide.
 
-Such devices make a really big impact on a town's shape, they change its look, colours and feel without adding anything useful. If we look in the Figure \emph{(b)}, showing NY in the 60s, we can notice the same content showed today, even from the same companies. Therefore, even if the hardware has changed, it had not lead to an evolution of the context in which is used. 
+Such devices make a really big impact on a town's shape, they change its look, colours and feel without adding anything useful. If we look in the Figure 1, showing NY in the 60s, we can notice the same content showed today, even from the same companies. Therefore, even if the hardware has changed, it had not lead to an evolution of the context in which is used. 
 
-The major problem is the lack of personalization. A user can not filter the content by selecting only the ones that he is interested into since display's owners do not usually see the devices as a two way communication channel. In our project, we etry to solve it by creating a new architecture that can support user personalisation.
+The major problem is the lack of personalization. A user can not filter the content by selecting only the ones that he is interested into since display's owners do not usually see the devices as a two way communication channel. In our project, we try to solve it by creating a new architecture that can support user personalisation.
 
 Since Screens are physically deployed somewhere it is convenient to use sensor, such as bluetooth beacons, to map the user in the space and notify the system when he walks near a device. In this way, we can provide a walk-in 
 contact personalisation, showing to the user his content when he is there.
@@ -369,54 +369,49 @@ In the Class application we used the same approach, we started by sketching the 
 \subsubsection{Smartphone}
 As we have explained before, we develop an smartphone application called \emph{Tacita} in order to organize the user interaction with the display. We design it from sketch to be accessible for everyone from everywhere. 
 Logically, in main page of the application is possible to see and enable all the existing application exposed by the \emph{Application layer}. Since we wanted to provide a more comfortable user experience we added skeletron loader instead of a classic spinner; therefore, in case of slow internet, is possible to 'guess' the content of a page. Figure 9 shows this strategy. As you may notice, is it easy to understand how the content is going to appear on the application. We took advantages of such design pattern in almost all of our applications.
+%\begin{figure}[H]
+%\centering
+%\subfloat[Loading]{\includegraphics[width=0.4\textwidth]{./images/tacita_skeletron}}
+% \subfloat[Finish]{\includegraphics[width=0.4\textwidth]{./images/tacita_main}}
+%\caption{Skeletron loading}
+%\end{figure}
 \begin{figure}[H]
 \centering
-\subfloat[Loading]{\includegraphics[width=0.4\textwidth]{./images/tacita_skeletron}}
- \subfloat[Finish]{\includegraphics[width=0.4\textwidth]{./images/tacita_main}}
-\caption{Skeletron loading}
+\includegraphics[width=0.7\textwidth]{./images/smartphone_loading_applications}
+\caption{Smartphone home page}
 \end{figure}
+
 For each application a convenient toogle button is added to enable and disable it with just a click. If a user wish to enable/disable all the applications in one shot, the main button at the top can be used. If a provider decides to add a description for the application, then it is possible to read it using the arrow at the bottom of each card.
 
-In figure 10 is present the view changes that occours when a User walk nearby a screen.A float button pops up making the displays page avaliable. These buttons represent a great way to quickly add a functionality to a view, we decide to create a pulse animation in order to make it even more visible for the user. Since we are using socket connection, if the display changes the running application, the client will be notified.\begin{figure}[H]
-  \centering
-    \subfloat[Display founs]{\includegraphics[width=0.4\textwidth]{./images/tacita_display_found}}
-    \subfloat[Displays]{\includegraphics[width=0.4\textwidth]{./images/tacita_display_view}}
-\caption{Display found}
+In figure 10 is present the view changes that occours when a User walk nearby a screen.A float button pops up making the displays page avaliable. These buttons represent a great way to quickly add a functionality to a view, we decide to create a pulse animation in order to make it even more visible for the user. Since we are using socket connection, if the display changes the running application, the client will be notified
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{./images/smartphone_displays}
+\caption{Display found}
 \end{figure}
-%
-%\begin{figure}[H]
-%  \centering
-%  \subfloat[Beacon found]{\includegraphics[width=0.2\textwidth]{./images/tacita_display_found}}
-%   \
-%  \
-%  \
-%  \subfloat[Display found]{\includegraphics[width=0.2\textwidth]{./images/tacita_display_view}}
-%\end{figure}
 As we said before, We also provide a convenient way to select a custom personalisation. We choose a colour based approach in order to highlight the visibility of a own content. The user can pick up a colour from the wheel and use it to find his preferences on the screens. Moreover, our system can easily support any other identifier such as username or avatar.
 \begin{figure}[H]
   \centering
-  \subfloat[Select a colour]{\includegraphics[width=0.22\textwidth]{./images/preference_colour/colour_select}}
-   \
-  \
-  \
-  \subfloat[Personalization page]{\includegraphics[width=0.22\textwidth]{./images/preference_colour/personalization_page}}
-     \
-  \
-  \
-    \subfloat[Appearence on a display]{\includegraphics[width=0.25\textwidth]{./images/preference_colour/result}}
+  \includegraphics[width=0.7\textwidth]{./images/smartphone_color_preference}
+  \caption{Preference on display}
 \end{figure}
 In this example, the User selected a "blue" colour as identifier of his preferences. In figure \emph{u} you can see the actually final result on the display, a little label is added on the left part of the selected buses. If one of more users walk in, then the label is splitted.
 \begin{figure}[H]
   \centering
-  \subfloat[More users]{\includegraphics[width=0.25\textwidth]{./images/preference_colour/result_splitted}}
+\includegraphics[width=0.5\textwidth]{./images/preference_colour/preference_splited}
+  \caption{Preferences on display}
+
 \end{figure}
 
 \section{Conclusion}
-Public displays are a powerful way to show content by interacting with it. With out system we showed that software can lead to improvement. The display, as it is, is a useless piece of hardware, but, combined with software it can becomes a better device. We started by exposing today's problem linked to a badly utilization of public screen showing, with examples, that they are mainly used for undirected advertisement.
+Displays are a powerful resource to reach a huge audience. Our architecture showed a way to implement custom users personalisation making them even more useful in a closed context such us this University. 
 
-After acknowledged such problems, we thought of a better system, in wich users are in control called \emph{Tacita}. In \emph{Tacita}, the displays becomes a real means of communication that can be dynamically adjust to target the correct user and the right time creating a new way of interaction. 
+We allows custom based preferences for the Lugano's public transportation giving the advantage to quickly see when a bus is leaving from a previously selected station. Also, an other application, shows the current semester schedules allowing a user to search for other courses.
 
+The preferences are managed using a mobile application served by the MAP Provider to, at the same time, know the global state of each displays and access to all the services availables. Also, is possible to disable the data flow on the fly for certainty applications allowing even more customisation and moving the control power to the user.
+
+In our University, a small environment compared to other well know campus, walk-by contact personalisation really shines and proves is strong utility. Since the displays are deployed into key points such as \emph{Mensa} and \emph{Open Space}, user can easily access to them by just walking.
 
 %%%%%
 \newpage
