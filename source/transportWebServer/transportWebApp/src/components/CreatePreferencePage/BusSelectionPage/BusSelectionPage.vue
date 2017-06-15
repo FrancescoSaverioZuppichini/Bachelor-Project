@@ -7,7 +7,7 @@
           <p>{{error.msg}}</p>
         </div>
       </transition>
-      {{this.$store.state.preference}}
+      <!-- {{this.$store.state.preference}} -->
       <resource-transition-wrapper>
         <div v-for="bus in this.$store.state.connections" class="uk-width-1-1" :key="bus">
           <resource @click.native="toogle(bus)" :toogle="bus.toogle">
@@ -80,7 +80,7 @@ export default {
     },
     toogle(bus) {
 
-      if (this.$store.state.preference.buses.indexOf(bus) >= 0) {
+      if (this.$store.PreferenceStore.findBusInPreference(bus) >= 0) {
         this.$store.actions.removeBusToPreference(bus)
         bus.toogle = false
 

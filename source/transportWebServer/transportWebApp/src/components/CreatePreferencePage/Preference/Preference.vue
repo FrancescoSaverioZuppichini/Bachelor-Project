@@ -18,7 +18,9 @@
     <div v-for="bus in preference.buses">
       <div class='uk-flex uk-flex-middle'>
         <h3 class='uk-margin-remove'>{{bus.number}}</h3>
-        <small class="uk-margin-left">{{bus.to}}</small>
+        <div class='uk-margin-left'>
+          <p class="uk-margin-remove">{{bus.to}}</p>
+        </div>
       </div>
     </div>
   </div>

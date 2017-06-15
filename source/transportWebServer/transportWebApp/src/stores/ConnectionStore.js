@@ -17,7 +17,7 @@ class ConnectionStore extends Store {
     this.state.connections = data.buses
     this.state.connections.forEach(conn => Vue.set(conn, 'toogle', false))
     // check if bus is in the current preference
-    const preference = this.sStore.state.currentPreference
+    const preference = this.sStore.state.preference
     for (let connInPref of preference.buses) {
       for (let conn of this.state.connections) {
         if (conn.id == connInPref.id) Vue.set(conn, 'toogle', true)

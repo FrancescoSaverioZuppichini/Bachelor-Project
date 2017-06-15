@@ -18,12 +18,14 @@
     <h5>Change locations</h5>
     <div class="uk-flex uk-flex-column" uk-grid>
       <div v-for="bus in $store.state.preference.buses">
-          <div class="uk-card uk-card-default uk-card-body my-card--padding" @click="$router.push({ name: 'direction'})">
-            <div class='uk-flex uk-flex-middle'>
-              <h4 class='uk-margin-remove uk-margin-small-right'>{{bus.number}}</h4>
-              <h6 class='uk-margin-remove'>{{bus.to}}</h6>
+        <div class="uk-card uk-card-default uk-card-body my-card--padding" @click="$router.push({ name: 'direction'})">
+          <div class='uk-flex uk-flex-middle'>
+            <div clas='uk-margin-small-right'>
+              <h4 class='uk-margin-remove'>{{bus.number}}</h4>
             </div>
+            <h6 class='uk-margin-remove'>{{bus.to}}</h6>
           </div>
+        </div>
       </div>
 
     </div>
@@ -33,10 +35,14 @@
   </div>
 
   <div class="uk-margin-top navigation__actions">
-
-    <a uk-icon="icon: chevron-left; ratio: 1.5" @click="$store.actions.goBackFromEditMode()"> </a>
-    <a class='uk-float-right uk-margin-small-right' @click="$store.actions.updatePreference()">Done</a>
+    <v-btn icon="icon" class="grey--text grey--darken-2" @click.native="$store.actions.goBackFromEditMode()">
+      <v-icon>arrow_back</v-icon>
+    </v-btn>
+    <v-btn icon="icon" class="grey--text grey--darken-2 uk-float-right" @click.native="$store.actions.updatePreference()">
+      <v-icon>done</v-icon>
+    </v-btn>
   </div>
+
 
 </div>
 </template>

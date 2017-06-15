@@ -25,7 +25,7 @@ class PreferenceStore extends Store {
 
   initializeCurrentPreference() {
     // this.state.preference.station.toogle = false
-    this.state.preference = { station: {}, buses: [] }
+    this.state.preference = Object.assign(this.state.preference, { station: {}, buses: [] })
     this.toggleOffAll()
   }
 
@@ -69,12 +69,12 @@ class PreferenceStore extends Store {
     var shouldAdd = true
 
     buses.forEach((bus) => {
-      if (bus.id == busId && (bus.to == null || bus.to == to)) {
-        bus.to = to
+      if (bus.id == busId && (bus.to == undefined || bus.to == to)) {
+        Vue.set(bus, 'to', to)
         shouldAdd = false
       }
     })
-    // // multiple buses can be selected, then, if we don't find a previouse one, we just need to add it
+    // multiple buses can be selected, then, if we don't find a previouse one, we just need to add it
     if (shouldAdd) {
       const newBus = { id: busId, number: stationboard.bus.number, to: to }
       this.state.preference.buses.push(newBus)

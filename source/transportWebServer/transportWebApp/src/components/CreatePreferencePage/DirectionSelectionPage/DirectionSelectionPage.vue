@@ -7,25 +7,26 @@
           <p>{{error.msg}}</p>
         </div>
       </transition>
-      {{$store.state.preference}}
       <resource-transition-wrapper>
         <div v-for="stationboard in stationboards" :key='stationboard'>
           <resource @click.native="toogleStationboard(stationboard)" :toogle="stationboard.toogle">
-            <p>
-              {{stationboard.bus.number}} {{stationboard.to}}
-            </p>
+            <div clas='uk-margin-small-right'>
+              <h4 class='uk-margin-remove'>{{stationboard.bus.number}}</h4>
+            </div>
+            <h6 class='uk-margin-remove'>{{stationboard.to}}</h6>
           </resource>
         </div>
       </resource-transition-wrapper>
     </div>
-
   </div>
-
   <div class="uk-margin-top navigation__actions">
     <v-btn icon="icon" class="grey--text grey--darken-2" @click.native="$router.go(-1)">
       <v-icon>arrow_back</v-icon>
     </v-btn>
-    <v-btn icon="icon" class="grey--text grey--darken-2 uk-float-right" @click.native="next">
+    <v-btn icon="icon" class="grey--text grey--darken-2 uk-float-right" @click.native="next" v-if="!$store.state.isInEditMode">
+      <v-icon>done</v-icon>
+    </v-btn>
+    <v-btn icon="icon" class="grey--text grey--darken-2 uk-float-right" @click.native="$router.go(-2)" v-else>
       <v-icon>done</v-icon>
     </v-btn>
   </div>
@@ -88,7 +89,7 @@ export default {
         }
         return Object.values(cache)
       }
-      const uniqueBuses = removeDuplicateFromArray(this.$store.state.preference.buses,'id')
+      const uniqueBuses = removeDuplicateFromArray(this.$store.state.preference.buses, 'id')
 
       uniqueBuses.forEach((bus) => {
         api.stationboards.featchStationboards({
@@ -129,7 +130,8 @@ export default {
         const isAtLeastOnedirectionSelected = this.getDirectionsSelected() > 0
         this.error.hasError = !isAtLeastOnedirectionSelected
         if (isAtLeastOnedirectionSelected) {
-          this.$store.actions.addPreference()
+          this.$store.state.showConfirmationModal = true
+          // this.$store.actions.addPreference()
         }
       }
     }
