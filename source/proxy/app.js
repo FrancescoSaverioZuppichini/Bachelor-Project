@@ -21,15 +21,6 @@ var app = express();
 
 var options = {}
 
-try {
-  options = {
-    cert: fs.readFileSync('./sslcert/fullchain.pem'),
-    key: fs.readFileSync('./sslcert/privkey.pem')
-  }
-} catch (err) {
-
-}
-
 var proxy = require('express-http-proxy');
 
 app.use(logger('dev'));
@@ -57,8 +48,17 @@ for (let key in config) {
 var port = process.env.PORT || 3000;
 var server = http.createServer(app).listen(port)
 // server.listen(port);
-var httpsServer = https.createServer(options, app)
+
+try {
+  options = {
+    cert: fs.readFileSync('./sslcert/fullchain.pem'),
+    key: fs.readFileSync('./sslcert/privkey.pem')
+  }
+} catch (err) {
+
+}
 console.log(options);
+var httpsServer = https.createServer(options, app)
 httpsServer.listen(3443)
 
 // proxy for ws
