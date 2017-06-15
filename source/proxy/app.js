@@ -60,7 +60,7 @@ try {
 var httpsServer = https.createServer(options, app)
 httpsServer.listen(3443)
 
-proxy for ws
+// proxy for ws
 
 var WebSocketServer = require('ws').Server
 var WebSocket = require('ws');
