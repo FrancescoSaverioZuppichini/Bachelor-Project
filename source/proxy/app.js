@@ -58,10 +58,11 @@ var port = process.env.PORT || 3000;
 var server = http.createServer(app).listen(port)
 // server.listen(port);
 var httpsServer = https.createServer(options, app)
-httpsServer.listen(port + 443)
+console.log(options);
+httpsServer.listen(3443)
 
 // proxy for ws
-// 
+//
 // var WebSocketServer = require('ws').Server
 // var WebSocket = require('ws');
 //
