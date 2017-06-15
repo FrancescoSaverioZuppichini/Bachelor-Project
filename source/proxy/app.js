@@ -47,7 +47,6 @@ for (let key in config) {
 
 var port = process.env.PORT || 3000;
 var server = http.createServer(app).listen(port)
-// server.listen(port);
 
 try {
   options = {
@@ -57,42 +56,42 @@ try {
 } catch (err) {
 
 }
-console.log(options);
+
 var httpsServer = https.createServer(options, app)
 httpsServer.listen(3443)
 
-// proxy for ws
-//
-// var WebSocketServer = require('ws').Server
-// var WebSocket = require('ws');
-//
-// const clientWs = new WebSocket('ws://localhost:8081/ws');
-//
-// clientWs.on('open', function open() {
-//   console.log('connected to server');
-// });
-//
-// clientWs.on('message', function incoming(data) {
-//   wss.broadcast(data)
-// });
-//
-// wss = new WebSocketServer({ server: httpsServer });
-//
-// wss.broadcast = function broadcast(data) {
-//   wss.clients.forEach(function each(client) {
-//     if (client.readyState === WebSocket.OPEN) {
-//       client.send(data);
-//     }
-//   });
-// };
-// // set up server
-// wss.on('connection', function connection(ws) {
-//   console.log('new connection');
-//   ws.on('message', function incoming(data) {
-//
-//     clientWs.send(data)
-//   });
-// });
+proxy for ws
+
+var WebSocketServer = require('ws').Server
+var WebSocket = require('ws');
+
+const clientWs = new WebSocket('ws://localhost:8081/ws');
+
+clientWs.on('open', function open() {
+  console.log('connected to server');
+});
+
+clientWs.on('message', function incoming(data) {
+  wss.broadcast(data)
+});
+
+wss = new WebSocketServer({ server: httpsServer });
+
+wss.broadcast = function broadcast(data) {
+  wss.clients.forEach(function each(client) {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(data);
+    }
+  });
+};
+// set up server
+wss.on('connection', function connection(ws) {
+  console.log('new connection');
+  ws.on('message', function incoming(data) {
+
+    clientWs.send(data)
+  });
+});
 
 
 
