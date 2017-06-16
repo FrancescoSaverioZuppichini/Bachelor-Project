@@ -49,15 +49,38 @@ In this paper we present our prototype implementation of the architecture, the r
 %%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 \subsection{Motivation}
-Public displays represent a widely used form of mass communication in almost all public places such as squares, subways and schools. They are used in a passive way by pushing static information, mostly advertisements, to the audience; without a possibility to personalise the screen's content.  In Figure 1 you can easily observe this phenomenon by looking and the numbers of huge public displays and the informations they provide.
-Today,  "the vast majority"
 
-The major problem is the lack of user personalisation since most system are still design around a traditional model where only the "display owners" are in control of the content showed. Therefore, the audience may not be attracted by each information showed leading to a passive interacting with public displays. 
-Opening public displays, by using active and walk-by contact personalisation, can make the displays more interested and attractive to more people both for curiosity and utility.
+Public displays have emerged as a widely used for a mass communication in the last years. They are commonplace in public places such as squares, supermarket, and in our case, university. 
+Traditionally they were used as a common broadcast medium pushing a static and passive content to the audience adopting a closed model. Nowadays, this model is still the most used. This approach can be notice in Figure 1 (a) shows the New Yorks Times Square while (b) paints the same city in the later half of the 20th century. It can be notice that displays and posters are used for the same goal: advertisement.
 
-Active, meaning that the user can take temporary control of the display by selecting preferences through a mobile interface that supports interactive applications.
+Due to a decreasing of people's interest towards them, displays stakeholders have tried different approach to gather back the audience's attention. One of the most common is to just increase the number of screens. Unfortunately, this strategy have lead to a ubiquitous deployment of public displays making viewers ignore them even more.
 
-Walk-by, signifying users are able to access their preferences by just walk nearby a display thanks to bluetooth beacon's places nearby them.
+The major problem is the lack of users personalisation. In the last years, lots of studies were prosed in these fields due to an increasing interest in the topic. Recently, researches have develop system where the users can ask the displays through a mobile application to show custom content such as map, transit timetables or schedules. Most of them follow the Mark Weiser's vision in which computers becomes part of the environment disappearing by fading in the background.
+Others example may be the systems developed by Davies,... that uses screens to show daily menus from local lunch sporst, or \emph{Tacita} used in this university where students can access an array of campus' applications.
+
+By taking advantages of the last technologies advancements, that had brought the touch interface to the displays, we can create interactive applications that allowing users surf content directly on the display making them more attractable. However that may not be enough, personalised content can make screens ever more interested providing a quicker way to filter information. 
+
+Our project aims to design an architecture thats supports interactive displays' application in order to archieve an active and walk-by contact personalisation. Active, meaning that the user can take temporary control of the display. The users can decide which content will be showed on the screen by selecting preferences through a mobile interface. 
+Walk-by, signifying users are able to see their preferences by just walk nearby a display thanks to bluetooth beacon's places nearby them. This gives an array of advantages, for instance, the viewer can select its content once and just walk nearby a display when he needs it. Moreover, public displays are usually placed in very accessible places making even easier for the audience to access them. 
+ 
+%By application Mark Weiser's vision 
+%% cite http://delivery.acm.org/10.1145/330000/329126/p3-weiser.pdf?ip=195.176.178.184&id=329126&acc=ACTIVE%20SERVICE&key=FC66C24E42F07228%2E8FBBFD775A27C843%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=775122633&CFTOKEN=68981076&__acm__=1497647750_34f2287e9b49d9f1ab7bde5f6088943b 
+%
+%By introduction personalisation the users 
+%
+%\cite{open_display_networks}{The vast majority of today's public displays effectively disapper}
+%People becomes 
+%Displays stakeholders 
+
+
+%Public displays represent a widely used form of mass communication in almost all public places such as squares, subways and schools. They are used in a passive way adopting a closed model by showing static information, mostly advertisements
+% without a possibility to personalise the screen's content.  In Figure 1 you can easily observe this phenomenon by looking and the numbers of huge public displays and the informations they provide.
+% 
+%Today, \cite{open_display_networks}{the vast majority of today's public displays effectively disapper}. The major problem that was observer is the lack of user personalisation since most system are still design around a traditional model where only the "display owners" are in control of the content showed. Therefore, the audience may not be attracted by each information showed leading to a passive interacting with public displays. 
+%Opening public displays, by using active and walk-by contact personalisation, can make the public displays a new communications medium for the 21st. 
+%Active, meaning that the user can take temporary control of the display by selecting preferences through a mobile interface that supports interactive applications.
+%
+%Walk-by, signifying users are able to access their preferences by just walk nearby a display thanks to bluetooth beacon's places nearby them.
  
 \begin{figure}[H]
   \centering
