@@ -4,11 +4,6 @@ The top-level auxiliary file: /Users/VaeVictis/Documents/Usi/VI Semester/Bachelo
 The style file: abbrv.bst
 I found no \citation commands---while reading file /Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/finalReport/TemplateBachelorProject/.texpadtmp/bachelorproject.aux
 Database file #1: ../references.bib
-You're missing a field name---line 2 of file ../references.bib
- : 
- : %  Author = {William Strunk and E. B. White},
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
 You've used 0 entries,
             2118 wiz_defined-function locations,
             497 strings with 3946 characters,
@@ -50,4 +45,4 @@ warning$ -- 0
 while$ -- 0
 width$ -- 0
 write$ -- 2
-(There were 2 error messages)
+(There was 1 error message)
