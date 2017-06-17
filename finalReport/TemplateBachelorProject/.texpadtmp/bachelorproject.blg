@@ -2,47 +2,96 @@ This is BibTeX, Version 0.99d (TeX Live 2016)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: /Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/finalReport/TemplateBachelorProject/.texpadtmp/bachelorproject.aux
 The style file: abbrv.bst
-I found no \citation commands---while reading file /Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/finalReport/TemplateBachelorProject/.texpadtmp/bachelorproject.aux
 Database file #1: ../references.bib
-You've used 0 entries,
+Name 1 in "Sarah Clinch1, Nigel Davies1, Adrian Friday1, and Christos Efstratiou2" has a comma at the end for entry e_campus
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Florian Schaub,Bastian K ̈onings, Peter Lang,Bj ̈orn Wiedersheim, Christian Winkler, Michael Webe" for entry pri_cal
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Florian Schaub,Bastian K ̈onings, Peter Lang,Bj ̈orn Wiedersheim, Christian Winkler, Michael Webe" for entry pri_cal
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Florian Schaub,Bastian K ̈onings, Peter Lang,Bj ̈orn Wiedersheim, Christian Winkler, Michael Webe" for entry pri_cal
+while executing---line 1049 of file abbrv.bst
+Name 1 in "Rui José, Hélder Pinto, Bruno Silva, and Ana Melro" has a comma at the end for entry pins_and_posters
+while executing---line 1049 of file abbrv.bst
+Name 1 in "Nigel Davies1, Marc Langheinrich, Sarah Clinch1, Ivan Elhart, Adrian Friday1, Thomas Kubitza1, and Bholanathsingh Surajbali" has a comma at the end for entry personalisation_and_privacy
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Nigel Davies1, Marc Langheinrich, Sarah Clinch1, Ivan Elhart, Adrian Friday1, Thomas Kubitza1, and Bholanathsingh Surajbali" for entry personalisation_and_privacy
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Nigel Davies1, Marc Langheinrich, Sarah Clinch1, Ivan Elhart, Adrian Friday1, Thomas Kubitza1, and Bholanathsingh Surajbali" for entry personalisation_and_privacy
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Nigel Davies1, Marc Langheinrich, Sarah Clinch1, Ivan Elhart, Adrian Friday1, Thomas Kubitza1, and Bholanathsingh Surajbali" for entry personalisation_and_privacy
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Constantin Taivan, Rui José , Bruno Silva, Ivan Elhart, Jorge Cardoso" for entry design_considerations
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Constantin Taivan, Rui José , Bruno Silva, Ivan Elhart, Jorge Cardoso" for entry design_considerations
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Constantin Taivan, Rui José , Bruno Silva, Ivan Elhart, Jorge Cardoso" for entry design_considerations
+while executing---line 1090 of file abbrv.bst
+Too many commas in name 1 of "Constantin Taivan, Rui José , Bruno Silva, Ivan Elhart, Jorge Cardoso" for entry design_considerations
+while executing---line 1090 of file abbrv.bst
+Warning--empty publisher in design_considerations
+Too many commas in name 1 of "Florian Schaub,Bastian K ̈onings, Peter Lang,Bj ̈orn Wiedersheim, Christian Winkler, Michael Webe" for entry pri_cal
+while executing---line 1090 of file abbrv.bst
+Too many commas in name 1 of "Florian Schaub,Bastian K ̈onings, Peter Lang,Bj ̈orn Wiedersheim, Christian Winkler, Michael Webe" for entry pri_cal
+while executing---line 1090 of file abbrv.bst
+Too many commas in name 1 of "Florian Schaub,Bastian K ̈onings, Peter Lang,Bj ̈orn Wiedersheim, Christian Winkler, Michael Webe" for entry pri_cal
+while executing---line 1090 of file abbrv.bst
+Warning--empty publisher in pri_cal
+Name 1 in "Nigel Davies1, Marc Langheinrich, Sarah Clinch1, Ivan Elhart, Adrian Friday1, Thomas Kubitza1, and Bholanathsingh Surajbali" has a comma at the end for entry personalisation_and_privacy
+while executing---line 1090 of file abbrv.bst
+Too many commas in name 1 of "Nigel Davies1, Marc Langheinrich, Sarah Clinch1, Ivan Elhart, Adrian Friday1, Thomas Kubitza1, and Bholanathsingh Surajbali" for entry personalisation_and_privacy
+while executing---line 1090 of file abbrv.bst
+Too many commas in name 1 of "Nigel Davies1, Marc Langheinrich, Sarah Clinch1, Ivan Elhart, Adrian Friday1, Thomas Kubitza1, and Bholanathsingh Surajbali" for entry personalisation_and_privacy
+while executing---line 1090 of file abbrv.bst
+Too many commas in name 1 of "Nigel Davies1, Marc Langheinrich, Sarah Clinch1, Ivan Elhart, Adrian Friday1, Thomas Kubitza1, and Bholanathsingh Surajbali" for entry personalisation_and_privacy
+while executing---line 1090 of file abbrv.bst
+Warning--empty publisher in personalisation_and_privacy
+Name 1 in "Rui José, Hélder Pinto, Bruno Silva, and Ana Melro" has a comma at the end for entry pins_and_posters
+while executing---line 1090 of file abbrv.bst
+Warning--empty publisher in pins_and_posters
+Name 1 in "Sarah Clinch1, Nigel Davies1, Adrian Friday1, and Christos Efstratiou2" has a comma at the end for entry e_campus
+while executing---line 1090 of file abbrv.bst
+Warning--empty publisher in e_campus
+Warning--empty publisher in the_computer_for
+You've used 6 entries,
             2118 wiz_defined-function locations,
-            497 strings with 3946 characters,
-and the built_in function-call counts, 18 in all, are:
-= -- 0
-> -- 0
+            516 strings with 4863 characters,
+and the built_in function-call counts, 1426 in all, are:
+= -- 117
+> -- 60
 < -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 7
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
++ -- 25
+- -- 18
+* -- 74
+:= -- 249
+add.period$ -- 18
+call.type$ -- 6
+change.case$ -- 21
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+cite$ -- 12
+duplicate$ -- 72
+empty$ -- 133
+format.name$ -- 18
+if$ -- 292
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 3
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 6
+missing$ -- 12
+newline$ -- 33
+num.names$ -- 12
+pop$ -- 57
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 21
 quote$ -- 0
-skip$ -- 1
+skip$ -- 39
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 31
+swap$ -- 6
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
-warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 2
-(There was 1 error message)
+type$ -- 12
+warning$ -- 6
+while$ -- 12
+width$ -- 7
+write$ -- 56
+(There were 22 error messages)

@@ -30,14 +30,14 @@
 
 
 \abstract {
-Nowadays the majority of public displays follow a closed model by showing static and passive content. People have started to ignores  them accustomed to their low utility. Opening them by creating interactive application that supports users personalisation could create a new communication channel for the 21st century. 
+Nowadays the majority of public displays follow a closed model by showing static and passive content. People have started to ignore  them accustomed to their low utility. Opening them by creating interactive application that supports users personalisation could create a new communication channel for the 21st century. 
 
-In the last years the interest into such problem had increased leading to the develop of differents systems that uses digital signage to deliver personalised content.
+In the last years the interest into this problem has increased leading to the development of differents systems that uses digital signage to deliver personalised content.
 
-Our project expose an a new attempt to create an architecture that supports users active and walk-by content personalisation.
-Active meaning that the views can temporally take control of the screen using a mobile application. Walk-by, significs  the personalised content is showed automatically as soon as a user walk nearby a display thanks to bluetooth beacons. 
+Our project exposes a new attempt to create an architecture that supports users active and walk-by content personalisation.
+Active meaning that the viewers can temporally take control of the screen using a mobile application. Walk-by signifies that the personalised content is showed automatically as soon as a user walk nearby a display thanks to some bluetooth beacons. 
 
-Our system is composed by five main elements: \emph{Map Provider}, a \emph{Proxy}, \emph{Mobile Application} and two display's interactive applications. These applications are: \emph{Transport} and \emph{Upcoming Classes}. 
+Our system is composed by five elements: \emph{Map Provider}, a \emph{Proxy}, \emph{Mobile Application} and two display's interactive applications. These applications are: \emph{Transport} and \emph{Upcoming Classes}. 
 
 In this paper we present our prototype implementation of the architecture, the relative design studied and a overview of its main functionalities. 
 }
@@ -55,14 +55,29 @@ Traditionally they were used as a common broadcast medium pushing a static and p
 
 Due to a decreasing of people's interest towards them, displays stakeholders have tried different approach to gather back the audience's attention. One of the most common is to just increase the number of screens. Unfortunately, this strategy have lead to a ubiquitous deployment of public displays making viewers ignore them even more.
 
-The major problem is the lack of users personalisation. In the last years, lots of studies were prosed in these fields due to an increasing interest in the topic. Recently, researches have develop system where the users can ask the displays through a mobile application to show custom content such as map, transit timetables or schedules. Most of them follow the Mark Weiser's vision in which computers becomes part of the environment disappearing by fading in the background.
-Others example may be the systems developed by Davies,... that uses screens to show daily menus from local lunch sporst, or \emph{Tacita} used in this university where students can access an array of campus' applications.
+\begin{figure}[H]
+  \centering
+  \subfloat[Times Square]{\includegraphics[width=0.5\textwidth]{./images/new_york_displays.jpg}}
+  \hfill
+  \subfloat[New York in the 60s]{\includegraphics[width=0.46\textwidth]{./images/new_york_posters.jpg}}
+  \caption{}
+\end{figure} 
 
-By taking advantages of the last technologies advancements, that had brought the touch interface to the displays, we can create interactive applications that allowing users surf content directly on the display making them more attractable. However that may not be enough, personalised content can make screens ever more interested providing a quicker way to filter information. 
 
-Our project aims to design an architecture thats supports interactive displays' application in order to archieve an active and walk-by contact personalisation. Active, meaning that the user can take temporary control of the display. The users can decide which content will be showed on the screen by selecting preferences through a mobile interface. 
+The major problem is the lack of users personalisation. In the last years the interested in this field increased and lost of studied were proposed in order to solve the problem. Recently, researches have develop system where the users can ask the displays through a mobile application to show custom content such as map, transit timetables or schedules. Most of them follow the Mark Weiser's \cite{the_computer_for} vision in which computers becomes part of the environment disappearing by fading in the background.
+Some exmaple may be the \emph{e-Campus} \cite{e_campus} in the University of Lancaster that shows interactive content such as Youtube videos, \emph{Tacita} used in this university where students can access an array of campus' applications, PriCal\cite{pri_cal} an ambient calendar display that display a user's schedule and \emph{Instant places} \cite{pins_and_posters} where users can pin their favourite soccer team.
+
+By taking advantages of the last technologies advancements, that had brought the touch interface to the displays, we can create interactive applications that allows users to surf content directly on the display making them more attractable.
+
+Our project aims to design an architecture thats supports interactive displays' application in order to archieve an active and walk-by contact personalisation. Active, meaning that the user can take temporary control of the display deciding which content will be showed on the screen by selecting preferences through a mobile interface. 
 Walk-by, signifying users are able to see their preferences by just walk nearby a display thanks to bluetooth beacon's places nearby them. This gives an array of advantages, for instance, the viewer can select its content once and just walk nearby a display when he needs it. Moreover, public displays are usually placed in very accessible places making even easier for the audience to access them. 
- 
+
+Usually, public displays  \emph {have [...] been investigated from the perspective of single user
+interaction paradigm} \cite{personalisation_and_privacy}. In this model, a user can access a rich array of applications and services from the screen. However, since public displays are used by a homogenous audience, multi-user support must be provider. In our project, we support booth single user and multi user model by taking advantages of GUI techniques to improve the services's accessibility. One interested case study was conducted in this university \cite{design_considerations} where emerged the importance of using a clear design for booth a mobile application and display  \emph{so that people may associate the content they see on the displays with the application generating that content} \cite{design_considerations}
+
+Other studies in this field demonstrate the important of user's privacy in pervasive display networks. A solution was proposed to \cite{personalisation_and_privacy} solved the problem by creating an architecture that \emph{support displays personalisation without allowing a display network to track and profile users views}.
+In our project, we took inspiration from such researches in order to also make users' preferences anonymous by using a colour based approach in the system so no other viewers can know whose preferences are. 
+
 %By application Mark Weiser's vision 
 %% cite http://delivery.acm.org/10.1145/330000/329126/p3-weiser.pdf?ip=195.176.178.184&id=329126&acc=ACTIVE%20SERVICE&key=FC66C24E42F07228%2E8FBBFD775A27C843%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=775122633&CFTOKEN=68981076&__acm__=1497647750_34f2287e9b49d9f1ab7bde5f6088943b 
 %
@@ -82,25 +97,35 @@ Walk-by, signifying users are able to see their preferences by just walk nearby 
 %
 %Walk-by, signifying users are able to access their preferences by just walk nearby a display thanks to bluetooth beacon's places nearby them.
  
-\begin{figure}[H]
-  \centering
-  \subfloat[Times Square]{\includegraphics[width=0.5\textwidth]{./images/new_york_displays.jpg}}
-  \hfill
-  \subfloat[New York in the 60s]{\includegraphics[width=0.46\textwidth]{./images/new_york_posters.jpg}}
-  \caption{}
-\end{figure} 
+\subsection{State of the Art}
+Users personalisation in pervasive display networks is not a new idea. A number of previous project have been suggest in order to solve the lack of users interactions. However, only a small number of them supports multi users and multi displays stakeholders, such as \emph{e-Campus} \cite{e_campus}, \emph{Tacita}, PriCal \cite{pri_cal} and \emph{Instant Places} \cite{pins_and_posters}.
 
-\subsection{Goal}
-The goal of this project is to develop two new interactive displays application and a system to enable users preferences and supporting active and walk-by contact personalisation.
+\emph{e-Campus} is a wide  public displays network in the Lancaster University that supports interactive application such as Youtube, Flicker and campus based information visualisation. The system counts thirty displays representing a successful example for our project.
 
-The architecture must provide a mobile application to manage users informations, access interactive applications and discover nearby displays using bluetooth beacons.
+\emph{Tacita} is the current architecture used by \emph{Universita della Svizzera Italiana}. The network supports a range of application that focus on provide useful information to the faculty student. For example, is it possible to get information about bike sharing, exams or public transportation. One limitation is the lacking of users preference.
 
-Since we are targeting a heterogeneous audience, the content must be easily accessible. So, we focus our attention to the UI design aimed to provide a natural flow of interaction between the system and each interactive application.
+\emph{PriCal} is a smart interactive calendar display application. The main idea is to let the audience see their schedules directly into the display. A context-adaptive privacy is provided  by detecting the viewers and  adapting their events visibility according to their preferences. One interesting aspect of this project is the  architecture implementation. Their system supports both registered users as well as unknown persons providing a quality network and facilitates interaction by passers-by. 
 
-Moreover, the architecture must be scalable in order to allow future developers to extend our project by adding, for example, new applications to the displays. 
+\emph{Instant Places} is a web-based display platform using the metaphors of Pins and Posters. In their study\cite{pins_and_posters} they created an \emph{application that displays content associated with the soccer teams supported by place visitors}. A pin is created for each team and when a user selects it, the displays shows associated content. At the same time, the application displays a global view of others selected pins giving a feedback to the user about people's preferences.
+
+%\subsection{Goal}
+%
+%The goal of this project is to develop an architecture that supports active and walk-by contact personalisation by creating two new interactive displays' application: \emph{Transport} and \emph{Upcoming Classes}.
+%Booth of them must supports users preferences by exposing a common UI mobile interface to manage them.
+%
+%The first one aims to provide a convenient way to navigate and discover busses schedules. Also using geo localisation to also display directions to nearby stations to the viewer.
+%
+%\emph{Upcoming Classes} shows the semester schedule to the faculty's student by also
+%
+%
+%The architecture must provide a mobile application to manage users informations, access interactive applications and discover nearby displays using bluetooth beacons.
+%
+%Since we are targeting a heterogeneous audience, the content must be easily accessible. So, we focus our attention to the UI design aimed to provide a natural flow of interaction between the system and each interactive application.
+%
+%Moreover, the architecture must be scalable in order to allow future developers to extend our project by adding, for example, new applications to the displays. 
 
 \subsection{Results}
-With our project, we created a network that supports users personalisation into displays by developing a new architecture with two interactive applications.
+With our project, we created a network that supports users personalisation into public displays by developing a new architecture with two interactive applications.
 
 The audience can see their preferences by just walk nearby a screen while interact with the mobile application. Also, informations can be retrieved directly from the display using a touch interface, For instance, is possible to see buses' schedules by clicking on a station.
 

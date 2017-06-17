@@ -22,7 +22,7 @@ class FacultyStore extends Store {
       FETCH_FACULTY_SUCCESS: this.onFetchFacultySuccess
     })
   }
-  
+
   actions(dispatcher, context) {
     return {
       fetchFaculties() {

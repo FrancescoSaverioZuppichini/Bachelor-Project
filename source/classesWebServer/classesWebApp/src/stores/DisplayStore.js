@@ -10,22 +10,27 @@ class DisplayStore extends Store {
   constructor() {
     super()
     this.state.display = {}
+    this.state.usersCache = {}
+
+  }
+
+  shouldDisplayPreference(data) {
+    return data.displayId == this.state.display.id
   }
 
   /**
-   * When a user is closed to the display
-   * fetch it's preference and display them
-   * on the fly
-   **/
-  onUserNearby({ userId, displayId }) {
-    if (displayId != this.state.display.id) {
-      console.log('NOT THIS DISPLAY');
-      return
+   * Check if it should display the current
+   * preferences, if yes, it calls the correct action
+   * @param  {Object} data Preference pulled from the socket
+   */
+  onUserNearby(data) {
+    if (this.shouldDisplayPreference(data)) {
+      this.state.usersCache[data.userId] = data.color
+      this.sStore.actions.displayUserPreferences(data)
     }
-    this.sStore.actions.displayUserPreferences(userId)
   }
 
-  fetchDisplaySuccess({ display }) {
+  onFetchDisplaySuccess({ display }) {
     this.state.display = display
     this.sStore.actions.sendAppToDisplay(this.state.display.id, 1)
   }
@@ -33,7 +38,7 @@ class DisplayStore extends Store {
   reduce(action) {
     this.reduceMap(action, {
       USER_NEARBY: this.onUserNearby,
-      FETCH_DISPLAY_SUCCESS: this.fetchDisplaySuccess
+      FETCH_DISPLAY_SUCCESS: this.onFetchDisplaySuccess
     })
   }
 
@@ -45,11 +50,11 @@ class DisplayStore extends Store {
             dispatcher.dispatch(new Action("FETCH_DISPLAY_SUCCESS", { display: data }))
           })
       },
-      displayUserPreferences(userId) {
+      displayUserPreferences(user) {
         // we don't care about loading
-        api.user.fetchUserPreferences(userId)
+        api.user.fetchUserPreferences(user.userId)
           .then((res) => {
-            dispatcher.dispatch(new Action("DISPLAY_USER_PREFERENCE", { userPreferences: res.data }))
+            dispatcher.dispatch(new Action("DISPLAY_USER_PREFERENCE", { userPreferences: res.data, color: user.color }))
           })
       },
       sendAppToDisplay(displayId, appId) {

@@ -50,6 +50,15 @@ export default {
     const displayId = this.$route.params.id
     const appId = 1
     this.$store.actions.fetchDisplay(displayId)
+    // test user
+    // setTimeout(() => {
+    //   this.$store.dispatcher.dispatch(new Action('USER_NEARBY', {
+    //     userId: 1,
+    //     color: 'blue',
+    //     displayId: 1
+    //   }))
+    // }, 500)
+
   }
 }
 </script>
@@ -59,9 +68,10 @@ export default {
   overflow: hidden;
 }
 
-.fc-view-container{
-background-color: white;
+.fc-view-container {
+  background-color: white;
 }
+
 .btn--toogle {
   border-color: black !important;
   color: black !important;

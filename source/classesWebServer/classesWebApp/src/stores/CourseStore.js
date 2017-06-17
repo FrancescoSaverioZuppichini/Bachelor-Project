@@ -15,18 +15,32 @@ class CourseStore extends Store {
     this.state.selectedCourses = () => this.state.courses.data.filter(course => course.selected)
   }
 
-  fetchCoursesSuccess({ data, facultyId, year, type, studyType }) {
+  fetchCoursesSuccess({ data, facultyId, year, type, studyType, color }) {
     $('#fullcalendar').fullCalendar('removeEvents')
     this.state.lastQuery = { year, type, studyType: this.state.preference.studyType }
     this.state.courses.data = data
     router.push({ name: 'Display' })
-    this.state.courses.data.forEach(course => this.sStore.actions.fetchSchedules(course))
+    this.state.courses.data.forEach(course => this.sStore.actions.fetchSchedules(course,color))
   }
 
-  fetchSchedulesSuccess({ data, course }) {
+  fetchSchedulesSuccess({ data, course, color }) {
     course.schedules = data
     course.events = []
+
+    // course.schedules = [{
+    //   start: '2017-06-16T09:30:00+02:00',
+    //   end: '2017-06-16T12:15:00+02:00',
+    //   title: 'diocane',
+    //   font_color: 'black',
+    //   background_color: 'white'
+    //
+    // }]
+
     for (let schedule of course.schedules) {
+      if (color) {
+        schedule.font_color = 'white'
+        schedule.background_color = color
+      }
       const event = {
         start: schedule.start,
         title: course.name_en,
@@ -52,20 +66,21 @@ class CourseStore extends Store {
     fullCalendarEl.fullCalendar('renderEvents', events, true);
   }
 
-  deselectAllCourse() {
+  deselectAllCourses() {
     this.state.selectedCourses().forEach(course => course.selected = false)
   }
 
   onFetchCourseSuccess({ data, selectedCourse }) {
-    this.deselectAllCourse()
+    this.deselectAllCourses()
     selectedCourse.professor_full_name = data.professor_full_name
     selectedCourse.description_it = data.description_it
     Vue.set(selectedCourse, 'selected', true)
   }
 
-  onDisplayUserPreference({ userPreferences }) {
+  onDisplayUserPreference({ userPreferences, color }) {
     const userPreference = userPreferences[0]
-    const query = this.sStore.PreferenceStore.makeQueryFromPreference(userPreference)
+    var query = this.sStore.PreferenceStore.makeQueryFromPreference(userPreference)
+    query.color = color
     this.sStore.actions.fetchCourses(query)
   }
 
@@ -82,9 +97,8 @@ class CourseStore extends Store {
 
   actions(dispatcher, context) {
     return {
-      fetchCourses({ facultyId, year, type, studyType }) {
+      fetchCourses({ facultyId, year, type, studyType, color }) {
         dispatcher.dispatch(new Action("FETCH_COURSES_LOADING"))
-
         facultyId = facultyId || ""
         year = year || ""
         type = type || ""
@@ -92,13 +106,13 @@ class CourseStore extends Store {
 
         api.course.search({ facultyId, year, type, studyType })
           .then(({ data }) => {
-            dispatcher.dispatch(new Action("FETCH_COURSES_SUCCESS", { data, facultyId, year, type, studyType }))
+            dispatcher.dispatch(new Action("FETCH_COURSES_SUCCESS", { data, facultyId, year, type, studyType, color }))
           })
       },
-      fetchSchedules(course) {
+      fetchSchedules(course, color) {
         dispatcher.dispatch(new Action("FETCH_SCHEDULES_LOADING"))
         api.course.fetchSchedules(course)
-          .then(({ data }) => dispatcher.dispatch(new Action("FETCH_SCHEDULES_SUCCESS", { data, course })))
+          .then(({ data }) => dispatcher.dispatch(new Action("FETCH_SCHEDULES_SUCCESS", { data, course, color })))
       },
       fetchCourse(course) {
         if (course.description_it) dispatcher.dispatch(new Action("FETCH_COURSE_IN_CACHE", { data: course, selectedCourse: course }))

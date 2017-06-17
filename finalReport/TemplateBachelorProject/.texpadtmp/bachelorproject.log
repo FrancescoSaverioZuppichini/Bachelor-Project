@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.2.23)  16 JUN 2017 23:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.2.23)  17 JUN 2017 13:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -859,114 +859,100 @@ LaTeX Font Info:    Font shape `T1/mdbch/b/n' will be
  <./images/new_york_displays.jpg, id=118, 1375.1375pt x 873.2625pt>
 File: ./images/new_york_displays.jpg Graphic file (type jpg)
  <use ./images/new_york_displays.jpg>
-Package pdftex.def Info: ./images/new_york_displays.jpg used on input line 87.
+Package pdftex.def Info: ./images/new_york_displays.jpg used on input line 60.
 (pdftex.def)             Requested size: 241.84842pt x 153.58273pt.
 LaTeX Font Info:    Font shape `T1/mdbch/m/n' will be
-(Font)              scaled to size 7.68005pt on input line 87.
+(Font)              scaled to size 7.68005pt on input line 60.
 LaTeX Font Info:    Font shape `T1/mdbch/b/n' will be
-(Font)              scaled to size 7.68005pt on input line 87.
+(Font)              scaled to size 7.68005pt on input line 60.
  <./images/new_york_posters.jpg, id=119, 1027.84pt x 697.60625pt>
 File: ./images/new_york_posters.jpg Graphic file (type jpg)
  <use ./images/new_york_posters.jpg>
-Package pdftex.def Info: ./images/new_york_posters.jpg used on input line 89.
+Package pdftex.def Info: ./images/new_york_posters.jpg used on input line 62.
 (pdftex.def)             Requested size: 222.50378pt x 151.01494pt.
- [1 <./images/new_york_displays.jpg> <./images/new_york_posters.jpg>] <./images/poster_image_1.png, id=128, 2925.93124pt x 2803.47375pt>
+ [1 <./images/new_york_displays.jpg> <./images/new_york_posters.jpg>] <./images/poster_image_1.png, id=148, 2925.93124pt x 2803.47375pt>
 File: ./images/poster_image_1.png Graphic file (type png)
  <use ./images/poster_image_1.png>
-Package pdftex.def Info: ./images/poster_image_1.png used on input line 127.
+Package pdftex.def Info: ./images/poster_image_1.png used on input line 152.
 (pdftex.def)             Requested size: 386.95894pt x 370.75269pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [2]
 LaTeX Font Info:    Font shape `T1/mdbch/b/n' will be
-(Font)              scaled to size 9.60007pt on input line 135.
- <./images/TacitaRelations.jpg, id=134, 600.2425pt x 340.27126pt>
+(Font)              scaled to size 9.60007pt on input line 160.
+ <./images/TacitaRelations.jpg, id=154, 600.2425pt x 340.27126pt>
 File: ./images/TacitaRelations.jpg Graphic file (type jpg)
  <use ./images/TacitaRelations.jpg>
-Package pdftex.def Info: ./images/TacitaRelations.jpg used on input line 147.
+Package pdftex.def Info: ./images/TacitaRelations.jpg used on input line 172.
 (pdftex.def)             Requested size: 290.22105pt x 164.52771pt.
-
-Underfull \vbox (badness 3713) has occurred while \output is active []
-
- [3 <./images/poster_image_1.png>]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[4 <./images/TacitaRelations.jpg>] [5] <./images/elements_interactions_user.png, id=158, 924.45375pt x 770.88pt>
+ [3 <./images/poster_image_1.png>] [4 <./images/TacitaRelations.jpg>] [5] <./images/elements_interactions_user.png, id=173, 924.45375pt x 770.88pt>
 File: ./images/elements_interactions_user.png Graphic file (type png)
  <use ./images/elements_interactions_user.png>
-Package pdftex.def Info: ./images/elements_interactions_user.png used on input line 261.
+Package pdftex.def Info: ./images/elements_interactions_user.png used on input line 286.
 (pdftex.def)             Requested size: 241.84842pt x 201.67091pt.
- <./images/elements_interactions_display.png, id=159, 996.72375pt x 875.27pt>
+ <./images/elements_interactions_display.png, id=174, 996.72375pt x 875.27pt>
 File: ./images/elements_interactions_display.png Graphic file (type png)
  <use ./images/elements_interactions_display.png>
-Package pdftex.def Info: ./images/elements_interactions_display.png used on input line 270.
+Package pdftex.def Info: ./images/elements_interactions_display.png used on input line 295.
 (pdftex.def)             Requested size: 241.84842pt x 212.36624pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [6 <./images/elements_interactions_user.png>] [7 <./images/elements_interactions_display.png>] <./images/flux_data_flow.png, id=185, 976.64874pt x 322.20375pt>
+ [6 <./images/elements_interactions_user.png>] [7 <./images/elements_interactions_display.png>] <./images/flux_data_flow.png, id=204, 976.64874pt x 322.20375pt>
 File: ./images/flux_data_flow.png Graphic file (type png)
  <use ./images/flux_data_flow.png>
-Package pdftex.def Info: ./images/flux_data_flow.png used on input line 317.
+Package pdftex.def Info: ./images/flux_data_flow.png used on input line 342.
 (pdftex.def)             Requested size: 241.84842pt x 79.78377pt.
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 334.
+(hyperref)                than one, level fixed on input line 359.
 
-<./images/transport_wireframe.png, id=186, 1084.05pt x 722.7pt>
+<./images/transport_wireframe.png, id=205, 1084.05pt x 722.7pt>
 File: ./images/transport_wireframe.png Graphic file (type png)
  <use ./images/transport_wireframe.png>
-Package pdftex.def Info: ./images/transport_wireframe.png used on input line 339.
+Package pdftex.def Info: ./images/transport_wireframe.png used on input line 364.
 (pdftex.def)             Requested size: 207.98608pt x 138.64874pt.
- <./images/transport_application.png, id=187, 1809.76125pt x 972.63374pt>
+ <./images/transport_application.png, id=206, 1809.76125pt x 972.63374pt>
 File: ./images/transport_application.png Graphic file (type png)
  <use ./images/transport_application.png>
-Package pdftex.def Info: ./images/transport_application.png used on input line 341.
+Package pdftex.def Info: ./images/transport_application.png used on input line 366.
 (pdftex.def)             Requested size: 256.35872pt x 137.77063pt.
- [8 <./images/flux_data_flow.png>] <./images/classes_wireframe.png, id=194, 1084.05pt x 722.7pt>
+ [8 <./images/flux_data_flow.png>] <./images/classes_wireframe.png, id=213, 1084.05pt x 722.7pt>
 File: ./images/classes_wireframe.png Graphic file (type png)
  <use ./images/classes_wireframe.png>
-Package pdftex.def Info: ./images/classes_wireframe.png used on input line 351.
+Package pdftex.def Info: ./images/classes_wireframe.png used on input line 376.
 (pdftex.def)             Requested size: 207.98608pt x 138.64874pt.
- <./images/classes_application.png, id=195, 1896.08376pt x 911.405pt>
+ <./images/classes_application.png, id=214, 1896.08376pt x 911.405pt>
 File: ./images/classes_application.png Graphic file (type png)
  <use ./images/classes_application.png>
-Package pdftex.def Info: ./images/classes_application.png used on input line 353.
+Package pdftex.def Info: ./images/classes_application.png used on input line 378.
 (pdftex.def)             Requested size: 256.35872pt x 123.21515pt.
- <./images/smartphone_loading_applications.png, id=196, 612.2875pt x 448.67625pt>
+ <./images/smartphone_loading_applications.png, id=215, 612.2875pt x 448.67625pt>
 File: ./images/smartphone_loading_applications.png Graphic file (type png)
  <use ./images/smartphone_loading_applications.png>
-Package pdftex.def Info: ./images/smartphone_loading_applications.png used on input line 367.
+Package pdftex.def Info: ./images/smartphone_loading_applications.png used on input line 392.
 (pdftex.def)             Requested size: 241.84842pt x 177.22176pt.
- [9 <./images/transport_wireframe.png> <./images/transport_application.png> <./images/classes_wireframe.png> <./images/classes_application.png>] <./images/smartphone_displays.png, id=211, 825.0825pt x 594.22pt>
+ [9 <./images/transport_wireframe.png> <./images/transport_application.png> <./images/classes_wireframe.png> <./images/classes_application.png>] <./images/smartphone_displays.png, id=230, 825.0825pt x 594.22pt>
 File: ./images/smartphone_displays.png Graphic file (type png)
  <use ./images/smartphone_displays.png>
-Package pdftex.def Info: ./images/smartphone_displays.png used on input line 377.
+Package pdftex.def Info: ./images/smartphone_displays.png used on input line 402.
 (pdftex.def)             Requested size: 241.84842pt x 174.17813pt.
- <./images/smartphone_color_preference.png, id=212, 1006.76125pt x 385.44pt>
+ <./images/smartphone_color_preference.png, id=231, 1006.76125pt x 385.44pt>
 File: ./images/smartphone_color_preference.png Graphic file (type png)
  <use ./images/smartphone_color_preference.png>
-Package pdftex.def Info: ./images/smartphone_color_preference.png used on input line 383.
+Package pdftex.def Info: ./images/smartphone_color_preference.png used on input line 408.
 (pdftex.def)             Requested size: 338.5863pt x 129.62457pt.
- <./images/preference_colour/preference_splited.png, id=213, 727.71875pt x 641.39626pt>
+ <./images/preference_colour/preference_splited.png, id=232, 727.71875pt x 641.39626pt>
 File: ./images/preference_colour/preference_splited.png Graphic file (type png)
  <use ./images/preference_colour/preference_splited.png>
-Package pdftex.def Info: ./images/preference_colour/preference_splited.png used on input line 389.
+Package pdftex.def Info: ./images/preference_colour/preference_splited.png used on input line 414.
 (pdftex.def)             Requested size: 193.47577pt x 170.52704pt.
- [10 <./images/smartphone_loading_applications.png> <./images/smartphone_displays.png> <./images/smartphone_color_preference.png>] [11 <./images/preference_colour/preference_splited.png>] [12] (/Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/finalReport/TemplateBachelorProject/.texpadtmp/bachelorproject.bbl
-
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
-
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 407.
+ [10 <./images/smartphone_loading_applications.png> <./images/smartphone_displays.png> <./images/smartphone_color_preference.png>] [11 <./images/preference_colour/preference_splited.png>] [12] (/Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/finalReport/TemplateBachelorProject/.texpadtmp/bachelorproject.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 432.
  [13]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 407.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 432.
  (/Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/finalReport/TemplateBachelorProject/.texpadtmp/bachelorproject.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 407.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 407.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 432.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 432.
 Package rerunfilecheck Info: File `bachelorproject.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
 
@@ -975,18 +961,18 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 16326 strings out of 493014
- 236849 string characters out of 6133351
- 337275 words of memory out of 5000000
- 19509 multiletter control sequences out of 15000+600000
+ 16339 strings out of 493014
+ 237092 string characters out of 6133351
+ 337282 words of memory out of 5000000
+ 19516 multiletter control sequences out of 15000+600000
  41614 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,10n,94p,854b,1631s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/bitstrea/charter/bchr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/bitstrea/charter/bchri8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr8t.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb>
-Output written on "/Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/finalReport/TemplateBachelorProject/.texpadtmp/bachelorproject.pdf" (14 pages, 1434438 bytes).
+ 60i,10n,94p,854b,1627s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/bitstrea/charter/bchr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/bitstrea/charter/bchri8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr8t.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chri8t.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb>
+Output written on "/Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/finalReport/TemplateBachelorProject/.texpadtmp/bachelorproject.pdf" (14 pages, 1443082 bytes).
 PDF statistics:
- 290 PDF objects out of 1000 (max. 8388607)
- 228 compressed objects within 3 object streams
- 79 named destinations out of 1000 (max. 500000)
+ 313 PDF objects out of 1000 (max. 8388607)
+ 250 compressed objects within 3 object streams
+ 85 named destinations out of 1000 (max. 500000)
  249 words of extra memory for PDF output out of 10000 (max. 10000000)
 
