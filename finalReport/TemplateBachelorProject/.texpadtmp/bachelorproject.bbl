@@ -1,18 +1,14 @@
 \begin{thebibliography}{1}
 
-\bibitem{design_considerations}
-B.~S. I. E. J.~C. Constantin~Taivan, Rui~José.
-\newblock {\em Design Considerations for Application Selection and Control in
-  Multi-User Public Displays}.
-\newblock 2014.
-
-\bibitem{pri_cal}
-P.~L. B. �. W. C. W. M.~W. Florian~Schaub, Bastian K~̈onings.
-\newblock {\em PriCal: Context-adaptive Privacyin Ambient Calendar Displays}.
+\bibitem{e_campus}
+S.~Clinch, N.~Davies, A.~Friday1, and C.~Efstratiou2.
+\newblock {\em Reflections on the Long-term Use of an Experimental Digital
+  Signage System}.
 \newblock 2014.
 
 \bibitem{personalisation_and_privacy}
-S.~C. I. E. A. F. T.~K. Nigel~Davies1, Marc~Langheinrich and B.~Surajbali.
+N.~Davies1, M.~Langheinrich, S.~Clinch, I.~Elhart, A.~Friday, T.~Kubitza1, ,
+  and B.~Surajbali.
 \newblock {\em Personalisation and Privacy in Future Pervasive
   DisplayNetworks}.
 \newblock 2014.
@@ -23,10 +19,16 @@ B.~S. Rui~José, Hélder~Pinto and A.~Melro.
   Displays}.
 \newblock 2014.
 
-\bibitem{e_campus}
-A.~F. Sarah~Clinch1, Nigel~Davies1 and C.~Efstratiou2.
-\newblock {\em Reflections on the Long-term Use of an Experimental Digital
-  Signage System}.
+\bibitem{pri_cal}
+F.~Schaub, B.~K. ̈onings, P.~Lang, B.~̈orn Wiedersheim, C.~Winkler, and
+  M.~Webe.
+\newblock {\em PriCal: Context-adaptive Privacyin Ambient Calendar Displays}.
+\newblock 2014.
+
+\bibitem{design_considerations}
+C.~Taivan, R.~José, B.~Silva, I.~Elhart, and J.~Cardoso.
+\newblock {\em Design Considerations for Application Selection and Control in
+  Multi-User Public Displays}.
 \newblock 2014.
 
 \bibitem{the_computer_for}

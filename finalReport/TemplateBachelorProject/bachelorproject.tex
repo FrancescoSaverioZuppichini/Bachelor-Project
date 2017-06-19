@@ -30,16 +30,9 @@
 
 
 \abstract {
-Nowadays the majority of public displays follow a closed model by showing static and passive content. People have started to ignore  them accustomed to their low utility. Opening them by creating interactive application that supports users personalisation could create a new communication channel for the 21st century. 
-
-In the last years the interest into this problem has increased leading to the development of differents systems that uses digital signage to deliver personalised content.
-
-Our project exposes a new attempt to create an architecture that supports users active and walk-by content personalisation.
-Active meaning that the viewers can temporally take control of the screen using a mobile application. Walk-by signifies that the personalised content is showed automatically as soon as a user walk nearby a display thanks to some bluetooth beacons. 
-
-Our system is composed by five elements: \emph{Map Provider}, a \emph{Proxy}, \emph{Mobile Application} and two display's interactive applications. These applications are: \emph{Transport} and \emph{Upcoming Classes}. 
-
-In this paper we present our prototype implementation of the architecture, the relative design studied and a overview of its main functionalities. 
+Nowadays the majority of public displays follow a closed model by showing static and passive content. People have started to ignore them due to their low utility. The problem is identified in their lack of user personalisation. Opening them to interactive application that supports user personalisation could create a new communication channel for the 21st century. 
+In the last years, the interest into this field has increased leading to the development of different systems that uses digital signage to deliver personalised content. 
+Our project takes inspiration from previous researches, creating a new architecture that supports users active and walk-by content personalisation. Active contact personalisation allows the viewers to temporally take control of the screen using a mobile application. Walk-by personalisation is the possibility to access the personalised content by  walking nearby a display.  Our system is composed by five elements: \emph{Map Provider}, a \emph{Proxy}, \emph{Mobile Application} and two display's interactive applications. These applications are: \emph{Transport} and \emph{Upcoming Classes}. In this project we present our prototype implementation of the architecture, the relative design studied and an overview of its main functionalities. 
 }
 
 
@@ -47,13 +40,15 @@ In this paper we present our prototype implementation of the architecture, the r
 \maketitle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\newpage
 \section{Introduction}
 \subsection{Motivation}
 
-Public displays have emerged as a widely used for a mass communication in the last years. They are commonplace in public places such as squares, supermarket, and in our case, university. 
-Traditionally they were used as a common broadcast medium pushing a static and passive content to the audience adopting a closed model. Nowadays, this model is still the most used. This approach can be notice in Figure 1 (a) shows the New Yorks Times Square while (b) paints the same city in the later half of the 20th century. It can be notice that displays and posters are used for the same goal: advertisement.
+Public displays have emerged as a wide used mass communication channel in the last years. They are commonplace in public places such as squares, supermarket, and in our case, universities. 
+Traditionally they were used as a common broadcast medium pushing static and passive content to the audience adopting a closed model. Nowadays, this model is still the most used. This approach can be observed in Figure 1 (a) that shows the New Yorks Times Square while (b) paints the same city in the later half of the 20th century. It can be noticed that displays and posters are used for the same goal: advertisement.
 
-Due to a decreasing of people's interest towards them, displays stakeholders have tried different approach to gather back the audience's attention. One of the most common is to just increase the number of screens. Unfortunately, this strategy have lead to a ubiquitous deployment of public displays making viewers ignore them even more.
+Due to a decreasing of people's interest towards them, displays stakeholders have tried a different approach to gathering back the audience's attention. One of the most common is to just increase the number of screens. This strategy has lead to a ubiquitous deployment of public displays making viewers ignore them even more.
 
 \begin{figure}[H]
   \centering
@@ -64,49 +59,29 @@ Due to a decreasing of people's interest towards them, displays stakeholders hav
 \end{figure} 
 
 
-The major problem is the lack of users personalisation. In the last years the interested in this field increased and lost of studied were proposed in order to solve the problem. Recently, researches have develop system where the users can ask the displays through a mobile application to show custom content such as map, transit timetables or schedules. Most of them follow the Mark Weiser's \cite{the_computer_for} vision in which computers becomes part of the environment disappearing by fading in the background.
-Some exmaple may be the \emph{e-Campus} \cite{e_campus} in the University of Lancaster that shows interactive content such as Youtube videos, \emph{Tacita} used in this university where students can access an array of campus' applications, PriCal\cite{pri_cal} an ambient calendar display that display a user's schedule and \emph{Instant places} \cite{pins_and_posters} where users can pin their favourite soccer team.
-
+The major problem is the lack of users personalisation. In the last years, the interested in this field increased and lost of studied were proposed in order to solve the problem. Recently, researches have developed system where the users can ask the displays through a mobile application to show custom content such as map, transit timetables or schedules. Most of them follow the Mark Weiser's \cite{the_computer_for} vision in which computers becomes part of the environment disappearing by fading in the background.
+Some examples may be the \emph{e-Campus} \cite{e_campus} in the University of Lancaster that shows interactive content such as Youtube videos, \emph{Tacita} used in this university where students can access an array of campus' applications, PriCal\cite{pri_cal} an ambient calendar display that displays a user's schedule and \emph{Instant places} \cite{pins_and_posters} where users can pin their favourite soccer team.
 By taking advantages of the last technologies advancements, that had brought the touch interface to the displays, we can create interactive applications that allows users to surf content directly on the display making them more attractable.
 
-Our project aims to design an architecture thats supports interactive displays' application in order to archieve an active and walk-by contact personalisation. Active, meaning that the user can take temporary control of the display deciding which content will be showed on the screen by selecting preferences through a mobile interface. 
-Walk-by, signifying users are able to see their preferences by just walk nearby a display thanks to bluetooth beacon's places nearby them. This gives an array of advantages, for instance, the viewer can select its content once and just walk nearby a display when he needs it. Moreover, public displays are usually placed in very accessible places making even easier for the audience to access them. 
+Our project aims to design an architecture that supports interactive displays' application and active and walk-by contact personalisation. Active, meaning that the user can take temporary control of the display deciding which content will be shown on the screen by selecting preferences through a mobile interface. 
+Walk-by signifies users are able to see their preferences by just walking nearby a display thanks to Bluetooth beacon's places nearby them. This gives an array of advantages, for instance, the viewer can select its content once and just walk to display when he needs it. Moreover, public displays are usually placed in very accessible places making even easier for the audience to find them. 
 
-Usually, public displays  \emph {have [...] been investigated from the perspective of single user
-interaction paradigm} \cite{personalisation_and_privacy}. In this model, a user can access a rich array of applications and services from the screen. However, since public displays are used by a homogenous audience, multi-user support must be provider. In our project, we support booth single user and multi user model by taking advantages of GUI techniques to improve the services's accessibility. One interested case study was conducted in this university \cite{design_considerations} where emerged the importance of using a clear design for booth a mobile application and display  \emph{so that people may associate the content they see on the displays with the application generating that content} \cite{design_considerations}
+Usually, public displays  \emph{"have [...] been investigated from the perspective of single user
+interaction paradigm"} \cite{personalisation_and_privacy}. In this model, a user can access a rich array of applications and services from the screen. However, since public displays are used by a homogenous audience, multi-user support must be the provider. In our project, we support booth single user and multi-user model by taking advantages of GUI techniques to improve the services' accessibility. One interested case study was conducted in this university \cite{design_considerations} where emerged the importance of using a clear design for booth a mobile application and display  \emph{"so that people may associate the content they see on the displays with the application generating that content"} \cite{design_considerations}
 
-Other studies in this field demonstrate the important of user's privacy in pervasive display networks. A solution was proposed to \cite{personalisation_and_privacy} solved the problem by creating an architecture that \emph{support displays personalisation without allowing a display network to track and profile users views}.
-In our project, we took inspiration from such researches in order to also make users' preferences anonymous by using a colour based approach in the system so no other viewers can know whose preferences are. 
-
-%By application Mark Weiser's vision 
-%% cite http://delivery.acm.org/10.1145/330000/329126/p3-weiser.pdf?ip=195.176.178.184&id=329126&acc=ACTIVE%20SERVICE&key=FC66C24E42F07228%2E8FBBFD775A27C843%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=775122633&CFTOKEN=68981076&__acm__=1497647750_34f2287e9b49d9f1ab7bde5f6088943b 
-%
-%By introduction personalisation the users 
-%
-%\cite{open_display_networks}{The vast majority of today's public displays effectively disapper}
-%People becomes 
-%Displays stakeholders 
-
-
-%Public displays represent a widely used form of mass communication in almost all public places such as squares, subways and schools. They are used in a passive way adopting a closed model by showing static information, mostly advertisements
-% without a possibility to personalise the screen's content.  In Figure 1 you can easily observe this phenomenon by looking and the numbers of huge public displays and the informations they provide.
-% 
-%Today, \cite{open_display_networks}{the vast majority of today's public displays effectively disapper}. The major problem that was observer is the lack of user personalisation since most system are still design around a traditional model where only the "display owners" are in control of the content showed. Therefore, the audience may not be attracted by each information showed leading to a passive interacting with public displays. 
-%Opening public displays, by using active and walk-by contact personalisation, can make the public displays a new communications medium for the 21st. 
-%Active, meaning that the user can take temporary control of the display by selecting preferences through a mobile interface that supports interactive applications.
-%
-%Walk-by, signifying users are able to access their preferences by just walk nearby a display thanks to bluetooth beacon's places nearby them.
+Other studies in this field demonstrate the important of user's privacy in pervasive display networks. A solution was proposed\cite{personalisation_and_privacy} to solved the problem by creating an architecture that \emph{"support displays personalisation without allowing a display network to track and profile users views"}.
+In our project, we took inspiration from these researches in order to also make users' preferences anonymous by using a colour based approach in the system so no other viewers can know whose preferences are. 
  
 \subsection{State of the Art}
-Users personalisation in pervasive display networks is not a new idea. A number of previous project have been suggest in order to solve the lack of users interactions. However, only a small number of them supports multi users and multi displays stakeholders, such as \emph{e-Campus} \cite{e_campus}, \emph{Tacita}, PriCal \cite{pri_cal} and \emph{Instant Places} \cite{pins_and_posters}.
+User users personalisation in pervasive display networks is not a new idea. A number of previous project have been suggest in order to solve the lack of users interactions. However, only a small number of them supports multi users and multi displays stakeholders, such as \emph{e-Campus} \cite{e_campus}, \emph{Tacita}, \emph{PriCal} \cite{pri_cal} and \emph{Instant Places} \cite{pins_and_posters}.
 
-\emph{e-Campus} is a wide  public displays network in the Lancaster University that supports interactive application such as Youtube, Flicker and campus based information visualisation. The system counts thirty displays representing a successful example for our project.
+\emph{e-Campus} is a wide public displays network in the Lancaster University that supports interactive application such as Youtube, Flicker and campus-based information visualisation. The system counts thirty displays representing a successful example for our project.
 
-\emph{Tacita} is the current architecture used by \emph{Universita della Svizzera Italiana}. The network supports a range of application that focus on provide useful information to the faculty student. For example, is it possible to get information about bike sharing, exams or public transportation. One limitation is the lacking of users preference.
+\emph{Tacita} is the current architecture used by \emph{Universita della Svizzera Italiana}. The network supports a range of application that focus on providing useful information to the faculty student. For example, is it possible to get information about bike sharing, exams or public transportation. One limitation is the lacking of users preference.
 
-\emph{PriCal} is a smart interactive calendar display application. The main idea is to let the audience see their schedules directly into the display. A context-adaptive privacy is provided  by detecting the viewers and  adapting their events visibility according to their preferences. One interesting aspect of this project is the  architecture implementation. Their system supports both registered users as well as unknown persons providing a quality network and facilitates interaction by passers-by. 
+\emph{PriCal} is a smart interactive calendar display application. The main idea is to let the audience see their schedules directly into the display. A context-adaptive privacy is provided by detecting the viewers and adapting their events visibility according to their preferences. One interesting aspect of this project is the architecture implementation. Their system supports both registered users as well as unknown persons providing a quality network and facilitates interaction by passers-by. 
 
-\emph{Instant Places} is a web-based display platform using the metaphors of Pins and Posters. In their study\cite{pins_and_posters} they created an \emph{application that displays content associated with the soccer teams supported by place visitors}. A pin is created for each team and when a user selects it, the displays shows associated content. At the same time, the application displays a global view of others selected pins giving a feedback to the user about people's preferences.
+\emph{Instant Places} is a web-based display platform using the metaphors of Pins and Posters. In their study, they created an \emph{application that displays content associated with the soccer teams supported by place visitors}\cite{pins_and_posters}. A pin is created for each team and when a user selects it, the displays shows associated content. At the same time, the application displays a global view of others selected pins giving a feedback to the user about people's preferences.
 
 %\subsection{Goal}
 %
@@ -118,7 +93,7 @@ Users personalisation in pervasive display networks is not a new idea. A number 
 %\emph{Upcoming Classes} shows the semester schedule to the faculty's student by also
 %
 %
-%The architecture must provide a mobile application to manage users informations, access interactive applications and discover nearby displays using bluetooth beacons.
+%The architecture must provide a mobile application to manage users information, access interactive applications and discover nearby displays using Bluetooth beacons.
 %
 %Since we are targeting a heterogeneous audience, the content must be easily accessible. So, we focus our attention to the UI design aimed to provide a natural flow of interaction between the system and each interactive application.
 %
@@ -127,9 +102,9 @@ Users personalisation in pervasive display networks is not a new idea. A number 
 \subsection{Results}
 With our project, we created a network that supports users personalisation into public displays by developing a new architecture with two interactive applications.
 
-The audience can see their preferences by just walk nearby a screen while interact with the mobile application. Also, informations can be retrieved directly from the display using a touch interface, For instance, is possible to see buses' schedules by clicking on a station.
+The audience can see their preferences by just walking nearby a screen while interacting with the mobile application that may also run in background. Also, information can be retrieved directly from the display using a touch interface, For instance, is possible to see buses' schedules by clicking on a station.
 
-In order to store the state of displays, applications and beacons, a \emph{MAP Provider} was developed. Also, it exposes a web socket is used to broadcast real time notification through all the system notifying the presence of a user near a screen.
+In order to store the state of displays, applications and beacons, a \emph{MAP Provider} were developed. Also, it exposes a web socket is used to broadcast real-time notification through all the system notifying the presence of a user near a screen.
 
 The applications developed are \emph{Transport} and \emph{Upcoming Classes}. \emph{Transport} allows users to select their bus schedules as preferences and access useful content directly on the screen, like see directions from the display to the stations.
 \emph{Upcoming Classes} shows the semester schedules supporting custom queries in order to discover specific content.
@@ -138,15 +113,14 @@ A colour based approach is used to identifier users' preference by only the crea
 
 \section{Architecture}
 \subsection{Overview}
-Our architecture is composed by three elements: Map Provider, and two interactive display's applications. We used a \emph{Micro Service} architecture in order to decomposing the application into different smaller services is that it improves modularity and makes the application easier to understand, develop and test. Each service is identify as a standalone web server.
+Our system is composed by five elements: \emph{Map Provider}, a \emph{Proxy}, \emph{Mobile Application} and two display's interactive applications. These applications are: \emph{Transport} and \emph{Upcoming Classes}. We structure the web servers using a \emph{Micro Service} architecture in order to decompose the service into different smaller services to improve modularity and make the application easier to understand, develop and test. The components communicate using REST calls and Web Sockets that are proxied to the clients in order to serve all the applications from the same domain as is shown in Figure 2. Each of them exposes an API that can be called in order to get the required data in JSON format.
 
-In our project we deployed all the services on the same server hosted by the universities, but in a real world, they are usually physically separated
+The \emph{Map Provider} stores the state of displays, beacons, users and the applications' information with the purpose of making them available to the system. A web socket is used to broadcast real-time notification through all the clients to provide real-time feedback about the global network state.
 
-The components communicate using REST calls and Web Sockets that are proxied to the external world in order to serve all the applications from the same domain as is shows in Figure 2. Each of them expose an API that call be called in order to get the required data in JSON format.
+We developed two display's application, \emph{Transport} and \emph{Upcoming Classes}, using the same common interface abstracting them into the \emph{Application Layer} (Figure 3.). Is it possible to individually add new applications by making them conform to our API interface for preference personalisation. Therefore, each application can be added from everywhere allowing developers to use their favourites technologies and hosting platforms.
+Since they follow a common structure, we will refer to them as the \emph{Application Layer}.
 
-The Map Provider stores the state of displays, beacons, users and the applications' informations in order to make them available for the system. A web socket is used to broadcast real time notification through all the clients in order to update their state.
-
-We developed two display's application, \emph{Transport} and \emph{Upcoming Classes}, using the same common interface abstracting them into the \emph{Application Layer} (Figure 3.). Is it possible to individually add new applications by making them conform to our API interface for preference personalisation. Moreover, each application can be added from everywhere allowing developers to use their favourites technologies and hosting platform.
+A simple \emph{Proxy} is used to proxied both HTTP request and web sockets for serving each applications from the same Domain avoiding cross-origin requests. Our network supports both HTTP and HTTPS, for security reason, the sockets only works in secure mode.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{./images/poster_image_1.png}
@@ -154,58 +128,55 @@ We developed two display's application, \emph{Transport} and \emph{Upcoming Clas
 \end{figure} 
 
 
-% TALK about the system that must be anynimous 
+% TALK about the system that must be anonymous 
 %
 \subsection{Architecture Elements}
 \subsubsection{Map Provider}
-The \emph{Map Provider} stores in a database informations about displays, beacons and available applications in order to make it possible for the client access to the \emph{Application Layer} and have a global knowledge of the current network state. 
+The \emph{Map Provider} stores in a database informations about displays, beacons and available applications in order to make it possible for the client to access to the \emph{Application Layer} and have a global knowledge of the current network state. A many to one relation is created between the Display and the Application (Figure 3) table, since, a single screen can run multiple application at the moment. In our project we limited to one main application for screen, but, using a responsive design approach, is it possible to maintain a pleasant look even if one is shrunk due to displays size limitation. Since the \emph{Map Provider} allows to enable and disable custom services, a many to many pivots is used to keep track of local user's applications state. If an application is turned off and a user is near to a display running that application, then no interaction between the two will happen. In our design, this check, is done on the mobile application in order to send fewer information into the socket.
 
-A many to one relation is created between the Display and the Application (Figure 4.) table, since, a single screen can run multiple application at the moment. In our project we limited to one main application for screen, but, using a responsive design approach, is it possible to maintain a pleasant look even if one is shrunk due to displays size limitation.
+The physical device that makes the in-walk communication possible is the Bluetooth beacon produced. They are produced by Estimote. In order to link them to a screen, a many to one relation between Beacon and Display, since many beacons can be linked to a screen, but no the other way around. The model stores the beacon's mac address as unique identifier. These devices must be putted really close to the machine we want identify in order to increase the location accuracy. Moreover, thanks to our API design, they can be changed at any time by just send the correct request to the server.
 
-Since the \emph{Map Provider} allows to enable and disable custom services, a many to many pivot is used to keep track of local user's applications state. If an application is turned off and a user is near to a display running that application, then no interaction between the two will happen. In our design, this check, is done on the mobile application in order to send fewer information into the socket.
-
-The physical device that make the in-walk communication possible is the bluetooth beacon produced. They are produced by Estimote. In order to link them to a screen, a many to one relation between Beacon and Display, since many beacons can be linked to a screen, but no the other way around. The model stores the beacon's mac address as unique identifier. These devices must be putted really close to the machine we want identify in order to increase the location accuracy. Moreover, thanks to our API design, they can be changed at any time by just send the correct request to the server.
-
-A User model is stored with basic information such as email and favourite colour, they linked to Application with a one to many. 
+A User model is stored with basic information such as email and favourite colour. To know which application was enabled a one to many relations is stored in the Application table. 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\textwidth]{./images/TacitaRelations.jpg}
+  \includegraphics[width=0.55\textwidth]{./images/TacitaRelations.jpg}
    \caption{Relations in the Map Provider}
 
 \end{figure} 
 
 \subsubsection{Display Client}
-In each Display runs a web browser in which applications, provided by each service server, are showed. For our project, we used a touch display provided from the university with a Intel NCU running Windows 10 connect to it. Our architecture can support any operating system, since it only needs a web client to run it.
-  
- Since the applications are \emph{interactive} is it possible for the audience to interact with them using a touch interface to click on the application's page. The displays are \emph{active} elements that can interact with the world around them thanks to the bluetooth beacons that make them visible from the mobile application.
- 
-They are placed into key points of the university, such as, for example, \emph{mensa} or in entrance of the faculty. Is it very important to accurately study where to put them, since a poorly position can reduce the number of views.
+In each Display runs a web browser in which applications, provided by each service server, are shown. For our project, we used a touch display provided from the university with an Intel NCU running Windows 10 connect to it, but our architecture can support any operating system, since it only needs a web client to run it. Since the applications are \emph{interactive} is it possible for the audience to interact with them using a touch interface to click on the Applications' page.
 
-Users can have a temporally and limited control on them by creating preferences that are showed when they walk-by.
-Also, is it possible to dynamically change the running application by making a REST call to the \emph{Map Provider} that will notify the screen and make it update its state.
+Bluetooth beacons are physically placed nearby to make them visible from the mobile application and create walk-by contact personalisation. They are placed into key points of the university, such as, \emph{mensa} or in entrance of the faculty. Is it very important to accurately study where to place them to maximise the number of viewers. Users can temporally control them by creating preferences that are shown when they walk-by. Also, is it possible to dynamically change the running application by making a REST call to the \emph{Map Provider} that will notify the screen through sockets and make it updates its state.
 
 
 \subsubsection{Transport App}
-The \emph{Transport} application allows users to navigate the nearby bus station and create preferences through the mobile interface. We decided to gather the data from the well designed Opendata API that allows to fetch all kind of transportation information, in our case we used only use buses.
-However, due to the limit number of request we can made, fixed to three per second, and the necessity to have some custom endpoint, we cloned them.
+The \emph{Transport} application allows users to navigate the nearby bus station and create preferences through the mobile interface. We decided to gather the data from the well designed Opendata API that allows fetching all kind of transportation information, in our case we used only use buses.
+However, due to the limit number of request we can make, fixed to three per second, and the necessity to have some custom endpoint, we cloned them.
 
-We also have integrated Google Maps API into the screen's front-end. So, after fetching the exactly display's position thanks to web browser geo localisation, we can show the estimate time to get to a specific station by walk and the correct directions. With this informations we can give real time visible feedback on screen when it is going to be too late to catch a specific bus.
+We also have integrated Google Maps API into the screen's front-end. So, after fetching the exactly display's position thanks to web browser geo localisation, we can show the estimated time to get to a specific station by walk and the correct directions. With this information we can give real-time visible feedback on screen when it is going to be too late to catch a specific bus.
 
-Since we are using a built in web browsers feature, we can easily scale our system. Image you need to move the display to one location to another, with our architecture there is no need to update its state into the server . Since the information is fetched client side, its position is updated as soon as it is moved, as well as with all the other functionalities related to it,  no external operation is needed.
+Since we are using a built-in web browsers feature, we can easily scale our system. The image you need to move the display to one location to another, with our architecture there is no need to update its state into the server. Since the information is fetched client side, its position is updated as soon as it is moved, as well as with all the other functionalities related to it,  no external operation is needed.
 
-Even if it can be argue that by cloning Opendata API we loose all information about delays, we notice that the delay field is always null. So, we have to assume that even them can not have access to such detailed information or it is not implemented yet.
+Even if it can be argued that by cloning Opendata API we loose all information about transports delays, we notice that the delay field is always null. So, we have to assume that even them can not have access to such detailed information or it is not implemented yet. For our project, we cloned them every 6 hours, but the schedule can be changed in virtual no time. A the mobile interface is used to manage the preferences. To do so, the user must select the correct station, buses and direction.
 
-For our project, we cloned them every 6 hours, but the schedule can be changed in virtual no time.
+Figure 4 shows how a preference is created. From left to right, the user presses a floating button and selection station page appears. Using a step by step approach the preference is created, and, after confirming the creation in the modal, it is added to the user's preferences.  
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{./images/UI_flow_transport.png}
+   \caption{UI flow in \emph{Transport}}
+
+\end{figure} 
+
 
 % say how ofter we clone them
 % link to opendata
 % put some pictures of the screen gui
 % show some pictures of the preference flow
 \subsubsection{Classes App}
-The second application is \emph{Upcoming Classes}, it displays information about classes such as the course schedule for the next days. Is it possible to select preferences or to create queries for specific courses from the screen. All the courses are displayed into the calendar in the correct order supporting booth month and week view.
-
-Similarly to the Transport application, we had issues with the API, in our case, provided by the University itself.
-A single API call to know all the schedules takes more than $1500ms$ as showed in Table 1. It gets worse if you try to get all the courses for a faculty:
+The second application is \emph{Upcoming Classes}. It displays information about classes such as the course's schedule for the next days. Is it possible to select preferences or to create queries for specific courses from the screen. All the courses are displayed on the calendar in the correct order supporting booth month and week view.
+Similarly to the Transport application, we had issues with the API, in our case, provided by the University itself. A single API call to know all the schedules takes more than $1500ms$ as showed in Table 1. It gets worse if you try to get all the courses for a faculty:
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|c|}
@@ -217,8 +188,7 @@ http://search.usi.ch/api/faculties/1/courses & 9294ms\\\hline
 \caption{}
 \label{table:usi_request}
 \end{table}
-
-Therefore they cannot be properly used in a real application. Even if, from the client, we always cache the request, we cannot avoid to wait for the first time. The reason why they are so slow is the response size. Their response is heavy due to a poorly model population; for each course that is sent back, tons of unused field are provided. Also, by inspecting a response for a class schedules, we can notice the same huge course object appears, unnecessary, for each schedule object.
+Therefore they cannot be properly used in a real application. Even if, from the client, we always cache the request, we cannot avoid waiting for the first time. The reason why they are so slow is the response size. Their response is heavy due to a poorly model population; for each course that is sent back, tonnes of unused field are provided. Also, by inspecting a response for class schedules, we can notice the same huge course object appears, unnecessary, for each schedule object.
 Therefore, again, we needed to clone all the API in order to just sent the right amount of information, by doing that, the previous schedule request now needs just $18$ms. Table 2 shows these results.
 
 \begin{table}[h]
@@ -232,30 +202,32 @@ http://tacita/classes/api/faculty/1/courses & 1000ms\\\hline
 \caption[Table caption text]{}
 \label{table:classes_request}
 \end{table}
-The display's front end application is divided into two main part easily identificable, the calendar and the query engine next to it. The calendar is create using \emph{fullcalendar} jQuery library that does all the dirty work of render and setting up all the events into the corrects slots. 
-The courses can be selected thanks to the query engine on the right part of the screen. As soon as the user clicks on the button representing the faculty, it is guided in order to create a valid query using a step by step approach; even if it may be not the faster way, it is the safest since no wrong request can be generated. The procedure is shows in the following storyboard:
+The display's front end application is divided into two main part easily identifiable, the calendar and the query engine next to it. The calendar is create using \emph{fullcalendar} jQuery library that does all the dirty work of render and setting up all the events into the corrects slots. 
+The courses can be selected thanks to the query engine on the right part of the screen. As soon as the user clicks on the button representing the faculty, it is guided in order to create a valid query using a step by step approach; even if it may be not the faster way, it is the safest since no wrong request can be generated. The procedure is shown in the following storyboard:
 % aggiungi storyboard classi
 
-As we did for the Transport Application, we also created a smart phone interface in order to create, remove and edit preferences. Since the interface is always the same we decided to also decide to keep the same design for consistency reason.
+As we did for the Transport Application, we also created a smart phone interface in order to create, remove and edit preferences. For consistency reason, we decide to keep to use the same UI design we used for the transport application.
 % show transport app similar to this one
-\subsubsection{User}
+\subsubsection{Mobile Application}
 
-The User has a fully active role, he is the trigger of the whole system; without him, the network has not reason to exits. He uses his smartphone in order to access the front-end application exposed by the \emph{Appliction Layer} through the smartphone platform.
+A mobile application was developed in order to let users select their preferences and custom settings. In our project, each user can select a colour that is shown as a little label near the preference on the screen makes it easier to identify. Since only the content owner knows is colour, anonymity is maintained in the system. The home page shows the applications list. By clicking the application's preferences page will appear allowing the user to manage the preferences.
 
-By using it the User can selects his custom settings in order to quickly identify his information on the screens.
-In our design, a favourite colour can be selected in order to filter fast the owned content and gaining anonymity, since nobody else can know who is linked to a specific colour. Also, colour base information can be identify really fast by just watching the screen.
-This application will be deeply analized into the next sections, but, from a user point of view, it is the door to access the whole array of services.
+Is possible to quickly enable/disable content flow for each application by changing the state of a toggle present on each service. When an application is disabled, no information will be sent to the \emph{Map Provider}. However, since we are using socket connection, when an application is enabled the new state will be immediately broadcast to the system making screens react to it.
 
-We talked about the User as a \emph{trigger}, it means that, with his physical being, it \emph{triggers} actions; actions that are universally recognisable by our architecture. While walking near a screen, the architecture, thanks to bluetooth beacon that map them in the space, and, thanks to the smartphone application, can detect the movement show the personalised content into the screen at the right time. For the client, this is very convenient, since no other interaction is needed at all. One challenge we encountered was to make sure that the required content is showed in the correct time because, if the architecture is unreliable for the user then nobody will trust to use it.
- 
+When a Bluetooth beacon is noticed, a floating button appears making possible to access the display page where detail information about the discovered display is showed. Automatically, users preferences will be displayed on the screen. The interactions are deeply explained into section 2.3. Figure 5 shows a usage example. From left to right, the application is opened, then the \emph{Transport} application is selected and its preference page is open. Later a new colour is picked, in our case blue. After we can observe that a display was found by clicking on the floating button that has just appeared. In the last picture, our preferences are labelled into the display with the chosen colour.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{./images/UI_flow.png}
+   \caption{Mobile Application UI flow}
+
+\end{figure}
+
+\subsubsection{Proxy}
+A simple \emph{Proxy} was created in order to proxy all the HTTP/HTTPS and web socket request. In this way, a single domain is exposed to the client so no CROS origin request is needed. Due to security reason, sockets are only supported into the secure mode; so it is highly recommended to access our servers with a secure connection in order experience all the features of our project
  
 \subsection{Architecture Interactions}
 
-In the previous part we define in detail each element of our architecture without giving a global overview of how each parts collaborate with the all system. In this section we are going to analyze all the interaction, especially between user and display, showing and explain each message that the entities exchange in order to communicate.
-
-From a User point of view, the first actions that can happen is walking into a display.
-
- As soon as the mobile application detects the beacons, it gets a list of them sorted by distance (action $1.$ of Figure 4). The first one is fetched and its id is used to make a request to Map Provider ($2.$) in order to know which display is associated with it. If there is one, a message containing user's id and display's is pushed into the socket ($3.$) only if the screen application is enabled. An example message:
+In the previous part, we define in detail each element of our architecture without giving a global overview of how each part collaborate with the all system. In this section we are going to analyse all the interaction, especially between user and display, showing and explain each message that the entities exchange in order to communicate. From a User point of view, the first action that can happen is walking into a display. As soon as the mobile application detects the beacons, it gets a list of them sorted by distance (action $1.$ of Figure 6). The first one is fetched and its id is used to make a request to Map Provider ($2.$) in order to know which display is associated with it. If there is one, a message containing user's id and display's is pushed into the socket ($3.$) only if the screen application is enabled. An example message:
  
  \begin{lstlisting}
 {
@@ -267,9 +239,9 @@ From a User point of view, the first actions that can happen is walking into a d
 }
  \end{lstlisting}
  
-When the display receive the notification, it checks if it has the same id. If it gets the user's preference from the back-end running application ($4.$). Finally, the user's content is showed into the screen ($5.$).
+When the display receives the notification, it checks if it has the same id. If it gets the user's preference from the back-end running application ($4.$). Finally, the user's content is showed on the screen ($5.$).
 
-Similarly, when a user walk away it lost its connection with the beacon and a new message is pushed into the socket in order to remove its preferences from the display.
+Similarly, when a user walks away it lost its connection with the beacon and a new message is pushed into the socket in order to remove its preferences from the display.
  \begin{lstlisting}
 {
   action: 'USER_EXITS',
@@ -283,57 +255,49 @@ Similarly, when a user walk away it lost its connection with the beacon and a ne
 To avoid processing the same information two or more times, the displays uses a in memory cache. Also, a life duration is set for each of them in order to remove them if no exit event is detected.
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\textwidth]{./images/elements_interactions_user.png}
+  \includegraphics[width=0.6\textwidth]{./images/elements_interactions_user.png}
   \caption{Architecture Interactions, User point of view}
 %    \subfloat[Display interactions]{\includegraphics[width=0.5\textwidth]{./images/display_interactions.jpeg}}
 
 \end{figure} 
-When the display's web client is connect to one of the applications (action $1.$ Figure 5), it does some initial setup ($2.$). Depending on the local case, it may ask for the geo localisation, used in the \emph{Transport application} or create some data structures. After the boot phase is done, a request for the data is made to its provider in order to show informations ($3.$).
-In the mean time, the screen sends the applications that its running to the \emph{MAP Provider} ($5.$) in order to update its state. Then the \emph{Provider} broadcast to all the clients the new informations using sockets so each element has a global real-time view of all the displays state. In our project, the mobile application, when it receives such information and if the new application running is enabled, it sends again the user's identifier in order to show the personalised content into the new application without reload the view.
+When the display's web client is connect to one of the applications (action $1.$ Figure 7), it does some initial setup ($2.$). Depending on the local case, it may ask for the geo localisation, used in the \emph{Transport application} or create some data structures. After the boot phase is done, a request for the data is made to its provider in order to show informations ($3.$).
+In the mean time, the screen sends the applications that its running to the \emph{MAP Provider} ($5.$) in order to update its state. Then the \emph{Provider} broadcasts to all the clients the new information using sockets so each element has a global real-time view of all the displays state. In our project, the mobile application, when it receives such information and if the new application running is enabled, it sends again the user's identifier in order to show the personalised content into the new application without reloading the view.
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\textwidth]{./images/elements_interactions_display.png}
+  \includegraphics[width=0.6\textwidth]{./images/elements_interactions_display.png}
   \caption{Architecture Interactions, Display point of view}
 %    \subfloat[Display interactions]{\includegraphics[width=0.5\textwidth]{./images/display_interactions.jpeg}}
-
 \end{figure} 
-To each screen is associated an unique id. Therefore, before deploy a display, it must be create a new entity in our database by making the correct request to the \emph{Map Provider}. The id is passed to the display's client by adding it in the end of the url that is processed by the front-end software.
+At each screen is associated a unique id. Therefore, before deploying a display, it must create a new entity in our database by making the correct request to the \emph{Map Provider}. The id is passed to the display's client by adding it in the end of the URL that is processed by the front-end software.
 \subsection{Architecture Technologies}
-In this section we talk about the technologies that we used for the back-end and the front-end. For this project, we choose the latest technologies and programming languages in order to provide a service that will last without being obsolete in a long term.
+In this section, we talk about the technologies that we used for the back-end and the front-end. For this project, we choose the latest technologies and programming languages in order to provide a service that will last without being obsolete in a long term.
 \subsubsection{Back-End}
-We firstly started to develop the first application using Django, a widely used python web framework, but we encored problems with web socket that were not supported "out of the box".
+We firstly started to develop the first application using Django, a widely used Python web framework, but we encored problems with web socket that were not supported "out of the box".
 So, we decide to completely switch both language and framework by choosing Swift 3 and Vapor.
-
-Swift is a "powerful and intuitive" open source programming language developed by Apple in 2015 for booth MacOs X and Linux. It is a Protocol Oriented Programming Languages.
+Swift is a "powerful and intuitive" open source programming language developed by Apple in 2015 for booth MacOS X and Linux. It is a Protocol Oriented Programming Languages.
 %\\
-%\emph{A protocol defines a blueprint of methods, properties .. The protocol can then be adopted by a class, structure, or enumeration - Apple}
-
-Unlike classes, the fundamental of Protocol Oriented Programming, POP, is Value Type encouraging flat and not nested code. This benefit is reflected into its performance and flexibility.
+%\emph{A protocol defines a blueprint of methods, properties . The protocol can then be adopted by a class, structure, or enumeration - Apple}
+Unlike classes, the fundamental of Protocol Oriented Programming, POP, is Value Type encouraging flat and not nested code. This benefit is reflected in its performance and flexibility.
 The syntax is concise yet expressive, it uses labels and spaces to improve the code readability making possible to write complete sentences only with code. Apple wanted to create a product that was at the same time, feast and beauty.
 
-After selecting a programming language, we need a framework to create our applications. We choose Vapor for the job; a powerful, beautiful and easy to use MVC framework to build web servers. In our project it powers all micro services.
-Vapor is easy to start with thanks to the clear APIs that, not also speed up the developer work, makes the code more maintainable and more understandable. One of his strength point is the performance inherited from Swift. \subsubsection{Front-end}
-In order to archive the best results in term of scalability and performance we choose Vue.js as main front-end framework. Vue.js is a library for building interactive web interfaces, it uses web components to provide a convenient way to organise an application by decoupled its element into blocks.
-A web component is similar to a Object Oriented programming classes, it encapsulate all the logic behind a certain functionality of the application. In Vue, a component, in formed by three parts: template, script and style.
+After selecting a programming language, we need a framework to create our applications. We choose Vapor, a powerful, beautiful and easy to use MVC framework to build web servers. In our project it powers all micro services.
+Vapor is easy to start with thanks to the clear APIs that, not also speed up the developer work, but also make the code more maintainable and more understandable. One of his strength points is the performance inherited from Swift.
+Vapor uses a Model View Controller design pattern that divides an application into three decoupled interconnected parts in order to separate internal representations of information. A \emph{Model} directly manages the data and logic about a database entry such as display or beacon. The \emph{View} outputs a representation of an information, in our case, the web page. The this part, the \emph{Controller} acts on booth \emph{View} and \emph{Model}. It controls the data flow into the model, updating its state, and change the view whenever is needed.
+\subsubsection{Front-end}
+In order to archive the best results in term of scalability and performance, we choose Vue.js as main front-end framework. Vue.js is a library for building interactive web interfaces, it uses web components to provide a convenient way to organise an application by decoupled its element into blocks.
+A web component is similar to an Object Oriented programming classes, it encapsulates all the logic behind a certain functionality of the application. In Vue, a component, is formed by three parts: \emph{template}, \emph{script} and \emph{style}.
 
-The template allows the developer to write html and include variables, conditions and loops. Also, thanks to build in loaders, is it possible to easily use any pre-processing html library such as Pug.
-The second part is the core of each components, the script. As the name may suggest, it is the code part. Each component expose a javascript object allowing Vue to grab it and render it in the proper way.
-The last tag is were is possible to style a component using CSS, as before, it is tremendously easy to use Less, Sass and other css-processors.
-One of the main advantages of Vue over other front-end framework is \emph{reactivity}. Reactive programming is an synchronous programming paradigm concerned with data streams and the propagation of change. It uses Observers in order to trigger events every time a change of state is detected; therefore Vue can automatically call a render only in the part that was actually mutated minimising the DOM access and increasing speed.
-A deeply comparison with other frameworks can be fount at: https://vuejs.org/v2/guide/comparison.html.
-%\begin{figure}[H]
-%  \centering
-%  \subfloat[Vue.js vs other popular libraries]{\includegraphics[width=0.5\textwidth]{./images/vue2_benchmark.png}}
-%\end{figure} 
-As we said, each component represent a feature, a part of the web application; it may happen that one of them need to communicate with another, maybe after a change of state or a user event. In order manage the data flow we used the Flux pattern. The mainly idea behind this pattern is that the state can be mutated thought actions that are reduced into the stores. It is composed by four parts: Dispatcher, Store, Actions and View.
+The \emph{template} allows the developer to write HTML and include variables, conditions and loops. Also, thanks to built-in loaders, is it possible to easily use any pre-processing HTML library such as Pug. 
+The second part, the \emph{script}, is the core of each component. As the name may suggest, it is the code part. Each component exposes a Javascript object allowing Vue to grab it and render it in the proper way.
+The last tag, \emph{style} is were is possible to custom style a component using CSS or css-processors such as  Less or Sass.
+One of the main advantages of Vue over other front-end framework is \emph{reactivity}. Reactive programming is a synchronous programming paradigm concerned with data streams and the propagation of change. It uses Observers in order to trigger events every time a change of state is detected; therefore Vue can automatically call a render only in the part that was actually mutated minimising the DOM access and increasing speed.
+A deep comparison with other frameworks can be fount at: https://vuejs.org/v2/guide/comparison.html.
 
-The dispatcher is a singleton that receives them and dispatches to every stores that have registered with it; its important to highlight that every store receives every action.
-
-The Store is only source of truth in the applications; it holds its state and manage the logic behind it. The data must only be mutated by responding to and action by emitting a "change" event.
-
-Actions are the internal API of each application, they define all the possible interaction that may happen. They are plain javascript object composed by a type field and some data.
-
-Views displays store's data; in our application, a single view is a Vue component.
+As we said, each component represent a feature, a part of the web application; it may happen that one of them need to communicate with another, maybe after a change of state or a user event. In order manage the data flow we used the Flux pattern. The main idea behind this pattern is that the state can be mutated thought actions that are reduced into the stores. Flux is composed of four parts: \emph{Dispatcher}, \emph{Store}, \emph{Actions} and \emph{View}.
+The \emph{Dispatcher} is a singleton that receives them and dispatches to every store that have registered with it; its important to highlight that every store receives every action.
+The \emph{Store} is only source of truth in the applications; it holds its state and manages the logic behind it. The data must only be mutated by responding to and action by emitting a "change" event.
+\emph{Actions} are the internal API of each application, they define all the possible interaction that may happen. They are plain javascript object composed of a type field and some data.
+\emph{Views} displays store's data; in our application, a single view is a Vue component.
 
 Even if there already exist a fantastic Flux library, Vuex, for Vue created by its author, we decide to create a new one from scratch. Our library, called Flue, aims to provide a better object oriented approach than the existing one. You can find examples and documentation at our Github repository: https://github.com/FrancescoSaverioZuppichini/Flue.
 
@@ -343,44 +307,39 @@ Even if there already exist a fantastic Flux library, Vuex, for Vue created by i
   \caption{Flux data flow}
 \end{figure} 
 \subsection{Architecture Scalability}
-Scalability is the ability of a system to grow larger with minimum changes. In the previous sections we often talk about how some design choices lead to an improvement in term of scalability. In our specific case, our system can change very quickly at any moment: just image if the provided buy new displays or new applications are available.
-
+Scalability is the ability of a system to grow larger with minimum changes. In the previous sections we often talk about how some design choices lead to an improvement in term of scalability, such as adopting a \emp{micro services} approach. In our specific case, our system state can change very quickly at any moment due to external decisions, for example if the provided buy new displays or new applications are available.
 In order to make it possible to deploy independently from the network a new application, we abstract the its concept creating a layer of services that can be expanded very easily. The developers can create a new applications by just creating a web server being conform to our generic interface and expose his url.
-
 Another possible problem that can may appear is when a display is moved away. We explained before how each screen, when its connected, fetch its position and use it in order to communicate with Google Maps API to show real direction indications. If such problem appears, very easily, the provider just need to refresh the screen and the front-end software will automatically update itself.
-
-Also displays can be removed or added by simply using \emph{Map Provider} REST API. Imagine a screen breaks, then the associated beacon can be moved to another screen or the display may be replaced. The last case is the easiest, since we can just turn on the screen and use the last display's id, if no new devices is available then the beacons can be quickly be linked to the a new screen.
+Also displays can be removed or added by simply using \emph{Map Provider} REST API. Imagine screen breaks, then the associated beacon can be moved to another screen or the display may be replaced. The last case is the simplest, since we can just turn on the screen and use the last display's id, if no new device is available then the beacons can be quickly be linked to the a new screen.
 \section{Design Interface}
 Our application is exposed to a heterogeneous audience, therefore a clear and effective interface is mandatory to ensure a global usability. 
 We have also to provide a no blocking content flow in the displays' applications, meaning that an interaction should not prevent, or block, another.
 Moreover all the state changing must be displayed using design techniques, such as well targeted animation, in order to make the user understanding what is happening around him.
-We decide to follow a \emph{content first} strategy by making the content clear and visible using a minimalistic approach; no unused element is present in any application. We choose cards as only way to organise information. A card is a sheet of material that serves as an entry point to more detailed information proving a convenient way to display content composed of different elements.
+We decide to follow a \emph{content first} strategy by making the content clear and visible using a minimalistic approach; no unused element is present in any application. We choose cards as an only way to organise information. A card is a sheet of material that serves as an entry point to more detailed information proving a convenient way to display content composed of different elements.
 % qualche efoto di card
 \subsubsection{Display Applications}
 The main challenge was to design for a big touch interface. We started by keeping in mind that every information must be quickly reachable and accessible; the user must understand in a fraction of second what he needs. By keeping that constrains in mind.
-Our design process starts with wireframes; representin the skeletron of the application exposing its main functionalities. They are terribly useful to get a first general look of what the application is going to be. For what It concern the Transport service, we begin by discard every not necessary element following, as we said, a minimilistic approach. In the following picture you can see the first wireframe's muck up and the final product
+Our design process starts with wireframes; representing the skeleton of the application exposing its main functionalities. They are terribly useful to get a first general look of what the application is going to be. For what It concern the Transport service, we begin by discarding every not necessary element following, as we said, a minimalistic approach. In the following picture, you can see the first wireframe's muck up and the final product
 \begin{figure}[H]
   \centering
-  \subfloat[wireframe]{\includegraphics[width=0.43\textwidth]{./images/transport_wireframe.png}}
+  \subfloat[wireframe]{\includegraphics[width=0.48\textwidth]{./images/transport_wireframe.png}}
   \hfill
-  \subfloat[final product]{\includegraphics[width=0.53\textwidth]{./images/transport_application}}
+  \subfloat[final product]{\includegraphics[width=0.5\textwidth]{./images/transport_application.png}}
   \caption{Transport Application}
 \end{figure} 
-If you look at the left image you can notice that all the functionalities are intuitively recognizable. As we said, our design, must be carefully studied for big display; we focus on the interactive part.
-At the bottom of the application there is a carousel used to change station on the fly. All buttons are big enough to be easily be used from everyone without any problems.
-Moreover, we used animation to increase the user experience; when a station is selected is pushed on the right part using a slide in animation making more visible. Also, a open station shakes when a user try to open it again giving a strong visible feedback of where it is on the display. 
+If you look at the left image you can notice that all the functionalities are intuitively recognisable. In our design, studied to be used in public displays, we focused on the interactive part. At the bottom of the application there is a carousel used to change the station on the fly. Two huge arrows allow viewers to easily select mores stations by clicking on them. Moreover, all buttons are big enough to be easily touched from everyone without any problems.
+We used animation to increase the user experience. For example, when a station is selected is it pushed on the right part using a slide-in in animation making more visible. Also, an open station shakes when a user tries to re-open it, giving a strong visible feedback of where it is on the display. 
 
 In the Class application we used the same approach, we started by sketching the wireframes and defining the main functionalities. In this specific case, we need two components: a Calendar and a query engine to search courses. 
 \begin{figure}[H]
   \centering
-  \subfloat[wireframe]{\includegraphics[width=0.43\textwidth]{./images/classes_wireframe.png}}
+  \subfloat[wireframe]{\includegraphics[width=0.5\textwidth]{./images/classes_wireframe.png}}
   \hfill
-  \subfloat[final product]{\includegraphics[width=0.53\textwidth]{./images/classes_application}}
+  \subfloat[final product]{\includegraphics[width=0.5\textwidth]{./images/classes_application}}
     \caption{Classes Application}
 \end{figure}
 \subsubsection{Smartphone}
-As we have explained before, we develop an smartphone application called \emph{Tacita} in order to organize the user interaction with the display. We design it from sketch to be accessible for everyone from everywhere. 
-Logically, in main page of the application is possible to see and enable all the existing application exposed by the \emph{Application layer}. Since we wanted to provide a more comfortable user experience we added skeletron loader instead of a classic spinner; therefore, in case of slow internet, is possible to 'guess' the content of a page. Figure 9 shows this strategy. As you may notice, is it easy to understand how the content is going to appear on the application. We took advantages of such design pattern in almost all of our applications.
+We develop a \emph{mobile application} to organise the user preferences, choose customisable settings and manage interactive applications. We design it from sketch to be accessible for everyone from everywhere. In main page of the application is possible to see all the existing application exposed by the \emph{Application layer}. In each of them is possible to use a toggle button to enable them or disable. Skeletron loaders were chosen instead of classic spinner to create a more comfortable user experience. Therefore, in case of slow internet, is possible to guess the content of a page. Figure 11 shows this strategy. As you may notice, is it easy to understand how the content is going to appear on the application. We took advantages of such design pattern in almost all of our applications.
 %\begin{figure}[H]
 %\centering
 %\subfloat[Loading]{\includegraphics[width=0.4\textwidth]{./images/tacita_skeletron}}
@@ -392,23 +351,20 @@ Logically, in main page of the application is possible to see and enable all the
 \includegraphics[width=0.5\textwidth]{./images/smartphone_loading_applications}
 \caption{Smartphone home page}
 \end{figure}
-
-For each application a convenient toogle button is added to enable and disable it with just a click. If a user wish to enable/disable all the applications in one shot, the main button at the top can be used. If a provider decides to add a description for the application, then it is possible to read it using the arrow at the bottom of each card.
-
-In figure 10 is present the view changes that occours when a User walk nearby a screen.A float button pops up making the displays page avaliable. These buttons represent a great way to quickly add a functionality to a view, we decide to create a pulse animation in order to make it even more visible for the user. Since we are using socket connection, if the display changes the running application, the client will be notified
-
+For each application, a toggle button is present on the right of the container to enable and disable it. Moreover, a global toggle button is available on the top of the page allowing to enable of disable all the applications in one click. In the case that a provider adds a description for an application, then it is possible to read it using the arrow at the bottom of each card.
+In figure 13 is present the UI flow that occurs when a User walk nearby a screen. A floating button pops up making the displays page available. These buttons represent a great way to quickly add a functionality to a view, we decided to create a pulse animation to increase its visibility in the page. Display page shows all the discovered displays from the detected beacon and, since, we are using socket connection, if the display changes the running application, the client will be notified updating its view.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{./images/smartphone_displays}
 \caption{Display found}
 \end{figure}
-As we said before, We also provide a convenient way to select a custom personalisation. We choose a colour based approach in order to highlight the visibility of a own content. The user can pick up a colour from the wheel and use it to find his preferences on the screens. Moreover, our system can easily support any other identifier such as username or avatar.
+As we said before, We also provide a convenient way to select a custom personalisation. We choose a colour based approach in order to highlight the visibility of an own content. The user can pick up a colour from the wheel and use it to find his preferences on the screens. Moreover, our system can easily support any other identifier such as username or avatar.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{./images/smartphone_color_preference}
   \caption{Preference on display}
 \end{figure}
-In this example, the User selected a "blue" colour as identifier of his preferences. In figure \emph{u} you can see the actually final result on the display, a little label is added on the left part of the selected buses. If one of more users walk in, then the label is splitted.
+In Figure 13, an user selects a "blue" colour as preferences' identifier by clicking on the colour wheel and press "done". Then, we a screen displays the personal content, a little label is added on the left part of preferences. If one of more users walk in, then the label is split as is it shown in Figure 14.
 \begin{figure}[H]
   \centering
 \includegraphics[width=0.4\textwidth]{./images/preference_colour/preference_splited}
@@ -417,13 +373,31 @@ In this example, the User selected a "blue" colour as identifier of his preferen
 \end{figure}
 \newpage
 \section{Conclusion}
-Displays are a powerful resource to reach a huge audience. Our architecture showed a way to implement custom users personalisation making them even more useful in a closed context such us this University. 
+In this work, we proposed an architecture that supports users personalisation by creating two interactive applications. A \emph{Map Provider} web server provides a global overview of the state of beacons, displays and applications. Through its API is possible to dynamically link and unlink beacons to displays, manage applications and stores basic users information. Our system supports realtime notification that is pushed into sockets and broadcasted to the clients updating their information accordingly. For example, if the displays change its running application then a message containing the new application is dispatched to the others devices in order to always provide a correct feedback to the user.
 
-We allows custom based preferences for the Lugano's public transportation giving the advantage to quickly see when a bus is leaving from a previously selected station. Also, an other application, shows the current semester schedules allowing a user to search for other courses.
+With a mobile application the viewers can both manage their preferences and discover applications. Specifically, is it possible to quickly enable and disable applications without changing the preferences related to them. Also, a colour can be selected as preference's identifier. This information is stored into the \emph{Map Provider} and used as only way to recognise the owned content. Since only the creator knows the colour, then anonymity is maintained in the system.
+Moreover, the mobile applications display real-time information about surrounding screens that have been discovered, such as the running applications.
 
-The preferences are managed using a mobile application served by the MAP Provider to, at the same time, know the global state of each displays and access to all the services availables. Also, is possible to disable the data flow on the fly for certainty applications allowing even more customisation and moving the control power to the user.
+In order to support users personalisation we develop two interactive applications: \emph{Transport} and \emph{Upcoming Classes}.
+They implement the same common interface providing the same API structure in order to be easily integrated into the system. 
+\emph{Transport} allows users to select their bus schedules as preferences and to navigate content directly on the screen. For example, is possible to get the directions from the local display to one station, or to see the arriving buses timetable.
+\emph{Upcoming Classes} shows the semester schedules supporting custom queries in order to discover specific content. It uses an event based calendar that supports both week and month views giving the ability to quickly discover all the schedules for a course. Each of them serves two single page web application, one for the display, and one for the mobile application. They were developed using Vue.js a front-end framework that uses the paradigm of web components to create reusable code. Therefore, main of our code is shared across the applications.
+All the applications support multi users model providing a \emph{non blocking} content flow where each user can discover information without been prevent by others viewers interactions. 
 
-In our University, a small environment compared to other well know campus, walk-by contact personalisation really shines and proves is strong utility. Since the displays are deployed into key points such as \emph{Mensa} and \emph{Open Space}, users can easily access to them by just walking.
+One key feature of the project are \emph{walk-by} contact personalisation. In this model, the users can pull its content into the system by just walking nearby a display in which a Bluetooth beacon is placed. The device is able to detect the mobile application's Bluetooth and dispatch its identifier in order to be discovered by the system. This methodology brings some advantages. For instance, it is not required to open the application nearby a display since it can run in background. 
+One limitation is the hardware itself, we had some problems with the beacons. Since a connection delay is added by the manufacture to the them, it may happen that a viewer has to wait some seconds before the mobile application is able to restore the connection with the beacon.
+
+Since our system address a heterogeneous audience, all the applications must be accessible. By keeping this consideration in mind we adopted a minimalistic content first design approach. In each UI the contents are shown into cards keeping logically clear the meaning of each component. Moreover, icons are wide used to provide a fast way to identify elements on the screen. In order to serve all the request from the same domain, a \emph{Proxy} was added to the system to avoid cross-origin requests.
+
+In future work more applications and customisable preferences can be added. For example, an avatar could be also used to identify preferences on the screen. We also plan to integrate the proposed architecture into the current working university system. Due to the system scalability, deploy a new application is relatively easy since it only requires abstract constraints such as API endpoints design. Therefore, a new service can be implemented with any technology and host anywhere. We strongly believe that public displays may become a new communication medium for the 21st century. With this project, we propose possible architecture design to supports users preferences that can be used as a starting point for future works.
+
+%Displays are a powerful resource to reach a huge audience. Our architecture showed a way to implement custom users personalisation making them even more useful in a closed context such us this University. 
+%
+%We allows custom based preferences for the Lugano's public transportation giving the advantage to quickly see when a bus is leaving from a previously selected station. Also, the other application, shows the current semester schedules allowing a user to search for other courses.
+%
+%The preferences are managed using a mobile application served by the MAP Provider to, at the same time, know the global state of each display and access to all the services available. Also, is possible to disable the data flow on the fly for certainty applications allowing even more customisation and moving the control power to the user.
+%
+%In our University, a small environment compared to other well know the campus, walk-by contact personalisation really shines and proves is strong utility. Since the displays are deployed into key points such as \emph{Mensa} and \emph{Open Space}, users can easily access to them by just walking.
 
 %%%%%
 \newpage
