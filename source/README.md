@@ -70,6 +70,8 @@ You can find the Display App for each Micro Service at the following url `<PROXY
 You can find the Preference App for each Micro Service at the following url `<PROXY_BASE_URL>/<MICRO_SERVICE_KEY>/#/app/home/<USER_ID>`.
 
 #Technical Details
+##Dependencies
+You need to install swift 3, Vapor, node and npm. 
 ##Technologies overview
 ###Server
 Each Microservice Server is made with [Vapor 1](https://vapor.github.io/documentation/), be aware that Vapor 2 just came out (actually Yesterday 19 may 2017).

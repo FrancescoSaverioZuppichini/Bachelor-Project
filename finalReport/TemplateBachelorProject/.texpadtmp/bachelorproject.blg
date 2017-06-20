@@ -3,59 +3,60 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: /Users/VaeVictis/Documents/Usi/VI Semester/Bachelor Project/finalReport/TemplateBachelorProject/.texpadtmp/bachelorproject.aux
 The style file: abbrv.bst
 Database file #1: ../references.bib
-Name 3 in "Sarah Clinch and Nigel Davies and Adrian Friday1, and Christos Efstratiou2" has a comma at the end for entry e_campus
+Name 3 in "Sarah Clinch and Nigel Davies and Adrian Friday1, and Christos Efstratiou" has a comma at the end for entry e_campus
 while executing---line 1049 of file abbrv.bst
 Name 1 in "Rui José, Hélder Pinto, Bruno Silva, and Ana Melro" has a comma at the end for entry pins_and_posters
 while executing---line 1049 of file abbrv.bst
-Name 3 in "Sarah Clinch and Nigel Davies and Adrian Friday1, and Christos Efstratiou2" has a comma at the end for entry e_campus
+Name 3 in "Sarah Clinch and Nigel Davies and Adrian Friday1, and Christos Efstratiou" has a comma at the end for entry e_campus
 while executing---line 1090 of file abbrv.bst
 Warning--empty publisher in e_campus
 Warning--empty publisher in personalisation_and_privacy
+Warning--empty publisher in a_good_balance
 Name 1 in "Rui José, Hélder Pinto, Bruno Silva, and Ana Melro" has a comma at the end for entry pins_and_posters
 while executing---line 1090 of file abbrv.bst
 Warning--empty publisher in pins_and_posters
 Warning--empty publisher in pri_cal
 Warning--empty publisher in design_considerations
 Warning--empty publisher in the_computer_for
-You've used 6 entries,
+You've used 7 entries,
             2118 wiz_defined-function locations,
-            516 strings with 4911 characters,
-and the built_in function-call counts, 1963 in all, are:
-= -- 153
-> -- 147
+            522 strings with 5156 characters,
+and the built_in function-call counts, 2248 in all, are:
+= -- 176
+> -- 165
 < -- 0
-+ -- 59
-- -- 52
-* -- 146
-:= -- 351
-add.period$ -- 18
-call.type$ -- 6
-change.case$ -- 38
++ -- 67
+- -- 58
+* -- 165
+:= -- 400
+add.period$ -- 21
+call.type$ -- 7
+change.case$ -- 43
 chr.to.int$ -- 0
-cite$ -- 12
-duplicate$ -- 72
-empty$ -- 133
-format.name$ -- 52
-if$ -- 381
+cite$ -- 14
+duplicate$ -- 84
+empty$ -- 155
+format.name$ -- 58
+if$ -- 438
 int.to.chr$ -- 0
-int.to.str$ -- 6
-missing$ -- 12
-newline$ -- 33
-num.names$ -- 12
-pop$ -- 74
+int.to.str$ -- 7
+missing$ -- 14
+newline$ -- 38
+num.names$ -- 14
+pop$ -- 85
 preamble$ -- 1
-purify$ -- 38
+purify$ -- 43
 quote$ -- 0
-skip$ -- 37
+skip$ -- 43
 stack$ -- 0
-substring$ -- 31
-swap$ -- 6
+substring$ -- 37
+swap$ -- 7
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 12
-warning$ -- 6
-while$ -- 12
-width$ -- 7
-write$ -- 56
+type$ -- 14
+warning$ -- 7
+while$ -- 14
+width$ -- 8
+write$ -- 65
 (There were 4 error messages)
