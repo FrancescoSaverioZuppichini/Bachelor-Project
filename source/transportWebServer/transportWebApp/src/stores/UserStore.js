@@ -41,7 +41,6 @@ class UserStore extends Store {
     for (let pref of this.state.user.preferences.data) {
       if (pref.id == preference.id) pref = Object.assign(pref, preference)
     }
-    router.push({ name: 'home', params: { userId: this.state.user.id } })
   }
 
   addPreferenceSuccess({ preference }) {
@@ -73,7 +72,7 @@ class UserStore extends Store {
       fetchUserPreferences() {
         dispatcher.dispatch({ type: "FETCH_USER_PREFERENCE_LOADING" })
         api.users.fetchUserPreferences(ctx.state.user.id)
-          .then(({ data }) => {
+          .then(({data}) => {
             dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { preferences: data }))
           })
           .catch((err) => dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_FAILURE", err)))
@@ -87,16 +86,16 @@ class UserStore extends Store {
       },
       getMeById(userId) {
         api.user.getMeById(userId)
-          .then((data) => {
-            dispatcher.dispatch(new Action("GET_ME_SUCCESS", data))
+          .then(( data ) => {
+            dispatcher.dispatch(new Action("GET_ME_SUCCESS", data ))
           })
       },
       updatePreference() {
         dispatcher.dispatch(new Action("UPDATE_PREFERENCE_LOADING"))
         // the updated preference is getted from the preferenceStore
         const preference = {
-          stationId: ctx.state.preference.station.id,
-          buses: ctx.state.preference.buses,
+          stationId: ctx.state.currentPreference.station.id,
+          buses: ctx.state.currentPreference.buses,
           userId: ctx.state.user.id
         }
         api.preference.updatePreference(preference)
@@ -111,8 +110,8 @@ class UserStore extends Store {
       addPreference() {
         dispatcher.dispatch(new Action("ADD_PREFERENCE_LOADING"))
         const newPreference = {
-          stationId: ctx.state.preference.station.id,
-          buses: ctx.state.preference.buses,
+          stationId: ctx.state.currentPreference.station.id,
+          buses: ctx.state.currentPreference.buses,
           userId: ctx.state.user.id
         }
         api.preference.addPreference(newPreference)

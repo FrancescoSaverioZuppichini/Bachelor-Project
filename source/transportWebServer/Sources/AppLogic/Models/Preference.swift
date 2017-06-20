@@ -15,18 +15,18 @@ public final class Preference: Model {
     public var userId: Int
     public var exists: Bool = false
     public var stationId: Node?
-    
+
     public init(for userId: Int, stationId: Node?) {
         self.userId = userId
         self.stationId = stationId
-        
+
     }
-    
+
     public init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         userId = try node.extract("user_id")
         stationId = try node.extract("station_id")
-        
+
     }
     
     public static func createOrUpdateFromRequest(_ req: Request, userId: Int) throws  -> Preference {
@@ -48,6 +48,22 @@ public final class Preference: Model {
         try Pivot<Preference,StationBoard>.query().filter("preference_id", newPreference.id!).delete()
         
         for busObj in buses {
+<<<<<<< HEAD
+            guard let busId = busObj["id"]?.int, let direction = busObj["to"]?.string else {
+                throw Abort.badRequest
+            }
+            
+            guard let stationBoard = try StationBoard.query().filter("bus_id",busId).filter("station_id", stationId).filter("to", direction).first() else {
+                throw Abort.custom(status: .badRequest, message: "Cannot find any stationboard")
+                
+            }
+            
+//            try Pivot<Preference,StationBoard>.query().filter("preference_id", newPreference.id!).filter("stationboard_id", stationBoard.id!).first()?.delete()
+            
+            var newPivot = Pivot<Preference,StationBoard>(newPreference,stationBoard)
+            try newPivot.save()
+        }
+=======
             guard let busId = busObj["id"]?.int, let to = busObj["to"]?.string else {
                 throw Abort.badRequest
             }
@@ -64,6 +80,7 @@ public final class Preference: Model {
                 try newPivot.save()
             }
         
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
         
         return newPreference
     }
@@ -85,14 +102,14 @@ public final class Preference: Model {
             "id": id,
             "user_id": userId,
             "station_id": stationId,
-            
+
             ])
         
         switch context {
         case ResourseContext.all:
             node["buses"] = try stationboard().all().makeNode(context: StationBoardContext.bus)
             node["station"] = try station()?.makeNode()
-            
+
         default:
             break
         }
@@ -104,7 +121,7 @@ public final class Preference: Model {
     public static func prepare(_ database: Database) throws {
         try database.create("preferences") { preferences in
             preferences.id()
-            //            preferences.parent(User.self,optional: false)
+//            preferences.parent(User.self,optional: false)
             preferences.int("user_id")
             preferences.parent(Station.self,optional: false)
         }
