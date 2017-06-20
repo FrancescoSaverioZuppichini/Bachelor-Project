@@ -13,7 +13,7 @@ class PreferenceStore extends Store {
   constructor() {
     super()
     //  store the current preference to be added
-    this.state.currentPreference = { station: {}, buses: [] }
+    this.state.preference = { station: {}, buses: [] }
     // this flag is used to switch behavior by notifice if we are in edit mode
     this.state.isInEditMode = false
     this.state.originalPreference = {}
@@ -24,25 +24,20 @@ class PreferenceStore extends Store {
   }
 
   initializeCurrentPreference() {
-<<<<<<< HEAD
     // this.state.preference.station.toogle = false
     this.state.preference = Object.assign(this.state.preference, { station: {}, buses: [] })
-=======
-    // this.state.currentPreference.station.toogle = false
-    this.state.currentPreference = { station: {}, buses: [] }
->>>>>>> fd28424eb8a5af3ee7caebcbb1a26ac173601f71
     this.toggleOffAll()
   }
 
   toggleOffAll() {
-    this.state.currentPreference.station.toogle = false
+    this.state.preference.station.toogle = false
     this.state.locations.forEach(location => Vue.set(location, 'toogle', false))
     this.state.currentStationboards.forEach(stationboard => stationboard.toogle = false)
     this.state.connections.forEach(connection => connection.toogle = false)
   }
 
   findBusInPreference(toFind) {
-    const buses = this.state.currentPreference.buses
+    const buses = this.state.preference.buses
     const len = buses.length
 
     for (var i = 0; i < len; i++) {
@@ -54,14 +49,14 @@ class PreferenceStore extends Store {
 
   removeBusToPreference({ bus }) {
     const toRemoveIndex = this.findBusInPreference(bus)
-    var buses = this.state.currentPreference.buses
+    var buses = this.state.preference.buses
     if (toRemoveIndex >= 0) {
       buses.splice(toRemoveIndex, 1)
     }
   }
 
   addBusToPreference({ bus }) {
-    var buses = this.state.currentPreference.buses
+    var buses = this.state.preference.buses
     if (this.findBusInPreference(bus) < 0) {
       buses.push(bus)
     }
@@ -70,28 +65,12 @@ class PreferenceStore extends Store {
   addDirectionToPreference({ stationboard }) {
     const busId = stationboard.bus_id
     const to = stationboard.to
-    var buses = this.state.currentPreference.buses
+    var buses = this.state.preference.buses
     var shouldAdd = true
 
     buses.forEach((bus) => {
-<<<<<<< HEAD
       if (bus.id == busId && (bus.to == undefined || bus.to == to)) {
         Vue.set(bus, 'to', to)
-=======
-      if (bus.id == busId && (bus.to == null || bus.to == to)) {
-<<<<<<< HEAD
-        Vue.set(bus, 'to', to)
-        // the bus with that direciton already exists -> override its direction
-        shouldAdd = false
-      }
-    })
-    // multiple buses can be selected, then, if we don't find a previouse one, we just need to add it
-    if (shouldAdd) {
-      const newBus = { id: busId, number: stationboard.bus.number, to: to }
-      this.state.currentPreference.buses.push(newBus)
-=======
-        bus.to = to
->>>>>>> fd28424eb8a5af3ee7caebcbb1a26ac173601f71
         shouldAdd = false
       }
     })
@@ -99,17 +78,12 @@ class PreferenceStore extends Store {
     if (shouldAdd) {
       const newBus = { id: busId, number: stationboard.bus.number, to: to }
       this.state.preference.buses.push(newBus)
->>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
     }
   }
 
   removeDirectionToPreference({ stationboard }) {
     const busToRemove = { id: stationboard.bus_id, number: stationboard.bus.number, to: stationboard.to }
-<<<<<<< HEAD
-    var buses = this.state.currentPreference.buses
-=======
     var buses = this.state.preference.buses
->>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
 
     for (let i = 0; i < buses.length; i++) {
       let currBus = buses[i]
@@ -121,19 +95,17 @@ class PreferenceStore extends Store {
   }
 
   addStationToPreference({ station }) {
-    if (station.id == this.state.currentPreference.station.id) router.push({ name: 'bus' })
+    if (station.id == this.state.preference.station.id) router.push({ name: 'bus' })
     station.buses.forEach(bus => bus.toogle = false)
     this.initializeCurrentPreference()
     station.toogle = true
-    Vue.set(this.state.currentPreference, 'station', station)
+    Vue.set(this.state.preference, 'station', station)
     router.push({ name: 'bus' })
 
   }
 
   onPreferenceSuccessNotification() {
     const msg = this.state.isInEditMode ? "Preference changed" : 'New preference added'
-
-    // UIkit.notification({ message: msg, timeout: 1000 });
   }
 
   addPreferenceSuccess() {
@@ -145,7 +117,7 @@ class PreferenceStore extends Store {
   }
 
   updatePreferenceSuccess() {
-    Object.assign(this.state.originalPreference, this.state.currentPreference)
+    Object.assign(this.state.originalPreference, this.state.preference)
 
     this.initializeCurrentPreference()
     this.toggleOffAll()
@@ -160,29 +132,16 @@ class PreferenceStore extends Store {
     this.state.preferenceError = err
   }
 
-<<<<<<< HEAD
-  toogleEditModeFalse() {
-    this.initializeCurrentPreference()
-=======
   tooglePreferenceEdit({ preference }) {
     router.push({ name: 'edit', params: { id: preference.id } })
     this.state.preference = Object.assign({}, preference)
     this.state.isInEditMode = !this.state.isInEditMode
->>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
   }
 
-  toogleEditModeTrue({ preference }) {
-    this.state.originalPreference = preference
-    this.state.currentPreference = Object.assign({}, preference)
-    this.state.currentPreference.buses.forEach(bus => bus.toogle)
-  }
-
-  toogleEditMode({ preference }) {
-    // select correct behavior
-    this.state.isInEditMode ? this.toogleEditModeFalse() : this.toogleEditModeTrue({ preference })
-    // toogle inner state
-    this.state.isInEditMode = !this.state.isInEditMode
-
+  onGoBackFromEditMode() {
+    // this.state.preference = Object.assign(this.state.preference, this.state.preferenceBackUp)
+    this.state.isInEditMode = false
+    router.go(-1)
   }
 
   reduce(action) {
@@ -194,9 +153,11 @@ class PreferenceStore extends Store {
       ADD_STATION_TO_PREFERENCE: this.addStationToPreference,
       UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess,
       ADD_PREFERENCE_FAILURE: this.addPreferenceFailure,
-      TOGGLE_EDIT_MODE: this.toogleEditMode,
+      TOOGLE_PREFERENCE_EDIT: this.tooglePreferenceEdit,
       UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess,
       ADD_PREFERENCE_SUCCESS: this.addPreferenceSuccess,
+      GO_BACK_FROM_EDIT_MODE: this.onGoBackFromEditMode
+
     })
   }
 
@@ -217,10 +178,15 @@ class PreferenceStore extends Store {
       addStationToPreference(station) {
         dispatcher.dispatch(new Action("ADD_STATION_TO_PREFERENCE", { station }))
       },
-      toogleEditMode(preference) {
-        dispatcher.dispatch(new Action("TOGGLE_EDIT_MODE", { preference }))
+      tooglePreferenceEdit(preference) {
+        dispatcher.dispatch(new Action('TOOGLE_PREFERENCE_EDIT', { preference }))
+
+      },
+      goBackFromEditMode() {
+        dispatcher.dispatch(new Action('GO_BACK_FROM_EDIT_MODE'))
 
       }
+
     }
   }
 }
