@@ -2,7 +2,7 @@
 <transition-group name="custom-classes-transition" enter-active-class="animated fadeInRight" leave-class="animated fadeOutUp" leave-active-class="animated fadeOutUp" class="uk-flex uk-flex-nowrap" uk-grid>
   <!-- <transition-group name="fade-cards"  class="uk-flex uk-flex-nowrap" uk-grid> -->
 
-  <div key="default" class='uk-width-1-3'>
+  <div key="default" class='uk-width-1-3@m'>
     <station-card-with-connection :station="this.$store.state.display.defaultStation" :show="true"></station-card-with-connection>
   </div>
   <!-- <div class='uk-visible@m uk-width-1-3' :key="station" v-for="station in this.$store.state.locations" v-show="show(station)">

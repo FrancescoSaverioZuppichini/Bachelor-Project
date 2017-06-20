@@ -15,6 +15,9 @@
       </div>
       <v-icon class='uk-margin-left'>access_time</v-icon>
     </div>
+    <v-btn icon @click.native='toogleBusList = false' v-if="toogleBusList">
+      <v-icon class="grey--text text--darken-2">arrow_back</v-icon>
+    </v-btn>
     <div v-if="station.duration" class='uk-flex uk-flex-middle'>
       <v-icon class='uk-margin-small-left'>directions_walk</v-icon>
       {{station.duration.text}}
@@ -25,14 +28,14 @@
         <v-icon class="grey--text text--darken-2">arrow_back</v-icon>
       </v-btn>
     </div>
-    <hr  v-if="!toogleMap" />
+    <hr v-if="!toogleMap" />
 
-    <div class="uk-flex uk-flex-column uk-margin-top" uk-grid v-if="!toogleMap">
+    <div class="uk-flex uk-flex-column uk-margin-top" uk-grid v-if="!toogleMap && !toogleBusList">
       <div v-for="connection in station.stationboard" v-if="station.stationboard">
-        <connection-card :connection="connection" behavior="list" :location="station" />
+        <connection-card :connection="connection" behavior="list" :location="station" @click.native='showPassList(connection)' />
       </div>
     </div>
-
+    <bus-pass-list :bus='selectedConnection' v-if='toogleBusList'></bus-pass-list>
   </div>
   <div :id="station.id + 'map'" class='map' v-show="toogleMap">
   </div>
@@ -45,17 +48,22 @@ import utils from '../../utils.js'
 import moment from 'moment'
 import stationCardInfo from './stationCardInfo/stationCardInfo.vue'
 import connectionCard from '../connectionCard/connectionCard.vue'
+import BusPassList from './BusPassList.vue'
+
 export default {
   name: 'stationCard',
   props: ['station', "show", "autoDestroy", "user", 'activator'],
   data() {
     return {
       toogleMap: false,
+      toogleBusList: false,
+      selectedConnection: null,
     }
   },
   components: {
     stationCardInfo,
-    connectionCard
+    connectionCard,
+    BusPassList
   },
   methods: {
     getArrivalTime(date) {
@@ -70,6 +78,15 @@ export default {
     showMap() {
       this.toogleMap = !this.toogleMap
       utils.showMap(this.$store.state.display.coords, this.station)
+    },
+    showPassList(connection) {
+      this.$store.actions.getPassList(connection)
+        .then(() => {
+          this.selectedConnection = connection
+          // this.toogleBusList = true
+          this.toogleBusList = false
+
+        })
     }
   },
   computed: {

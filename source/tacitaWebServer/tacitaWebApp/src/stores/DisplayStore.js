@@ -114,10 +114,6 @@ class BluetoothStore extends Store {
   actions(dispatcher, ctx) {
     return {
       foundDisplay(data) {
-        // simulate bluetooth data
-        // data = { displayId: 1 }
-        // dispatcher.dispatch(new Action("DISPLAY_FOUND", { data }))
-        // data = { displayId: 2 }
         dispatcher.dispatch(new Action("DISPLAY_FOUND", { data }))
       },
       lostDisplay(data) {
@@ -129,7 +125,7 @@ class BluetoothStore extends Store {
       },
       fetchDisplay(id) {
         dispatcher.dispatch(new Action("FETCH_DISPLAY_LOADING"))
-        return api.display.fetchDisplay(id, 'apps')
+        return api.display.fetchDisplay(id, 'all')
           .then(({ data }) => dispatcher.dispatch(new Action("FETCH_DISPLAY_SUCCESS", { data })))
       },
       notifyDisplays() {

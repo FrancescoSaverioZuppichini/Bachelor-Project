@@ -1,0 +1,80 @@
+.my-card__actions {
+  position: absolute !important;
+  top: 16px;
+  right: 4px;
+}
+
+.f-h {
+  height: 100%;
+}
+
+.uk-flex--grow {
+  flex-grow: 99
+}
+
+.uk-card-body {
+  padding: 16px !important
+}
+
+button {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+.uk-dropdown {
+  min-width: 100px !important;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 4s
+}
+
+.fade-enter, .fade-leave-to
+/* .fade-leave-active in <2.1.8 */
+
+{
+  opacity: 0
+}
+
+.floating-btn {
+  position: absolute !important;
+  right: 16px;
+  bottom: 16px;
+}
+
+.flex--center {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.absolute--center {
+  position: absolute;
+  top: 50%;
+  left: auto;
+  width: 100%;
+}
+
+.unlinked-beacon__container {
+  /*position: absolute;*/
+}
+
+.beacon-icon {
+  height: 50px;
+  width: 25px;
+  background-size: contain;
+  background-image: url('/tacita/images/beacon_small.png')
+}
+.beacon-icon--small{
+  height: 35px;
+  width: 20px;
+  background-size: contain;
+  background-image: url('/tacita/images/beacon_small.png')
+}

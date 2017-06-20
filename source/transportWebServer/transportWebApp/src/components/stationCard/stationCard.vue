@@ -2,10 +2,21 @@
 <!-- <transition name="fade"> -->
 <div class="uk-card uk-card-default" v-if="!showConnection">
   <div class="uk-card-body my-card--padding">
-    <div class='uk-flex uk-flex-middle uk-margin-small-bottom'>
-      <v-icon class='uk-margin-right'>place</v-icon>
-      <h5 class='uk-margin-remove'>{{station.name}}</h5>
-      <div class="uk-flex-grow">
+    <div class='uk-flex uk-flex-column uk-margin-small-bottom'>
+      <div class='uk-flex uk-flex-middle'>
+        <v-icon class='uk-margin-right'>place</v-icon>
+        <h5 class='uk-margin-remove'>{{station.name}}</h5>
+
+      </div>
+      <div class='uk-flex uk-flex-middle'>
+        <v-icon>directions_bus</v-icon>
+        <div class='uk-flex'>
+          <div v-for="bus in station.buses" class='uk-margin-small-left'>
+            <h6 class='bus--small uk-margin-remove'>
+    {{bus.number}}
+  </h6>
+          </div>
+        </div>
       </div>
     </div>
     <button type="button" class="uk-button uk-button-primary" @click="showStationWithInformation" v-if="activator"> leaving soon
@@ -44,6 +55,10 @@ export default {
   }
 }
 </script>
-<style>
-
+<style scoped>
+.bus--small {
+  border-radius: 8%;
+  border: 1px grey solid;
+  padding: 2px;
+}
 </style>

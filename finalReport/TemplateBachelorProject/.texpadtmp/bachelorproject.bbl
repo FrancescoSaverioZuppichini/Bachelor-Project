@@ -1,8 +1,46 @@
 \begin{thebibliography}{1}
 
-\bibitem{Stru1899a}
-W.~Strunk and E.~B. White.
-\newblock {\em The Elements of Style}.
-\newblock Longman Publishers, 4th edition, 1899.
+\bibitem{e_campus}
+S.~Clinch, N.~Davies, A.~Friday1, and C.~Efstratiou.
+\newblock {\em Reflections on the Long-term Use of an Experimental Digital
+  Signage System}.
+\newblock 2011.
+
+\bibitem{personalisation_and_privacy}
+N.~Davies1, M.~Langheinrich, S.~Clinch, I.~Elhart, A.~Friday, T.~Kubitza1, ,
+  and B.~Surajbali.
+\newblock {\em Personalisation and Privacy in Future Pervasive
+  DisplayNetworks}.
+\newblock 2014.
+
+\bibitem{a_good_balance}
+I.~Elhart, M.~Langheinrich, and E.~Rubegni.
+\newblock {\em A Good Balance of Costs and Benefits” – Convincing
+  aUniversity Administration to Support the Installation of anInteractive
+  Multi-Application Display System on Campus}.
+\newblock 2016.
+
+\bibitem{pins_and_posters}
+B.~S. Rui~José, Hélder~Pinto and A.~Melro.
+\newblock {\em Pins and Posters: Paradigms for Content Publication on Situated
+  Displays}.
+\newblock 2013.
+
+\bibitem{pri_cal}
+F.~Schaub, B.~K. ̈onings, P.~Lang, B.~̈orn Wiedersheim, C.~Winkler, and
+  M.~Webe.
+\newblock {\em PriCal: Context-adaptive Privacyin Ambient Calendar Displays}.
+\newblock 2014.
+
+\bibitem{design_considerations}
+C.~Taivan, R.~José, B.~Silva, I.~Elhart, and J.~Cardoso.
+\newblock {\em Design Considerations for Application Selection and Control in
+  Multi-User Public Displays}.
+\newblock 2013.
+
+\bibitem{the_computer_for}
+M.~Weiser.
+\newblock {\em The Computer for the 21st Century}.
+\newblock 2014.
 
 \end{thebibliography}

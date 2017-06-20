@@ -8,7 +8,6 @@ import {
 
 import utils from '../utils.js'
 
-
 class DisplayStore extends Store {
   constructor() {
     super()
@@ -34,26 +33,27 @@ class DisplayStore extends Store {
     }
   }
 
-  fetchDisplaySuccess({ display }) {
+  onFetchDisplaySuccess({ display }) {
     this.state.display = display
-    this.sStore.actions.fetchNearbyLocations()
     this.sStore.actions.sendAppToDisplay(this.state.display.id, 2)
-    utils.getCurrentPosition()
-      .then(({ coords }) => {
-        Vue.set(this.state.display, 'coords', {})
-        Vue.set(this.state.display.coords, 'latitude', coords.latitude)
-        Vue.set(this.state.display.coords, 'longitude', coords.longitude)
-      })
+    this.state.display.defaultStation = { number: 8595133, id: 1, name: 'Lugano, Università' }
+  }
+
+  onDisplayChangeApp(data) {
+    if (data.appId == this.state.display.app.id) return
+    api.application.fetchApplication({ id: data.appId })
+      .then(({ data }) => window.location.href = window.location.origin + `/${data.url}` + `/#/display/${this.state.display.id}`)
   }
 
   reduce(action) {
     this.reduceMap(action, {
       USER_NEARBY: this.onUserNearby,
-      FETCH_DISPLAY_SUCCESS: this.fetchDisplaySuccess
+      FETCH_DISPLAY_SUCCESS: this.onFetchDisplaySuccess,
+      DISPLAY_CHANGE_APP: this.onDisplayChangeApp
     })
   }
 
-  actions(dispatcher) {
+  actions(dispatcher, ctx) {
     return {
       fetchDisplay(displayId) {
         api.display.fetchDisplay(displayId)
@@ -69,6 +69,7 @@ class DisplayStore extends Store {
           })
       },
       sendAppToDisplay(displayId, appId) {
+        ctx.state.display.app = { id: appId }
         api.display.sendAppToDisplay(displayId, appId)
       }
     }
@@ -76,5 +77,4 @@ class DisplayStore extends Store {
 }
 
 const displayStore = new DisplayStore()
-
 export default displayStore

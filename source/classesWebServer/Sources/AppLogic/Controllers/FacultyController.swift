@@ -47,7 +47,7 @@ final class FacultyController {
     
     static func getCourses(_ req: Request, faculty: Faculty) throws -> ResponseRepresentable {
         
-        return try faculty.getCourses().all().makeNode(context: ResourseContext.all).converted(to: JSON.self)
+        return try faculty.getCourses().all().makeNode(context: ResourseContext.snippet).converted(to: JSON.self)
     }
     
     static func getStudies(_ req: Request, faculty: Faculty) throws -> ResponseRepresentable {

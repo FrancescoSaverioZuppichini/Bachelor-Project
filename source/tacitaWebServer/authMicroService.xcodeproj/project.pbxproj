@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9DD92B7F1EDCA7E800F99942 /* ResourceContextMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD92B7E1EDCA7E800F99942 /* ResourceContextMiddleware.swift */; };
 		OBJ_1484 /* libc.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_1402 /* libc.swift */; };
 		OBJ_1491 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_1404 /* Array.swift */; };
 		OBJ_1492 /* Bool+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_1405 /* Bool+String.swift */; };
@@ -5477,6 +5478,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D80F5D01EE29C9D0033234E /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = ../../../../../../Desktop/MyPlayground.playground; sourceTree = "<group>"; };
+		9DD92B7E1EDCA7E800F99942 /* ResourceContextMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceContextMiddleware.swift; sourceTree = "<group>"; };
 		OBJ_10 /* ResourseContext+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResourseContext+Error.swift"; sourceTree = "<group>"; };
 		OBJ_100 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		OBJ_1000 /* gost_asn1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gost_asn1.c; sourceTree = "<group>"; };
@@ -9029,10 +9032,11 @@
 			path = Messages;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
+				9D80F5D01EE29C9D0033234E /* MyPlayground.playground */,
 				OBJ_7 /* Sources */,
 				OBJ_23 /* Tests */,
 				OBJ_24 /* Config */,
@@ -9043,7 +9047,6 @@
 				OBJ_29 /* Dependencies */,
 				OBJ_1434 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_501 /* Method */ = {
@@ -10383,6 +10386,7 @@
 				OBJ_11 /* socket.swift */,
 				OBJ_12 /* Controllers */,
 				OBJ_17 /* Models */,
+				9DD92B7E1EDCA7E800F99942 /* ResourceContextMiddleware.swift */,
 			);
 			name = App;
 			path = Sources/App;
@@ -11678,7 +11682,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_1434 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -13211,6 +13215,7 @@
 				OBJ_3890 /* ApplicationController.swift in Sources */,
 				OBJ_3891 /* BeaconController.swift in Sources */,
 				OBJ_3892 /* DisplayController.swift in Sources */,
+				9DD92B7F1EDCA7E800F99942 /* ResourceContextMiddleware.swift in Sources */,
 				OBJ_3893 /* UserController.swift in Sources */,
 				OBJ_3894 /* Application.swift in Sources */,
 				OBJ_3895 /* Beacon.swift in Sources */,

@@ -1,63 +1,36 @@
 <template>
-<div class='uk-container uk-container uk-flex uk-flex-column'>
-  <confirmation-modal></confirmation-modal>
-  <div class='uk-margin-bottom'>
-    <h5 class='uk-margin-remove'>Your preferences
-<br />
-<small class='uk-text-meta'>{{$store.state.user.preferences.data.length}} entries</small></h5>
+<home-wrapper>
+  <preference-delete-confirmation-modal></preference-delete-confirmation-modal>
+  <div v-if="$store.state.user.preferences.loading">
+    <!-- <user-preference-dummy></user-preference-dummy> -->
   </div>
-  <div class="uk-flex-column uk-flex-item-1">
-    <div class="preference-station__container">
-      <div v-if="$store.state.user.preferences.loading">
-        <user-preference-dummy v-for="index in [1,2]"></user-preference-dummy>
-      </div>
-      <div class="uk-text-center" v-else-if="$store.state.user.preferences.data.length <= 0">
-        <h6 class="uk-text-meta uk-text-large" uk-cover>No preferences found.</h6>
-      </div>
-      <div class="uk-card uk-card-default uk-card-body uk-margin-bottom" v-for="pref in $store.state.user.preferences.data" v-else>
-        <div class="uk-float-right uk-flex uk-grid-small">
-          <div>
-            <span uk-icon="icon: pencil; ratio: 1.2" @click="tooglePrefereceEdit(pref)"></span>
-          </div>
-          <div>
-            <span uk-icon="icon: trash; ratio: 1.2" @click="$store.state.currentPreference = pref" uk-toggle="target: #preference-confirmation__modal"></span>
-          </div>
-        </div>
-        <div v-if="pref.station">
-          <h6> <span class="" uk-icon="icon: location;ratio: 1.3"></span>
-  {{pref.station.name}}</h6>
-          <div v-for="bus in pref.buses">
-            <div class='uk-flex uk-flex-middle'>
-              <h3 class='uk-margin-remove'>{{bus.number}}</h3>
-              <small class="uk-margin-left">{{bus.to}}</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="uk-text-center absolute--center" v-else-if="$store.state.user.preferences.data.length <= 0">
+    <h6 class="uk-text-meta uk-text-large">No preferences found.</h6>
   </div>
-  <div class="uk-margin-top navigation__actions padding--zero">
-    <button class="uk-button uk-button-primary uk-float-right uk-width-auto@m" @click="$router.push({name:'station'})">New
-</button>
+  <div class='uk-container uk-margin-small-top'>
+    <resource-transition-wrapper>
+      <div v-for="preference in $store.state.user.preferences.data" :key="preference">
+        <preference :preference="preference"></preference>
+      </div>
+    </resource-transition-wrapper>
   </div>
-</div>
+</home-wrapper>
 </template>
 <script>
-import ConfirmationModal from '../ConfirmationModal/ConfirmationModal.vue'
+import PreferenceDeleteConfirmationModal from '../PreferenceDeleteConfirmationModal/PreferenceDeleteConfirmationModal.vue'
 import UserPreferenceDummy from '../UserPreference/UserPreferenceDummy.vue'
+import HomeWrapper from '../HomeWrapper.vue'
+import ResourceTransitionWrapper from '../Resource/ResourceTransitionWrapper.vue'
+import Preference from '../Preference/Preference.vue'
 
 export default {
   name: "CreatePreferenceHomePage",
   components: {
-    ConfirmationModal,
-    UserPreferenceDummy
-  },
-  created() {
-    this.$store.actions.getMe('zuppif')
-    setTimeout(() => {
-      this.$store.actions.fetchUserPreferences()
-    }, 500)
-
+    PreferenceDeleteConfirmationModal,
+    UserPreferenceDummy,
+    HomeWrapper,
+    Preference,
+ResourceTransitionWrapper
   },
   watch: {
     '$route': function(newRoute) {

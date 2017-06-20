@@ -1,12 +1,11 @@
 <template>
 <div class='uk-flex-expand uk-flex uk-flex-middle'>
-
   <div class='uk-flex uk-flex-column connection--user-nearby--active' v-if="connection.triggered && !location.isUser && connection.colors.length > 0">
     <div class="flex-1 " :style="{'background' : color}" v-for="color in connection.colors">
     </div>
   </div>
   <div class="uk-margin-right">
-    <div class="connection-number__container">
+    <div class="connection-number__container" >
       <h3 class='uk-margin-remove'> {{connection.number}}</h3>
     </div>
   </div>
@@ -37,7 +36,7 @@ export default {
   name: 'connectionCard',
   props: ["connection", "behavior", "location"],
   components: {
-    connectionCardInfo,
+    connectionCardInfo
   },
   methods: {
     parseArrivalTime(date) {
@@ -68,7 +67,7 @@ export default {
 .connection--user-nearby--active {
   width: 24px;
   margin-right: 8px;
-height: 70px;
+  height: 70px;
 }
 
 

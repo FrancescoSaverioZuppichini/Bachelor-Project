@@ -43,19 +43,6 @@ public func load(_ _drop: Droplet) throws {
         api.get("opendata/locations",handler: OpendataApiController.getLocations)
         api.get("opendata/connections",handler: opendataApiController.getConnections)
         api.get("opendata/stationboards",handler: opendataApiController.getStationBoards)
-        // users
-//        api.group("users"){
-//            users in
-//            users.get("",User.self,handler:userController.getUser)
-//            users.put(handler: userController.updateUser)
-//            users.put("nearby", handler: userController.notifyIsNearby)
-//            users.post(handler: userController.saveUser)
-//            users.delete(handler: userController.deleteUser)
-//            users.get(User.self,"preference",handler: userController.getPreferencesFromUser)
-//            users.post(User.self,"preference",handler: userController.addOrUpdateUserPreference)
-//            users.put(User.self,"preference",handler: userController.addOrUpdateUserPreference)
-//
-//        }
         
         api.group(UserMiddleware()){
             user in
@@ -92,7 +79,7 @@ public func load(_ _drop: Droplet) throws {
         }
         api.group("bus") {
             stations in
-            stations.get(Bus.self,"passList", handler: busController.getPassList)
+            stations.get(Bus.self,"passList", handler: stationboardController.getPasses)
         }
     }
     

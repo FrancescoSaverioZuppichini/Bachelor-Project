@@ -10,7 +10,7 @@ import api from '../api.js'
 import cachedLocations from '../locations.js'
 
 const config = {
-  USER_NOTIFICATION_LIFE: 20000,
+  USER_NOTIFICATION_LIFE: 10000,
   STATIONBOARD_UPLOAD_EVERY: 5000,
   MAX_OPEN_LOCATION: 2,
   OPEN_LOCATION_LIFE: 10000,
@@ -82,6 +82,8 @@ class LocationStore extends Store {
             bus.colors.push(color)
             bus.users.push(pref.user_id)
           }
+
+          bus.colors[userIndex] = color
 
           this.setAutoDestruction(() => {
             bus.users.splice(bus.users.indexOf(pref.user_id), 1)
@@ -170,7 +172,6 @@ class LocationStore extends Store {
         location.default = true
       } else if (!config.OPEN_LOCATION_AUTODESTRUCTION && this.state.openedLocations.length < config.MAX_OPEN_LOCATION) {
         this.displayLocation({ location }, false, false)
-
       }
     })
 
@@ -185,8 +186,7 @@ class LocationStore extends Store {
 
   fetchLocationStationBoardSuccess({ location, stationboard }) {
     location.isLoadingStationBoard = false
-    if (!stationboard)
-      return
+    if (!stationboard) return
 
     stationboard.sort((a, b) => a.stop.departure_timestamp > b.stop.departure_timestamp)
     // update the stationboard in order to not override the use preference info
@@ -197,12 +197,16 @@ class LocationStore extends Store {
         for (let oldStationBoard of location.stationboard) {
           if (newStationBoard.number == oldStationBoard.number && newStationBoard.to == oldStationBoard.to) {
             oldStationBoard.stop = newStationBoard.stop
-            newStationBoard = Object.assign(newStationBoard,oldStationBoard)
+            newStationBoard = Object.assign(newStationBoard, oldStationBoard)
           }
         }
       }
       location.stationboard = stationboard
     }
+  }
+
+  onFetchDisplaySuccess({ display }) {
+    this.sStore.actions.fetchNearbyLocations()
   }
 
   reduce(action) {
@@ -213,7 +217,8 @@ class LocationStore extends Store {
       FETCH_LOCATION_STATIONBOARD_SUCCESS: this.fetchLocationStationBoardSuccess,
       FETCH_LOCATION_STATIONBOARD_ERROR: (({ location }) => { location.isLoadingStationBoard = false }),
       PUT_LOCATION_IN_DISPLAY_STACK: this.displayLocation,
-      DISPLAY_USER_PREFERENCE: this.onDisplayUserPreferences
+      DISPLAY_USER_PREFERENCE: this.onDisplayUserPreferences,
+      FETCH_DISPLAY_SUCCESS: this.onFetchDisplaySuccess
     })
   }
 

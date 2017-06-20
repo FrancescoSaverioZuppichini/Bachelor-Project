@@ -10,7 +10,7 @@ import Foundation
 import Dispatch
 import HTTP
 import Fluent
-
+import Jobs
 /** This class fetches all the informations abous buses
  around a given location in order to cache them
  since the [opendata transport API](https://transport.opendata.ch/docs.html)
@@ -70,7 +70,7 @@ public final class OpendataApiFetcher {
         // * the direction
         // * the passList of a bus
         if let to = stationBoardObj?["to"]?.string {
-           
+            
             let createdStationBoard = try StationBoard.createIfNotExist(stationId: station.id, busId: bus.id, to: to)
             
             let stopObj = stationBoardObj?["stop"]?.object
@@ -82,8 +82,8 @@ public final class OpendataApiFetcher {
             
             let pass = try Pass.createIfNotExist(bus: bus.id, through: station.id, arrivalTimestamp: nil, departureTimestamp: departureTimestamp, departure: departure)
             
-//            storePasses(from: (stationBoardObj!["passList"]?.object!)!, with: station, with: bus, in: createdStationBoard)
-//            
+            //           try storePasses(from: (stationBoardObj!["passList"]?.array)!, with: station, with: bus, in: createdStationBoard)
+            ////
             var pivot = Pivot<StationBoard,Pass>(createdStationBoard,pass)
             try pivot.save()
         }
@@ -134,7 +134,7 @@ public final class OpendataApiFetcher {
         try Pass.query().delete()
         try Pivot<StationBoard,Pass>.query().delete()
         try Pivot<Station,Bus>.query().delete()
-
+        
         
     }
     
@@ -142,7 +142,7 @@ public final class OpendataApiFetcher {
         print("fetching data...")
         
         try cleanCachedApiData()
-//        Universita della Svizzera Italiana location
+        //        Universita della Svizzera Italiana location
         let query: [String: CustomStringConvertible] = ["x": 46.0109180,"y": 8.9582230]
         
         let stations = try drop.client.get("http://transport.opendata.ch/v1/locations", query: query)
@@ -159,29 +159,19 @@ public final class OpendataApiFetcher {
      [opendata transport API](https://transport.opendata.ch/docs.html)
      */
     public static func start() {
-        let calendar = Calendar(identifier: .gregorian)
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date())!
-        var components = calendar.dateComponents([.year, .month, .day, .hour], from: tomorrow)
-        components.hour = 5
-        let tomorrowMorning = calendar.date(from: components)!
+        
         
         let queue = DispatchQueue(label: "opendataApiFetcherQueue")
+        
         queue.asyncAfter(deadline: .now() + 0.5)  {
-            if #available(OSX 10.12, *) {
-                let timer = Timer(fire: tomorrowMorning, interval: 60 * 60 * 24, repeats: true) { _ in
-                    do {
-                        try OpendataApiFetcher.cacheOpendataApi()
-                        
-                    } catch{
-                        print("Error during fetching")
-                    }
+            Jobs.add(interval: .seconds(60*60)) {
+                do {
+                    try OpendataApiFetcher.cacheOpendataApi()
+                    
+                } catch{
+                    print("Error during fetching")
                 }
-                timer.fire()
-                
-            } else {
-                // Fallback on earlier versions
             }
         }
     }
-    
 }

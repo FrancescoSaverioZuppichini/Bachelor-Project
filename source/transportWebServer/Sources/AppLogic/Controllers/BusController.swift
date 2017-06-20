@@ -17,6 +17,5 @@ public class BusController {
         
         return try bus.makeNode(context: BusContext.passList).converted(to: JSON.self)
     }
-    
 
 }

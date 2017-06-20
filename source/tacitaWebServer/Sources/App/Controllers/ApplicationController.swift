@@ -15,12 +15,11 @@ final class ApplicationController {
     
     static func getAll(_ req: Request) throws -> ResponseRepresentable {
         
-        return try Application.query().all().makeJSON()
-    }
+        return try Application.query().all().makeNode(context: req.context).converted(to : JSON.self)    }
     
     static func getOne(_ req: Request, application: Application) throws -> ResponseRepresentable {
         
-        return try application.makeJSON()
+        return try application.makeNode(context: req.context).converted(to : JSON.self)
     }
     
 
@@ -32,6 +31,22 @@ final class ApplicationController {
             throw Abort.custom(status: .badRequest, message: ResourseError.resourceAlreadyExist("Application").description)
         }
         
+        try application.save()
+        
+        return try application.makeJSON()
+    }
+    
+    static func edit(_ req: Request, application: Application) throws -> ResponseRepresentable {
+        var application = application
+        var newApplication = try Application(request: req)
+        
+        
+        application.name = newApplication.name
+        application.url = newApplication.url
+        application.materialIcon = newApplication.materialIcon
+        application.description_en = newApplication.description_en
+        application.description_it = newApplication.description_it
+
         try application.save()
         
         return try application.makeJSON()

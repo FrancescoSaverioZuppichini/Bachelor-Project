@@ -48,6 +48,7 @@ public final class Preference: Model {
         try Pivot<Preference,StationBoard>.query().filter("preference_id", newPreference.id!).delete()
         
         for busObj in buses {
+<<<<<<< HEAD
             guard let busId = busObj["id"]?.int, let direction = busObj["to"]?.string else {
                 throw Abort.badRequest
             }
@@ -62,6 +63,24 @@ public final class Preference: Model {
             var newPivot = Pivot<Preference,StationBoard>(newPreference,stationBoard)
             try newPivot.save()
         }
+=======
+            guard let busId = busObj["id"]?.int, let to = busObj["to"]?.string else {
+                throw Abort.badRequest
+            }
+
+                
+                guard let stationBoard = try StationBoard.query().filter("bus_id",busId).filter("station_id", stationId).filter("to", to).first() else {
+                    throw Abort.custom(status: .badRequest, message: "Cannot find any stationboard")
+                    
+                }
+                
+                //            try Pivot<Preference,StationBoard>.query().filter("preference_id", newPreference.id!).filter("stationboard_id", stationBoard.id!).first()?.delete()
+                
+                var newPivot = Pivot<Preference,StationBoard>(newPreference,stationBoard)
+                try newPivot.save()
+            }
+        
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
         
         return newPreference
     }

@@ -1,15 +1,27 @@
-# Basic Template
+# tacita-web-dashboard
 
-A basic vapor template for starting a new Vapor web application. If you're using vapor toolbox, you can use: `vapor new --template=basic`
+> A Vue.js project
 
-## 📖 Documentation
+## Build Setup
 
-Visit the Vapor web framework's [documentation](http://docs.vapor.codes) for instructions on how to use this package.
+``` bash
+# install dependencies
+npm install
 
-## 💧 Community
+# serve with hot reload at localhost:8080
+npm run dev
 
-Join the welcoming community of fellow Vapor developers in [slack](http://vapor.team).
+# build for production with minification
+npm run build
 
-## 🔧 Compatibility
+# build for production and view the bundle analyzer report
+npm run build --report
 
-This package has been tested on macOS and Ubuntu.
+# run unit tests
+npm run unit
+
+# run all tests
+npm test
+```
+
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

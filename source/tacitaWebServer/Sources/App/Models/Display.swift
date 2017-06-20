@@ -18,8 +18,9 @@ public final class Display: Model, Preparation {
             ])
         
         switch context {
-        case DisplayContext.currentApps:
+        case ResourseContext.all:
             display["apps"] = try getCurrentApp().all().makeNode(context: ResourseContext.snippet)
+            display["beacons"] = try getBeacons().makeNode(context: ResourseContext.snippet)
         default:
             break
             
@@ -50,6 +51,11 @@ public extension Display {
     public func getCurrentApp() throws -> Siblings<Application> {
 
         return try siblings()
+    }
+    
+    public func getBeacons() throws -> [Beacon] {
+        
+        return try children().all()
     }
 }
 

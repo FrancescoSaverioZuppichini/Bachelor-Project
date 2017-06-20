@@ -11,10 +11,23 @@ class UserStore extends Store {
   constructor() {
     super()
     this.state.user = { id: null, preferences: { data: [], loading: false } }
+    this.state.showConfirmationModal = false
   }
 
-  fetchUserPreferenceSuccess({ userPreferences }) {
-    this.state.user.preferences.data = userPreferences
+  formatPreference(preference) {
+    var cache = {}
+    for (let bus of preference.buses) {
+      if (cache[bus.id] == undefined) cache[bus.id] = { id: bus.id, number: bus.number, directions : [] }
+      cache[bus.id].directions.push({to:bus.to})
+    }
+
+    return preference.buses = Object.values(cache)
+  }
+
+  fetchUserPreferenceSuccess({ preferences }) {
+    preferences.reverse()
+    // preferences.forEach(preference => preference.buses = this.formatPreference(preference))
+    this.state.user.preferences.data = preferences
     this.state.user.preferences.loading = false
   }
 
@@ -24,21 +37,22 @@ class UserStore extends Store {
   }
 
   updatePreferenceSuccess({ preference }) {
-
+    this.state.showConfirmationModal = false
+    for (let pref of this.state.user.preferences.data) {
+      if (pref.id == preference.id) pref = Object.assign(pref, preference)
+    }
   }
 
   addPreferenceSuccess({ preference }) {
-    var userPreferences = this.state.user.preferences.data
-    for (let i = 0; i < userPreferences.length; i++) {
-      let pref = userPreferences[i]
+    // preference.buses = this.formatPreference(preference)
 
-      if (pref.id == preference.id) {
-        pref.buses = preference.buses
-        return
-      }
-    }
+    this.state.showConfirmationModal = false
+    this.state.user.preferences.data.unshift(preference)
+  }
 
-    this.state.user.preferences.data.push(preference)
+  onGetMeSuccess({ data }) {
+    this.state.user.id = data.id
+    this.sStore.actions.fetchUserPreferences()
   }
 
   reduce(action) {
@@ -49,7 +63,7 @@ class UserStore extends Store {
       // UPDATE_PREFERENCE_SUCCESS: this.updatePreferenceSuccess,
       ADD_PREFERENCE_SUCCESS: this.addPreferenceSuccess,
       REMOVE_PREFERENCE_SUCCESS: this.removePreferenceSuccess,
-      GET_ME_SUCCESS: (({ user }) => this.state.user.id = user.id)
+      GET_ME_SUCCESS: this.onGetMeSuccess
     })
   }
 
@@ -58,8 +72,8 @@ class UserStore extends Store {
       fetchUserPreferences() {
         dispatcher.dispatch({ type: "FETCH_USER_PREFERENCE_LOADING" })
         api.users.fetchUserPreferences(ctx.state.user.id)
-          .then((res) => {
-            dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { userPreferences: res.data }))
+          .then(({data}) => {
+            dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_SUCCESS", { preferences: data }))
           })
           .catch((err) => dispatcher.dispatch(new Action("FETCH_USER_PREFERENCE_FAILURE", err)))
 
@@ -72,8 +86,8 @@ class UserStore extends Store {
       },
       getMeById(userId) {
         api.user.getMeById(userId)
-          .then(({ data }) => {
-            dispatcher.dispatch(new Action("GET_ME_SUCCESS", { user: data }))
+          .then(( data ) => {
+            dispatcher.dispatch(new Action("GET_ME_SUCCESS", data ))
           })
       },
       updatePreference() {

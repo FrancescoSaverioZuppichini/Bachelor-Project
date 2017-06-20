@@ -3,7 +3,8 @@ from time import sleep
 
 from websocket import create_connection
 import json
-HOST = "ws://0.0.0.0:8001/ws"
+
+HOST = "ws://localhost:3443/ws"
 
 ws = create_connection(HOST)
 
@@ -18,3 +19,4 @@ except KeyboardInterrupt:
   print("")
   print("-------------")
   print("Shutting down WS")
+

@@ -53,3 +53,103 @@ html {
 .uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
   height: auto !important;
 }
+
+.child-view {
+  position: absolute;
+  transition: all 5s cubic-bezier(.55, 0, .1, 1);
+}
+
+.fade-router-enter-active, .fade-router-leave-active {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /*margin-top: 60px;*/
+  margin-bottom: 40px;
+  transition: opacity .5s
+}
+
+.fade-router-enter, .fade-router-leave-to
+/* .fade-leave-active in <2.1.8 */
+
+{
+  opacity: 0
+}
+
+.slide-leave-active {}
+
+.slide-enter-active {
+  /*z-index: 99;*/
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /*margin-top: 60px;*/
+  margin-bottom: 40px;
+  transition: 0.5s;
+}
+
+.slide-enter {
+  transform: translate(100%, 0);
+}
+
+.slide-leave-to {
+  opacity: 0
+  /*transform: translate(-100%, 0);*/
+}
+
+.slide-right-leave-active {}
+
+.slide-right-enter-active {
+  /*z-index: 99;*/
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /*margin-top: 60px;*/
+  margin-bottom: 40px;
+  transition: 0.5s;
+}
+
+.slide-right-enter {
+  transform: translate(-100%, 0);
+}
+
+.slide-right-leave-to {
+  opacity: 0
+  /*transform: translate(-100%, 0);*/
+}
+
+#app {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.f-h {
+  height: 100%;
+}
+
+.uk-flex--grow {
+  flex-grow: 99
+}
+
+.my-card__body {
+  padding: 16px !important
+}
+
+#content {
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+.card-actions--bottom {
+  position: absolute;
+  bottom: 8px;
+  right: 0px;
+}
+
+.switch {
+  margin: 0 !important;
+}
+
+hr {
+margin-top: 8px !important;
+margin-bottom: 8px !important;
+}

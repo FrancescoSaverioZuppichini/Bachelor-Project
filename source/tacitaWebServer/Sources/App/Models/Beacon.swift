@@ -14,27 +14,35 @@ import HTTP
 public final class Beacon: Model,RequestInitializable {
     public var id: Node?
     public var beaconId: String
-    public var displayId: Node
+    public var displayId: Node?
     public var exists: Bool = false
     
-    public init(displayId: Node, beaconId: String) {
+    public init(displayId: Node?, beaconId: String) {
         self.displayId = displayId
         self.beaconId = beaconId
     }
     
-    public init(request req: Request) throws{
+    public init(request req: Request) throws {
         
-        guard let displayId = req.data["displayId"]?.int, let beaconId = req.data["beaconId"]?.string else{
-            throw Abort.badRequest
+        if let displayId = req.data["display_id"]?.int {
+            guard let display = try Display.find(displayId) else {
+                throw Abort.custom(status: .notFound, message: ResourseError.resourceNotFoud("Display").description)
+            }
+            
+            self.displayId = display.id
         }
         
-        guard let display = try Display.find(displayId) else {
-            throw Abort.custom(status: .notFound, message: ResourseError.resourceNotFoud("Display").description)
+        guard let beaconId = req.data["beacon_id"]?.string else{
+            throw Abort.custom(status: .badRequest, message: ResourseError.parameterIsMissing("beacon_id").description)
         }
         
-        self.displayId = display.id!
+        if let _ = try Beacon.query().filter("beacon_id", beaconId ).first() {
+            throw Abort.custom(status: .badRequest, message: ResourseError.resourceAlreadyExist("Beacon").description)
+        }
+        
         self.beaconId = beaconId
     }
+    
     
     public init(node: Node, in context: Context) throws {
         id = try node.extract("id")
@@ -51,7 +59,7 @@ public final class Beacon: Model,RequestInitializable {
         
         switch context {
         case ResourseContext.all:
-            node["display"] = try getDisplay().makeNode()
+            node["display"] = try getDisplay()?.makeNode()
         default:
             break
         }
@@ -63,7 +71,7 @@ public final class Beacon: Model,RequestInitializable {
         try database.create("beacons") { beacons in
             beacons.id()
             beacons.string("beacon_id")
-            beacons.parent(Display.self)
+            beacons.parent(Display.self, optional: true)
         }
     }
     
@@ -74,7 +82,10 @@ public final class Beacon: Model,RequestInitializable {
 
 public extension Beacon {
     
-    func getDisplay() throws -> Display {
-        return  try parent(displayId).get()!
+    func getDisplay() throws -> Display? {
+        if let displayId = self.displayId {
+            return  try parent(displayId).get()
+        }
+        return   nil
     }
 }

@@ -63,6 +63,7 @@ public final class StationBoard: Model {
         case StationBoardContext.all:
             node["bus"] = try bus().makeNode()
             node["station"] = try station().makeNode()
+            node["stop"] = try nextPasses().first?.makeNode()
             
         case StationBoardContext.bus:
             let currentBus = try bus()
