@@ -1,11 +1,16 @@
 <template>
-<div id="preference-delete-confirmation__modal" uk-modal="center: true">
+<div id="preference-confirmation__modal" uk-modal="center: true">
   <div class="uk-modal-dialog uk-modal-body">
     <h3>Delete preference?</h3>
     <p class="uk-text-meta">This cannot be undone.</p>
+<<<<<<< HEAD
     <v-btn flat class="uk-button uk-button-default uk-button-borderless uk-float-left uk-modal-close">Cancel</v-btn>
     <v-btn primary dark @click.native="$store.actions.deletePreference($store.state.preference)" class='uk-float-right uk-modal-close'>Yes</v-btn>
   </div>
+=======
+    <button class="uk-button uk-button-default uk-button-borderless uk-float-left uk-modal-close"> Back </button>
+    <button class="uk-button uk-button-primary uk-float-right uk-modal-close" @click="$store.actions.deletePreference($store.state.currentPreference)"> Yes </button>
+>>>>>>> fd28424eb8a5af3ee7caebcbb1a26ac173601f71
   </div>
 </div>
 </template>

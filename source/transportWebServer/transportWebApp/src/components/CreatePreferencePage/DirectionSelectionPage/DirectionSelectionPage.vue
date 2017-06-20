@@ -7,6 +7,13 @@
           <p>{{error.msg}}</p>
         </div>
       </transition>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+      {{$store.state.preference}}
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
+>>>>>>> fd28424eb8a5af3ee7caebcbb1a26ac173601f71
       <resource-transition-wrapper>
         <div v-for="stationboard in stationboards" :key='stationboard'>
           <resource @click.native="toogleStationboard(stationboard)" :toogle="stationboard.toogle">
@@ -67,9 +74,13 @@ export default {
   },
   computed: {
     showError() {
+<<<<<<< HEAD
+      return this.getDirectionsSelected() == 0 && this.show
+=======
 
       return this.getDirectionsSelected() <= 0 && this.show
 
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
     }
   },
   created() {
@@ -77,11 +88,18 @@ export default {
   },
   methods: {
     getDirectionsSelected() {
+<<<<<<< HEAD
+      return (this.$store.state.currentPreference.buses.filter(bus => bus.to).length)
+=======
       return this.$store.state.preference.buses.filter(bus => bus.to).length
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
     },
     getDirections() {
-      const stationId = this.$store.state.preference.station.id
+      const stationId = this.$store.state.currentPreference.station.id
       this.stationboards = []
+<<<<<<< HEAD
+      this.$store.state.currentPreference.buses.forEach((bus) => {
+=======
       const removeDuplicateFromArray = (array, key) => {
         var cache = {}
         for (let item of array) {
@@ -92,6 +110,7 @@ export default {
       const uniqueBuses = removeDuplicateFromArray(this.$store.state.preference.buses, 'id')
 
       uniqueBuses.forEach((bus) => {
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
         api.stationboards.featchStationboards({
             stationId: stationId,
             busId: bus.id
@@ -101,7 +120,7 @@ export default {
           }) => {
             data.forEach((stationboard) => {
               this.$set(stationboard, 'toogle', false)
-              this.$store.state.preference.buses.forEach((bus) => {
+              this.$store.state.currentPreference.buses.forEach((bus) => {
                 if (bus.to == stationboard.to) {
                   stationboard.toogle = true
                     ++this.directionSelected

@@ -5,11 +5,13 @@
       <v-btn icon="icon" class="grey--text text--darken-2" @click.native="$store.actions.tooglePreferenceEdit(preference)">
         <v-icon>mode_edit</v-icon>
       </v-btn>
+      <!-- <span uk-icon="icon: pencil; ratio: 1.2" @click="$store.actions.tooglePreferenceEdit(preference)"></span> -->
     </div>
     <div>
-      <v-btn icon="icon" class="grey--text text--darken-2" @click.native="$store.state.preference = preference" uk-toggle="target: #preference-delete-confirmation__modal">
+      <v-btn icon="icon" class="grey--text text--darken-2" @click.native="$store.state.currentPreference = preference" uk-toggle="target: #preference-delete-confirmation__modal">
         <v-icon>delete</v-icon>
       </v-btn>
+      <!-- <span uk-icon="icon: trash; ratio: 1.2" @click="$store.state.currentPreference = preference" uk-toggle="target: #preference-delete-confirmation__modal"></span> -->
     </div>
   </div>
   <div v-if="preference.station">

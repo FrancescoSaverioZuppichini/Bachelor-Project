@@ -7,11 +7,19 @@
           <p>{{error.msg}}</p>
         </div>
       </transition>
+<<<<<<< HEAD
       <!-- {{this.$store.state.preference}} -->
+=======
+>>>>>>> fd28424eb8a5af3ee7caebcbb1a26ac173601f71
       <resource-transition-wrapper>
+<<<<<<< HEAD
+        <div v-for="bus in this.$store.state.currentPreference.station.buses" class="uk-width-1-1" :key="bus">
+          <resource @click.native="toogleBus(bus)" :toogle="bus.toogle">
+=======
         <div v-for="bus in this.$store.state.connections" class="uk-width-1-1" :key="bus">
           <resource @click.native="toogle(bus)" :toogle="bus.toogle">
             <!-- $store.state.preference.buses.indexOf(bus) >= 0 -->
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
             <h3>{{bus.number}}</h3>
           </resource>
         </div>
@@ -58,7 +66,7 @@ export default {
   },
   computed: {
     showError() {
-      return this.$store.state.preference.buses.length == 0 && this.show
+      return this.$store.state.currentPreference.buses.length == 0 && this.show
     }
   },
   created() {
@@ -70,6 +78,11 @@ export default {
     }
   },
   methods: {
+<<<<<<< HEAD
+    toogleBus(bus) {
+      if (bus.toogle) {
+        this.$store.actions.removeBusToPreference(bus)
+=======
     isToogled(bus) {
       for (let connInPref of this.$store.state.preference.buses) {
         for (let conn of this.buses) {
@@ -84,30 +97,29 @@ export default {
         this.$store.actions.removeBusToPreference(bus)
         bus.toogle = false
 
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
       } else {
+        this.show = false
         this.$store.actions.addBusToPreference(bus)
+<<<<<<< HEAD
+=======
         bus.toogle = true
 
+>>>>>>> 5c8e8b12a451f68fa5bb246e1cbb1a5e876232f6
       }
-      // if (bus.toogle) {
-      //   this.$store.actions.removeBusToPreference(bus)
-      // } else {
-      //   this.show = false
-      //   this.$store.actions.addBusToPreference(bus)
-      // }
-      // if (bus.toogle == undefined) this.$set(bus, 'toogle', true)
-      // else {
-      //   bus.toogle = !bus.toogle
-      // }
+      if (bus.toogle == undefined) this.$set(bus, 'toogle', true)
+      else {
+        bus.toogle = !bus.toogle
+      }
     },
     fetchBuses() {
-      const stationId = this.$store.state.preference.station.id
+      const stationId = this.$store.state.currentPreference.station.id
       // console.log(stationId);
       this.$store.actions.fetchBusesFromStation(stationId)
     },
     next() {
       this.show = true
-      const isAtLeastOneBusSelected = this.$store.state.preference.buses.length > 0
+      const isAtLeastOneBusSelected = this.$store.state.currentPreference.buses.length > 0
       this.error.hasError = !isAtLeastOneBusSelected
       if (isAtLeastOneBusSelected) {
         this.show = false
