@@ -1,10 +1,10 @@
-#TACITA
-##Quick overview of the topology and how to run it
+#Bachelor Project
+##Quick overview of the network and how to run it
 #Architecture
 The system is built following a microservices architecture, it means that is composed by independent block called 'microservices'. Each one can be remove without effect the integrity of network. Our topology is composed as follow:
 
 * Proxy
-* Tacita
+* Map Provider
 * Transport
 * Classes
 
@@ -31,7 +31,7 @@ The code is contained into the `source` folder:
 ├── proxy
 ├── start.sh
 ├── classesWebServer
-├── tacitaWebServer
+├── Map ProviderWebServer
 └── transportWebServer
 ```
 
@@ -55,8 +55,8 @@ module.exports = {
 }
 ```
 
-##Tacita
-The Tacita Micro Service deals with the core logic of this projects. It links `Beacons`, `Display` and `Application`. It also stores all the current users using their email. 
+##Map Provider
+The Map Provider Micro Service deals with the core logic of this projects. It links `Beacons`, `Display` and `Application`. It also stores all the current users using their email. 
 ##Transport
 The Transport Micro Service deals with the [Opendata API](https://transport.opendata.ch/). Due to the three calls per seconds limit, I had to cache them and clone all the logic behind them. A timer is scheduled to fetch as many informations as possibile every day at 5 A.M.
 ##Classes
@@ -70,9 +70,8 @@ You can find the Display App for each Micro Service at the following url `<PROXY
 You can find the Preference App for each Micro Service at the following url `<PROXY_BASE_URL>/<MICRO_SERVICE_KEY>/#/app/home/<USER_ID>`.
 
 #Technical Details
-##Dependencies
-You need to install swift 3, Vapor, node and npm. 
-##Technologies overview
+###Dependencies
+You need to install swift 3.1, Vapor 1, MySQL, Nodejs and npm. 
 ###Server
 Each Microservice Server is made with [Vapor 1](https://vapor.github.io/documentation/), be aware that Vapor 2 just came out (actually Yesterday 19 may 2017).
 ###Client

@@ -9,7 +9,6 @@ public func load(_ _drop: Droplet) throws {
     
     drop = _drop
     
-
     try drop.addProvider(VaporMySQL.Provider.self)
     
     drop.preparations.append(User.self)
