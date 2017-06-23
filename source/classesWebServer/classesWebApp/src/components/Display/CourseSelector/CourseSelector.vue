@@ -73,45 +73,11 @@ export default {
 
       // $('#fullcalendar').fullCalendar('refetchEvents')
     },
-    createCalendar() {
-      $('#fullcalendar').fullCalendar({
-        eventClick: (calEvent, jsEvent, view) => {
-          const course = calEvent.course
-          this.$store.actions.fetchCourse(course)
 
-        },
-        that: this,
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'agendaWeek,month'
-        },
-        views: {
-          listWeek: {
-            buttonText: 'list week'
-          },
-          listMonth: {
-            buttonText: 'list month'
-          },
-          listYear: {
-            buttonText: 'list year'
-          }
-        },
-        defaultView: 'agendaWeek',
-        allDaySlot: false,
-        minTime: "08:00:00",
-        maxTime: "18:00:00",
-        height: 'auto',
-        weekends: false,
-        eventTextColor: "Black",
-      })
-    }
   },
   mounted() {
-    this.createCalendar()
-    this.$store.actions.fetchFaculties()
-    this.$store.actions.fetchYears()
-    this.update(this.query.facultyId)
+
+    // this.update(this.query.facultyId)
 
   }
 }
