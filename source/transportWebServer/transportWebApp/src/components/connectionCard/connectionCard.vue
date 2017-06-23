@@ -10,14 +10,19 @@
     </div>
   </div>
   <div class='uk-flex-grow'></div>
-  <div class='uk-width-1-1 uk-margin-right uk-flex'>
-    <div class='uk-margin-small-right'>
-      <v-icon>arrow_forward</v-icon>
+  <div class='uk-width-1-1 uk-margin-right uk-flex uk-flex-column'>
+    <div class='uk-flex'>
+      <div class='uk-margin-small-right'>
+        <v-icon>arrow_forward</v-icon>
+      </div>
+      <div>
+        <h6 class='uk-margin-remove'>{{connection.to}}</h6>
+        <!-- <div class='uk-margin-small-top'> -->
+        <!-- </div> -->
+      </div>
     </div>
-    <div>
-      <h6 class='uk-margin-remove'>{{connection.to}}</h6> {{this.arrivesNow}}
-      <p class='uk-margin-remove'> {{parseArrivalTime(connection.stop.departure)}}</p>
-    </div>
+    <p class='uk-margin-remove bus-time'> {{parseArrivalTime(connection.stop.departure)}}</p>
+
   </div>
   <div class='uk-flex-grow'></div>
   <div class=" uk-float-right">
@@ -63,7 +68,7 @@ export default {
 
       if (geoLocationAvailable) {
         // give realtime feedback based on the time we need to walk to reach the station
-        shouldLeave =  arrivalTimeFromNowInSeconds -  60 * 5 <= this.LEAVING_OFF_SET_SECONDS
+        shouldLeave = arrivalTimeFromNowInSeconds - 60 * 5 <= this.LEAVING_OFF_SET_SECONDS
       }
 
       return shouldLeave
@@ -72,6 +77,10 @@ export default {
 }
 </script>
 <style>
+.bus-time {
+  font-size: 18px;
+}
+
 .connection--user-nearby {
   width: 100%;
   height: 100%;
