@@ -29,10 +29,12 @@
     </div>
   </div>
   <div class='uk-flex-grow'></div>
-  <div class=" uk-float-right" :class="{'animated infinite pulse': this.arrivesNow}">
+  <div class=" uk-float-right uk-flex-column uk-flex" :class="{'animated infinite pulse': this.arrivesNow}">
     <h5 class="uk-margin-remove-bottom uk-text-center" v-if="getArrivalTimeFromNow().minutes() == 0">Now</h5>
     <h4 class="uk-margin-remove-bottom uk-text-center" v-else> {{getArrivalTimeFromNow().minutes() + "'" }}</h4>
-    <small>arrives</small>
+    <div class='uk-text-center'>
+      <small>arrives</small>
+    </div>
   </div>
 </div>
 </template>
