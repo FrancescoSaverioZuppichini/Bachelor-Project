@@ -973,9 +973,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.newApplication = {
         application_id: null,
         toogle: false,
-        name: '',
-        material_icon: '',
-        url: ''
+        name: null,
+        material_icon: null,
+        url: null
 
       };
     }
@@ -994,6 +994,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     createApplication: function createApplication() {
       this.newApplication.toogle = true;
+
       this.$store.actions.createApplication(this.newApplication);
     }
   }
@@ -1431,7 +1432,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -1473,7 +1474,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.display-beacon__container {\n  min-height: 24px;\n}\n", ""]);
+exports.push([module.i, "\n.display-beacon__container {\n  min-height: 24px;\n}\nhr {\n  margin-top: 8px !important;\n  margin-bottom: 8px !important;\n}\n", ""]);
 
 // exports
 
@@ -1997,7 +1998,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "uk-input uk-margin-bottom",
     class: {
-      'uk-form-danger': _vm.newApplication.toogle && _vm.newApplication.name == ''
+      'uk-form-danger': _vm.newApplication.toogle && (_vm.newApplication.name == null || _vm.newApplication.name == '')
     },
     attrs: {
       "type": "text",
@@ -2021,7 +2022,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "uk-input uk-margin-bottom",
     class: {
-      'uk-form-danger': _vm.newApplication.toogle && _vm.newApplication.material_icon == ''
+      'uk-form-danger': _vm.newApplication.toogle && (_vm.newApplication.material_icon == null || _vm.newApplication.material_icon == '')
     },
     attrs: {
       "type": "text",
@@ -2045,7 +2046,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "uk-input uk-margin-bottom",
     class: {
-      'uk-form-danger': _vm.newApplication.toogle && _vm.newApplication.url == ''
+      'uk-form-danger': _vm.newApplication.toogle && (_vm.newApplication.url == null || _vm.newApplication.url == '')
     },
     attrs: {
       "type": "text",
@@ -2426,7 +2427,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "uk-flex--grow"
   })], 2)]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "uk-margin-small-bottom"
-  }), _vm._v(" "), _c('draggable', {
+  }), _vm._v(" "), (_vm.beacons.length > 0) ? _c('hr') : _vm._e(), _vm._v(" "), _c('draggable', {
     staticClass: "display-beacon__container uk-flex uk-grid-small",
     attrs: {
       "options": {
@@ -2453,7 +2454,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "beacon-icon"
     }), _vm._v(" "), _c('div', {
       attrs: {
-        "uk-dropdown": "mode: hover"
+        "uk-dropdown": "mode: click"
       }
     }, [_c('div', {
       staticClass: "uk-flex uk-flex-column"
@@ -3266,4 +3267,4 @@ if(false) {
 
 /***/ })
 ]),[111]);
-//# sourceMappingURL=app.ae4fb811f8b68a8ccf1e.js.map
+//# sourceMappingURL=app.4f81e6b3fdef9ffddec4.js.map

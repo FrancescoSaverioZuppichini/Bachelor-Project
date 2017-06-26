@@ -1172,7 +1172,7 @@ var displayStore = new DisplayStore();
 
 
 var config = {
-  USER_NOTIFICATION_LIFE: 10000,
+  USER_NOTIFICATION_LIFE: 60 * 1000,
   STATIONBOARD_UPLOAD_EVERY: 5000,
   MAX_OPEN_LOCATION: 2,
   OPEN_LOCATION_LIFE: 10000,
@@ -2446,24 +2446,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.mousedown = false;
       this.dragOffset = 0;
     },
-    handleMousemove: function handleMousemove(e) {
-      if (!this.mousedown) {
-        return;
-      }
-
-      var eventPosX = "ontouchstart" in window ? e.touches[0].clientX : e.clientX;
-      var deltaX = this.dragStartX - eventPosX;
-
-      this.dragOffset = deltaX;
-
-      if (this.dragOffset > this.minSwipeDistance) {
-        this.handleMouseup();
-        this.advancePage();
-      } else if (this.dragOffset < -this.minSwipeDistance) {
-        this.handleMouseup();
-        this.advancePage("backward");
-      }
-    },
+    handleMousemove: function handleMousemove(e) {},
     computeCarouselWidth: function computeCarouselWidth() {
       this.getSlideCount();
       this.getBrowserWidth();
@@ -2480,16 +2463,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     if (!this.$isServer) {
       window.addEventListener("resize", __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_debounce__["a" /* default */])(this.computeCarouselWidth, 16));
-
-      if ("ontouchstart" in window) {
-        this.$el.addEventListener("touchstart", this.handleMousedown);
-        this.$el.addEventListener("touchend", this.handleMouseup);
-        this.$el.addEventListener("touchmove", this.handleMousemove);
-      } else {
-        this.$el.addEventListener("mousedown", this.handleMousedown);
-        this.$el.addEventListener("mouseup", this.handleMouseup);
-        this.$el.addEventListener("mousemove", this.handleMousemove);
-      }
     }
 
     this.attachMutationObserver();
@@ -3507,6 +3480,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.$store.LocationStore.getAvailableConnections(this.station, this.user);
     },
     hasBuses: function hasBuses() {
+      if (!this.station.stationboard) return;
       return this.station.stationboard.filter(function (stationboard) {
         return stationboard.stop != undefined;
       }).length > 0;
@@ -7624,4 +7598,4 @@ if(false) {
 
 /***/ })
 ],[255]);
-//# sourceMappingURL=app.e91a5bd8bd00b7e86865.js.map
+//# sourceMappingURL=app.fe97c15823a71e78cd64.js.map

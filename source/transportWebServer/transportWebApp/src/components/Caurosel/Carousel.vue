@@ -379,22 +379,23 @@ export default {
      * @param  {Object} e The event object
      */
     handleMousemove(e) {
-      if (!this.mousedown) {
-        return
-      }
-
-      const eventPosX = ("ontouchstart" in window) ? e.touches[0].clientX : e.clientX
-      const deltaX = (this.dragStartX - eventPosX)
-
-      this.dragOffset = deltaX
-
-      if (this.dragOffset > this.minSwipeDistance) {
-        this.handleMouseup()
-        this.advancePage()
-      } else if (this.dragOffset < -this.minSwipeDistance) {
-        this.handleMouseup()
-        this.advancePage("backward")
-      }
+      // REVIEW: disabled so there is no way a user can go back
+      // if (!this.mousedown) {
+      //   return
+      // }
+      //
+      // const eventPosX = ("ontouchstart" in window) ? e.touches[0].clientX : e.clientX
+      // const deltaX = (this.dragStartX - eventPosX)
+      //
+      // this.dragOffset = deltaX
+      //
+      // if (this.dragOffset > this.minSwipeDistance) {
+      //   this.handleMouseup()
+      //   this.advancePage()
+      // } else if (this.dragOffset < -this.minSwipeDistance) {
+      //   this.handleMouseup()
+      //   this.advancePage("backward")
+      // }
     },
     /**
      * Re-compute the width of the carousel and its slides
@@ -418,16 +419,17 @@ export default {
   mounted() {
     if (!this.$isServer) {
       window.addEventListener("resize", debounce(this.computeCarouselWidth, 16))
+      // REVIEW: disabled so there is no way a user can go back
 
-      if ("ontouchstart" in window) {
-        this.$el.addEventListener("touchstart", this.handleMousedown)
-        this.$el.addEventListener("touchend", this.handleMouseup)
-        this.$el.addEventListener("touchmove", this.handleMousemove)
-      } else {
-        this.$el.addEventListener("mousedown", this.handleMousedown)
-        this.$el.addEventListener("mouseup", this.handleMouseup)
-        this.$el.addEventListener("mousemove", this.handleMousemove)
-      }
+      // if ("ontouchstart" in window) {
+      //   this.$el.addEventListener("touchstart", this.handleMousedown)
+      //   this.$el.addEventListener("touchend", this.handleMouseup)
+      //   this.$el.addEventListener("touchmove", this.handleMousemove)
+      // } else {
+      //   this.$el.addEventListener("mousedown", this.handleMousedown)
+      //   this.$el.addEventListener("mouseup", this.handleMouseup)
+      //   this.$el.addEventListener("mousemove", this.handleMousemove)
+      // }
     }
 
     this.attachMutationObserver()
