@@ -13,8 +13,8 @@ export default {
     NavBar
   },
   watch: {
-    '$route.params': function() {
-      this.src = this.$route.params.src
+    '$route': function(from,to) {
+      if(this.$route.params.src) this.src = this.$route.params.src
     }
   },
   data: function data() {
