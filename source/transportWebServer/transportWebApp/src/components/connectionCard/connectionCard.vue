@@ -1,5 +1,5 @@
 <template>
-<div class='uk-flex-expand uk-flex uk-flex-middle' :class="{'animated infinite pulse': this.arrivesNow}">
+<div class='uk-flex-expand uk-flex uk-flex-middle'>
   <div class='uk-flex uk-flex-column connection--user-nearby--active' v-if="connection.triggered && !location.isUser && connection.colors.length > 0">
     <div class="flex-1 " :style="{'background' : color}" v-for="color in connection.colors">
     </div>
@@ -25,7 +25,7 @@
 
   </div>
   <div class='uk-flex-grow'></div>
-  <div class=" uk-float-right">
+  <div class=" uk-float-right" :class="{'animated infinite pulse': this.arrivesNow}">
     <h5 class="uk-margin-remove-bottom uk-text-center" v-if="getArrivalTimeFromNow().minutes() == 0">Now</h5>
     <h4 class="uk-margin-remove-bottom uk-text-center" v-else> {{getArrivalTimeFromNow().minutes() + "'" }}</h4>
     <small>arrives</small>
