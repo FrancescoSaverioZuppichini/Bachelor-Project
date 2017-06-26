@@ -58,7 +58,10 @@ class ApplicationStore extends Store {
       },
       createApplication(app) {
         return api.application.createApplication(app)
-          .then((data) => dispatcher.dispatch(new Action("CREATE_APPLICATION_SUCCESS", data)))
+          .then((data) => {
+            dispatcher.dispatch(new Action("CREATE_APPLICATION_SUCCESS", data))
+            app.toogle = false
+          })
           .catch((err) => console.log(err))
       },
       editApplication(app) {
