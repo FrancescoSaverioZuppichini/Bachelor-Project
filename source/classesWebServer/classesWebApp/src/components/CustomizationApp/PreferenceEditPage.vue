@@ -1,6 +1,6 @@
 <template>
 <div class="uk-container uk-margin-small-top ">
-  <div class="uk-card content  container--offset">
+  <div class="uk-card content container--offset">
     <h3 class='uk-margin-remove'> {{$store.state.preference.faculty.name_en}}</h3>
     <h5>Change Study Plan </h5>
     <div v-if="$store.state.preference.type" @click="$router.push({name:'study',params:{facultyId:$store.state.preference.faculty.id}})">
