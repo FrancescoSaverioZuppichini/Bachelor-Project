@@ -13,14 +13,6 @@ export default {
   components: {
 
   },
-  watch: {
-    '$route.path': function(to, from) {
-      //   if (to.length < from.length) this.transitionName = 'slide-right'
-      //   else {
-      //     this.transitionName = 'slide'
-      //   }
-    }
-  },
   name: 'app',
   data() {
     return {

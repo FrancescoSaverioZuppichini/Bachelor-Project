@@ -1,5 +1,5 @@
 <template>
-<div id="screen-nearby__container" class='animated infinite pulse' v-show="  $store.state.hasADisplayNearby()">
+<div id="screen-nearby__container" class='animated infinite pulse' v-show="$store.state.hasADisplayNearby()">
   <v-btn primary floating dark  @click.native="$router.push({name:'Display'})">
     <v-icon>important_devices</v-icon>
   </v-btn>

@@ -3,7 +3,11 @@
   <vue-pull-refresh :on-refresh="onRefresh" class='uk-flex-column uk-flex f-h'>
     <div class='uk-flex-column uk-flex f-h'>
       <display-wrapper class='uk-flex--grow' :displays="$store.state.nearbyDisplay.data"></display-wrapper>
-      
+    </div>
+    <div id="screen-reflesh__container">
+      <v-btn primary floating dark  @click.native="onRefresh()">
+        <v-icon>replay</v-icon>
+      </v-btn>
     </div>
   </vue-pull-refresh>
 </page>
@@ -28,15 +32,19 @@ export default {
   },
   methods: {
     onRefresh: function() {
-      // this.$store.actions.fetchApplications()
       const displays = this.$store.state.nearbyDisplay.data
-      // var displaysPromises = displays.map(display => this.$store.actions.fetchDisplay(display.id))
-      // console.log(this.$store.actions.fetchDisplays(displays.filter(disp => disp.id)))
+
       return this.$store.actions.fetchDisplays(displays.map(disp => disp.id))
 
     }
   }
 }
 </script>
-<style>
+<style scoped>
+#screen-reflesh__container {
+  position: absolute;
+  z-index: 3;
+  right: 16px;
+  bottom: 16px;
+}
 </style>

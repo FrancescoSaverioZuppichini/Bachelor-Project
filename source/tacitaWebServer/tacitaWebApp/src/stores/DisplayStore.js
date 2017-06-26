@@ -120,6 +120,7 @@ class BluetoothStore extends Store {
         dispatcher.dispatch(new Action("DISPLAY_LOST", { data }))
       },
       fetchDisplays(ids) {
+        if(!ids || ids.length <= 0) return
         dispatcher.dispatch(new Action("FETCH_DISPLAYS_LOADING"))
         return Promise.all(ids.map(id => this.fetchDisplay(id)))
       },

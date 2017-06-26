@@ -1,9 +1,10 @@
 <template>
 <div class='uk-card my-navigation__container uk-flex-center  uk-flex flex--center'>
     <div>
-      <v-btn flat class="grey--text text--darken-2 uk-margin-re" @click.native="$router.push({name:'Home'})" >
-        <v-icon  @click.native="$router.push({name:'Home'})" medium>home</v-icon>
+      <v-btn flat class="grey--text text--darken-2" @click.native="$router.push({name:'Home'})" >
+        <v-icon  medium>home</v-icon>
       </v-btn>
+    
       <!-- <i class="material-icons uk-margin-right">home</i>
       <i class="material-icons">settings</i> -->
     </div>

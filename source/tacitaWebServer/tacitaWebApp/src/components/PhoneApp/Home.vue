@@ -33,7 +33,6 @@ export default {
   watch: {
     'bluetooth': {
       handler: function(from, to) {
-        console.log(JSON.parse(JSON.stringify(to)));
         console.log('*************** BEACON *************');
         if (bluetooth.connected)
           this.$store.actions.beaconFound(bluetooth)
@@ -53,20 +52,14 @@ export default {
     }
   },
   mounted() {
-    // this.$store.actions.createOrFetchUser("zuppif2")
-    // .then(() => this.$store.actions.fetchApplications())
-    // .then(() => this.$store.actions.getMyApps())
+
     window.bluetooth = this.bluetooth
     window.user = this.user
-    // this.$store.actions.createOrFetchUser('android.ubicomp.usi@gmail.com')
 
-    // this.$store.actions.fetchApplications()
-    // this.$store.actions.getMe('zuppif')
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style >
 #bluetooth-trigger__container {
   position: absolute;

@@ -2,7 +2,7 @@
 <nav class="uk-navbar-container my-nav-bar uk-box-shadow" uk-navbar>
   <div class="uk-navbar-left">
     <ul class="uk-navbar-nav">
-      <a class="uk-navbar-item uk-logo" v-if="$route.name == 'Home' || 'Preference'" @click="$router.push({name:'Home'})">Tacita</a>
+      <a class="uk-navbar-item uk-logo" v-if="$route.name == 'Home' || $route.name == 'Preference'" @click="$router.push({name:'Home'})">Tacita</a>
       <!-- <a v-else> -->
         <v-btn icon="icon" class="white--text" @click.native="$router.go(-1)" v-else>
           <v-icon>arrow_back</v-icon>
