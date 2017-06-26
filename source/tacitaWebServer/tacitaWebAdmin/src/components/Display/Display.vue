@@ -43,7 +43,7 @@
       </div>
       <div class='uk-flex'>
         <div v-for="application in $store.state.applications.data" class='uk-margin-small-right'>
-          <v-btn icon @click.native="$store.actions.changeApp(data,application)"  :title="application.name" uk-tooltip>
+          <v-btn icon @click.native="$store.actions.changeApp(data,application)" :title="application.name" uk-tooltip>
             <v-icon class="grey--text text--darken-2 ">{{application.material_icon}}</v-icon>
           </v-btn>
           <!-- <div uk-dropdown>{{application.name}}</div> -->
@@ -56,6 +56,7 @@
     <div class='uk-margin-small-bottom'>
 
     </div>
+    <hr v-if="beacons.length > 0" />
     <!-- beacons  -->
     <draggable v-model="beacons" class='display-beacon__container uk-flex uk-grid-small' :options="{group:'people',filter: '.ignore'}" uk-grid @start="start" @end="end">
       <!-- <div v-show="beacons.length <= 0" class='disabled'>
@@ -64,7 +65,7 @@
       <div v-for="beacon in beacons" :key='beacon'>
         <div class='beacon-icon'>
         </div>
-        <div uk-dropdown="mode: hover">
+        <div uk-dropdown="mode: click">
           <div class='uk-flex uk-flex-column'>
             <div class='uk-margin-small-bottom'>
               <p class='uk-margin-remove'>
@@ -140,5 +141,10 @@ export default {
 <style>
 .display-beacon__container {
   min-height: 24px;
+}
+
+hr {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
 }
 </style>

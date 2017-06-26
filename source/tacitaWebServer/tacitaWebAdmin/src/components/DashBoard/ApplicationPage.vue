@@ -15,9 +15,9 @@
     <div uk-modal="center: true" class="uk-modal uk-open uk-flex uk-flex-center uk-flex-middle" v-show="$store.state.showCreateDisplayModal">
       <div class="uk-modal-dialog uk-modal-body">
         <h4>Create a new application?</h4>
-        <input v-model="newApplication.name" class="uk-input uk-margin-bottom" type="text" placeholder="Name" :class="{'uk-form-danger':   newApplication.toogle && newApplication.name == ''}">
-        <input v-model="newApplication.material_icon" class="uk-input uk-margin-bottom" type="text" placeholder="Icon" :class="{'uk-form-danger':   newApplication.toogle && newApplication.material_icon == ''}">
-        <input v-model="newApplication.url" class="uk-input uk-margin-bottom" type="text" placeholder="Url" :class="{'uk-form-danger':   newApplication.toogle && newApplication.url == ''}">
+        <input v-model="newApplication.name" class="uk-input uk-margin-bottom" type="text" placeholder="Name" :class="{'uk-form-danger':   newApplication.toogle && (newApplication.name == null || newApplication.name == '')}">
+        <input v-model="newApplication.material_icon" class="uk-input uk-margin-bottom" type="text" placeholder="Icon" :class="{'uk-form-danger':   newApplication.toogle && (newApplication.material_icon == null || newApplication.material_icon == '' )}">
+        <input v-model="newApplication.url" class="uk-input uk-margin-bottom" type="text" placeholder="Url" :class="{'uk-form-danger':   newApplication.toogle && (newApplication.url == null || newApplication.url == '')}">
         <hr />
         <p>
           Optional
@@ -52,9 +52,9 @@ export default {
       this.newApplication = {
         application_id: null,
         toogle: false,
-        name: '',
-        material_icon: '',
-        url: ''
+        name: null,
+        material_icon: null,
+        url: null
 
       }
     }
@@ -73,6 +73,7 @@ export default {
   methods: {
     createApplication() {
       this.newApplication.toogle = true
+
       this.$store.actions.createApplication(this.newApplication)
 
     }
