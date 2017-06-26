@@ -10,10 +10,12 @@
       <resource-transition-wrapper>
         <div v-for="stationboard in stationboards" :key='stationboard'>
           <resource @click.native="toogleStationboard(stationboard)" :toogle="stationboard.toogle">
-            <div clas='uk-margin-small-right'>
-              <h4 class='uk-margin-remove'>{{stationboard.bus.number}}</h4>
+            <div class='uk-flex uk-flex-middle'>
+              <h3 class='uk-margin-remove'>{{stationboard.bus.number}}</h3>
+              <div class='uk-margin-left'>
+                <p class="uk-margin-remove">{{stationboard.to}}</p>
+              </div>
             </div>
-            <h6 class='uk-margin-remove'>{{stationboard.to}}</h6>
           </resource>
         </div>
       </resource-transition-wrapper>

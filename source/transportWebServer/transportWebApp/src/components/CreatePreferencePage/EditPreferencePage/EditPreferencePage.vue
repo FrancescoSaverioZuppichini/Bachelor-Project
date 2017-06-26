@@ -20,11 +20,12 @@
       <div v-for="bus in $store.state.preference.buses">
         <div class="uk-card uk-card-default uk-card-body my-card--padding" @click="$router.push({ name: 'direction'})">
           <div class='uk-flex uk-flex-middle'>
-            <div clas='uk-margin-small-right'>
-              <h4 class='uk-margin-remove'>{{bus.number}}</h4>
+            <h4 class='uk-margin-remove'>{{bus.number}}</h4>
+            <div class='uk-margin-left'>
+              <p class="uk-margin-remove">{{bus.to}}</p>
             </div>
-            <h6 class='uk-margin-remove'>{{bus.to}}</h6>
           </div>
+
         </div>
       </div>
 

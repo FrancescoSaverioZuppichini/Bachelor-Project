@@ -49,8 +49,9 @@ export default {
     onRefresh: function() {
       console.log('onRefresh');
       // this.$store.actions.fetchApplications()
-
       return this.$store.actions.fetchApplications()
+        .then(() =>
+          this.$store.actions.getMyApps())
 
     }
   }

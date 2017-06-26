@@ -19,3 +19,4 @@ DerivedData
 *.xccheckout
 *.xcworkspace
 !default.xcworkspace
+*.pins

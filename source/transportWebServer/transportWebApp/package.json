@@ -9,7 +9,7 @@
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
-    "watch": "cd ../Public/js && rm * && cd ../../transportWebApp && NODE_ENV=DEBUG webpack --progress --colors --watch --config build/webpack.prod.conf.js"
+    "watch": "cd ../Public/js/ && rm * && cd ../../transportWebApp && NODE_ENV=DEBUG webpack --progress --colors --watch --config build/webpack.prod.conf.js"
   },
   "dependencies": {
     "animate.css": "^3.5.2",

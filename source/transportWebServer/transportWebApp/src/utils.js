@@ -11,7 +11,7 @@ export default {
 
   showMap(coords, station) {
     var result = Object.assign({}, station.googleMaps)
-    console.log(result);
+
     var directionsService = new google.maps.DirectionsService();
     var directionsDisplay = new google.maps.DirectionsRenderer();
 
