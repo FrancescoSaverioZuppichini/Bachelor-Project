@@ -1,5 +1,5 @@
 <template>
-<div class="uk-container uk-margin-small-top ">
+<div class="uk-container uk-margin-small-top container--offset ">
   <div class="uk-card content">
     <h3 class='uk-margin-remove'> {{$store.state.preference.faculty.name_en}}</h3>
     <h5>Change Study Plan </h5>

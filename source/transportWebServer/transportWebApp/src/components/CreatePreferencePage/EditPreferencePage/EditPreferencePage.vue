@@ -1,5 +1,5 @@
 <template>
-<div class="uk-container uk-margin-small-top container--offset">
+<div class="uk-container uk-margin-small-top">
   <div class="uk-card content bottom--offset">
     <h3 class='uk-margin-remove'>
 <span class="" uk-icon="icon: location;ratio: 1.3"></span>   {{$store.state.preference.station.name}}</h3>
