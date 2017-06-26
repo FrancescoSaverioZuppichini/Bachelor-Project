@@ -36,6 +36,6 @@ export default {
 .preference__actions {
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 8px;
 }
 </style>
