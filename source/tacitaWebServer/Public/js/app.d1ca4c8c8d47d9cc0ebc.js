@@ -1250,10 +1250,13 @@ __WEBPACK_IMPORTED_MODULE_1_vue__["default"].use(VueTouch, {
   },
   methods: {
     onRefresh: function onRefresh() {
+      var _this = this;
+
       console.log('onRefresh');
 
-
-      return this.$store.actions.fetchApplications();
+      return this.$store.actions.fetchApplications().then(function () {
+        return _this.$store.actions.getMyApps();
+      });
     }
   }
 });
@@ -1421,13 +1424,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
-
-    this.$store.actions.createOrFetchUser("zuppif2").then(function () {
-      return _this2.$store.actions.fetchApplications();
-    }).then(function () {
-      return _this2.$store.actions.getMyApps();
-    });
     window.bluetooth = this.bluetooth;
     window.user = this.user;
   }
@@ -1961,7 +1957,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -4168,4 +4164,4 @@ if(false) {
 
 /***/ })
 ]),[128]);
-//# sourceMappingURL=app.bb00ba5e63bfa7dd6e79.js.map
+//# sourceMappingURL=app.d1ca4c8c8d47d9cc0ebc.js.map
