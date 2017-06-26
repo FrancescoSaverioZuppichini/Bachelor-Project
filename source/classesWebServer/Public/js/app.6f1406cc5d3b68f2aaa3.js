@@ -2073,7 +2073,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Preference",
-  props: ["preference"],
+  props: ["preference", 'preview'],
   data: function data() {
     return {};
   }
@@ -3189,7 +3189,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.preference__actions {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n}\n", ""]);
 
 // exports
 
@@ -3329,7 +3329,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, ".fade-enter-active, .fade-leave-active {\n  transition: opacity 1s\n}\n\n.fade-enter, .fade-leave-to\n/* .fade-leave-active in <2.1.8 */\n\n{\n  opacity: 0\n}\n\n.f-w {\n  width: 100%;\n}\n\n.f-h {\n  height: 100%;\n}\n\n.uk-flex--grow {\n  flex-grow: 99;\n}\n\n.f-v {\n  height: 100vh;\n}\n\n.btn--floating{\nz-index: 99;\n}\n.uk-section-small {\n  padding-top: 16px !important;\n  padding-bottom: 16px !important;\n}\n\n.bottom--offset {\n  margin-bottom: 70px;\n}\n\n.icon--circle {\n  width: 25px;\n  height: 25px;\n  border-radius: 50%;\n  text-align: center;\n  line-height: 25px;\n  vertical-align: middle;\n  border: 1px solid black;\n}\n\n.uk-button-link:focus, .uk-button-link:hover {\n  text-decoration: none;\n}\n\n.toogle {\n  color: black !important\n}\n\n.btn--toogle {\n  border: 1px solid black !important;\n  color: black;\n}\n\n.content {\n  margin-bottom: 40px;\n}\n\n.my-card--padding {\n  padding: 16px;\n}\n\n.navigation__actions {\n  position: absolute;\n  height: 40px;\n  background-color: white;\n  position: fixed;\n  z-index: 99;\n  bottom: 0;\n  width: 100%;\n  left: 0;\n  right: 0\n}\n\n.flex--center {\n  display: -ms-flexbox;\n  display: -webkit-flex;\n  display: flex;\n  -ms-flex-align: center;\n  -webkit-align-items: center;\n  -webkit-box-align: center;\n  align-items: center;\n}\n\n.absolute--center {\n  position: absolute;\n  top: 50%;\n  left: auto;\n  width: 100%;\n}\n", ""]);
+exports.push([module.i, ".fade-enter-active, .fade-leave-active {\n  transition: opacity 1s\n}\n\n.fade-enter, .fade-leave-to\n/* .fade-leave-active in <2.1.8 */\n\n{\n  opacity: 0\n}\n\n.f-w {\n  width: 100%;\n}\n\n.f-h {\n  height: 100%;\n}\n\n.uk-flex--grow {\n  flex-grow: 99;\n}\n\n.f-v {\n  height: 100vh;\n}\n\n.btn--floating{\nz-index: 99;\n}\n.uk-section-small {\n  padding-top: 16px !important;\n  padding-bottom: 16px !important;\n}\n\n.bottom--offset {\n  margin-bottom: 70px;\n}\n\n.icon--circle {\n  width: 25px;\n  height: 25px;\n  border-radius: 50%;\n  text-align: center;\n  line-height: 25px;\n  vertical-align: middle;\n  border: 1px solid black;\n}\n\n.uk-button-link:focus, .uk-button-link:hover {\n  text-decoration: none;\n}\n\n.toogle {\n  color: black !important\n}\n\n.btn--toogle {\n  border: 1px solid black !important;\n  color: black;\n}\n\n.content {\n  margin-bottom: 40px;\n}\n\n.my-card--padding {\n  padding: 16px;\n}\n\n.navigation__actions {\n  position: absolute;\n  height: 40px;\n  background-color: white;\n  position: fixed;\n  z-index: 99;\n  bottom: 0;\n  width: 100%;\n  left: 0;\n  right: 0\n}\n\n.flex--center {\n  display: -ms-flexbox;\n  display: -webkit-flex;\n  display: flex;\n  -ms-flex-align: center;\n  -webkit-align-items: center;\n  -webkit-box-align: center;\n  align-items: center;\n}\n\n.absolute--center {\n  position: absolute;\n  top: 50%;\n  left: auto;\n  width: 100%;\n}\n\n.container--offset {\n  margin-bottom: 18px !important;\n}\n", ""]);
 
 // exports
 
@@ -5049,8 +5049,8 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "uk-card uk-card-default uk-card-body"
-  }, [_c('div', {
-    staticClass: "uk-float-right uk-flex"
+  }, [(!_vm.preview) ? _c('div', {
+    staticClass: "preference__actions uk-flex"
   }, [_c('div', [_c('v-btn', {
     staticClass: "grey--text text--darken-2",
     attrs: {
@@ -5072,7 +5072,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$store.state.currentPreference = _vm.preference
       }
     }
-  }, [_c('v-icon', [_vm._v("delete")])], 1)], 1)]), _vm._v(" "), (_vm.preference.faculty) ? _c('h4', {
+  }, [_c('v-icon', [_vm._v("delete")])], 1)], 1)]) : _vm._e(), _vm._v(" "), (_vm.preference.faculty) ? _c('h4', {
     staticClass: "uk-margin-remove"
   }, [_vm._v(_vm._s(_vm.preference.faculty.name_en))]) : _vm._e(), _vm._v(" "), (_vm.preference.studyType) ? _c('h6', {
     staticClass: "uk-text-meta uk-margin-remove"
@@ -5138,10 +5138,10 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('transition-group', {
-    staticClass: "uk-flex uk-flex-column uk-grid-small",
+    staticClass: "uk-flex uk-flex-column uk-grid-small container--offset",
     attrs: {
       "name": "custom-classes-transition",
-      "enter-active-class": "animated fadeInUp",
+      "enter-active-class": "",
       "uk-grid": ""
     }
   }, [_vm._t("default")], 2)
@@ -5226,8 +5226,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h3', [_vm._v("create preference?")]), _vm._v(" "), _c('p', {
     staticClass: "uk-text-meta"
   }, [_vm._v("This is how it's gonna look")]), _vm._v(" "), _c('preference', {
+    staticClass: "uk-margin-bottom",
     attrs: {
-      "preference": _vm.$store.state.preference
+      "preference": _vm.$store.state.preference,
+      "preview": true
     }
   }), _vm._v(" "), _c('v-btn', {
     attrs: {
@@ -6112,4 +6114,4 @@ if(false) {
 
 /***/ })
 ]),[352]);
-//# sourceMappingURL=app.5278870be099ae048e01.js.map
+//# sourceMappingURL=app.6f1406cc5d3b68f2aaa3.js.map

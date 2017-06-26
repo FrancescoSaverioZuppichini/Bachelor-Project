@@ -1,6 +1,6 @@
 <template>
 <div class="uk-card uk-card-default uk-card-body">
-  <div class="uk-float-right uk-flex">
+  <div class="preference__actions uk-flex" v-if="!preview">
     <div>
       <v-btn icon="icon" class="grey--text text--darken-2" @click.native="$store.actions.tooglePreferenceEdit(preference)">
         <v-icon>mode_edit</v-icon>
@@ -24,7 +24,7 @@
 <script>
 export default {
   name: "Preference",
-  props: ["preference"],
+  props: ["preference",'preview'],
   data: function data() {
     return {
 
@@ -33,4 +33,9 @@ export default {
 }
 </script>
 <style>
+.preference__actions {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
 </style>

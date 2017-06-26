@@ -3,7 +3,7 @@
   <div class="uk-modal-dialog uk-modal-body">
     <h3>create preference?</h3>
     <p class="uk-text-meta">This is how it's gonna look</p>
-    <preference :preference="$store.state.preference"></preference>
+    <preference :preference="$store.state.preference" :preview="true" class='uk-margin-bottom'></preference>
     <v-btn flat @click.native="$store.state.showConfirmationModal = false">Cancel</v-btn>
     <v-btn primary dark @click.native="$store.actions.addPreference($store.PreferenceStore.makeQueryFromPreference())" class='uk-float-right'>Yes</v-btn>
   </div>

@@ -96,3 +96,7 @@ z-index: 99;
   left: auto;
   width: 100%;
 }
+
+.container--offset {
+  margin-bottom: 18px !important;
+}
