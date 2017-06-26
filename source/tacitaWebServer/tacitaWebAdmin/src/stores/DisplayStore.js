@@ -45,9 +45,12 @@ class DisplayStore extends Store {
   }
 
   onToogleDisplayApplicationsEdit({ display }) {
-    console.log(display);
     if (display.editApplications == undefined) Vue.set(display, 'editApplications', false)
     display.editApplications = !display.editApplications
+  }
+
+  onEditDisplay(display) {
+    this.onToogleDisplayApplicationsEdit(display)
   }
 
   reduce(action) {
@@ -57,7 +60,8 @@ class DisplayStore extends Store {
       CREATE_DISPLAY_SUCCESS: this.onCreateDisplaySuccess,
       DISPLAY_CHANGE_APP: this.onDisplayChangeApp,
       CHANGE_DISPLAY_APP_SUCCESS: this.onChangeDisplayAppSuccess,
-      TOOGLE_DISPLAY_APPLICATIONS_EDIT: this.onToogleDisplayApplicationsEdit
+      TOOGLE_DISPLAY_APPLICATIONS_EDIT: this.onToogleDisplayApplicationsEdit,
+      TOOGLE_EDIT_DISPLAY: this.onEditDisplay
 
     })
   }
@@ -77,17 +81,24 @@ class DisplayStore extends Store {
           .then(() => dispatcher.dispatch(new Action('DELETE_DISPLAY_SUCCESS', { display })))
       },
       changeApp(display, app) {
+        for (let dispApp of display.apps) {
+          if (dispApp.id == app.id) return dispatcher.dispatch(new Action("CHANGE_DISPLAY_APP_SUCCESS", { display, app }))
+        }
+
         return api.display.changeApp(display, app)
           .then((data) => dispatcher.dispatch(new Action("CHANGE_DISPLAY_APP_SUCCESS", { display, app })))
           .catch((err) => console.log(err))
       },
       toogleDisplayApplicationsEdit(display) {
         dispatcher.dispatch(new Action('TOOGLE_DISPLAY_APPLICATIONS_EDIT', { display }))
-        }
+      },
+      editDisplay(display) {
+        dispatcher.dispatch(new Action('TOOGLE_EDIT_DISPLAY', { display }))
       }
     }
   }
+}
 
 
-  const displayStore = new DisplayStore()
-  export default displayStore
+const displayStore = new DisplayStore()
+export default displayStore

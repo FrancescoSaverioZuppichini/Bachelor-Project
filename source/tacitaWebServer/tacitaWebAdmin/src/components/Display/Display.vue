@@ -12,7 +12,7 @@
       <div uk-dropdown="mode: click;pos: bottom-right">
         <ul class="uk-nav uk-dropdown-nav">
           <li><a @click="$store.actions.deleteDisplay(data)">Remove</a></li>
-          <li><a>Edit</a></li>
+          <li><a @click="$store.actions.editDisplay(data)">Edit</a></li>
         </ul>
       </div>
     </div>
@@ -20,28 +20,34 @@
     <div class='uk-flex'>
       <div class="uk-flex" v-for="application in data.apps">
         <div class='uk-flex uk-flex-middle'>
-          <v-icon class="grey--text text--darken-2 uk-margin-right">{{application.material_icon}}</v-icon>
+          <v-icon class="grey--text text--darken-2 uk-margin-small-right">{{application.material_icon}}</v-icon>
           <h5 class='uk-margin-remove'>{{application.name.toUpperCase()}}</h5>
         </div>
       </div>
       <div class='uk-flex--grow'>
       </div>
-      <div v-if="data.editApplications">
+      <!-- <div v-if="!data.editApplications">
         <v-btn icon class='grey--text text--darken-2' @click.native="$store.actions.toogleDisplayApplicationsEdit(data)" v-if="!data.editApplications">
           <v-icon>edit</v-icon>
         </v-btn>
         <v-btn icon class='grey--text text--darken-2' @click.native="$store.actions.toogleDisplayApplicationsEdit(data)" v-else>
           <v-icon>keyboard_arrow_up</v-icon>
         </v-btn>
-      </div>
+      </div> -->
     </div>
     <div v-if="data.editApplications">
-      Change application
+      <div class='uk-margin-small-bottom uk-margin-small-top'>
+        <p class='uk-text-meta uk-margin-remove'>
+          Change application
+        </p>
+      </div>
       <div class='uk-flex'>
-        <div v-for="application in $store.state.applications.data">
-          <v-btn icon @click.native="$store.actions.changeApp(data,application)">
-            <v-icon class="grey--text text--darken-2 uk-margin-right">{{application.material_icon}}</v-icon>
+        <div v-for="application in $store.state.applications.data" class='uk-margin-small-right'>
+          <v-btn icon @click.native="$store.actions.changeApp(data,application)"  :title="application.name" uk-tooltip>
+            <v-icon class="grey--text text--darken-2 ">{{application.material_icon}}</v-icon>
           </v-btn>
+          <!-- <div uk-dropdown>{{application.name}}</div> -->
+
         </div>
         <div class='uk-flex--grow'>
         </div>

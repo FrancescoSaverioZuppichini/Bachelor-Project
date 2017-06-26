@@ -15,13 +15,20 @@
     <div uk-modal="center: true" class="uk-modal uk-open uk-flex uk-flex-center uk-flex-middle" v-show="$store.state.showCreateDisplayModal">
       <div class="uk-modal-dialog uk-modal-body">
         <h4>Create a new application?</h4>
-        <input v-model="newApplication.name" class="uk-input uk-margin-bottom" type="text" placeholder="Name">
-        <input v-model="newApplication.material_icon" class="uk-input uk-margin-bottom" type="text" placeholder="Icon">
-        <input v-model="newApplication.url" class="uk-input uk-margin-bottom" type="text" placeholder="Url">
+        <input v-model="newApplication.name" class="uk-input uk-margin-bottom" type="text" placeholder="Name" :class="{'uk-form-danger':   newApplication.toogle && newApplication.name == ''}">
+        <input v-model="newApplication.material_icon" class="uk-input uk-margin-bottom" type="text" placeholder="Icon" :class="{'uk-form-danger':   newApplication.toogle && newApplication.material_icon == ''}">
+        <input v-model="newApplication.url" class="uk-input uk-margin-bottom" type="text" placeholder="Url" :class="{'uk-form-danger':   newApplication.toogle && newApplication.url == ''}">
+        <hr />
+        <p>
+          Optional
+        </p>
+
+        <input v-model="newApplication.description_en" class="uk-input uk-margin-bottom" type="text" placeholder="Description English">
+        <input v-model="newApplication.description_it" class="uk-input uk-margin-bottom" type="text" placeholder="Description Italian">
 
         <div>
           <v-btn default flat @click.native="$store.state.showCreateDisplayModal = false">Cancel</v-btn>
-          <v-btn primary dark @click.native="$store.actions.createApplication(newApplication)">Yes</v-btn>
+          <v-btn primary dark @click.native="createApplication()">Yes</v-btn>
         </div>
       </div>
     </div>
@@ -42,14 +49,32 @@ export default {
   },
   watch: {
     '$store.state.showCreateDisplayModal': function(from, to) {
-      this.newApplication = {}
+      this.newApplication = {
+        application_id: null,
+        toogle: false,
+        name: '',
+        material_icon: '',
+        url: ''
+
+      }
     }
   },
   data: function data() {
     return {
       newApplication: {
-        application_id: null
-      }
+        application_id: null,
+        toogle: false
+
+      },
+      toogle: false
+
+    }
+  },
+  methods: {
+    createApplication() {
+      this.newApplication.toogle = true
+      this.$store.actions.createApplication(this.newApplication)
+
     }
   }
 }

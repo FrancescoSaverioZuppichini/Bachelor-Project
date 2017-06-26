@@ -4,10 +4,9 @@
     <div class='uk-margin-small-bottom'>
       <div class='uk-flex uk-flex-middle' v-if="!data.edit">
         <v-icon class="grey--text text--darken-2 uk-margin-small-right">{{data.material_icon}}</v-icon>
-
         <h5 class='uk-margin-remove'>{{`${data.name}`}}</h5>
       </div>
-      <div v-if="data.edit" class='uk-margin-small-top'>
+      <div v-if="data.edit" class='header--margin-fix'>
         <input v-model="editApplication.name" class="uk-input uk-form-small uk-margin-bottom" type="text" placeholder="Change name">
         <input v-model="editApplication.material_icon" class="uk-input uk-form-small uk-margin-bottom" type="text" placeholder="Change icon">
       </div>
@@ -26,7 +25,7 @@
         {{data.description_en}}
       </div>
     </div>
-    <div v-if="data.edit" class='uk-margin-top uk-flex'>
+    <div v-if="data.edit" class=' uk-flex'>
       <v-btn default flat @click.native="toogleEdit">Cancel</v-btn>
       <div class='uk-flex--grow'>
       </div>
@@ -63,4 +62,8 @@ export default {
 }
 </script>
 <style>
+
+.header--margin-fix{
+  margin-top: 40px;
+}
 </style>
