@@ -84,6 +84,7 @@ export default {
     showMap() {
       this.toogleMap = !this.toogleMap
       utils.showMap(this.$store.state.display.coords, this.station)
+
     },
     showPassList(connection) {
       this.$store.actions.getPassList(connection)
@@ -100,6 +101,7 @@ export default {
       return this.$store.LocationStore.getAvailableConnections(this.station, this.user)
     },
     hasBuses() {
+      if(!this.station.stationboard) return
       return this.station.stationboard.filter(stationboard => stationboard.stop != undefined).length > 0
     }
   }

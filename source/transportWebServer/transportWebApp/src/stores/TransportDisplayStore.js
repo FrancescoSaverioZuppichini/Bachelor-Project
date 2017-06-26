@@ -12,6 +12,7 @@ class TransportDisplayStore extends Store {
   constructor() {
     super()
   }
+
   onFetchDisplaySuccess({ display }) {
     utils.getCurrentPosition()
       .then(({ coords }) => {
