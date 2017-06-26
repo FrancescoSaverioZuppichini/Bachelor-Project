@@ -1,6 +1,6 @@
 <template>
 <div class="full-h uk-flex uk-flex-column uk-background-muted" id='display'>
-  <h4 class="uk-text-center uk-margin-small-top" v-if="$store.state.lastQuery.studyType">{{`${$store.state.lastQuery.studyType.name_en}, ${$store.state.lastQuery.year}th year` }}</h4>
+  <h4 class="uk-text-center uk-margin-small-top" v-if="$store.state.lastQuery.studyType">{{`${$store.state.lastQuery.studyType}, ${$store.state.lastQuery.year}th year` }}</h4>
   <div class="uk-flex uk-margin-top uk-margin-left f-h" uk-grid>
     <div class="uk-width-1-1 uk-width-3-4@m f-h">
       <div id='fullcalendar'></div>
@@ -54,26 +54,22 @@ export default {
     const appId = 1
     this.$store.actions.fetchDisplay(displayId)
     this.createCalendar()
-    this.$store.actions.fetchFaculties()
-    this.$store.actions.fetchYears()
 
     var calHeight = $(window).height() * 0.90;
     this.updateCalendarSize(calHeight)
 
-    // .fc-slats > table {
-    //   height: 800px;
-    // }
-    // $('#fullcalendar').fullCalendar('option', 'aspectRatio', 1);
-    // $('#fullcalendar').fullCalendar('option', 'height', calHeight);
-    // $('#fullcalendar').fullCalendar('option', 'height', calHeight);
-
-
     window.onresize = () => {
       var calHeight = $(window).height() * 0.90;
       this.updateCalendarSize(calHeight)
-      console.log('dicoane');
-    };
+    }
 
+    var promises = [this.$store.actions.fetchFaculties(), this.$store.actions.fetchYears()]
+
+    Promise.all(promises)
+      .then(() => {
+        // little hack, create a random query ;)
+        this.$store.state.schedules[0]()
+      })
     // test user
     // setTimeout(() => {
     //   this.$store.dispatcher.dispatch(new Action('USER_NEARBY', {
@@ -159,6 +155,11 @@ a.fc-time-grid-event.fc-v-event.fc-event {
   line-height: 1.428571429;
   border-radius: 15px;
 }
+
+
+
+
+
 
 
 

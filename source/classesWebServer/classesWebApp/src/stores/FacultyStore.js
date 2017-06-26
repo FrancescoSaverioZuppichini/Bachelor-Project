@@ -27,7 +27,7 @@ class FacultyStore extends Store {
     return {
       fetchFaculties() {
         dispatcher.dispatch(new Action("FETCH_FACULTY_LOADING"))
-        api.faculty.fetchFaculties()
+        return api.faculty.fetchFaculties()
           .then(({ data }) => {
             dispatcher.dispatch(new Action("FETCH_FACULTY_SUCCESS", { data }))
           })

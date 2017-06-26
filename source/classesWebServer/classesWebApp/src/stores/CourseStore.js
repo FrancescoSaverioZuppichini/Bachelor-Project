@@ -17,9 +17,13 @@ class CourseStore extends Store {
 
   fetchCoursesSuccess({ data, facultyId, year, type, studyType, color }) {
     $('#fullcalendar').fullCalendar('removeEvents')
-    this.state.lastQuery = { year, type, studyType: this.state.preference.studyType }
+
+    this.state.lastQuery = { year, type, studyType: data[0].type_name.name_en }
+
     this.state.courses.data = data
+
     router.push({ name: 'Display' })
+
     this.state.courses.data.forEach(course => this.sStore.actions.fetchSchedules(course,color))
   }
 
@@ -27,20 +31,13 @@ class CourseStore extends Store {
     course.schedules = data
     course.events = []
 
-    // course.schedules = [{
-    //   start: '2017-06-16T09:30:00+02:00',
-    //   end: '2017-06-16T12:15:00+02:00',
-    //   title: 'diocane',
-    //   font_color: 'black',
-    //   background_color: 'white'
-    //
-    // }]
-
     for (let schedule of course.schedules) {
+
       if (color) {
         schedule.font_color = 'white'
         schedule.background_color = color
       }
+
       const event = {
         start: schedule.start,
         title: course.name_en,

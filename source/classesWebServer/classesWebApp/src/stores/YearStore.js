@@ -41,7 +41,7 @@ class YearStore extends Store {
     return {
       fetchYears() {
         dispatcher.dispatch(new Action("FETCH_YEARS_LOADING"))
-        api.year.fetchYears()
+        return api.year.fetchYears()
           .then(({ data }) => {
             dispatcher.dispatch(new Action("FETCH_YEARS_SUCCESS", { data }))
           })

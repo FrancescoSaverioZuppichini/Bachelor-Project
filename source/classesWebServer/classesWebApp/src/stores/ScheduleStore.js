@@ -6,7 +6,7 @@ import router from '../router/index.js'
 // TODO put it into a config file for easy access
 const options = {
   THRESHOLD: 1000,
-  REPEAT_EVERY: 200000
+  REPEAT_EVERY: 1000 * 60 * 5 //5 minutes
 }
 
 class ScheduleStore extends Store {
@@ -32,16 +32,17 @@ class ScheduleStore extends Store {
   }
 
   randomCourseSearchSchedule() {
-    this.sStore.actions.fetchCourses(this.createRandomQuery())
+    const randomQuery = this.createRandomQuery()
+
+    this.sStore.actions.fetchCourses(randomQuery)
   }
 
   initialiaze() {
-
-    if(this.sStore.state.isInDisplay) this.state.scheduledIds.push(setTimeout(() => { this.sStore.actions.startSchedules() }, options.THRESHOLD))
+    if (this.sStore.state.isInDisplay) this.state.scheduledIds.push(setTimeout(() => { this.sStore.actions.startSchedules() }, options.THRESHOLD))
   }
 
   startSchedules() {
-    this.state.schedules.forEach(schedule => this.state.scheduledIds.push(setInterval(schedule, options.REPEAT_EVERY)))
+    this.state.schedules.forEach(schedule => this.state.scheduledIds.push(setTimeout(schedule, options.REPEAT_EVERY)))
   }
 
   onUserInteraction() {
