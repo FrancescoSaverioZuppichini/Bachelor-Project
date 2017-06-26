@@ -1,9 +1,7 @@
 <template>
 <!-- <transition name="fade"> -->
 <div class="uk-card uk-card-default station-card__connection" :class="{'animated shake':station.openFeedback}" v-show="show">
-
   <div class="uk-card-body my-card--padding">
-
     <div class='uk-flex uk-flex-middle'>
       <v-icon large class='uk-margin-right'>place</v-icon>
       <h4 class='uk-margin-remove'>{{station.name}}</h4>
@@ -25,17 +23,14 @@
       </v-btn>
     </div>
     <hr v-if="!toogleMap" />
-
     <div class="uk-flex uk-flex-column uk-margin-top" uk-grid v-if="!toogleMap && !toogleBusList">
       <div v-if="!hasBuses">
         <div class="uk-text-center uk-flex-center	 uk-flex uk-card uk-card-body uk-card-body-small">
           <v-icon>directions_bus</v-icon>
           <div class='uk-margin-small-left'>
             <h5 class='uk-margin-remove'>No buses</h5>
-
           </div>
         </div>
-
       </div>
       <div v-for="connection in station.stationboard" v-if="station.stationboard">
         <connection-card :connection="connection" behavior="list" :location="station" @click.native='showPassList(connection)' />
@@ -45,7 +40,6 @@
   </div>
   <div :id="station.id + 'map'" class='map' v-show="toogleMap">
   </div>
-
 </div>
 <!-- </transition> -->
 </template>

@@ -4150,7 +4150,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\n.preference__actions {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n}\n", ""]);
+exports.push([module.i, "\n.preference__actions {\n  position: absolute;\n  top: 20px;\n  right: 8px;\n}\n", ""]);
 
 // exports
 
@@ -4388,7 +4388,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".overflow--scroll {\n  overflow: scroll;\n}\n\n.uk-card-body-small {\n  padding: 20px !important;\n}\n\n.padding--zero {\n  padding: 0 !important;\n}\n\n.uk-button-default {\n  background-color: white !important;\n}\n\n.uk-button-borderless {\n  border: none !important;\n}\n\n.uk-flex-grow {\n  flex-grow: 99;\n}\n\n.my-card--padding {\n  padding: 24px !important;\n}\n\n.dummy__text {\n  height: 16px;\n  width: 100%;\n}\n\n.dummy__text--small {\n  height: 14px;\n  width: 100%;\n}\n\n.dummy__bus {\n  width: 24px;\n  height: 24px;\n}\n\n.btn--huge {\n  height: 4.5rem !important;\n  width: 4.5rem !important;\n}\n\n.icon--huge {\n  font-size: 6rem;\n  height: 3rem;\n}\n\n.flex-1 {\n  flex: 1;\n}\n\n.f-v {\n  height: 100vh;\n}\n\n.uk-flex--grow {\n  flex-grow: 99;\n}\n\n.dummy--background-color {\n  background-color: rgb(246, 246, 246) !important;\n}\n\n.my-card__close {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n.fade-cards-enter-active, .fade-cards-leave-active {\n  transition: opacity 0.5s\n}\n\n.fade-cards-enter, .fade-cards-leave-to, .fade-cards-leave-active {\n  opacity: 0\n}\n\n.bottom--offset {\n  margin-bottom: 70px;\n}\n\n.absolute--center {\n  position: absolute;\n  top: 50%;\n  left: auto;\n  width: 100%;\n}\n\n.navigation__actions {\n  position: absolute;\n  height: 40px;\n  background-color: white;\n  position: fixed;\n  z-index: 99;\n  bottom: 0;\n  width: 100%;\n  left: 0;\n  right: 0\n}\n\n.flex--center {\n  display: -ms-flexbox;\n  display: -webkit-flex;\n  display: flex;\n  -ms-flex-align: center;\n  -webkit-align-items: center;\n  -webkit-box-align: center;\n  align-items: center;\n}\n", ""]);
+exports.push([module.i, ".overflow--scroll {\n  overflow: scroll;\n}\n\n.uk-card-body-small {\n  padding: 20px !important;\n}\n\n.padding--zero {\n  padding: 0 !important;\n}\n\n.uk-button-default {\n  background-color: white !important;\n}\n\n.uk-button-borderless {\n  border: none !important;\n}\n\n.uk-flex-grow {\n  flex-grow: 99;\n}\n\n.my-card--padding {\n  padding: 24px !important;\n}\n\n.dummy__text {\n  height: 16px;\n  width: 100%;\n}\n\n.dummy__text--small {\n  height: 14px;\n  width: 100%;\n}\n\n.dummy__bus {\n  width: 24px;\n  height: 24px;\n}\n\n.btn--huge {\n  height: 4.5rem !important;\n  width: 4.5rem !important;\n}\n\n.icon--huge {\n  font-size: 6rem;\n  height: 3rem;\n}\n\n.flex-1 {\n  flex: 1;\n}\n\n.f-v {\n  height: 100vh;\n}\n\n.uk-flex--grow {\n  flex-grow: 99;\n}\n\n.dummy--background-color {\n  background-color: rgb(246, 246, 246) !important;\n}\n\n.my-card__close {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n.fade-cards-enter-active, .fade-cards-leave-active {\n  transition: opacity 0.5s\n}\n\n.fade-cards-enter, .fade-cards-leave-to, .fade-cards-leave-active {\n  opacity: 0\n}\n\n.bottom--offset {\n  margin-bottom: 70px;\n}\n\n.absolute--center {\n  position: absolute;\n  top: 50%;\n  left: auto;\n  width: 100%;\n}\n\n.navigation__actions {\n  position: absolute;\n  height: 40px;\n  background-color: white;\n  position: fixed;\n  z-index: 99;\n  bottom: 0;\n  width: 100%;\n  left: 0;\n  right: 0\n}\n\n.flex--center {\n  display: -ms-flexbox;\n  display: -webkit-flex;\n  display: flex;\n  -ms-flex-align: center;\n  -webkit-align-items: center;\n  -webkit-box-align: center;\n  align-items: center;\n}\n\n.container--offset {\n  margin-bottom: 18px !important;\n}\n", ""]);
 
 // exports
 
@@ -6078,9 +6078,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "uk-margin-small-right"
   }, [_c('v-icon', [_vm._v("arrow_forward")])], 1), _vm._v(" "), _c('div', [_c('h6', {
     staticClass: "uk-margin-remove"
-  }, [_vm._v(_vm._s(_vm.connection.to))])])]), _vm._v(" "), _c('p', {
+  }, [_vm._v(_vm._s(_vm.connection.to))])])]), _vm._v(" "), _c('div', {
+    staticClass: "uk-flex uk-flex-middle"
+  }, [_c('p', {
     staticClass: "uk-margin-remove bus-time"
-  }, [_vm._v(" " + _vm._s(_vm.parseArrivalTime(_vm.connection.stop.departure)))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(" " + _vm._s(_vm.parseArrivalTime(_vm.connection.stop.departure)))]), _vm._v(" "), (_vm.arrivesNow) ? _c('v-chip', {
+    staticClass: "red red--text",
+    attrs: {
+      "outline": "",
+      "small": ""
+    }
+  }, [_vm._v("\n        arriving\n      ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
     staticClass: "uk-flex-grow"
   }), _vm._v(" "), _c('div', {
     staticClass: " uk-float-right",
@@ -6124,7 +6132,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('transition-group', {
-    staticClass: "uk-flex uk-flex-column uk-grid-small",
+    staticClass: "uk-flex uk-flex-column uk-grid-small container--offset",
     attrs: {
       "name": "custom-classes-transition",
       "uk-grid": ""
@@ -6497,7 +6505,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "uk-container uk-margin-small-top "
+    staticClass: "uk-container uk-margin-small-top"
   }, [_c('div', {
     staticClass: "uk-card content bottom--offset"
   }, [_c('h3', {
@@ -7598,4 +7606,4 @@ if(false) {
 
 /***/ })
 ],[255]);
-//# sourceMappingURL=app.fe97c15823a71e78cd64.js.map
+//# sourceMappingURL=app.c62829d7b9a807d2602a.js.map

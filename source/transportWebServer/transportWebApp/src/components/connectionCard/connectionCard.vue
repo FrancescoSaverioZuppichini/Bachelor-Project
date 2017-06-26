@@ -21,8 +21,12 @@
         <!-- </div> -->
       </div>
     </div>
-    <p class='uk-margin-remove bus-time'> {{parseArrivalTime(connection.stop.departure)}}</p>
-
+    <div class='uk-flex uk-flex-middle'>
+      <p class='uk-margin-remove bus-time'> {{parseArrivalTime(connection.stop.departure)}}</p>
+      <v-chip outline small class="red red--text" v-if="arrivesNow">
+        arriving
+      </v-chip>
+    </div>
   </div>
   <div class='uk-flex-grow'></div>
   <div class=" uk-float-right" :class="{'animated infinite pulse': this.arrivesNow}">
@@ -72,6 +76,7 @@ export default {
       }
 
       return shouldLeave
+
     }
   }
 }

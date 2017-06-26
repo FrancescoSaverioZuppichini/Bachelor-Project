@@ -3331,7 +3331,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         shouldLeave = arrivalTimeFromNowInSeconds - 60 * 5 <= this.LEAVING_OFF_SET_SECONDS;
       }
 
-      return shouldLeave;
+      return true;
     }
   }
 });
@@ -4150,7 +4150,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\n.preference__actions {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n}\n", ""]);
+exports.push([module.i, "\n.preference__actions {\n  position: absolute;\n  top: 20px;\n  right: 8px;\n}\n", ""]);
 
 // exports
 
@@ -6078,9 +6078,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "uk-margin-small-right"
   }, [_c('v-icon', [_vm._v("arrow_forward")])], 1), _vm._v(" "), _c('div', [_c('h6', {
     staticClass: "uk-margin-remove"
-  }, [_vm._v(_vm._s(_vm.connection.to))])])]), _vm._v(" "), _c('p', {
+  }, [_vm._v(_vm._s(_vm.connection.to))])])]), _vm._v(" "), _c('div', {
+    staticClass: "uk-flex uk-flex-middle"
+  }, [_c('p', {
     staticClass: "uk-margin-remove bus-time"
-  }, [_vm._v(" " + _vm._s(_vm.parseArrivalTime(_vm.connection.stop.departure)))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(" " + _vm._s(_vm.parseArrivalTime(_vm.connection.stop.departure)))]), _vm._v(" "), (_vm.arrivesNow) ? _c('v-chip', {
+    staticClass: "red red--text",
+    attrs: {
+      "outline": ""
+    }
+  }, [_vm._v("\n        arriving\n      ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
     staticClass: "uk-flex-grow"
   }), _vm._v(" "), _c('div', {
     staticClass: " uk-float-right",
@@ -6497,7 +6504,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "uk-container uk-margin-small-top "
+    staticClass: "uk-container uk-margin-small-top"
   }, [_c('div', {
     staticClass: "uk-card content bottom--offset"
   }, [_c('h3', {
@@ -7598,4 +7605,4 @@ if(false) {
 
 /***/ })
 ],[255]);
-//# sourceMappingURL=app.a3a28f0199fac1d36965.js.map
+//# sourceMappingURL=app.497a2d7ef18f98e6f995.js.map
