@@ -50,7 +50,7 @@ class DisplayStore extends Store {
     })
   }
 
-  actions(dispatcher) {
+  actions(dispatcher,ctx) {
     return {
       fetchDisplay(displayId) {
         api.display.fetchDisplay(displayId)
