@@ -62,7 +62,6 @@ export default {
       var calHeight = $(window).height() * 0.90;
       this.updateCalendarSize(calHeight)
     }
-
     var promises = [this.$store.actions.fetchFaculties(), this.$store.actions.fetchYears()]
 
     Promise.all(promises)

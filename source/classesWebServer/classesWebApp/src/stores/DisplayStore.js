@@ -32,7 +32,7 @@ class DisplayStore extends Store {
 
   onFetchDisplaySuccess({ display }) {
     this.state.display = display
-    this.sStore.actions.sendAppToDisplay(this.state.display.id, 1)
+    this.sStore.actions.sendAppToDisplay(this.state.display.id, 3)
   }
 
   onDisplayChangeApp(data) {
@@ -66,6 +66,7 @@ class DisplayStore extends Store {
           })
       },
       sendAppToDisplay(displayId, appId) {
+        ctx.state.display.app = { id: appId }
         api.display.sendAppToDisplay(displayId, appId)
       }
     }
