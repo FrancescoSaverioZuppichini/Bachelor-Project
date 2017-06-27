@@ -35,10 +35,18 @@ class DisplayStore extends Store {
     this.sStore.actions.sendAppToDisplay(this.state.display.id, 1)
   }
 
+  onDisplayChangeApp(data) {
+    if (data.appId == this.state.display.app.id) return
+    api.application.fetchApplication({ id: data.appId })
+      .then(({ data }) => window.location.href = window.location.origin + `/${data.url}` + `/#/display/${this.state.display.id}`)
+  }
+
   reduce(action) {
     this.reduceMap(action, {
       USER_NEARBY: this.onUserNearby,
-      FETCH_DISPLAY_SUCCESS: this.onFetchDisplaySuccess
+      FETCH_DISPLAY_SUCCESS: this.onFetchDisplaySuccess,
+      DISPLAY_CHANGE_APP: this.onDisplayChangeApp
+
     })
   }
 
